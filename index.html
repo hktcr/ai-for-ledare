@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI för ledare — Workshop 2026</title>
+    <meta name="description" content="Interaktiva slides från workshopen 'AI för ledare' — från chattbottar till autonoma agenter.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%);
+            --surface: rgba(30,27,75,0.5);
+            --card-bg: rgba(30,27,75,0.8);
+            --card-bg-hover: rgba(49,46,129,0.8);
+            --text: #f1f5f9; --text-muted: rgba(255,255,255,0.7);
+            --accent: #f97316; --accent2: #fb923c;
+            --green: #22c55e; --yellow: #eab308; --red: #ef4444;
+            --border: rgba(255,255,255,0.15); --border-hover: rgba(255,255,255,0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* === HEADER === */
+        .showcase-header {
+            text-align: center; padding: 2.5rem 1rem 1rem;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .showcase-header h1 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 900; }
+        .showcase-header h1 span { color: var(--accent); }
+        .showcase-header p { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.4rem; }
+        .credit {
+            display: inline-block; background: rgba(249,115,22,0.1); color: var(--accent);
+            padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.72rem; font-weight: 600;
+            margin-top: 0.6rem; border: 1px solid rgba(249,115,22,0.3);
+        }
+
+        /* === THEME SWITCHER === */
+        .theme-row {
+            display: flex; justify-content: center; gap: 0.4rem;
+            padding: 0.8rem 0; flex-wrap: wrap;
+        }
+        .theme-pill {
+            padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.65rem;
+            border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+            cursor: pointer; transition: all 0.2s;
+        }
+        .theme-pill:hover { border-color: var(--text-muted); color: var(--text); }
+        .theme-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        /* === CARD GRID === */
+        .card-view {
+            padding: 1.5rem; display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem; max-width: 1200px; margin: 0 auto;
+        }
+        .card-view.hidden { display: none; }
+        .slide-card {
+            aspect-ratio: 16/10; background: var(--card-bg); border-radius: 14px;
+            border: 2px solid var(--border); cursor: pointer; transition: all 0.3s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 1rem; position: relative; overflow: hidden;
+        }
+        .slide-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .slide-card .card-type {
+            position: absolute; top: 0.4rem; right: 0.4rem; font-size: 0.55rem;
+            font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.5);
+            padding: 0.15rem 0.4rem; border-radius: 4px; color: var(--accent); opacity: 0.8;
+        }
+        .slide-card .card-title { font-weight: 700; font-size: 0.9rem; }
+        .slide-card .card-subtitle { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* === FULLSCREEN VIEW === */
+        .slide-view {
+            position: fixed; inset: 0; background: var(--bg);
+            display: none; flex-direction: column; z-index: 100;
+        }
+        .slide-view.active { display: flex; }
+        .slide-content {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 2rem; overflow-y: auto;
+        }
+        .close-btn {
+            position: fixed; top: 1rem; right: 1rem;
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem;
+            cursor: pointer; z-index: 101; transition: all 0.2s;
+        }
+        .close-btn:hover { background: rgba(255,255,255,0.2); }
+        .slide-counter {
+            position: fixed; bottom: 1.5rem; right: 1.5rem; font-size: 0.7rem;
+            color: var(--text-muted); font-family: 'JetBrains Mono', monospace; z-index: 101;
+        }
+
+        /* Auditorium scaling */
+        @media (min-width: 1200px) {
+            .card-view { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.2rem; }
+        }
+        html.presentation-mode { font-size: clamp(14px, 2vmin, 28px); }
+        html.presentation-mode.scale-dense { font-size: clamp(11px, 1.4vmin, 22px); }
+        html.presentation-mode.scale-large { font-size: clamp(18px, 2.8vmin, 42px); }
+        #slideContent > div[class^="slide-"] {
+            width: 100% !important;
+            max-width: min(1600px, 95vw, 160vh) !important;
+        }
+        #slideContent > div.slide-map-progression {
+            min-height: 100vh !important; height: 100vh !important; max-width: 100% !important;
+        }
+
+        /* Slide navigation arrows */
+        .nav-arrow {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+            color: var(--text-muted); width: 44px; height: 44px; border-radius: 50%;
+            font-size: 1.2rem; cursor: pointer; z-index: 101; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-arrow:hover { background: rgba(255,255,255,0.18); color: var(--text); }
+        #navLeft { left: 1rem; }
+        #navRight { right: 1rem; }
+    </style>
+</head>
+<body id="appBody">
+    <div class="showcase-header" id="showcaseHeader">
+        <h1>AI för <span>ledare</span></h1>
+        <p id="headerSubtitle">Från chattbottar till autonoma agenter</p>
+        <span class="credit">Håkan Karlsson · Kommunlektor Åstorp · 2026</span>
+        <div class="theme-row" id="themeRow"></div>
+    </div>
+
+    <div class="card-view" id="cardView"></div>
+
+    <div class="slide-view" id="slideView">
+        <button class="close-btn" id="closeBtn" title="Tillbaka (Esc)">✕</button>
+        <button class="nav-arrow" id="navLeft" title="Föregående (←)">‹</button>
+        <button class="nav-arrow" id="navRight" title="Nästa (→)">›</button>
+        <div class="slide-content" id="slideContent"></div>
+        <div class="slide-counter" id="slideCounter"></div>
+    </div>
+
+    <script>
+    // === COMPONENT FORGE — INLINED ===
+    </script>
+    <script src="modules/component-forge.js?v=pub1"></script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        let slidesData = [];
+        let currentIdx = 0;
+
+        // === THEMES ===
+        const themes = {
+            'Midnight (Orange)': {"--bg":"radial-gradient(circle at center, #1e1b4b 0%, #000000 100%)","--surface":"rgba(30,27,75,0.5)","--card-bg":"rgba(30,27,75,0.8)","--card-bg-hover":"rgba(49,46,129,0.8)","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#f97316","--accent2":"#fb923c","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
+            'Midnight (Blå)': {"--bg":"radial-gradient(circle at center, #1e1b4b 0%, #000000 100%)","--surface":"rgba(30,27,75,0.5)","--card-bg":"rgba(30,27,75,0.8)","--card-bg-hover":"rgba(49,46,129,0.8)","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#38bdf8","--accent2":"#818cf8","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
+            'Auditorium Dark': {"--bg":"#000","--surface":"#1a1a1a","--card-bg":"#2a2a2a","--card-bg-hover":"#333","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#f97316","--accent2":"#a855f7","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
+            'Ljust': {"--bg":"#f8fafc","--surface":"#f1f5f9","--card-bg":"#e2e8f0","--card-bg-hover":"#cbd5e1","--text":"#0f172a","--text-muted":"rgba(15,23,42,0.7)","--accent":"#ea580c","--accent2":"#4f46e5","--border":"rgba(15,23,42,0.15)","--border-hover":"rgba(15,23,42,0.3)"}
+        };
+
+        let activeTheme = 'Midnight (Orange)';
+
+        const themeRow = document.getElementById('themeRow');
+        Object.keys(themes).forEach(name => {
+            const pill = document.createElement('button');
+            pill.className = 'theme-pill' + (name === activeTheme ? ' active' : '');
+            pill.textContent = name;
+            pill.onclick = () => {
+                activeTheme = name;
+                document.querySelectorAll('.theme-pill').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                const t = themes[name];
+                Object.entries(t).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
+            };
+            themeRow.appendChild(pill);
+        });
+
+        // Apply default theme
+        Object.entries(themes[activeTheme]).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
+
+        function renderCards() {
+            const grid = document.getElementById('cardView');
+            grid.innerHTML = '';
+            slidesData.forEach((s, i) => {
+                const card = document.createElement('div');
+                card.className = 'slide-card';
+                card.innerHTML = `
+                    <span class="card-type">${s.type}</span>
+                    <span class="card-title">${s.cardTitle || s.title || s.type}</span>
+                    ${s.cardSubtitle ? `<span class="card-subtitle">${s.cardSubtitle}</span>` : ''}
+                `;
+                card.onclick = () => openSlide(i);
+                grid.appendChild(card);
+            });
+        }
+
+        function openSlide(idx) {
+            window.handleNextStep = null;
+            currentIdx = idx;
+            const s = slidesData[idx];
+            const renderer = window.slideTypeRegistry[s.type];
+            const content = renderer ? renderer(s) : `<div style="text-align:center"><h2>${s.title || s.type}</h2><p>Typ "${s.type}" saknar renderer</p></div>`;
+
+            document.getElementById('slideContent').innerHTML = content;
+            document.getElementById('slideView').classList.add('active');
+            document.getElementById('cardView').classList.add('hidden');
+            document.getElementById('showcaseHeader').style.display = 'none';
+            document.getElementById('slideCounter').textContent = `${idx + 1} / ${slidesData.length}`;
+
+            const denseTypes = ['line-chart','comparison','map-progression','bar-race','stat-compare','process-chain','timeline-vertical'];
+            const largeTypes = ['title','quote','giant-text','rewrite-progression','letter-morph','box-reveal','portrait-quote','roles-diagram','warning-pulse'];
+            document.documentElement.classList.remove('scale-dense', 'scale-large');
+            if (s.size === 'large' || largeTypes.includes(s.type)) document.documentElement.classList.add('scale-large');
+            else if (s.size === 'dense' || denseTypes.includes(s.type)) document.documentElement.classList.add('scale-dense');
+            document.documentElement.classList.add('presentation-mode');
+        }
+
+        function closeSlide() {
+            document.getElementById('slideView').classList.remove('active');
+            document.getElementById('cardView').classList.remove('hidden');
+            document.getElementById('showcaseHeader').style.display = '';
+            document.documentElement.classList.remove('presentation-mode');
+        }
+
+        window.nextSlide = function() { if (currentIdx < slidesData.length - 1) openSlide(currentIdx + 1); };
+        window.prevSlide = function() { if (currentIdx > 0) openSlide(currentIdx - 1); };
+
+        document.getElementById('closeBtn').onclick = closeSlide;
+        document.getElementById('navLeft').onclick = (e) => { e.stopPropagation(); window.prevSlide(); };
+        document.getElementById('navRight').onclick = (e) => { e.stopPropagation(); window.nextSlide(); };
+
+        document.getElementById('slideView').addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('.no-click-advance')) return;
+            if (window.handleNextStep && window.handleNextStep()) return;
+            window.nextSlide();
+        });
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Fullscreen: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeSlide();
+            if (e.key === 'f' || e.key === 'F') toggleFullScreen();
+            if (document.getElementById('slideView').classList.contains('active')) {
+                if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    if (window.handleNextStep && window.handleNextStep()) return;
+                    window.nextSlide();
+                }
+                if (e.key === 'ArrowRight') { e.preventDefault(); window.nextSlide(); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); window.prevSlide(); }
+            }
+        });
+
+        function loadSlides() {
+            if (window.location.protocol === 'file:') {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'slides.json', true);
+                xhr.onload = function() {
+                    if (xhr.status === 200 || xhr.status === 0) {
+                        try {
+                            const data = JSON.parse(xhr.responseText);
+                            slidesData = data.slides || [];
+                            const sub = document.getElementById('headerSubtitle');
+                            if (sub && data.meta) sub.textContent = data.meta.subtitle || sub.textContent;
+                            renderCards();
+                        } catch(e) {
+                            document.getElementById('cardView').innerHTML = '<p style="text-align:center;padding:4rem;color:var(--red)">JSON-fel: ' + e.message + '</p>';
+                        }
+                    }
+                };
+                xhr.send();
+            } else {
+                fetch('slides.json')
+                    .then(r => r.json())
+                    .then(data => {
+                        slidesData = data.slides || [];
+                        const sub = document.getElementById('headerSubtitle');
+                        if (sub && data.meta) sub.textContent = data.meta.subtitle || sub.textContent;
+                        renderCards();
+                    })
+                    .catch(err => {
+                        document.getElementById('cardView').innerHTML = '<p style="text-align:center;padding:4rem;color:var(--red)">Kunde inte ladda slides.json</p>';
+                    });
+            }
+        }
+        loadSlides();
+    })();
+    </script>
+</body>
+</html>

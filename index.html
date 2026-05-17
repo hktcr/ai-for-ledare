@@ -142,7 +142,7 @@
     <script>
     // === COMPONENT FORGE — INLINED ===
     </script>
-    <script src="modules/component-forge.js?v=pub1"></script>
+    <script src="modules/component-forge.js?v=pub2"></script>
 
     <script>
     (function() {
@@ -150,6 +150,17 @@
 
         let slidesData = [];
         let currentIdx = 0;
+
+        window.slideTypeRegistry = window.slideTypeRegistry || {};
+        window.slideTypeRegistry['title'] = function(s) {
+            const parts = (s.title || '').split(' ');
+            const last = parts.pop();
+            return `<div style="text-align:center; padding:2rem;">
+                <h1 style="font-size:clamp(2rem, 5vw, 4rem); font-weight:900;">${parts.join(' ')} <span style="color:var(--accent);">${last}</span></h1>
+                <div style="font-size:clamp(1rem, 2vw, 1.4rem); color:var(--text-muted); margin-top:1rem;">${s.subtitle || ''}</div>
+                ${s.note ? `<div style="font-size:0.8rem; color:rgba(239,68,68,0.6); margin-top:2rem;">${s.note}</div>` : ''}
+            </div>`;
+        };
 
         // === THEMES ===
         const themes = {

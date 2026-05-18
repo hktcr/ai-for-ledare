@@ -613,6 +613,12 @@
       "type": "leadership-mindmap"
     },
     {
+      "id": "dual-analysis-method",
+      "section": "agenter",
+      "title": "Dual Analysis Method",
+      "type": "dual-analysis-prompt"
+    },
+    {
       "id": "ai-skyddsnat",
       "section": "agenter",
       "title": "AI-Skyddsnätet",

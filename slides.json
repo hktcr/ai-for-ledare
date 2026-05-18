@@ -187,6 +187,13 @@
             }
           ]
         }
+      ],
+      "sources": [
+        {
+          "text": "METR (2026): Autonomous Task Horizon Data",
+          "url": "https://metr.org",
+          "quote": "Hur länge en AI kan arbeta autonomt utan mänsklig inblandning har blivit det primära måttet på förmåga (Task Horizon)."
+        }
       ]
     },
     {
@@ -267,6 +274,13 @@
             }
           ]
         }
+      ],
+      "sources": [
+        {
+          "text": "METR (2026): Autonomous Task Horizon Data 1.1",
+          "url": "https://metr.org",
+          "quote": "I början av 2026 slår Claude Opus 4.6 i taket på de existerande TH-testerna med över 14 timmars kontinuerligt autonomt arbete."
+        }
       ]
     },
     {
@@ -294,6 +308,13 @@
           "label": "Claude Opus 4.6 (min)",
           "icon": "⚡"
         }
+      ],
+      "sources": [
+        {
+          "text": "METR (Jan 2026): Sprängningen av TH 1.1 taket",
+          "url": "https://metr.org",
+          "quote": "Kapacitetsökningen i februari 2026 renderade de tidigare testsviterna närmast irrelevanta då modellerna hanterade komplexa workflows över hela arbetsdagar."
+        }
       ]
     },
     {
@@ -307,7 +328,14 @@
       "to": 4,
       "toSuffix": " mån",
       "toLabel": "Fördubblingstid (TH 1.1)",
-      "caption": "Hastigheten i AI-utvecklingen har underskattats med ~20 %. Kapaciteten fördubblas nu var 131:a dag."
+      "caption": "Hastigheten i AI-utvecklingen har underskattats med ~20 %. Kapaciteten fördubblas nu var 131:a dag.",
+      "sources": [
+        {
+          "text": "Epoch AI (2026): AI Progress Trends",
+          "url": "https://epochai.org",
+          "quote": "Kapaciteten fördubblas nu var 131:a dag, en signifikant acceleration från tidigare prognoser."
+        }
+      ]
     },
     {
       "id": "tank-om-progression",
@@ -412,6 +440,13 @@
           "x": 25,
           "y": 30
         }
+      ],
+      "sources": [
+        {
+          "text": "Epoch AI (2026): The Geography of AI Development",
+          "url": "https://epochai.org",
+          "quote": "Det globala racet domineras av ett fåtal noder med tillgång till de massiva compute-kluster som krävs för nästa generations frontier-modeller."
+        }
       ]
     },
     {
@@ -433,7 +468,14 @@
       "max": 1440,
       "unit": " min",
       "color": "#ea580c",
-      "subtitle": "Claude Opus 4.6 klarar autonomt uppgifter som tar en människa 14,5 timmar. Gränsen mäts nu i dagar. (Källa: METR TH 1.1)"
+      "subtitle": "Claude Opus 4.6 klarar autonomt uppgifter som tar en människa 14,5 timmar. Gränsen mäts nu i dagar. (Källa: METR TH 1.1)",
+      "sources": [
+        {
+          "text": "METR (Feb 2026): TH 1.1 Resultat",
+          "url": "https://metr.org",
+          "quote": "Gränsen mäts inte längre i minuter, utan i dagar och veckor av oövervakad exekvering."
+        }
+      ]
     },
     {
       "id": "jagged-frontier-grade-inflation",
@@ -505,6 +547,13 @@
           "year": "Våren 2026",
           "text": "Multi-Agent Ekosystem",
           "sub": "Agenter pratar med agenter. System som löser komplexa infrastrukturuppgifter över flera dagar."
+        }
+      ],
+      "sources": [
+        {
+          "text": "Cognition AI / Anthropic / OpenAI (2024-2026)",
+          "url": "https://www.cognition.ai",
+          "quote": "Etableringen av multi-agent-system flyttar gränsen från chatbottar till agenter som kan hantera hela workflows, ta över skärmar och arbeta asynkront."
         }
       ]
     },

@@ -436,6 +436,23 @@
       "subtitle": "Claude Opus 4.6 klarar autonomt uppgifter som tar en människa 14,5 timmar. Gränsen mäts nu i dagar. (Källa: METR TH 1.1)"
     },
     {
+      "id": "jagged-frontier-grade-inflation",
+      "section": "insikt",
+      "type": "callout",
+      "variant": "insight",
+      "pulsate": true,
+      "tag": "AKTUELL FORSKNING (MAJ 2026)",
+      "title": "Betygsinflation och The Jagged Frontier",
+      "body": "När elever använder AI för skrivande och kodning ser vi nu 2026 en markant <strong>betygsinflation (+13%)</strong>. Detta beror på <em>'The Jagged Frontier'</em>: AI är exceptionellt bra på vissa avgränsade uppgifter, men sämre på andra. När elever befinner sig innanför gränsen får de en omotiverad betygsskjuts – och resultaten komprimeras i toppen. Signalen för verklig kunskap eroderas snabbt.",
+      "sources": [
+        {
+          "text": "UC Berkeley (2026): The Jagged Frontier of AI-Driven Grade Inflation",
+          "url": "https://www.escholarship.org/",
+          "quote": "The share of A grades in AI-exposed courses rose by approximately 13 percentage points, driven heavily by task displacement. As grades increasingly reflect AI-assisted output rather than student ability, the informational value of transcripts declines."
+        }
+      ]
+    },
+    {
       "id": "agent-idag",
       "section": "agenter",
       "type": "comparison",
@@ -562,6 +579,23 @@
         {
           "text": "IMY (2026): AI och barns integritet",
           "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/"
+        }
+      ]
+    },
+    {
+      "id": "policy-human-in-the-loop",
+      "section": "agenter",
+      "type": "callout",
+      "variant": "insight",
+      "pulsate": false,
+      "tag": "INTERNATIONELL POLICY",
+      "title": "Lagstiftning 2026: Human-in-the-loop",
+      "body": "Efter de första årens trevande försök ser vi nu 2026 en extrem styrning mot regelverk. Över 50 skarpa lagförslag i amerikanska delstater sätter stenhårda gränser. Den starkaste gemensamma nämnaren är <strong>'Human-in-the-loop' (HITL)</strong>: Det blir uttryckligen förbjudet för AI att autonomt fatta 'high-stakes'-beslut som betygssättning eller nivåplacering. En människa <em>måste</em> alltid fälla avgörandet.",
+      "sources": [
+        {
+          "text": "FutureEd (maj 2026): Legislative Tracker State AI Bills",
+          "url": "https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/",
+          "quote": "A critical trend in 2026 legislation is the requirement for 'human-in-the-loop' decision-making. Lawmakers are increasingly mandating that AI cannot serve as the primary basis for high-stakes decisions—such as grading, discipline, or student placement—without meaningful human review."
         }
       ]
     },

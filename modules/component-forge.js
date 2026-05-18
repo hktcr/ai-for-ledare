@@ -4799,6 +4799,53 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         return html;
     }
 
+    const allTypes = {
+        'word-cascade': renderWordCascade,
+        'box-reveal': renderBoxReveal,
+        'bullet-build': renderBulletBuild,
+        'line-chart': renderLineChart,
+        'comparison': renderComparison,
+        'timeline-vertical': renderTimelineVertical,
+        'progress-ring': renderProgressRing,
+        'number-wall': renderNumberWall,
+        'bar-race': renderBarRace,
+        'giant-text': renderGiantText,
+        'callout': renderCallout,
+        'section-divider': renderSectionDivider,
+        'hero-image': renderHeroImage,
+        'outro': renderOutro,
+        'ai-conversation': renderAiConversation,
+        'before-after': renderBeforeAfter,
+        'prompt-reveal': renderPromptReveal,
+        'pitfall': renderPitfall,
+        'stat-compare': renderStatCompare,
+        'voice-collage': renderVoiceCollage,
+        'portrait-quote': renderPortraitQuote,
+        'reflection': renderReflection,
+        'collage': renderCollage,
+        'process-chain': renderProcessChain,
+        'acronym-list': renderAcronymList,
+        'map-pins': renderMapPins,
+        'map-progression': renderMapProgression,
+        'mindmap': renderMindmap,
+        'letter-morph': renderLetterMorph,
+        'rewrite-progression': renderRewriteProgression,
+        'quote': renderQuote,
+        'map-journey': renderMapJourney,
+        'mindmap-tree': renderMindmapTree,
+        'warning-pulse': renderWarningPulse,
+        'token-spinner': renderTokenSpinner,
+        'bento-grid': renderBentoGrid,
+        'glitch-warning': renderGlitchWarning,
+        'semantic-nebula': renderSemanticNebula,
+        'prompt-card': renderPromptCard,
+        'milestone-reveal': renderMilestoneReveal,
+        'chaos-to-clarity': renderChaosToClarity,
+        'leadership-mindmap': renderLeadershipMindmap,
+        'gdpr-mindmap': renderLeadershipMindmap,
+        'dual-analysis-prompt': renderDualAnalysisPrompt
+    };
+
     function registerTypes() {
         if (typeof window.slideTypeRegistry === 'object') {
             Object.assign(window.slideTypeRegistry, allTypes);

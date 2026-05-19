@@ -768,24 +768,42 @@
         if (isSpeakerMode) {
             const speakerPanel = document.createElement('div');
             speakerPanel.id = 'speakerPanel';
-            speakerPanel.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: #111; border-top: 2px solid var(--accent); padding: 1rem; display: flex; justify-content: center; z-index: 1000; display: none;';
-            speakerPanel.innerHTML = '<button id="speakerPushBtn" style="background: var(--green); color: white; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);">🚀 Skicka specialmaterial till publiken</button>';
+            speakerPanel.style.cssText = 'position: fixed; bottom: 1.2rem; left: 1.2rem; z-index: 1000; display: none;';
+            speakerPanel.innerHTML = '<button id="speakerPushBtn" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); padding: 0.5rem 0.9rem; font-size: 0.72rem; font-weight: 700; border-radius: 999px; cursor: pointer; backdrop-filter: blur(8px); transition: all 0.3s ease; opacity: 0.35; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: \'Inter\', sans-serif;">🚀 Pusha material</button>';
             document.body.appendChild(speakerPanel);
             
-            document.getElementById('speakerPushBtn').addEventListener('click', (e) => {
-                e.stopPropagation(); // förhindra att klicket byter slide
-                pushLiveState(currentIdx, 'manual');
-                const btn = document.getElementById('speakerPushBtn');
-                btn.textContent = '✅ MATERIAL PUSHAT!';
-                btn.style.background = '#059669';
-                setTimeout(() => { 
-                    btn.textContent = '🚀 Skicka specialmaterial till publiken'; 
-                    btn.style.background = 'var(--green)'; 
-                }, 2000);
+            const btn = speakerPanel.querySelector('#speakerPushBtn');
+            btn.addEventListener('mouseenter', () => {
+                btn.style.opacity = '1';
+                btn.style.background = 'var(--green)';
+                btn.style.color = 'white';
+                btn.style.borderColor = 'var(--green)';
+                btn.style.transform = 'translateY(-1px)';
+                btn.style.boxShadow = '0 6px 20px rgba(34, 197, 94, 0.4)';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.opacity = '0.35';
+                btn.style.background = 'rgba(34, 197, 94, 0.15)';
+                btn.style.color = '#4ade80';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                btn.style.transform = 'none';
+                btn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
             });
             
-            // Se till att presentationen inte hamnar bakom panelen
-            document.getElementById('slideView').style.paddingBottom = '80px';
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); // förhindra att klicket byter slide
+                pushLiveState(currentIdx, 'manual');
+                btn.textContent = '✅ PUSHAT!';
+                btn.style.background = '#059669';
+                btn.style.color = 'white';
+                btn.style.borderColor = '#059669';
+                setTimeout(() => { 
+                    btn.textContent = '🚀 Pusha material'; 
+                    btn.style.background = 'rgba(34, 197, 94, 0.15)';
+                    btn.style.color = '#4ade80';
+                    btn.style.borderColor = 'rgba(34, 197, 94, 0.4)';
+                }, 2000);
+            });
         }
 
         // === LOAD SLIDES ===

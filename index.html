@@ -666,6 +666,10 @@
 
             // Auto-push live state to audience when slide opens
             pushLiveState(idx, 'auto');
+
+            // Show speaker control panel
+            const panel = document.getElementById('speakerPanel');
+            if (panel) panel.style.display = 'flex';
         }
 
         function closeSlide() {
@@ -677,6 +681,10 @@
             
             // Revert back to desktop showcase scaling
             document.documentElement.classList.remove('presentation-mode');
+
+            // Hide speaker control panel
+            const panel = document.getElementById('speakerPanel');
+            if (panel) panel.style.display = 'none';
         }
 
         // Setlist-aware navigation
@@ -759,7 +767,8 @@
         // === SPEAKER DASHBOARD (Alternativ 2) ===
         if (isSpeakerMode) {
             const speakerPanel = document.createElement('div');
-            speakerPanel.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: #111; border-top: 2px solid var(--accent); padding: 1rem; display: flex; justify-content: center; z-index: 1000;';
+            speakerPanel.id = 'speakerPanel';
+            speakerPanel.style.cssText = 'position: fixed; bottom: 0; left: 0; right: 0; background: #111; border-top: 2px solid var(--accent); padding: 1rem; display: flex; justify-content: center; z-index: 1000; display: none;';
             speakerPanel.innerHTML = '<button id="speakerPushBtn" style="background: var(--green); color: white; border: none; padding: 1rem 2rem; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);">🚀 Skicka specialmaterial till publiken</button>';
             document.body.appendChild(speakerPanel);
             

@@ -321,10 +321,10 @@
               "info": "April 2026. Det latenta språnget. Sätter nytt rekord med över 20 timmars oavbruten autonomi."
             },
             {
-              "x": "2026-05-02",
+              "x": "2026-05-19",
               "y": 940,
               "label": "Gemini 3.5 Flash",
-              "info": "Maj 2026. Blixtsnabb och exceptionellt autonom - visar att mindre, smartare modeller nu slår gårdagens giganter."
+              "info": "Presenterad för två dagar sedan! Google DeepMinds senaste drag – blixtsnabb och exceptionellt autonom."
             },
             {
               "x": "2026-05-18",
@@ -344,12 +344,25 @@
       ]
     },
     {
+      "id": "news-flash-gemini",
+      "section": "start",
+      "type": "glitch-warning",
+      "glitchText": "🚨 NEWS FLASH // 48 TIMMAR SEDAN",
+      "subtitle": "Under tisdagen den 19 maj presenterade Google sin helt nya spjutspetsmodell – mitt under slutspurten inför denna workshop:",
+      "warnings": [
+        "<strong>Gemini 3.5 Flash är släppt:</strong> Google lanserar en blixtsnabb modell som slår gårdagens tyngsta flaggskepp.",
+        "<strong>940 minuters autonomi:</strong> Den klarar över 15 timmars oavbruten problemlösning (Task Horizon) utan mänsklig inblandning.",
+        "<strong>Demokratisering av intelligens:</strong> Små, billiga och resurssnåla modeller presterar nu i par med miljardstora frontier-modeller för ören."
+      ],
+      "cardTitle": "BREAKING NEWS: Gemini 3.5 Flash"
+    },
+    {
       "id": "th11-ceiling",
       "section": "start",
       "type": "number-wall",
       "title": "Maj 2026: Taket sprängs igen",
       "intro": {
-        "text": "Efter sprängningen av TH 1.1-testet under tidiga 2026 har utvecklingen fullkomligt exploderat under våren. Små, blixtsnabba modeller presterar nu bättre än förra årets flaggskepp, och GPT-5.5 nosar på ett helt dygn av oavbruten problemlösning...",
+        "text": "Med lanseringen av Gemini 3.5 Flash för bara två dagar sedan har spelplanen ritats om i grunden. Små, blixtsnabba och extremt billiga modeller presterar nu i par med förra årets flaggskepp, samtidigt som GPT-5.5 nosar på ett helt dygn av oavbruten autonom problemlösning...",
         "button": "Visa siffrorna"
       },
       "numbers": [

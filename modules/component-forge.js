@@ -75,10 +75,10 @@
             align-items: center;
             gap: 0.4em;
             padding: 2rem;
-            min-height: 60vh;
+            min-height: 60cqh;
         }
         .slide-word-cascade .wc-word {
-            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-size: clamp(2rem, 5cqw, 4.5rem);
             font-weight: 700;
             color: var(--text, #f1f5f9);
             opacity: 0;
@@ -105,7 +105,7 @@
         }
         .slide-box-reveal h2 {
             text-align: center;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.5rem, 3cqw, 2.5rem);
             margin-bottom: 2rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -182,7 +182,7 @@
             margin: 0 auto;
         }
         .slide-bullet-build h2 {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.5rem, 3cqw, 2.5rem);
             margin-bottom: 2rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -197,7 +197,7 @@
             align-items: flex-start;
             gap: 1rem;
             padding: 0.8rem 0;
-            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            font-size: clamp(1.1rem, 2.2cqw, 1.6rem);
             color: var(--text, #f1f5f9);
             opacity: 0;
             border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
@@ -233,7 +233,7 @@
         }
         .slide-line-chart h2 {
             text-align: center;
-            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-size: clamp(1.3rem, 2.5cqw, 2rem);
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -368,14 +368,19 @@
             50% { background: rgba(var(--accent-rgb, 249,115,22), 0.18); }
         }
         .slide-comparison {
-            padding: 2rem;
+            padding: 2cqh 4cqw;
             max-width: 950px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
         }
         .slide-comparison h2 {
             text-align: center;
-            font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-            margin-bottom: 2rem;
+            font-size: clamp(1.1rem, 4cqh, 2rem);
+            margin-bottom: 1.5cqh;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
         }
@@ -387,7 +392,7 @@
         }
         .slide-comparison .cmp-col {
             opacity: 0;
-            padding: 1.5rem;
+            padding: 1cqh 2cqw;
         }
         .slide-comparison .cmp-col.cmp-left {
             animation: slideFromLeft 0.7s ease 0.3s forwards;
@@ -402,23 +407,24 @@
             animation: wordDrop 0.5s ease 0.4s forwards;
         }
         .slide-comparison .cmp-label {
-            font-size: 1.1rem;
+            font-size: clamp(0.85rem, 2.5cqh, 1.3rem);
             font-weight: 700;
             color: var(--accent, #f97316);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1cqh;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
         .slide-comparison .cmp-item {
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.6rem;
-            border-radius: 10px;
-            font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+            padding: 1cqh 1.5cqw;
+            margin-bottom: 0.8cqh;
+            border-radius: 0.8cqh;
+            font-size: clamp(0.75rem, 2.2cqh, 1.1rem);
             color: var(--text, #f1f5f9);
             background: var(--card-bg, #2a2a2a);
             border: 1px solid var(--border, rgba(255,255,255,0.1));
             transition: background 0.3s;
+            line-height: 1.3;
         }
         .slide-comparison .cmp-item.cmp-highlight {
             border-color: var(--accent, #f97316);
@@ -436,67 +442,72 @@
             100% { opacity: 1; transform: scale(1) translateX(-50%); }
         }
         .slide-timeline-v {
-            padding: 2rem;
-            max-width: 750px;
+            padding: 2cqh 6cqw;
+            max-width: 75cqw;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
         }
         .slide-timeline-v h2 {
             text-align: center;
-            font-size: clamp(1.3rem, 2.5vw, 2rem);
-            margin-bottom: 2rem;
+            font-size: clamp(1.2rem, 5cqh, 2.5rem);
+            margin-bottom: 2cqh;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
         }
         .slide-timeline-v .tv-track {
             position: relative;
-            padding-left: 60px;
-            min-height: 300px;
-            margin-top: 2rem;
+            padding-left: 8cqw;
+            margin-top: 1cqh;
         }
         .slide-timeline-v .tv-line {
             position: absolute;
-            left: 20px;
+            left: 2.7cqw;
             top: 0;
-            width: 4px;
+            width: 0.5cqw;
             height: 0;
             background: linear-gradient(180deg, var(--accent, #f97316), var(--accent2, #a855f7));
-            border-radius: 2px;
+            border-radius: 0.25cqw;
             animation: drawDown 2s ease 0.3s forwards;
         }
         .slide-timeline-v .tv-node {
             position: relative;
-            padding: 1.5rem 0 2.5rem 2rem;
+            padding: 0.8cqh 0 1.8cqh 3cqw;
             opacity: 0;
         }
         .slide-timeline-v .tv-dot {
             position: absolute;
-            left: -48px;
-            top: 1.8rem;
-            width: 20px;
-            height: 20px;
+            left: -6.1cqw;
+            top: clamp(4px, 1.4cqh, 20px);
+            width: clamp(12px, 1.6cqw, 18px);
+            height: clamp(12px, 1.6cqw, 18px);
             border-radius: 50%;
             background: var(--accent, #f97316);
-            border: 4px solid var(--bg, #000);
+            border: 0.3cqw solid var(--bg, #000);
             opacity: 0;
+            z-index: 2;
         }
         .slide-timeline-v .tv-year {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-size: clamp(0.7rem, 2cqh, 1.1rem);
             font-weight: 700;
             color: var(--accent, #f97316);
             letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2cqh;
         }
         .slide-timeline-v .tv-text {
-            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-            font-weight: 500;
+            font-size: clamp(0.9rem, 3.2cqh, 1.4rem);
+            font-weight: 600;
             color: var(--text, #f1f5f9);
-            line-height: 1.4;
+            line-height: 1.25;
         }
         .slide-timeline-v .tv-sub {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-size: clamp(0.75rem, 2.2cqh, 1.1rem);
             color: var(--text-muted, rgba(255,255,255,0.6));
-            margin-top: 0.5rem;
-            line-height: 1.4;
+            margin-top: 0.2cqh;
+            line-height: 1.35;
         }
 
         /* ===== PROGRESS RING ===== */
@@ -508,7 +519,7 @@
             text-align: center;
         }
         .slide-progress-ring h2 {
-            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-size: clamp(1.3rem, 2.5cqw, 2rem);
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -537,7 +548,7 @@
             text-align: center;
         }
         .slide-progress-ring .pr-value {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 8cqw, 6rem);
             font-weight: 700;
             color: var(--text, #f1f5f9);
             line-height: 1;
@@ -560,7 +571,7 @@
         }
         .slide-number-wall h2 {
             text-align: center;
-            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-size: clamp(1.3rem, 2.5cqw, 2rem);
             margin-bottom: 2rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -593,7 +604,7 @@
             display: block;
         }
         .slide-number-wall .nw-value {
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-size: clamp(2.2rem, 5cqw, 3.5rem);
             font-weight: 700;
             color: var(--accent, #f97316);
             line-height: 1.1;
@@ -611,29 +622,29 @@
         /* ===== PROMPT CARD ===== */
         .slide-prompt-card {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: clamp(1rem, 3vw, 3rem); max-width: 1000px; margin: 0 auto; width: 100%;
+            padding: clamp(1rem, 3cqw, 3rem); max-width: 1000px; margin: 0 auto; width: 100%;
             text-align: center;
         }
         .slide-prompt-card .pc-eyebrow {
-            font-size: clamp(0.75rem, 1.2vw, 1rem); font-weight: 700; letter-spacing: 0.15em;
+            font-size: clamp(0.75rem, 1.2cqw, 1rem); font-weight: 700; letter-spacing: 0.15em;
             text-transform: uppercase; color: var(--accent, #f97316);
             opacity: 0; animation: wordDrop 0.5s ease 0.1s forwards;
         }
         .slide-prompt-card .pc-title {
-            font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 900;
+            font-size: clamp(1.4rem, 3cqw, 2.2rem); font-weight: 900;
             margin: 0.8rem 0 1.5rem; line-height: 1.2;
             opacity: 0; animation: wordDrop 0.5s ease 0.3s forwards;
         }
         .slide-prompt-card .pc-box {
             width: 100%; background: rgba(255,255,255,0.04);
             border: 1.5px solid rgba(249,115,22,0.35);
-            border-radius: 16px; padding: clamp(1.2rem, 3vw, 2.5rem);
+            border-radius: 16px; padding: clamp(1.2rem, 3cqw, 2.5rem);
             text-align: left; position: relative;
             box-shadow: 0 0 40px rgba(249,115,22,0.08), inset 0 0 30px rgba(255,255,255,0.02);
             opacity: 0; animation: wordDrop 0.6s ease 0.5s forwards;
         }
         .slide-prompt-card .pc-prompt {
-            font-size: clamp(1.05rem, 1.8vw, 1.5rem); line-height: 1.75;
+            font-size: clamp(1.05rem, 1.8cqw, 1.5rem); line-height: 1.75;
             color: var(--text, #f1f5f9); font-family: 'JetBrains Mono', monospace;
             white-space: pre-wrap; word-break: break-word;
         }
@@ -641,15 +652,15 @@
             position: absolute; top: 1rem; right: 1rem;
             background: var(--accent, #f97316); color: white;
             border: none; border-radius: 8px;
-            padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.8rem, 1.5vw, 1.2rem);
-            font-size: clamp(0.8rem, 1.2vw, 1rem); font-weight: 700;
+            padding: clamp(0.4rem, 0.8cqw, 0.6rem) clamp(0.8rem, 1.5cqw, 1.2rem);
+            font-size: clamp(0.8rem, 1.2cqw, 1rem); font-weight: 700;
             cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.4rem;
             box-shadow: 0 4px 15px rgba(249,115,22,0.3);
         }
         .slide-prompt-card .pc-copy-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(249,115,22,0.45); }
         .slide-prompt-card .pc-copy-btn.copied { background: var(--green, #22c55e); box-shadow: 0 4px 15px rgba(34,197,94,0.4); }
         .slide-prompt-card .pc-hint {
-            font-size: clamp(0.75rem, 1.1vw, 0.95rem); color: var(--text-muted, rgba(255,255,255,0.5));
+            font-size: clamp(0.75rem, 1.1cqw, 0.95rem); color: var(--text-muted, rgba(255,255,255,0.5));
             margin-top: 1.2rem; font-style: italic;
             opacity: 0; animation: wordDrop 0.5s ease 0.9s forwards;
         }
@@ -698,18 +709,18 @@
         /* ===== BENTO GRID ===== */
         .slide-bento-grid {
             display: flex; flex-direction: column; height: 100%; width: 100%;
-            padding: 2vh 4vw; box-sizing: border-box; justify-content: center; position: relative;
+            padding: 2cqh 4cqw; box-sizing: border-box; justify-content: center; position: relative;
             overflow: hidden;
         }
-        .bento-title { font-size: clamp(1.8rem, 4vh, 3rem); margin-bottom: 1.5vh; font-weight: 700; color: var(--text); }
+        .bento-title { font-size: clamp(1.8rem, 4cqh, 3rem); margin-bottom: 1.5cqh; font-weight: 700; color: var(--text); }
         .bento-container {
             display: grid; grid-template-columns: repeat(var(--bento-cols, 3), 1fr);
-            gap: clamp(0.5rem, 1.5vh, 1.5rem); width: 100%; max-width: 1200px; margin: 0 auto;
-            flex: 1; max-height: 85vh;
+            gap: clamp(0.5rem, 1.5cqh, 1.5rem); width: 100%; max-width: 1200px; margin: 0 auto;
+            flex: 1; max-height: 85cqh;
         }
         .bento-item {
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: clamp(12px, 2vw, 24px); padding: clamp(0.8rem, 2vh, 2rem); display: flex; flex-direction: column;
+            border-radius: clamp(12px, 2cqw, 24px); padding: clamp(0.8rem, 2cqh, 2rem); display: flex; flex-direction: column;
             backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             opacity: 1; transform: translateY(0);
             min-height: 0; overflow: hidden;
@@ -717,10 +728,10 @@
         .bento-item.step-hidden {
             opacity: 0; transform: translateY(30px);
         }
-        .bento-icon { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: clamp(0.3rem, 1vh, 1rem); }
-        .bento-icon-img { width: 100%; height: clamp(60px, 15vh, 160px); object-fit: cover; border-radius: clamp(6px, 1vw, 12px); margin-bottom: clamp(0.3rem, 1vh, 1rem); }
-        .bento-item-title { font-size: clamp(1.2rem, 2.5vw, 2.2rem); margin-bottom: 0.3rem; color: white; font-weight: 600; }
-        .bento-item-text { font-size: clamp(0.9rem, 1.8vw, 1.4rem); color: var(--text-muted); line-height: 1.4; }
+        .bento-icon { font-size: clamp(2rem, 4cqw, 3rem); margin-bottom: clamp(0.3rem, 1cqh, 1rem); }
+        .bento-icon-img { width: 100%; height: clamp(60px, 15cqh, 160px); object-fit: cover; border-radius: clamp(6px, 1cqw, 12px); margin-bottom: clamp(0.3rem, 1cqh, 1rem); }
+        .bento-item-title { font-size: clamp(1.2rem, 2.5cqw, 2.2rem); margin-bottom: 0.3rem; color: white; font-weight: 600; }
+        .bento-item-text { font-size: clamp(0.9rem, 1.8cqw, 1.4rem); color: var(--text-muted); line-height: 1.4; }
 
         /* ===== GLITCH WARNING ===== */
         @keyframes bgPulseDanger {
@@ -738,14 +749,14 @@
             100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); transform: translate(0); }
         }
         @keyframes scanline {
-            0% { transform: translateY(-100vh); }
-            100% { transform: translateY(100vh); }
+            0% { transform: translateY(-100cqh); }
+            100% { transform: translateY(100cqh); }
         }
         .slide-glitch-warning {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             justify-content: center; align-items: center; 
             background: radial-gradient(circle at center, #7f1d1d 0%, #450a0a 100%); position: relative;
-            padding: 2rem 5vw; box-sizing: border-box; overflow: hidden;
+            padding: 2rem 5cqw; box-sizing: border-box; overflow: hidden;
             animation: bgPulseDanger 4s ease-in-out infinite;
         }
         .slide-glitch-warning::after {
@@ -755,20 +766,20 @@
         }
         .glitch-wrapper { text-align: center; width: 100%; max-width: 900px; display: flex; flex-direction: column; align-items: center; z-index: 2; position: relative; }
         .glitch {
-            font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; text-transform: uppercase;
+            font-size: clamp(3rem, 10cqw, 7rem); font-weight: 900; text-transform: uppercase;
             position: relative; color: #fff; margin-bottom: 0.5rem; line-height: 1.1; letter-spacing: -0.02em;
             animation: glitchAnim 2.5s infinite; word-break: break-word; hyphens: auto;
         }
         .glitch-subtitle { 
-            font-size: clamp(1.1rem, 2.8vw, 2rem); color: #fca5a5; margin-bottom: 2.5rem; 
+            font-size: clamp(1.1rem, 2.8cqw, 2rem); color: #fca5a5; margin-bottom: 2.5rem; 
             font-weight: 700; text-transform: uppercase; letter-spacing: 4px;
             border-bottom: 2px solid rgba(252,165,165,0.4); padding-bottom: 1rem;
             text-shadow: 0 0 10px rgba(252,165,165,0.3);
         }
         .glitch-list { display: flex; flex-direction: column; gap: 1.2rem; width: 100%; max-width: 800px; text-align: left; perspective: 1000px; }
         .glitch-list-item {
-            font-size: clamp(1.2rem, 2.2vw, 1.6rem); color: #fff; background: rgba(0,0,0,0.3);
-            padding: clamp(1.2rem, 3vw, 1.8rem); border-left: 5px solid #ef4444; border-radius: 4px 12px 12px 4px;
+            font-size: clamp(1.2rem, 2.2cqw, 1.6rem); color: #fff; background: rgba(0,0,0,0.3);
+            padding: clamp(1.2rem, 3cqw, 1.8rem); border-left: 5px solid #ef4444; border-radius: 4px 12px 12px 4px;
             opacity: 1; transform: rotateX(0deg) translateY(0); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             line-height: 1.5; display: flex; gap: 1rem; align-items: flex-start;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.05);
@@ -785,7 +796,7 @@
         }
         .ms-date-btn {
             background: transparent; border: 2px solid var(--text-muted); color: var(--text);
-            font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(3rem, 6cqw, 5rem); font-weight: 900; font-family: 'JetBrains Mono', monospace;
             padding: 1rem 3rem; border-radius: 100px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 0 rgba(249,115,22,0); position: relative; overflow: hidden;
         }
@@ -802,10 +813,10 @@
         .ms-date-btn.revealed + .ms-content {
             opacity: 1; transform: translateY(10px); pointer-events: auto; position: relative; top: auto;
         }
-        .ms-eyebrow { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-size: clamp(1.2rem, 2vw, 1.8rem); }
-        .ms-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 2rem; }
+        .ms-eyebrow { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-size: clamp(1.2rem, 2cqw, 1.8rem); }
+        .ms-title { font-size: clamp(2.5rem, 5cqw, 4rem); font-weight: 900; margin-bottom: 2rem; }
         .ms-features { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .ms-feature { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 12px; font-weight: 700; font-size: clamp(1.2rem, 2vw, 1.8rem); max-width: 400px; text-align: left; }
+        .ms-feature { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 12px; font-weight: 700; font-size: clamp(1.2rem, 2cqw, 1.8rem); max-width: 400px; text-align: left; }
 
         /* ===== BAR RACE ===== */
         @keyframes barGrow {
@@ -822,7 +833,7 @@
         }
         .slide-bar-race h2 {
             text-align: center;
-            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-size: clamp(1.3rem, 2.5cqw, 2rem);
             margin-bottom: 2rem;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
@@ -836,7 +847,7 @@
             opacity: 0;
         }
         .slide-bar-race .brc-label {
-            font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+            font-size: clamp(0.85rem, 1.5cqw, 1.05rem);
             color: var(--text, #f1f5f9);
             text-align: right;
             font-weight: 600;
@@ -875,7 +886,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 70vh;
+            min-height: 70cqh;
             position: relative;
         }
         .slide-word-cascade {
@@ -891,19 +902,19 @@
         }
         .slide-giant-text {
             display: flex; flex-direction: column; align-items: flex-start;
-            justify-content: center; padding: 3rem 5rem; min-height: 70vh;
+            justify-content: center; padding: 3rem 5rem; min-height: 70cqh;
             position: relative; overflow: hidden;
         }
         .slide-giant-text.gt-center { align-items: center; text-align: center; }
         .slide-giant-text .gt-decoration {
             position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
-            font-size: clamp(15rem, 35vw, 45rem); font-weight: 900;
+            font-size: clamp(15rem, 35cqw, 45rem); font-weight: 900;
             color: var(--accent, #f97316); opacity: 0.07; line-height: 1;
             pointer-events: none; z-index: 0;
         }
         .slide-giant-text .gt-text {
             position: relative; z-index: 1;
-            font-size: clamp(2.5rem, 7vw, 7rem); font-weight: 700;
+            font-size: clamp(2.5rem, 7cqw, 7rem); font-weight: 700;
             line-height: 1.15; color: var(--text, #f1f5f9);
         }
         .slide-giant-text .gt-text .gt-bold {
@@ -926,7 +937,7 @@
         }
         .slide-callout {
             display: flex; align-items: center; justify-content: center;
-            padding: 3rem 5rem; min-height: 70vh;
+            padding: 3rem 5rem; min-height: 70cqh;
         }
         .slide-callout .co-box {
             max-width: 700px; padding: 2.5rem 3rem;
@@ -942,7 +953,7 @@
             color: var(--co-color, var(--accent, #f97316)); margin-bottom: 0.5rem; font-weight: 600;
         }
         .slide-callout .co-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700;
+            font-size: clamp(1.5rem, 3cqw, 2.5rem); font-weight: 700;
             color: var(--text, #f1f5f9); margin-bottom: 0.75rem;
         }
         .slide-callout .co-body {
@@ -966,16 +977,16 @@
         }
         .slide-section-divider {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh; text-align: center;
+            justify-content: center; padding: 3rem; min-height: 70cqh; text-align: center;
         }
         .slide-section-divider .sd-number {
-            font-size: clamp(5rem, 15vw, 14rem); font-weight: 900;
+            font-size: clamp(5rem, 15cqw, 14rem); font-weight: 900;
             color: var(--accent, #f97316); opacity: 0.3; line-height: 1;
             animation: sdNumberGlow 4s ease-in-out infinite;
         }
         .slide-section-divider.sd-hero .sd-number { opacity: 0.5; }
         .slide-section-divider .sd-title {
-            font-size: clamp(2rem, 5vw, 4rem); font-weight: 700;
+            font-size: clamp(2rem, 5cqw, 4rem); font-weight: 700;
             color: var(--text, #f1f5f9); margin-top: -0.5rem;
         }
         .slide-section-divider .sd-subtitle {
@@ -1002,7 +1013,7 @@
             100% { transform: scale(1.05) translate(0, 0); }
         }
         .slide-hero-image {
-            position: relative; min-height: 70vh; display: flex;
+            position: relative; min-height: 70cqh; display: flex;
             overflow: hidden;
         }
         .slide-hero-image .hi-bg {
@@ -1040,7 +1051,7 @@
         .slide-hero-image .hi-content.hi-pos-bc { justify-content: flex-end; align-self: center; text-align: center; }
         .slide-hero-image .hi-content.hi-pos-br { justify-content: flex-end; align-self: flex-end; text-align: right; }
         .slide-hero-image .hi-title {
-            font-size: clamp(2rem, 5vw, 4rem); font-weight: 700;
+            font-size: clamp(2rem, 5cqw, 4rem); font-weight: 700;
             color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
         }
         .slide-hero-image .hi-subtitle {
@@ -1055,10 +1066,10 @@
         }
         .slide-outro {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh; text-align: center;
+            justify-content: center; padding: 3rem; min-height: 70cqh; text-align: center;
         }
         .slide-outro .ou-title {
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 800;
+            font-size: clamp(3rem, 8cqw, 6rem); font-weight: 800;
             color: var(--text, #f1f5f9); margin-bottom: 0.5rem;
             animation: outroFadeUp 0.8s ease-out;
         }
@@ -1114,7 +1125,7 @@
         }
         .slide-ai-conversation {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem 3rem; min-height: 70vh;
+            justify-content: center; padding: 2rem 3rem; min-height: 70cqh;
         }
         .slide-ai-conversation .aic-title {
             font-size: 1.4rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1123,7 +1134,7 @@
         .slide-ai-conversation .aic-chat {
             width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 0.6rem;
             background: rgba(255,255,255,0.04); border-radius: 16px; padding: 1.5rem;
-            max-height: 55vh; overflow-y: auto;
+            max-height: 55cqh; overflow-y: auto;
         }
         .slide-ai-conversation .aic-msg {
             max-width: 80%; padding: 0.7rem 1rem; border-radius: 14px;
@@ -1166,7 +1177,7 @@
             40% { opacity: 1; }
         }
         .slide-before-after {
-            display: flex; align-items: stretch; min-height: 70vh; gap: 0;
+            display: flex; align-items: stretch; min-height: 70cqh; gap: 0;
         }
         .slide-before-after .ba-prompt-side, .slide-before-after .ba-result-side {
             flex: 1; display: flex; flex-direction: column; justify-content: center;
@@ -1216,7 +1227,7 @@
         }
         .slide-prompt-reveal {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh;
+            justify-content: center; padding: 3rem; min-height: 70cqh;
         }
         .slide-prompt-reveal .pr-title {
             font-size: 1.2rem; font-weight: 600; color: var(--text, #f1f5f9);
@@ -1272,7 +1283,7 @@
         }
         .slide-pitfall {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh;
+            justify-content: center; padding: 3rem; min-height: 70cqh;
         }
         .slide-pitfall .pf-badge {
             font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
@@ -1326,7 +1337,7 @@
         }
         .slide-stat-compare {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh; text-align: center;
+            justify-content: center; padding: 3rem; min-height: 70cqh; text-align: center;
         }
         .slide-stat-compare .sc-title {
             font-size: 1.3rem; font-weight: 600; color: var(--text, #f1f5f9);
@@ -1339,7 +1350,7 @@
             text-align: center;
         }
         .slide-stat-compare .sc-value {
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 800;
+            font-size: clamp(3rem, 8cqw, 6rem); font-weight: 800;
             line-height: 1;
         }
         .slide-stat-compare .sc-label {
@@ -1364,7 +1375,7 @@
         }
         .slide-voice-collage {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem 3rem; min-height: 70vh;
+            justify-content: center; padding: 2rem 3rem; min-height: 70cqh;
         }
         .slide-voice-collage .vc-title {
             font-size: 1.4rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1396,30 +1407,30 @@
         }
         .slide-portrait-quote {
             display: flex; align-items: center; justify-content: center;
-            padding: 3rem 4rem; min-height: 70vh; gap: 3rem;
+            padding: 4cqh 6cqw; min-height: 70cqh; gap: 6cqw;
         }
         .slide-portrait-quote .pq-image {
-            width: 14rem; height: 14rem; border-radius: 50%; object-fit: cover;
-            border: 0.2rem solid var(--accent, #f97316); flex-shrink: 0;
-            box-shadow: 0 0 2rem rgba(0,0,0,0.3);
+            width: clamp(100px, 22cqw, 220px); height: clamp(100px, 22cqw, 220px); border-radius: 50%; object-fit: cover;
+            border: 0.4cqw solid var(--accent, #f97316); flex-shrink: 0;
+            box-shadow: 0 0 3cqw rgba(0,0,0,0.3);
         }
-        .slide-portrait-quote .pq-content { max-width: 40rem; }
+        .slide-portrait-quote .pq-content { max-width: 60cqw; }
         .slide-portrait-quote .pq-mark {
-            font-size: 5rem; line-height: 1; color: var(--accent, #f97316); opacity: 0.2;
-            font-family: Georgia, serif; margin-bottom: -1.5rem;
+            font-size: 8cqw; line-height: 1; color: var(--accent, #f97316); opacity: 0.2;
+            font-family: Georgia, serif; margin-bottom: -2cqw;
         }
         .slide-portrait-quote .pq-text {
-            font-size: 1.3rem; line-height: 1.6; color: var(--text, #f1f5f9);
+            font-size: clamp(0.9rem, 2.6cqmin, 1.6rem); line-height: 1.6; color: var(--text, #f1f5f9);
             font-style: italic; animation: pqFadeIn 0.6s ease-out;
         }
         .slide-portrait-quote .pq-attribution {
-            margin-top: 1rem; font-size: 1rem; font-weight: 700;
+            margin-top: 2cqh; font-size: clamp(0.8rem, 2.2cqmin, 1.3rem); font-weight: 700;
             color: var(--text, #f1f5f9);
             animation: pqFadeIn 0.6s ease-out 0.3s both;
         }
         .slide-portrait-quote .pq-context {
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
-            color: var(--accent, #f97316); margin-top: 0.2rem;
+            font-size: clamp(0.6rem, 1.6cqmin, 0.95rem); text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--accent, #f97316); margin-top: 0.5cqh;
             animation: pqFadeIn 0.6s ease-out 0.4s both;
         }
         @keyframes pqSlideLeft {
@@ -1437,14 +1448,14 @@
         }
         .slide-reflection {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh;
+            justify-content: center; padding: 3rem; min-height: 70cqh;
         }
         .slide-reflection .ref-tag {
             font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
             color: var(--accent, #f97316); margin-bottom: 0.5rem; font-weight: 600;
         }
         .slide-reflection .ref-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700;
+            font-size: clamp(1.5rem, 3cqw, 2.5rem); font-weight: 700;
             color: var(--text, #f1f5f9); margin-bottom: 0.5rem; text-align: center;
         }
         .slide-reflection .ref-duration {
@@ -1473,7 +1484,7 @@
         }
         .slide-collage {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem 3rem; min-height: 70vh;
+            justify-content: center; padding: 2rem 3rem; min-height: 70cqh;
         }
         .slide-collage .col-title {
             font-size: 1.3rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1499,7 +1510,7 @@
         }
         .slide-process-chain {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem 3rem; min-height: 70vh;
+            justify-content: center; padding: 2rem 3rem; min-height: 70cqh;
         }
         .slide-process-chain .pc-title {
             font-size: 1.3rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1536,10 +1547,10 @@
         }
         .slide-acronym-list {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 3rem; min-height: 70vh;
+            justify-content: center; padding: 3rem; min-height: 70cqh;
         }
         .slide-acronym-list .al-title {
-            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800;
+            font-size: clamp(2rem, 5cqw, 3.5rem); font-weight: 800;
             color: var(--accent, #f97316); margin-bottom: 0.3rem;
         }
         .slide-acronym-list .al-tagline {
@@ -1573,7 +1584,7 @@
         }
         .slide-map-pins {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem; min-height: 70vh;
+            justify-content: center; padding: 2rem; min-height: 70cqh;
         }
         .slide-map-pins .mp-title {
             font-size: 1.3rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1625,7 +1636,7 @@
         }
         .slide-mindmap {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem; min-height: 70vh;
+            justify-content: center; padding: 2rem; min-height: 70cqh;
         }
         .slide-mindmap .mm-title {
             font-size: 1.3rem; font-weight: 700; color: var(--text, #f1f5f9);
@@ -1692,7 +1703,7 @@
 
         /* ===== SIGNATURE: LETTER MORPH (v2 — Scatter → Blink → Glow → Form → Scatter) ===== */
         .slide-letter-morph {
-            position: relative; min-height: 70vh; width: 100%;
+            position: relative; min-height: 70cqh; width: 100%;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden; cursor: pointer; user-select: none;
         }
@@ -1753,10 +1764,10 @@
         /* ===== TOKEN SPINNER ===== */
         .slide-token-spinner {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 70vh; padding: 2rem 5rem;
+            min-height: 70cqh; padding: 2rem 5rem;
         }
         .ts-content {
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(2rem, 4cqw, 3.5rem);
             font-weight: 300;
             line-height: 1.6;
             color: var(--text);
@@ -1829,28 +1840,28 @@
         .mprog-map-wrapper { position: relative; width: 100%; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; display: flex; justify-content: center; align-items: center; }
         .mprog-map-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: contrast(1.1); }
         
-        .mprog-sidebar { width: clamp(260px, 22vw, 360px); background: rgba(10,10,15,0.95); border-left: 1px solid rgba(255,255,255,0.1); padding: clamp(1.5rem, 2vw, 2.5rem) clamp(1rem, 1.5vw, 1.5rem); display: flex; flex-direction: column; z-index: 10; box-shadow: -15px 0 40px rgba(0,0,0,0.6); }
-        .mprog-title { font-size: clamp(1.8rem, 2vw, 2.2rem); font-weight: 300; margin-bottom: 2rem; color: var(--accent); line-height: 1.2; letter-spacing: -0.02em; }
+        .mprog-sidebar { width: clamp(260px, 22cqw, 360px); background: rgba(10,10,15,0.95); border-left: 1px solid rgba(255,255,255,0.1); padding: clamp(1.5rem, 2cqw, 2.5rem) clamp(1rem, 1.5cqw, 1.5rem); display: flex; flex-direction: column; z-index: 10; box-shadow: -15px 0 40px rgba(0,0,0,0.6); }
+        .mprog-title { font-size: clamp(1.8rem, 2cqw, 2.2rem); font-weight: 300; margin-bottom: 2rem; color: var(--accent); line-height: 1.2; letter-spacing: -0.02em; }
         .mprog-list { display: flex; flex-direction: column; gap: 0.8rem; overflow-y: auto; padding-right: 0.5rem; }
         .mprog-item { padding: 1rem 1.2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; cursor: pointer; transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1); opacity: 0; transform: translateX(30px); display: none; }
         .mprog-item.revealed { opacity: 1; transform: translateX(0); display: block; }
         .mprog-item:hover, .mprog-item.active { background: rgba(255,255,255,0.08); border-color: var(--accent); transform: scale(1.02); }
-        .mprog-item-title { font-weight: 600; font-size: clamp(1.2rem, 1.6vw, 1.6rem); margin-bottom: 0.4rem; color: #fff; }
-        .mprog-item-subtitle { font-size: clamp(0.8rem, 1vw, 1rem); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; }
+        .mprog-item-title { font-weight: 600; font-size: clamp(1.2rem, 1.6cqw, 1.6rem); margin-bottom: 0.4rem; color: #fff; }
+        .mprog-item-subtitle { font-size: clamp(0.8rem, 1cqw, 1rem); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; }
         
-        .mprog-pin { position: absolute; width: clamp(20px, 2vw, 28px); height: clamp(20px, 2vw, 28px); background: #fff; border-radius: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; z-index: 5; box-shadow: 0 0 20px rgba(255,255,255,0.8); display: none; }
+        .mprog-pin { position: absolute; width: clamp(20px, 2cqw, 28px); height: clamp(20px, 2cqw, 28px); background: #fff; border-radius: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; z-index: 5; box-shadow: 0 0 20px rgba(255,255,255,0.8); display: none; }
         .mprog-pin.revealed { transform: translate(-50%, -50%) scale(1); display: block; }
         .mprog-pin.active { background: #ef4444; box-shadow: 0 0 30px rgba(239,68,68,0.8); z-index: 6; }
         .mprog-pin.active::after { content: ''; position: absolute; top: -16px; left: -16px; right: -16px; bottom: -16px; border-radius: 50%; border: 3px solid #ef4444; animation: mprog-pulse 2s cubic-bezier(0.2,0.8,0.2,1) infinite; }
         @keyframes mprog-pulse { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.8); opacity: 0; } }
         
-        .mprog-infobox { position: absolute; width: clamp(400px, 45vw, 650px); background: rgba(15, 15, 20, 0.9); border: 1px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 16px; padding: clamp(1.5rem, 3vw, 3rem); z-index: 20; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1); backdrop-filter: blur(15px); box-shadow: 0 25px 60px rgba(0,0,0,0.7); transform: translateY(30px); }
+        .mprog-infobox { position: absolute; width: clamp(400px, 45cqw, 650px); background: rgba(15, 15, 20, 0.9); border: 1px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 16px; padding: clamp(1.5rem, 3cqw, 3rem); z-index: 20; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1); backdrop-filter: blur(15px); box-shadow: 0 25px 60px rgba(0,0,0,0.7); transform: translateY(30px); }
         .mprog-infobox.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .mprog-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; opacity: 0.4; transition: opacity 0.2s; padding: 0; line-height: 1; }
         .mprog-close:hover { opacity: 1; }
-        .mprog-info-title { font-size: clamp(2.2rem, 3.5vw, 3.5rem); font-weight: 300; margin-bottom: 0.8rem; color: #fff; letter-spacing: -0.02em; }
-        .mprog-info-meta { font-size: clamp(0.9rem, 1.2vw, 1.2rem); color: var(--accent); margin-bottom: clamp(1rem, 2vw, 2rem); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
-        .mprog-info-desc { font-size: clamp(1.1rem, 1.6vw, 1.6rem); line-height: 1.6; color: rgba(255,255,255,0.9); font-weight: 300; }
+        .mprog-info-title { font-size: clamp(2.2rem, 3.5cqw, 3.5rem); font-weight: 300; margin-bottom: 0.8rem; color: #fff; letter-spacing: -0.02em; }
+        .mprog-info-meta { font-size: clamp(0.9rem, 1.2cqw, 1.2rem); color: var(--accent); margin-bottom: clamp(1rem, 2cqw, 2rem); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+        .mprog-info-desc { font-size: clamp(1.1rem, 1.6cqw, 1.6rem); line-height: 1.6; color: rgba(255,255,255,0.9); font-weight: 300; }
         
         .mprog-svg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 15; }
         .mprog-svg-overlay line { transition: opacity 0.3s ease; stroke-linecap: round; }
@@ -1871,28 +1882,28 @@
         }
         .slide-warning-pulse {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 70vh; text-align: center;
+            min-height: 70cqh; text-align: center;
         }
         .slide-warning-pulse .wp-mark-spinner {
             animation: warnSpin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 5s forwards;
             margin-bottom: 0rem;
         }
         .slide-warning-pulse .wp-mark {
-            font-size: clamp(8rem, 25vw, 20rem);
+            font-size: clamp(8rem, 25cqw, 20rem);
             font-weight: 900;
             color: #ef4444;
             line-height: 1;
             animation: warnDrop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, warnPulse 2s ease-in-out infinite 0.6s;
         }
         .slide-warning-pulse .wp-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 5cqw, 3.5rem);
             font-weight: 700;
             color: var(--text, #f1f5f9);
             opacity: 0;
             animation: gtWordFade 0.6s ease forwards 0.4s;
         }
         .slide-warning-pulse .wp-subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1rem, 2cqw, 1.5rem);
             color: rgba(255,255,255,0.7);
             margin-top: 1rem;
             opacity: 0;
@@ -2180,9 +2191,9 @@
             pausedClass = ' lc-paused';
             introOverlayHTML = `
                 <div class="lc-intro-overlay">
-                    <h3 style="font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1.5rem; color: var(--accent, #f97316); text-align: center;">${s.intro.title}</h3>
-                    <p style="font-size: clamp(1.1rem, 2vw, 1.8rem); max-width: 85%; text-align: center; color: var(--text); margin-bottom: 2.5rem; line-height: 1.5;">${s.intro.text}</p>
-                    <button class="lc-intro-btn" onclick="this.parentElement.style.opacity='0'; this.parentElement.style.pointerEvents='none'; document.getElementById('${id}').classList.remove('lc-paused');" style="padding: clamp(0.6rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem); font-size: clamp(1rem, 1.8vw, 1.5rem); font-weight: bold; background: var(--accent, #f97316); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(249,115,22,0.4);">${s.intro.button || 'Visa graf'}</button>
+                    <h3 style="font-size: clamp(1.8rem, 4cqw, 3rem); margin-bottom: 1.5rem; color: var(--accent, #f97316); text-align: center;">${s.intro.title}</h3>
+                    <p style="font-size: clamp(1.1rem, 2cqw, 1.8rem); max-width: 85%; text-align: center; color: var(--text); margin-bottom: 2.5rem; line-height: 1.5;">${s.intro.text}</p>
+                    <button class="lc-intro-btn" onclick="this.parentElement.style.opacity='0'; this.parentElement.style.pointerEvents='none'; document.getElementById('${id}').classList.remove('lc-paused');" style="padding: clamp(0.6rem, 1.5cqw, 1rem) clamp(1.5rem, 3cqw, 2.5rem); font-size: clamp(1rem, 1.8cqw, 1.5rem); font-weight: bold; background: var(--accent, #f97316); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(249,115,22,0.4);">${s.intro.button || 'Visa graf'}</button>
                 </div>
             `;
         }
@@ -2201,7 +2212,7 @@
                     setTimeout(() => {
                         if(window.nextSlide) window.nextSlide();
                     }, 1100);
-                " style="position: absolute; bottom: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 2vw, 1.5rem); font-size: clamp(0.9rem, 1.5vw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
+                " style="position: absolute; bottom: clamp(1rem, 3cqw, 2rem); right: clamp(1rem, 3cqw, 2rem); padding: clamp(0.5rem, 1cqw, 0.8rem) clamp(1rem, 2cqw, 1.5rem); font-size: clamp(0.9rem, 1.5cqw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
                     ${s.morph.button || 'Gå vidare →'}
                 </button>
             `;
@@ -2217,7 +2228,7 @@
                         el.classList.add('lc-reveal-stage');
                         el.classList.remove('lc-paused-stage');
                     });
-                " style="position: absolute; bottom: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 2vw, 1.5rem); font-size: clamp(0.9rem, 1.5vw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
+                " style="position: absolute; bottom: clamp(1rem, 3cqw, 2rem); right: clamp(1rem, 3cqw, 2rem); padding: clamp(0.5rem, 1cqw, 0.8rem) clamp(1rem, 2cqw, 1.5rem); font-size: clamp(0.9rem, 1.5cqw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
                     Visa 2026 →
                 </button>
             `;
@@ -2431,9 +2442,9 @@
             pausedClass = ' nw-paused';
             introOverlayHTML = `
                 <div class="lc-intro-overlay">
-                    <h3 style="font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 1.5rem; color: var(--accent, #f97316); text-align: center;">${s.intro.title || s.title}</h3>
-                    <p style="font-size: clamp(1.1rem, 2vw, 1.8rem); max-width: 85%; text-align: center; color: var(--text); margin-bottom: 2.5rem; line-height: 1.5;">${s.intro.text}</p>
-                    <button class="lc-intro-btn" onclick="this.parentElement.style.opacity='0'; this.parentElement.style.pointerEvents='none'; document.getElementById('${id}').classList.remove('nw-paused');" style="padding: clamp(0.6rem, 1.5vw, 1rem) clamp(1.5rem, 3vw, 2.5rem); font-size: clamp(1rem, 1.8vw, 1.5rem); font-weight: bold; background: var(--accent, #f97316); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(249,115,22,0.4);">${s.intro.button || 'Visa data'}</button>
+                    <h3 style="font-size: clamp(1.8rem, 4cqw, 3rem); margin-bottom: 1.5rem; color: var(--accent, #f97316); text-align: center;">${s.intro.title || s.title}</h3>
+                    <p style="font-size: clamp(1.1rem, 2cqw, 1.8rem); max-width: 85%; text-align: center; color: var(--text); margin-bottom: 2.5rem; line-height: 1.5;">${s.intro.text}</p>
+                    <button class="lc-intro-btn" onclick="this.parentElement.style.opacity='0'; this.parentElement.style.pointerEvents='none'; document.getElementById('${id}').classList.remove('nw-paused');" style="padding: clamp(0.6rem, 1.5cqw, 1rem) clamp(1.5rem, 3cqw, 2.5rem); font-size: clamp(1rem, 1.8cqw, 1.5rem); font-weight: bold; background: var(--accent, #f97316); color: #fff; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(249,115,22,0.4);">${s.intro.button || 'Visa data'}</button>
                 </div>
             `;
         }
@@ -3602,14 +3613,14 @@
                 setTimeout(typeNext, 500);
             }, 100);
             
-            return `<div class="slide-quote typewriter" id="${id}" style="text-align: center; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh;">
-                <div class="quote-text" id="${id}-text" style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.5; color: var(--text);"></div>
+            return `<div class="slide-quote typewriter" id="${id}" style="text-align: center; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50cqh;">
+                <div class="quote-text" id="${id}-text" style="font-size: clamp(2rem, 4cqw, 3rem); font-weight: 300; line-height: 1.5; color: var(--text);"></div>
                 <div class="quote-author" id="${id}-author" style="opacity:0; margin-top: 2rem; font-size: 1.5rem; transition: opacity 1s ease;"></div>
             </div>`;
         } else {
             const text = rawText.replace(/\*([^*]+)\*/g, '<span class="highlight" style="color: var(--accent); font-weight: bold;">$1</span>');
-            return `<div class="slide-quote" style="text-align: center; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh;">
-                <div class="quote-text" style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.5; color: var(--text);">${text}</div>
+            return `<div class="slide-quote" style="text-align: center; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50cqh;">
+                <div class="quote-text" style="font-size: clamp(2rem, 4cqw, 3rem); font-weight: 300; line-height: 1.5; color: var(--text);">${text}</div>
                 ${author ? `<div class="quote-author" style="margin-top: 2rem; font-size: 1.5rem; opacity: 0.8;">— ${author}</div>` : ''}
             </div>`;
         }
@@ -3947,7 +3958,7 @@
             style.id = 'css-semantic-nebula';
             style.innerHTML = `
                 .slide-semantic-nebula { 
-                    position: absolute; inset: 0; width: 100vw; height: 100vh; 
+                    position: absolute; inset: 0; width: 100cqw; height: 100cqh; 
                     background: radial-gradient(circle at center, #020617 0%, #000000 100%); overflow: hidden; display: flex; 
                     flex-direction: column; align-items: center; justify-content: center; 
                 }
@@ -3955,24 +3966,24 @@
                 .sn-canvas { width: 100%; height: 100%; display: block; }
                 .sn-sidebar { 
                     position: absolute; top: 0; bottom: 0; right: 0; 
-                    width: 42vw; max-width: 600px; 
+                    width: 42cqw; max-width: 600px; 
                     background: linear-gradient(to left, rgba(0,0,0,0.96) 20%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0.3) 85%, transparent); 
                     display: flex; flex-direction: column; justify-content: center; 
-                    padding: 4rem 4rem 4rem 3rem; pointer-events: none; z-index: 10; gap: 2.2rem; 
+                    padding: 4cqh 4cqw 4cqh 3cqw; pointer-events: none; z-index: 10; gap: 2cqh; 
                 }
                 .sn-sentence { 
                     color: rgba(255,255,255,0.7); 
-                    font-size: clamp(1.2rem, 1.8vw, 1.8rem); 
+                    font-size: clamp(0.85rem, 2.5cqh, 1.4rem); 
                     font-weight: 300; 
-                    line-height: 1.6; 
+                    line-height: 1.4; 
                     letter-spacing: 0.02em;
                     opacity: 0; 
-                    transform: translateY(40px) scale(0.97); 
+                    transform: translateY(20px) scale(0.97); 
                     transition: all 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     text-shadow: 0 0 40px rgba(255, 180, 100, 0.15);
                     border-left: 4px solid transparent;
-                    padding: 1.2rem 2rem;
-                    border-radius: 12px;
+                    padding: 1cqh 2cqw;
+                    border-radius: 1cqh;
                     background: rgba(15, 23, 42, 0.3);
                     border: 1px solid rgba(255, 255, 255, 0.03);
                     backdrop-filter: blur(4px);
@@ -3993,7 +4004,7 @@
                 }
                 .sn-sentence.fade-out { 
                     opacity: 0; 
-                    transform: translateY(-35px) scale(0.97); 
+                    transform: translateY(-20px) scale(0.97); 
                     transition: opacity 1s ease-in, transform 1s ease-in;
                 }
                 @keyframes snWordFade { to { opacity: 1; } }
@@ -4652,7 +4663,7 @@
 
         let html = `
                 <style>
-            .slide-gdpr-mindmap { width:100%; min-height:75vh; display:flex; align-items:center; justify-content:center; padding:1rem; }
+            .slide-gdpr-mindmap { width:100%; min-height:75cqh; display:flex; align-items:center; justify-content:center; padding:1rem; }
             .gm-container { width:100%; max-width:1400px; font-family: var(--font-body, system-ui); display: flex; justify-content: center; }
             
             /* Horizontal Tree Structure */
@@ -4761,7 +4772,7 @@
         }
         let html = `
                 <style>
-            .slide-gdpr-mindmap { width:100%; min-height:75vh; display:flex; align-items:center; justify-content:center; padding:1rem; }
+            .slide-gdpr-mindmap { width:100%; min-height:75cqh; display:flex; align-items:center; justify-content:center; padding:1rem; }
             .gm-container { width:100%; max-width:1400px; font-family: var(--font-body, system-ui); display: flex; justify-content: center; }
             
             /* Horizontal Tree Structure */
@@ -4830,14 +4841,14 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
 
         let html = `
         <style>
-            .slide-dual-analysis { width:100%; min-height:75vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(2rem,4vw,4rem); font-family:var(--font-body, system-ui); text-align:center; }
+            .slide-dual-analysis { width:100%; min-height:75cqh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(2rem,4cqw,4rem); font-family:var(--font-body, system-ui); text-align:center; }
             .da-typewriter-container { height: 4rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; }
-            .da-typewriter { font-size:clamp(2.5rem,4vw,3.5rem); font-weight:800; font-family:var(--font-mono, monospace); color:var(--accent); border-right: 4px solid var(--accent); white-space: nowrap; overflow: hidden; width: 0; }
+            .da-typewriter { font-size:clamp(2.5rem,4cqw,3.5rem); font-weight:800; font-family:var(--font-mono, monospace); color:var(--accent); border-right: 4px solid var(--accent); white-space: nowrap; overflow: hidden; width: 0; }
             .da-typewriter.start { animation: typing 2.5s steps(30, end) forwards, blink-caret .75s step-end infinite; }
             @keyframes typing { from { width: 0 } to { width: 100% } }
             @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent); } }
             
-            .da-explanation { opacity:0; transform:translateY(20px); font-size:clamp(1.1rem, 1.8vw, 1.4rem); color:rgba(255,255,255,0.8); max-width:800px; line-height:1.6; margin-bottom: 3rem; transition: all 0.5s ease; }
+            .da-explanation { opacity:0; transform:translateY(20px); font-size:clamp(1.1rem, 1.8cqw, 1.4rem); color:rgba(255,255,255,0.8); max-width:800px; line-height:1.6; margin-bottom: 3rem; transition: all 0.5s ease; }
             .da-explanation.visible { opacity:1; transform:translateY(0); }
             
             .da-method-box { display:flex; gap: 2rem; margin-bottom: 3rem; }
@@ -4986,7 +4997,260 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         return html;
     }
 
+    function renderTitleAstorp(s) {
+        const id = 'ta-container-' + Math.random().toString(36).slice(2, 8);
+        return `
+            <style>
+                .slide-title-astorp {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    padding: 4cqh 6cqw;
+                    box-sizing: border-box;
+                    gap: 5cqw;
+                    position: relative;
+                    overflow: hidden;
+                    background: var(--bg);
+                }
+                .slide-title-astorp::before {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    top: 0; left: 0; bottom: 0; right: 0;
+                    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+                    z-index: 2;
+                    background-size: 100% 2px, 3px 100%;
+                    pointer-events: none;
+                }
+                .slide-title-astorp::after {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 5px;
+                    background: rgba(255, 42, 109, 0.2);
+                    box-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
+                    top: 0; left: 0;
+                    animation: ta-scanline 6s linear infinite;
+                    z-index: 3;
+                    pointer-events: none;
+                }
+                @keyframes ta-scanline {
+                    0% { top: -5%; }
+                    100% { top: 105%; }
+                }
+                .ta-logo-side {
+                    flex: 0 0 32cqw;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .ta-logo-svg {
+                    width: 100%;
+                    height: auto;
+                    max-height: 80cqh;
+                    filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.4));
+                }
+                .ta-text-side {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+                    text-align: left;
+                    z-index: 5;
+                }
+                .ta-badge {
+                    font-size: clamp(0.7rem, 1.8cqh, 1.1rem);
+                    font-weight: 800;
+                    color: var(--accent2, #ffd700);
+                    text-transform: uppercase;
+                    letter-spacing: 0.3em;
+                    margin-bottom: 2cqh;
+                    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+                    animation: ta-pulse 2s infinite alternate;
+                }
+                @keyframes ta-pulse {
+                    0% { opacity: 0.7; text-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
+                    100% { opacity: 1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
+                }
+                .ta-title {
+                    font-size: clamp(2rem, 6cqh, 3.8rem);
+                    font-weight: 900;
+                    line-height: 1.1;
+                    color: var(--text);
+                    margin-bottom: 2.5cqh;
+                    letter-spacing: -0.02em;
+                }
+                .ta-title span {
+                    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2, #ffd700) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    filter: drop-shadow(0 0 10px rgba(139, 29, 65, 0.3));
+                }
+                .ta-subtitle {
+                    font-size: clamp(1rem, 3.2cqh, 1.5rem);
+                    color: var(--text-muted);
+                    line-height: 1.4;
+                    margin-bottom: 4cqh;
+                    max-width: 90%;
+                    font-weight: 500;
+                }
+                .ta-footer {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5cqw;
+                    padding-top: 3cqh;
+                    border-top: 1px solid rgba(255,255,255,0.1);
+                    width: 100%;
+                }
+                .ta-footer-item {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .ta-footer-label {
+                    font-size: clamp(0.55rem, 1.4cqh, 0.75rem);
+                    text-transform: uppercase;
+                    letter-spacing: 0.1em;
+                    color: var(--accent);
+                    font-weight: 700;
+                    margin-bottom: 0.3cqh;
+                }
+                .ta-footer-val {
+                    font-size: clamp(0.75rem, 2cqh, 1.05rem);
+                    color: var(--text);
+                    font-weight: 600;
+                }
+                .ta-divider {
+                    width: 1px;
+                    height: 4cqh;
+                    background: rgba(255,255,255,0.15);
+                }
+                @keyframes ta-spin-cw {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                @keyframes ta-spin-ccw {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(-360deg); }
+                }
+                @keyframes bearGlow {
+                    0% { filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.2)); }
+                    100% { filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)); }
+                }
+                .ta-bear-glow-path {
+                    animation: bearGlow 3s ease-in-out infinite alternate;
+                }
+            </style>
+            
+            <div class="slide-title-astorp" id="${id}">
+                <div class="ta-logo-side">
+                    <svg class="ta-logo-svg" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 50 C20 50, 200 20, 200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 C200 480, 20 430, 20 350 C20 300, 20 50, 20 50 Z" 
+                              stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
+                              fill="rgba(0,0,0,0.6)" />
+                        <path d="M20 50 C20 50, 200 20, 200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 C200 480, 20 430, 20 350 C20 300, 20 50, 20 50 Z" 
+                              stroke="var(--accent2, #ffd700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              style="opacity: 0.5;" />
+                        <path d="M200 20 C200 20, 20 50, 20 50 C20 50, 20 300, 20 350 C20 430, 200 480, 200 480 L200 20 Z" 
+                              fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
+                        <path d="M200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 L200 20 Z" 
+                              fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.05)" stroke-width="2" />
+                        <line x1="200" y1="20" x2="200" y2="480" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                        <line x1="200" y1="40" x2="200" y2="460" stroke="var(--accent)" stroke-width="2" style="opacity: 0.8; filter: drop-shadow(0 0 4px var(--accent));" />
+                        <g transform="translate(10, 0)">
+                            <path d="M125 150 L160 170 L145 205 L110 205 L95 170 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" style="opacity:0.9;" />
+                            <path d="M100 135 L120 120 L135 145 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
+                            <circle cx="130" cy="175" r="4" fill="#ffd700" style="filter: drop-shadow(0 0 6px #ffd700); animation: ta-pulse 1s infinite alternate;" />
+                            <path d="M160 170 L180 185 L165 200 L145 205 Z" fill="#600f28" stroke="#ff2a6d" stroke-width="1.5" />
+                            <path d="M145 205 L160 215 L140 225 L125 215 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="1.5" />
+                            <path d="M160 195 C175 195, 185 205, 175 210" stroke="#ffd700" stroke-width="3" stroke-linecap="round" fill="none" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                            <path d="M110 205 L135 240 L120 310 L75 340 L65 310 L85 270 L75 230 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
+                            <path d="M125 220 L155 230 L185 215 L175 195 L145 210 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="1.5" />
+                            <path d="M185 215 L195 210 M182 223 L193 222 M180 207 L190 200" stroke="#ffd700" stroke-width="3.5" stroke-linecap="round" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                            <path d="M120 310 L135 370 L160 395 L170 380 L140 350 L135 310 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
+                            <path d="M160 395 L172 400 M165 388 L175 390 M153 397 L163 403" stroke="#ffd700" stroke-width="3" stroke-linecap="round" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                            <path class="ta-bear-glow-path" d="M115 160 L130 185 L145 185 M105 215 L125 245 L115 285 L85 295 M125 270 L130 330 L150 365" 
+                                  stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" style="filter: drop-shadow(0 0 5px rgba(255,215,0,0.8));" />
+                            <circle cx="145" cy="185" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                            <circle cx="85" cy="295" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                            <circle cx="150" cy="365" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                        </g>
+                        <g transform="translate(290, 160)">
+                            <g style="animation: ta-spin-cw 12s linear infinite; transform-origin: 0px 0px;">
+                                <circle cx="0" cy="0" r="45" fill="rgba(200,200,220,0.15)" stroke="var(--accent2, #ffd700)" stroke-width="3" />
+                                <circle cx="0" cy="0" r="30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,4" />
+                                <circle cx="0" cy="0" r="15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+                                <line x1="-45" y1="0" x2="45" y2="0" stroke="var(--accent2, #ffd700)" stroke-width="2" />
+                                <line x1="0" y1="-45" x2="0" y2="45" stroke="var(--accent2, #ffd700)" stroke-width="2" />
+                                <line x1="-32" y1="-32" x2="32" y2="32" stroke="var(--accent2, #ffd700)" stroke-width="1.5" />
+                                <line x1="-32" y1="32" x2="32" y2="-32" stroke="var(--accent2, #ffd700)" stroke-width="1.5" />
+                                <path d="M-5 -45 L-3 -58 L3 -58 L5 -45 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M-5 45 L-3 58 L3 58 L5 45 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M-45 -5 L-58 -3 L-58 3 L-45 5 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M45 -5 L58 -3 L58 3 L45 5 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M-35 -28 L-46 -39 L-39 -46 L-28 -35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M35 28 L46 39 L39 46 L28 35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M-35 28 L-46 39 L-39 46 L-28 35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                                <path d="M35 -28 L46 -39 L39 -46 L28 -35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
+                            </g>
+                            <circle cx="0" cy="0" r="6" fill="#fff" style="filter: drop-shadow(0 0 4px #fff);" />
+                        </g>
+                        <g transform="translate(290, 310)">
+                            <g style="animation: ta-spin-ccw 8s linear infinite; transform-origin: 0px 0px;">
+                                <circle cx="0" cy="0" r="35" fill="rgba(200,200,220,0.15)" stroke="var(--text, #fff)" stroke-width="3" />
+                                <circle cx="0" cy="0" r="22" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3,3" />
+                                <circle cx="0" cy="0" r="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+                                <line x1="-35" y1="0" x2="35" y2="0" stroke="var(--text, #fff)" stroke-width="2" />
+                                <line x1="0" y1="-35" x2="0" y2="35" stroke="var(--text, #fff)" stroke-width="2" />
+                                <line x1="-25" y1="-25" x2="25" y2="25" stroke="var(--text, #fff)" stroke-width="1" />
+                                <line x1="-25" y1="25" x2="25" y2="-25" stroke="var(--text, #fff)" stroke-width="1" />
+                                <path d="M-4 -35 L-2 -46 L2 -46 L4 -35 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M-4 35 L-2 -46 L2 46 L4 35 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M-35 -4 L-46 -2 L-46 2 L-35 4 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M35 -4 L46 -2 L46 2 L35 4 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M-28 -22 L-37 -31 L-31 -37 L-22 -28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M28 22 L37 31 L31 37 L22 28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M-28 22 L-37 31 L-31 37 L-22 28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                                <path d="M28 -22 L37 -31 L31 -37 L22 -28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
+                            </g>
+                            <circle cx="0" cy="0" r="5" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
+                        </g>
+                        <path d="M220 70 L240 70 M340 70 L360 70 M220 400 L240 400 M340 400 L360 400" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+                        <path d="M230 60 L230 80 M350 60 L350 80 M230 390 L230 410 M350 390 L350 410" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+                    </svg>
+                </div>
+                <div class="ta-text-side">
+                    <div class="ta-badge">ÅSTORPS KOMMUN • BIN WORKSHOP</div>
+                    <h1 class="ta-title">
+                        AI för BIN:s <span>chefer</span>
+                    </h1>
+                    <p class="ta-subtitle">${s.subtitle || 'Från chattbottar till autonoma agenter'}</p>
+                    <div class="ta-footer">
+                        <div class="ta-footer-item">
+                            <span class="ta-footer-label">FÖRELÄSARE</span>
+                            <span class="ta-footer-val">${s.presenter?.name || 'Håkan Karlsson'}</span>
+                        </div>
+                        <div class="ta-divider"></div>
+                        <div class="ta-footer-item">
+                            <span class="ta-footer-label">ROLL</span>
+                            <span class="ta-footer-val">${s.presenter?.title || 'Kommunlektor'}</span>
+                        </div>
+                        <div class="ta-divider"></div>
+                        <div class="ta-footer-item">
+                            <span class="ta-footer-label">DATUM</span>
+                            <span class="ta-footer-val">${s.note || '21 maj 2026'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
     const allTypes = {
+        'title-astorp': renderTitleAstorp,
         'word-cascade': renderWordCascade,
         'box-reveal': renderBoxReveal,
         'bullet-build': renderBulletBuild,
@@ -5085,15 +5349,15 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             <style>
                 .slide-vep-stepper {
                     display: flex; flex-direction: column; height: 100%; width: 100%;
-                    padding: 3vh 4vw; box-sizing: border-box; position: relative; overflow: hidden;
+                    padding: 3cqh 4cqw; box-sizing: border-box; position: relative; overflow: hidden;
                     justify-content: center;
                 }
                 .vs-title {
-                    font-size: clamp(1.6rem, 4vh, 2.8rem); font-weight: 700;
-                    color: var(--text); margin-bottom: 2vh; text-align: center;
+                    font-size: clamp(1.6rem, 4cqh, 2.8rem); font-weight: 700;
+                    color: var(--text); margin-bottom: 2cqh; text-align: center;
                 }
                 .vs-step {
-                    display: none; gap: clamp(1.5rem, 4vw, 4rem);
+                    display: none; gap: clamp(1.5rem, 4cqw, 4rem);
                     align-items: center; width: 100%; max-width: 1100px; margin: 0 auto;
                     animation: vsFadeIn 0.5s ease;
                 }
@@ -5103,33 +5367,33 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     to { opacity: 1; transform: translateX(0); }
                 }
                 .vs-img-wrap {
-                    flex: 0 0 clamp(120px, 28vw, 340px);
+                    flex: 0 0 clamp(120px, 28cqw, 340px);
                 }
                 .vs-img {
                     width: 100%; aspect-ratio: 1; object-fit: cover;
-                    border-radius: clamp(12px, 2vw, 24px);
+                    border-radius: clamp(12px, 2cqw, 24px);
                     box-shadow: 0 8px 32px rgba(0,0,0,0.4);
                 }
                 .vs-text-wrap { flex: 1; min-width: 0; }
                 .vs-step-num {
-                    font-size: clamp(0.8rem, 1.5vw, 1.1rem); font-weight: 600;
-                    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5vh;
+                    font-size: clamp(0.8rem, 1.5cqw, 1.1rem); font-weight: 600;
+                    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5cqh;
                     opacity: 0.7;
                 }
                 .vs-step-title {
-                    font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700;
-                    margin-bottom: 1.5vh; line-height: 1.15;
+                    font-size: clamp(1.8rem, 4cqw, 3.2rem); font-weight: 700;
+                    margin-bottom: 1.5cqh; line-height: 1.15;
                 }
                 .vs-step-body {
-                    font-size: clamp(1.1rem, 2.2vw, 1.6rem); color: var(--text-muted);
+                    font-size: clamp(1.1rem, 2.2cqw, 1.6rem); color: var(--text-muted);
                     line-height: 1.6; max-width: 600px;
                 }
                 .vs-dots {
                     display: flex; justify-content: center; gap: 0.8rem;
-                    margin-top: 3vh;
+                    margin-top: 3cqh;
                 }
                 .vs-dot {
-                    width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px);
+                    width: clamp(8px, 1cqw, 12px); height: clamp(8px, 1cqw, 12px);
                     border-radius: 50%; background: rgba(255,255,255,0.15);
                     transition: all 0.3s ease;
                 }

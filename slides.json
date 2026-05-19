@@ -28,6 +28,20 @@
   ],
   "slides": [
     {
+      "id": "title-astorp",
+      "section": "start",
+      "type": "title-astorp",
+      "title": "AI för BIN:s chefer",
+      "subtitle": "Från chattbottar till autonoma agenter",
+      "note": "21 maj 2026",
+      "presenter": {
+        "name": "Håkan Karlsson",
+        "title": "Kommunlektor",
+        "org": "Åstorps kommun"
+      },
+      "cardTitle": "Åstorp Cyber-titel"
+    },
+    {
       "id": "title",
       "section": "start",
       "type": "title",

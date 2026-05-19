@@ -3828,7 +3828,7 @@
         if (s.warnings && s.warnings.length > 0) {
             html += `<div class="glitch-list">`;
             s.warnings.forEach((w, i) => {
-                html += `<div class="glitch-list-item step-hidden">⚠️ ${w}</div>`;
+                html += `<div class="glitch-list-item step-hidden">${w}</div>`;
             });
             html += `</div>`;
         }

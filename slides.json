@@ -748,25 +748,29 @@
     {
       "id": "vep-i-praktiken",
       "section": "agenter",
-      "type": "box-reveal",
+      "type": "bento-grid",
       "cardTitle": "VEP i praktiken",
       "title": "Virtuell Expertpanel i fyra steg",
-      "boxes": [
+      "items": [
         {
+          "iconSrc": "assets/vep-assemble.png",
           "title": "Sammansätt",
           "text": "10 specialister. Olika kompetenser. Du bestämmer vilka."
         },
         {
+          "iconSrc": "assets/vep-coordinator.png",
           "title": "Koordinatorn",
-          "text": "En instruktion: 'Fråga mig innan du fortsätter.'"
+          "text": "'Fråga mig innan du fortsätter.' En instruktion som förändrar allt."
         },
         {
+          "iconSrc": "assets/vep-lead.png",
           "title": "Led",
-          "text": "Individuella åsikter → Diskussion → Syntes. Du styr."
+          "text": "Åsikter → Diskussion → Syntes. Du styr varje steg."
         },
         {
+          "iconSrc": "assets/vep-reuse.png",
           "title": "Återanvänd",
-          "text": "Spara panelen. Nästa svåra fråga? Bollplanket finns redo."
+          "text": "Spara panelen som en Gem. Ditt bollplank finns redo."
         }
       ],
       "sources": [

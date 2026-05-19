@@ -43,6 +43,63 @@
         .theme-pill:hover { border-color: var(--text-muted); color: var(--text); }
         .theme-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+        /* === SETLIST CONTROLS === */
+        .setlist-bar {
+            display: flex; justify-content: center; align-items: center; gap: 0.5rem;
+            padding: 0.4rem 1rem; background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid var(--border);
+        }
+        .setlist-bar label {
+            font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--text-muted);
+        }
+        .setlist-bar input {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--accent); padding: 0.3rem 0.6rem;
+            width: clamp(200px, 40vw, 500px); outline: none; transition: border-color 0.2s;
+        }
+        .setlist-bar input:focus { border-color: var(--accent); }
+        .setlist-bar input::placeholder { color: var(--text-muted); opacity: 0.4; }
+        .setlist-bar .setlist-count {
+            font-size: 0.55rem; color: var(--text-muted); opacity: 0.6;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .setlist-bar button {
+            background: none; border: 1px solid var(--border); border-radius: 6px;
+            color: var(--text-muted); font-size: 0.6rem; padding: 0.25rem 0.5rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .setlist-bar button:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Inactive section divider */
+        .inactive-divider {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin: 1.8rem 0 0.6rem; padding-bottom: 0.3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .inactive-divider .divider-label {
+            font-size: 0.6rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--text-muted); opacity: 0.4;
+        }
+        .inactive-divider .divider-count {
+            font-size: 0.5rem; color: var(--text-muted); opacity: 0.3;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Inactive card styling */
+        .slide-card.inactive {
+            opacity: 0.35; border-style: dashed;
+        }
+        .slide-card.inactive:hover { opacity: 0.7; }
+
+        /* Setlist position badge on active cards */
+        .slide-card .setlist-pos {
+            position: absolute; top: 0.3rem; right: 0.5rem;
+            font-size: 0.55rem; font-weight: 700;
+            color: var(--accent); font-family: 'JetBrains Mono', monospace;
+        }
+
         /* === CARD GRID === */
         .card-view {
             padding: 1rem 1.2rem 2rem; max-width: 1100px; margin: 0 auto;
@@ -270,6 +327,13 @@
         </div>
     </div>
 
+    <div class="setlist-bar" id="setlistBar">
+        <label>Setlist</label>
+        <input type="text" id="setlistInput" placeholder="ex: 1,15,16,17,18,21,29" spellcheck="false">
+        <span class="setlist-count" id="setlistCount"></span>
+        <button onclick="document.getElementById('setlistInput').value=''; document.getElementById('setlistInput').dispatchEvent(new Event('input'));">Rensa</button>
+    </div>
+
     <div class="card-view" id="cardView"></div>
 
     <div class="slide-view" id="slideView">
@@ -374,60 +438,160 @@
             </div>`;
         };
 
+        // === SETLIST STATE ===
+        let setlistOrder = []; // array of 0-based indices
+        const SETLIST_KEY = 'HakanBIN2026_Setlist';
+
+        function loadSetlist() {
+            const saved = localStorage.getItem(SETLIST_KEY);
+            if (saved) {
+                document.getElementById('setlistInput').value = saved;
+                parseSetlist(saved);
+            }
+        }
+
+        function parseSetlist(str) {
+            if (!str.trim()) {
+                setlistOrder = [];
+                return;
+            }
+            setlistOrder = str.split(',').map(s => parseInt(s.trim(), 10) - 1).filter(n => !isNaN(n) && n >= 0 && n < slidesData.length);
+        }
+
+        document.getElementById('setlistInput').addEventListener('input', (e) => {
+            const val = e.target.value;
+            localStorage.setItem(SETLIST_KEY, val);
+            parseSetlist(val);
+            updateSetlistCount();
+            renderCards();
+        });
+
+        function updateSetlistCount() {
+            const countEl = document.getElementById('setlistCount');
+            if (setlistOrder.length > 0) {
+                countEl.textContent = setlistOrder.length + ' / ' + slidesData.length + ' aktiva';
+            } else {
+                countEl.textContent = '';
+            }
+        }
+
         // === RENDER CARD GRID ===
         function renderCards() {
             const grid = document.getElementById('cardView');
             grid.innerHTML = '';
 
-            // Read section definitions from JSON
             const sectionDefs = window._sectionDefs || [];
             const sectionMap = {};
             sectionDefs.forEach(sec => { sectionMap[sec.id] = sec; });
 
-            // Group slides by section
-            const groups = [];
-            let lastSection = null;
-            slidesData.forEach((s, i) => {
-                const secId = s.section || 'default';
-                if (secId !== lastSection) {
-                    groups.push({ sectionId: secId, slides: [] });
-                    lastSection = secId;
-                }
-                groups[groups.length - 1].slides.push({ slide: s, index: i });
-            });
-
-            groups.forEach(group => {
-                const secDef = sectionMap[group.sectionId] || { label: group.sectionId, color: '#666' };
-
-                // Section header
-                const header = document.createElement('div');
-                header.className = 'section-header';
-                header.innerHTML = `
-                    <span class="section-dot" style="background: ${secDef.color}"></span>
-                    <span class="section-label">${secDef.label}</span>
-                    <span class="section-count">${group.slides.length} slides</span>
+            // If setlist is active, render in setlist order
+            if (setlistOrder.length > 0) {
+                // Active setlist header
+                const activeHeader = document.createElement('div');
+                activeHeader.className = 'section-header';
+                activeHeader.innerHTML = `
+                    <span class="section-dot" style="background: var(--accent)"></span>
+                    <span class="section-label">Setlist</span>
+                    <span class="section-count">${setlistOrder.length} slides</span>
                 `;
-                grid.appendChild(header);
+                grid.appendChild(activeHeader);
 
-                // Section grid
-                const sectionGrid = document.createElement('div');
-                sectionGrid.className = 'section-grid';
+                const activeGrid = document.createElement('div');
+                activeGrid.className = 'section-grid';
 
-                group.slides.forEach(({ slide: s, index: i }) => {
+                setlistOrder.forEach((slideIdx, setlistPos) => {
+                    const s = slidesData[slideIdx];
+                    if (!s) return;
+                    const secDef = sectionMap[s.section] || { color: '#666' };
                     const card = document.createElement('div');
                     card.className = 'slide-card';
                     card.style.borderLeftColor = secDef.color;
                     card.style.borderLeftWidth = '2px';
                     card.innerHTML = `
-                        <span class="card-num">${i + 1}</span>
+                        <span class="card-num">${slideIdx + 1}</span>
+                        <span class="setlist-pos">#${setlistPos + 1}</span>
                         <span class="card-title">${s.cardTitle || s.title || s.id}</span>
                     `;
-                    card.onclick = () => openSlide(i);
-                    sectionGrid.appendChild(card);
+                    card.onclick = () => openSlide(slideIdx);
+                    activeGrid.appendChild(card);
+                });
+                grid.appendChild(activeGrid);
+
+                // Inactive slides
+                const inactiveIndices = [];
+                slidesData.forEach((s, i) => {
+                    if (!setlistOrder.includes(i)) inactiveIndices.push(i);
                 });
 
-                grid.appendChild(sectionGrid);
-            });
+                if (inactiveIndices.length > 0) {
+                    const divider = document.createElement('div');
+                    divider.className = 'inactive-divider';
+                    divider.innerHTML = `
+                        <span class="divider-label">Inaktiva</span>
+                        <span class="divider-count">${inactiveIndices.length} slides</span>
+                    `;
+                    grid.appendChild(divider);
+
+                    const inactiveGrid = document.createElement('div');
+                    inactiveGrid.className = 'section-grid';
+
+                    inactiveIndices.forEach(slideIdx => {
+                        const s = slidesData[slideIdx];
+                        const secDef = sectionMap[s.section] || { color: '#666' };
+                        const card = document.createElement('div');
+                        card.className = 'slide-card inactive';
+                        card.style.borderLeftColor = secDef.color;
+                        card.style.borderLeftWidth = '2px';
+                        card.innerHTML = `
+                            <span class="card-num">${slideIdx + 1}</span>
+                            <span class="card-title">${s.cardTitle || s.title || s.id}</span>
+                        `;
+                        card.onclick = () => openSlide(slideIdx);
+                        inactiveGrid.appendChild(card);
+                    });
+                    grid.appendChild(inactiveGrid);
+                }
+            } else {
+                // No setlist — render by section as before
+                const groups = [];
+                let lastSection = null;
+                slidesData.forEach((s, i) => {
+                    const secId = s.section || 'default';
+                    if (secId !== lastSection) {
+                        groups.push({ sectionId: secId, slides: [] });
+                        lastSection = secId;
+                    }
+                    groups[groups.length - 1].slides.push({ slide: s, index: i });
+                });
+
+                groups.forEach(group => {
+                    const secDef = sectionMap[group.sectionId] || { label: group.sectionId, color: '#666' };
+                    const header = document.createElement('div');
+                    header.className = 'section-header';
+                    header.innerHTML = `
+                        <span class="section-dot" style="background: ${secDef.color}"></span>
+                        <span class="section-label">${secDef.label}</span>
+                        <span class="section-count">${group.slides.length} slides</span>
+                    `;
+                    grid.appendChild(header);
+
+                    const sectionGrid = document.createElement('div');
+                    sectionGrid.className = 'section-grid';
+                    group.slides.forEach(({ slide: s, index: i }) => {
+                        const card = document.createElement('div');
+                        card.className = 'slide-card';
+                        card.style.borderLeftColor = secDef.color;
+                        card.style.borderLeftWidth = '2px';
+                        card.innerHTML = `
+                            <span class="card-num">${i + 1}</span>
+                            <span class="card-title">${s.cardTitle || s.title || s.id}</span>
+                        `;
+                        card.onclick = () => openSlide(i);
+                        sectionGrid.appendChild(card);
+                    });
+                    grid.appendChild(sectionGrid);
+                });
+            }
         }
 
         // === SLIDE NAVIGATION ===
@@ -442,7 +606,19 @@
             document.getElementById('slideView').classList.add('active');
             document.getElementById('cardView').classList.add('hidden');
             document.getElementById('showcaseHeader').style.display = 'none';
-            document.getElementById('slideCounter').textContent = `${idx + 1} / ${slidesData.length}`;
+            document.getElementById('setlistBar').style.display = 'none';
+
+            // Show setlist-aware counter
+            if (setlistOrder.length > 0) {
+                const posInSetlist = setlistOrder.indexOf(idx);
+                if (posInSetlist >= 0) {
+                    document.getElementById('slideCounter').textContent = `${posInSetlist + 1} / ${setlistOrder.length}`;
+                } else {
+                    document.getElementById('slideCounter').textContent = `#${idx + 1} (ej i setlist)`;
+                }
+            } else {
+                document.getElementById('slideCounter').textContent = `${idx + 1} / ${slidesData.length}`;
+            }
             
             // --- Slide Content Optimizer ---
             // Utvärdera sliden och applicera rätt skalnings-klass
@@ -470,16 +646,33 @@
             document.getElementById('cardView').classList.remove('hidden');
             document.getElementById('showcaseHeader').style.display = '';
             document.getElementById('presenterLinks').style.display = '';
+            document.getElementById('setlistBar').style.display = '';
             
             // Revert back to desktop showcase scaling
             document.documentElement.classList.remove('presentation-mode');
         }
 
+        // Setlist-aware navigation
         window.nextSlide = function() {
-            if (currentIdx < slidesData.length - 1) openSlide(currentIdx + 1);
+            if (setlistOrder.length > 0) {
+                const posInSetlist = setlistOrder.indexOf(currentIdx);
+                if (posInSetlist >= 0 && posInSetlist < setlistOrder.length - 1) {
+                    openSlide(setlistOrder[posInSetlist + 1]);
+                }
+                // If not in setlist, don't navigate
+            } else {
+                if (currentIdx < slidesData.length - 1) openSlide(currentIdx + 1);
+            }
         };
         window.prevSlide = function() {
-            if (currentIdx > 0) openSlide(currentIdx - 1);
+            if (setlistOrder.length > 0) {
+                const posInSetlist = setlistOrder.indexOf(currentIdx);
+                if (posInSetlist > 0) {
+                    openSlide(setlistOrder[posInSetlist - 1]);
+                }
+            } else {
+                if (currentIdx > 0) openSlide(currentIdx - 1);
+            }
         };
 
         document.getElementById('closeBtn').onclick = closeSlide;
@@ -571,6 +764,8 @@
                             const data = JSON.parse(xhr.responseText);
                             slidesData = data.slides || [];
                             window._sectionDefs = data.sections || [];
+                            loadSetlist();
+                            updateSetlistCount();
                             renderCards();
                         } catch(e) {
                             console.error('JSON parse error:', e);
@@ -588,6 +783,8 @@
                     .then(data => {
                         slidesData = data.slides || [];
                         window._sectionDefs = data.sections || [];
+                        loadSetlist();
+                        updateSetlistCount();
                         renderCards();
                     })
                     .catch(err => {

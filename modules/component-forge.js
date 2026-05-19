@@ -4518,11 +4518,20 @@
     // ===== VECTOR NEBULA =====
     function renderVectorNebula(s) {
         const id = 'vn-' + Math.random().toString(36).slice(2, 8);
+        
+        const wordA = s.wordA || 'Man';
+        const wordB = s.wordB || 'Kvinna';
+        const wordC = s.wordC || 'Kung';
+        const wordD = s.wordD || 'Drottning';
+        const axisX = s.axisX || 'Genus (Feminin ➔)';
+        const axisY = s.axisY || 'Status (Kunglighet ➔)';
+        const vectorLabel = s.vectorLabel || '+ Status';
+
         const sentences = s.sentences || [
             "Ord kan representeras som <strong>vektorer</strong> (koordinater) i ett matematiskt rum baserat på deras semantiska innebörd.",
-            "Skillnaden mellan 'Man' och 'Kung' kan beskrivas som en riktningspil – en vektor för <strong>+ Status</strong>.",
-            "Om vi tar samma förändringsvektor och flyttar den parallellt så att den utgår från ordet 'Kvinna'...",
-            "...så landar vi perfekt på koordinaten för <strong>'Drottning'</strong>! Formel: <strong>Kung - Man + Kvinna = Drottning</strong>.",
+            `Skillnaden mellan '${wordA}' och '${wordC}' kan beskrivas som en riktningspil – en vektor för <strong>${vectorLabel}</strong>.`,
+            `Om vi tar samma förändringsvektor och flyttar den parallellt så att den utgår från ordet '${wordB}'...`,
+            `...så landar vi perfekt på koordinaten för <strong>'${wordD}'</strong>! Formel: <strong>${wordC} - ${wordA} + ${wordB} = ${wordD}</strong>.`,
             "Men i verkliga AI-modeller arbetar vi inte bara i 2 dimensioner... utan i <strong>tusentals dimensioner</strong> samtidigt!"
         ];
 
@@ -4849,16 +4858,16 @@
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
                     ctx.font = "bold 13px 'JetBrains Mono', monospace";
                     ctx.textAlign = 'right';
-                    ctx.fillText("Genus (Feminin ➔)", cx + w * 0.4, cy + 20);
+                    ctx.fillText(axisX, cx + w * 0.4, cy + 20);
                     ctx.textAlign = 'left';
-                    ctx.fillText("Status (Kunglighet ➔)", cx + 15, cy - h * 0.33);
+                    ctx.fillText(axisY, cx + 15, cy - h * 0.33);
 
                     // 3. Draw nodes (words)
                     const nodes = [
-                        { label: 'Man', x: cx - dx, y: cy + dy, color: '#38bdf8', visible: 1 },
-                        { label: 'Kvinna', x: cx + dx, y: cy + dy, color: '#f472b6', visible: 1 },
-                        { label: 'Kung', x: cx - dx, y: cy - dy, color: '#3b82f6', visible: 1 },
-                        { label: 'Drottning', x: cx + dx, y: cy - dy, color: '#fbbf24', visible: revealProgress }
+                        { label: wordA, x: cx - dx, y: cy + dy, color: '#38bdf8', visible: 1 },
+                        { label: wordB, x: cx + dx, y: cy + dy, color: '#f472b6', visible: 1 },
+                        { label: wordC, x: cx - dx, y: cy - dy, color: '#3b82f6', visible: 1 },
+                        { label: wordD, x: cx + dx, y: cy - dy, color: '#fbbf24', visible: revealProgress }
                     ];
 
                     nodes.forEach(n => {
@@ -5302,10 +5311,10 @@
                     <canvas class="vn-canvas" id="${id}-canvas"></canvas>
                 </div>
                 <div class="vn-formula-badge" id="${id}-formula">
-                    <span class="math-var">Kung</span> <span class="math-op">-</span> 
-                    <span class="math-var">Man</span> <span class="math-op">+</span> 
-                    <span class="math-var">Kvinna</span> <span class="math-op">=</span> 
-                    <span class="math-var" style="color:#fbbf24; text-shadow: 0 0 15px rgba(251,191,36,0.6)">Drottning</span>
+                    <span class="math-var">${wordC}</span> <span class="math-op">-</span> 
+                    <span class="math-var">${wordA}</span> <span class="math-op">+</span> 
+                    <span class="math-var">${wordB}</span> <span class="math-op">=</span> 
+                    <span class="math-var" style="color:#fbbf24; text-shadow: 0 0 15px rgba(251,191,36,0.6)">${wordD}</span>
                 </div>
                 <div class="vn-caption-bar" id="${id}-caption"></div>
                 <div class="vn-click-hint" id="${id}-hint">KLICKA FÖR ATT GÅ VIDARE</div>

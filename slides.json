@@ -93,13 +93,13 @@
       "type": "vector-nebula",
       "title": "Ord som vektorer",
       "cardTitle": "Det latenta rummet (Vektor-intro)",
-      "sentences": [
-        "Ord kan representeras som <strong>vektorer</strong> (koordinater) i ett matematiskt rum baserat på deras semantiska innebörd.",
-        "Skillnaden mellan 'Man' och 'Kung' kan beskrivas som en riktningspil – en vektor för <strong>+ Status</strong>.",
-        "Om vi tar samma förändringsvektor och flyttar den parallellt så att den utgår från ordet 'Kvinna'...",
-        "...så landar vi perfekt på koordinaten för <strong>'Drottning'</strong>! Formel: <strong>Kung - Man + Kvinna = Drottning</strong>.",
-        "Men i verkliga AI-modeller arbetar vi inte bara i 2 dimensioner... utan i <strong>tusentals dimensioner</strong> samtidigt!"
-      ]
+      "wordA": "Brev",
+      "wordB": "Bok",
+      "wordC": "E-post",
+      "wordD": "E-bok",
+      "axisX": "Format (Längre text ➔)",
+      "axisY": "Medium (Digitalt ➔)",
+      "vectorLabel": "+ Skärm"
     },
     {
       "id": "llm-latent-rymd",
@@ -728,6 +728,49 @@
         {
           "text": "Teachiq/KM Workshop (nov 2025): VEP Protocol, Video 1-2",
           "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
+      "id": "astorp-digitalisering-vep",
+      "section": "agenter",
+      "type": "vep-stepper",
+      "cardTitle": "Case: Åstorps Digitaliseringsplan",
+      "title": "Case: VEP granskar Åstorps digitaliseringsplan",
+      "steps": [
+        {
+          "image": "assets/astorp_vapen.svg",
+          "title": "Case: Åstorps Digitaliseringsplan (2023-2027)",
+          "text": "Planen författades av Bildningsförvaltningen (Håkan Karlsson & Emil Jensen) i slutet av 2022. Den markerade ett visionärt didaktiskt skifte: från hårdvara till pedagogiskt mervärde under mottot <strong>'Digitalt först!'</strong>. Men hur står den sig i det nya politiska landskapet inför vår revision på torsdag?",
+          "accent": "#3b82f6"
+        },
+        {
+          "image": "assets/vep-assemble.png",
+          "title": "Sammansättning av expertpanelen",
+          "text": "För att granska planen tillsätter vi en <strong>Virtuell Expertpanel (VEP)</strong> bestående av: <strong>Prof. Didactica</strong> (akademisk stringens), <strong>Strategi-Stina</strong> (kommunal styrkedja), <strong>Praktiker-Per</strong> (skolvardagen), <strong>Säkerhets-Sören</strong> (GDPR & AI-etik) samt <strong>Dr. Veritasi</strong> (källsäkraren).",
+          "accent": "#a855f7"
+        },
+        {
+          "image": "assets/vep-coordinator.png",
+          "title": "Den nationella 'skärmsvängningen' & AI-boomen",
+          "text": "Dr. Veritasi konstaterar: Regeringen och Skolverket har gjort en kraftig svängning mot analoga läromedel, kritiskt förhållningssätt och risker med skärmtid sedan planen lades fram 2022. Samtidigt har generativ AI exploderat. Planen måste uppdateras för att spegla detta inför revisionen.",
+          "accent": "#ef4444"
+        },
+        {
+          "image": "assets/vep-redteam.png",
+          "title": "Panelens dom: 4 förbättringspunkter",
+          "text": "1. <strong>Parera skärmsvängningen</strong>: Skriv in adekvat digital kompetens & balans analogt/digitalt.<br>2. <strong>Operationalisera målen</strong>: Skapa en matris för SAMR/TPACK.<br>3. <strong>Säkra implementeringstiden</strong>: Tydliggör centralt kollegialt stöd.<br>4. <strong>Säker pedagogisk verkstad</strong>: Sätt upp AI-riktlinjer och GDPR-screening.",
+          "accent": "#f59e0b"
+        }
+      ],
+      "sources": [
+        {
+          "text": "Skolverket: Stora skillnader i undervisning av digital kompetens (2026-02-19)",
+          "url": "https://www.skolverket.se/om-oss/press/pressmeddelanden/pressmeddelanden/2026-02-19-stora-skillnader-i-undervisning-av-digital-kompetens"
+        },
+        {
+          "text": "Regeringskansliet: Insatser för minskad skärmtid och analoga läromedel",
+          "url": "https://www.regeringen.se/pressmeddelanden/"
         }
       ]
     },

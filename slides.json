@@ -800,6 +800,72 @@
         }
       ],
       "audience_content_auto": "{\"status\": \"prompt\", \"title\": \"Vardags-VEP:en\", \"prompt\": \"Du är min virtuella expertpanel...\", \"emoji\": \"🛠️\"}"
+    },
+    {
+      "id": "valj-ratt-modell",
+      "section": "agenter",
+      "type": "comparison",
+      "cardTitle": "Välj rätt modell",
+      "title": "Flash vs Pro — strategiskt modellval",
+      "left": {
+        "label": "⚡ Flash",
+        "items": [
+          "Snabb: svar på sekunder",
+          "~4× billigare per token",
+          "Perfekt för: rutinuppgifter, sammanfattningar, formatering",
+          "Hög volym utan att slå i taket",
+          "\"Good enough\" för 80% av arbetet"
+        ]
+      },
+      "right": {
+        "label": "🧠 Pro",
+        "items": [
+          "Djupare resonemang",
+          "Bättre på komplexa, nya problem",
+          "Perfekt för: strategisk analys, VEP, beslutsunderlag",
+          "Begränsad kvot — spara till det som räknas",
+          "Första svaret är oftast rätt"
+        ]
+      },
+      "verdict": "Flash-first: börja med Flash. Eskalera till Pro bara när komplexiteten kräver det.",
+      "sources": [
+        {
+          "text": "Google Gemini modellöversikt (2026)",
+          "url": "https://ai.google.dev/gemini-api/docs/models"
+        }
+      ]
+    },
+    {
+      "id": "workshop-case-data",
+      "section": "agenter",
+      "type": "prompt-card",
+      "cardTitle": "Workshop: Dataanalys",
+      "eyebrow": "📊 Workshop Case A",
+      "title": "Stor datamängd → Insikt → Presentation",
+      "prompt": "Jag har en Excel-fil med [elevresultat / enkätsvar / budgetdata / personalstatistik].\n\nAnalysera den och ge mig:\n1. De tre viktigaste mönstren i datan.\n2. Vilka avvikelser som kräver åtgärd.\n3. En sammanfattning på max 5 rader som jag kan presentera för min ledningsgrupp.\n4. Förslag på en visualisering (diagram) som tydligast kommunicerar budskapet.",
+      "hint": "Ladda upp filen direkt i Gemini. Testa Flash först — byt till Pro om analysen behöver mer djup.",
+      "sources": [
+        {
+          "text": "Workshop: BINs chefer 21 maj 2026",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
+      "id": "workshop-case-vep-presentation",
+      "section": "agenter",
+      "type": "prompt-card",
+      "cardTitle": "Workshop: VEP-presentation",
+      "eyebrow": "🎤 Workshop Case B",
+      "title": "Bygg en presentation med VEP",
+      "prompt": "Sammansätt en panel av 10 experter inom [ditt ämne: skolledning, kommunikation, pedagogik, design].\n\nKoordinator: Fråga mig hur jag vill gå vidare efter varje steg. Fortsätt aldrig utan mitt godkännande.\n\nJag ska hålla en 15-minuters presentation om [ditt ämne] för [din målgrupp]. Hjälp mig:\n1. Identifiera de 3 viktigaste budskapen.\n2. Skapa en röd tråd som binder ihop dem.\n3. Föreslå en öppning som fångar publiken.\n4. Ge mig en slide-struktur med rubriker.",
+      "hint": "Använd Pro för detta. Be om individuella åsikter först, sedan diskussion, sedan syntes. DU är dirigenten.",
+      "sources": [
+        {
+          "text": "Teachiq/KM Workshop: VEP Protocol",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
     }
   ]
 }

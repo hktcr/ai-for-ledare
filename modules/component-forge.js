@@ -1725,10 +1725,10 @@
             0%, 100% { text-shadow: 0 0 15px rgba(249, 115, 22, 0.6), 0 0 30px rgba(249, 115, 22, 0.2); }
             50% { text-shadow: 0 0 25px rgba(249, 115, 22, 1), 0 0 50px rgba(249, 115, 22, 0.5); }
         }
-        /* Formed state — locked in place, clean white */
+        /* Formed state — locked in place, accent color preserved */
         .slide-letter-morph .lm-letter.lm-formed {
-            color: var(--text, #f1f5f9);
-            text-shadow: 0 0 6px rgba(249, 115, 22, 0.2);
+            color: var(--accent, #f97316);
+            text-shadow: 0 0 12px rgba(249, 115, 22, 0.4), 0 0 30px rgba(249, 115, 22, 0.15);
             opacity: 1 !important;
         }
         /* Unused frame letters — very faint */

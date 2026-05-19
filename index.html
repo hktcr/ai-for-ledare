@@ -332,6 +332,7 @@
         <input type="text" id="setlistInput" placeholder="ex: 1,15,16,17,18,21,29" spellcheck="false">
         <span class="setlist-count" id="setlistCount"></span>
         <button onclick="document.getElementById('setlistInput').value=''; document.getElementById('setlistInput').dispatchEvent(new Event('input'));">Rensa</button>
+        <button onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent='Kopierad!'; setTimeout(() => this.textContent='📋 Kopiera URL', 1500); })">📋 Kopiera URL</button>
     </div>
 
     <div class="card-view" id="cardView"></div>

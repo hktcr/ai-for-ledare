@@ -698,7 +698,8 @@
         /* ===== BENTO GRID ===== */
         .slide-bento-grid {
             display: flex; flex-direction: column; height: 100%; width: 100%;
-            padding: 4rem; box-sizing: border-box; justify-content: center; position: relative;
+            padding: 2.5rem 4rem; box-sizing: border-box; justify-content: flex-start; position: relative;
+            transform: scale(0.85); transform-origin: top center;
         }
         .bento-title { font-size: 3rem; margin-bottom: 2rem; font-weight: 700; color: var(--text); }
         .bento-container {

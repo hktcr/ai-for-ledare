@@ -4515,6 +4515,805 @@
         `;
     }
 
+    // ===== VECTOR NEBULA =====
+    function renderVectorNebula(s) {
+        const id = 'vn-' + Math.random().toString(36).slice(2, 8);
+        const sentences = s.sentences || [
+            "Ord kan representeras som <strong>vektorer</strong> (koordinater) i ett matematiskt rum baserat på deras semantiska innebörd.",
+            "Skillnaden mellan 'Man' och 'Kung' kan beskrivas som en riktningspil – en vektor för <strong>+ Status</strong>.",
+            "Om vi tar samma förändringsvektor och flyttar den parallellt så att den utgår från ordet 'Kvinna'...",
+            "...så landar vi perfekt på koordinaten för <strong>'Drottning'</strong>! Formel: <strong>Kung - Man + Kvinna = Drottning</strong>.",
+            "Men i verkliga AI-modeller arbetar vi inte bara i 2 dimensioner... utan i <strong>tusentals dimensioner</strong> samtidigt!"
+        ];
+
+        // Custom CSS injected globally once
+        if (!document.getElementById('css-vector-nebula')) {
+            const style = document.createElement('style');
+            style.id = 'css-vector-nebula';
+            style.innerHTML = `
+                .slide-vector-nebula { 
+                    position: absolute; inset: 0; width: 100cqw; height: 100cqh; 
+                    background: radial-gradient(circle at center, #020617 0%, #000000 100%); overflow: hidden; display: flex; 
+                    flex-direction: column; align-items: center; justify-content: center; 
+                }
+                .vn-canvas-container { position: absolute; inset: 0; z-index: 1; }
+                .vn-canvas { width: 100%; height: 100%; display: block; }
+                
+                .vn-formula-badge {
+                    position: absolute; top: 8cqh; left: 50%; transform: translateX(-50%) translateY(20px);
+                    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+                    border: 1px solid rgba(245, 158, 11, 0.4);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.15);
+                    border-radius: 12px; padding: 1.5cqh 3cqw;
+                    font-family: 'JetBrains Mono', monospace; font-size: clamp(0.9rem, 2.5cqmin, 2rem);
+                    font-weight: 700; color: #fff; z-index: 10; opacity: 0;
+                    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+                    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                    pointer-events: none;
+                }
+                .vn-formula-badge.visible {
+                    opacity: 1; transform: translateX(-50%) translateY(0);
+                }
+                .vn-formula-badge span.math-var { color: #f59e0b; text-shadow: 0 0 10px rgba(245,158,11,0.3); }
+                .vn-formula-badge span.math-op { color: rgba(255,255,255,0.6); margin: 0 0.5cqw; }
+
+                .vn-caption-bar {
+                    position: absolute; bottom: 8cqh; left: 10%; right: 10%;
+                    background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.08);
+                    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                    border-radius: 12px; padding: 2cqh 3cqw;
+                    color: #e2e8f0; font-size: clamp(0.85rem, 2.3cqmin, 1.4rem);
+                    text-align: center; font-weight: 300; line-height: 1.5;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                    z-index: 10;
+                    transition: all 0.5s ease;
+                }
+                .vn-caption-bar strong { font-weight: 700; color: #f59e0b; }
+                
+                .vn-click-hint {
+                    position: absolute; bottom: 3cqh; right: 5%;
+                    font-size: clamp(0.55rem, 1.2cqmin, 0.85rem); color: rgba(255,255,255,0.35);
+                    font-family: 'JetBrains Mono', monospace; z-index: 10;
+                    pointer-events: none; animation: vnBlink 2s infinite;
+                }
+                @keyframes vnBlink { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+            `;
+            document.head.appendChild(style);
+        }
+
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            const canvas = document.getElementById(`${id}-canvas`);
+            const formulaBadge = document.getElementById(`${id}-formula`);
+            const captionBar = document.getElementById(`${id}-caption`);
+            const clickHint = document.getElementById(`${id}-hint`);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            let w, h;
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                w = canvas.width = rect.width * window.devicePixelRatio;
+                h = canvas.height = rect.height * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+                w /= window.devicePixelRatio;
+                h /= window.devicePixelRatio;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            let currentStep = 0;
+            
+            // Animation variables (Smooth interpolation)
+            let arrow1Length = 0;
+            let arrow2Slide = 0;
+            let revealProgress = 0;
+            let morfProgress = 0;
+            let exploded = false;
+            const explosionParticles = [];
+
+            // Caption setter
+            function updateUI() {
+                if (captionBar) {
+                    captionBar.innerHTML = sentences[currentStep] || "";
+                }
+                if (currentStep === 3) {
+                    if (formulaBadge) formulaBadge.classList.add('visible');
+                } else if (currentStep > 3) {
+                    if (formulaBadge) formulaBadge.classList.remove('visible');
+                }
+                if (currentStep === 4) {
+                    if (clickHint) clickHint.innerText = "KLICKA FÖR NÄSTA SLIDE";
+                    // Once 3D morph has started, allow slide advance after a delay
+                    setTimeout(() => {
+                        if (container) container.classList.remove('no-click-advance');
+                    }, 1500);
+                }
+            }
+            updateUI();
+
+            // Clicks trigger steps
+            container.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('.source-popup')) return;
+                
+                if (currentStep < 4) {
+                    e.stopPropagation();
+                    currentStep++;
+                    updateUI();
+                }
+            });
+
+            // 3D NEBULA STUFF (Initialized exactly as in renderSemanticNebula)
+            let time = 0;
+            let camZ = 0;
+            let camX = 0;
+            
+            const clusters = [];
+            const superClusters = [
+                { theme: 'språk', hue: 200, words: ['ord', 'mening', 'syntax', 'kontext', 'semantik', 'fras', 'token', 'språk'], anchorX: -500, anchorY: -200 },
+                { theme: 'logik', hue: 45, words: ['logik', 'struktur', 'mönster', 'kedja', 'slutsats', 'premiss', 'induktion', 'bevis'], anchorX: 400, anchorY: -300 },
+                { theme: 'biologi', hue: 120, words: ['neural', 'synaps', 'koppling', 'nod', 'nätverk', 'signal', 'impuls', 'cortex'], anchorX: -300, anchorY: 300 },
+                { theme: 'sinnen', hue: 320, words: ['bild', 'ton', 'känsla', 'intuition', 'perception', 'minne', 'dröm', 'association'], anchorX: 500, anchorY: 250 },
+                { theme: 'matematik', hue: 280, words: ['vektor', 'matris', 'vikt', 'dimension', 'rum', 'avstånd', 'gradient', 'funktion'], anchorX: 0, anchorY: -450 }
+            ];
+            
+            superClusters.forEach((sc, sci) => {
+                const numInGroup = 5 + Math.floor(Math.random() * 3);
+                for (let i = 0; i < numInGroup; i++) {
+                    const spread = 250;
+                    clusters.push({
+                        origX: sc.anchorX + (Math.random() - 0.5) * spread,
+                        origY: sc.anchorY + (Math.random() - 0.5) * spread,
+                        origZ: sci * 500 + Math.random() * 400,
+                        hue: sc.hue + (Math.random() - 0.5) * 30,
+                        radius: 60 + Math.random() * 80,
+                        superCluster: sci,
+                        words: Array(4 + Math.floor(Math.random() * 4)).fill(0).map(() => ({
+                            dx: (Math.random() - 0.5) * 2.5,
+                            dy: (Math.random() - 0.5) * 2.5,
+                            txt: sc.words[Math.floor(Math.random() * sc.words.length)]
+                        })),
+                        pulse: 0
+                    });
+                }
+            });
+
+            // Peripheral clusters
+            const peripherals = [
+                { theme: 'poesi', hue: 350, words: ['metafor', 'rytm', 'vers', 'klang', 'bild', 'stämning'], anchorX: -1100, anchorY: 0 },
+                { theme: 'humor', hue: 55, words: ['ironi', 'timing', 'absurd', 'vits', 'parodi', 'satir'], anchorX: 1100, anchorY: -150 },
+                { theme: 'musik', hue: 170, words: ['harmoni', 'ackord', 'tonart', 'resonans', 'melodi', 'tempo'], anchorX: 900, anchorY: 400 }
+            ];
+            
+            peripherals.forEach((pc, pci) => {
+                const numInGroup = 3 + Math.floor(Math.random() * 2);
+                for (let i = 0; i < numInGroup; i++) {
+                    clusters.push({
+                        origX: pc.anchorX + (Math.random() - 0.5) * 180,
+                        origY: pc.anchorY + (Math.random() - 0.5) * 180,
+                        origZ: 300 + Math.random() * 2000,
+                        hue: pc.hue + (Math.random() - 0.5) * 20,
+                        radius: 40 + Math.random() * 50,
+                        superCluster: 5 + pci,
+                        isPeripheral: true,
+                        words: Array(3 + Math.floor(Math.random() * 3)).fill(0).map(() => ({
+                            dx: (Math.random() - 0.5) * 2.5,
+                            dy: (Math.random() - 0.5) * 2.5,
+                            txt: pc.words[Math.floor(Math.random() * pc.words.length)]
+                        })),
+                        pulse: 0
+                    });
+                }
+            });
+
+            const particles3D = [];
+            const stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: (Math.random() - 0.5) * 2000,
+                    y: (Math.random() - 0.5) * 2000,
+                    z: Math.random() * 2000,
+                    size: 0.5 + Math.random() * 1.5,
+                    opacity: 0.2 + Math.random() * 0.8
+                });
+            }
+
+            let activeRay = null;
+            let lastTarget = null;
+            let rayWait = 0;
+            let nebulaSize = 5;
+            let nebulaPulse = 0;
+            let nebulaHues = [];
+
+            // Helper to draw Arrow
+            function drawArrow(x1, y1, x2, y2, color, isDashed = false, arrowSize = 12) {
+                ctx.save();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 4;
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 10;
+                if (isDashed) {
+                    ctx.setLineDash([8, 8]);
+                }
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                ctx.restore();
+
+                // Draw arrow head
+                const angle = Math.atan2(y2 - y1, x2 - x1);
+                ctx.save();
+                ctx.fillStyle = color;
+                ctx.shadowColor = color;
+                ctx.shadowBlur = 10;
+                ctx.translate(x2, y2);
+                ctx.rotate(angle);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-arrowSize, -arrowSize / 2);
+                ctx.lineTo(-arrowSize * 0.7, 0);
+                ctx.lineTo(-arrowSize, arrowSize / 2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function draw() {
+                if (!document.getElementById(id)) return;
+                
+                const cx = w / 2;
+                const cy = h / 2;
+                
+                // Clear or trails
+                if (morfProgress > 0.1) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                    ctx.fillRect(0, 0, w, h);
+                } else {
+                    ctx.clearRect(0, 0, w, h);
+                }
+
+                time += 0.01;
+                
+                // Linear interpolations for smooth animations
+                if (currentStep >= 1) arrow1Length += (1 - arrow1Length) * 0.1;
+                if (currentStep >= 2) arrow2Slide += (1 - arrow2Slide) * 0.08;
+                if (currentStep >= 3) revealProgress += (1 - revealProgress) * 0.1;
+                if (currentStep >= 4) morfProgress += (1 - morfProgress) * 0.05;
+
+                // Handle explosion sparkles for Drottning reveal
+                if (currentStep === 3 && !exploded) {
+                    exploded = true;
+                    for (let i = 0; i < 40; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = 3 + Math.random() * 6;
+                        explosionParticles.push({
+                            x: cx + w * 0.18,
+                            y: cy - h * 0.14,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            size: 2 + Math.random() * 4,
+                            alpha: 1,
+                            decay: 0.015 + Math.random() * 0.02
+                        });
+                    }
+                }
+
+                // 2D grid coordinates
+                const dx = w * 0.18;
+                const dy = h * 0.14;
+
+                const gridOpacity = 1 - morfProgress;
+
+                // DRAW 2D SYSTEM
+                if (gridOpacity > 0.01) {
+                    ctx.save();
+                    ctx.globalAlpha = gridOpacity;
+
+                    // 1. Grid lines (nice retro-futuristic mesh grid)
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+                    ctx.lineWidth = 1;
+                    const gridSpacing = 40;
+                    for (let x = cx - w * 0.45; x <= cx + w * 0.45; x += gridSpacing) {
+                        ctx.beginPath();
+                        ctx.moveTo(x, cy - h * 0.4);
+                        ctx.lineTo(x, cy + h * 0.4);
+                        ctx.stroke();
+                    }
+                    for (let y = cy - h * 0.4; y <= cy + h * 0.4; y += gridSpacing) {
+                        ctx.beginPath();
+                        ctx.moveTo(cx - w * 0.45, y);
+                        ctx.lineTo(cx + w * 0.45, y);
+                        ctx.stroke();
+                    }
+
+                    // 2. Axes
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+                    ctx.lineWidth = 2;
+                    // X Axis
+                    ctx.beginPath();
+                    ctx.moveTo(cx - w * 0.4, cy);
+                    ctx.lineTo(cx + w * 0.4, cy);
+                    ctx.stroke();
+                    // Y Axis
+                    ctx.beginPath();
+                    ctx.moveTo(cx, cy + h * 0.35);
+                    ctx.lineTo(cx, cy - h * 0.35);
+                    ctx.stroke();
+
+                    // Draw axis arrows
+                    drawArrow(cx - w * 0.4, cy, cx + w * 0.41, cy, 'rgba(255, 255, 255, 0.3)', false, 8);
+                    drawArrow(cx, cy + h * 0.35, cx, cy - h * 0.36, 'rgba(255, 255, 255, 0.3)', false, 8);
+
+                    // Axis labels
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                    ctx.font = "bold 13px 'JetBrains Mono', monospace";
+                    ctx.textAlign = 'right';
+                    ctx.fillText("Genus (Feminin ➔)", cx + w * 0.4, cy + 20);
+                    ctx.textAlign = 'left';
+                    ctx.fillText("Status (Kunglighet ➔)", cx + 15, cy - h * 0.33);
+
+                    // 3. Draw nodes (words)
+                    const nodes = [
+                        { label: 'Man', x: cx - dx, y: cy + dy, color: '#38bdf8', visible: 1 },
+                        { label: 'Kvinna', x: cx + dx, y: cy + dy, color: '#f472b6', visible: 1 },
+                        { label: 'Kung', x: cx - dx, y: cy - dy, color: '#3b82f6', visible: 1 },
+                        { label: 'Drottning', x: cx + dx, y: cy - dy, color: '#fbbf24', visible: revealProgress }
+                    ];
+
+                    nodes.forEach(n => {
+                        if (n.visible <= 0.001) return;
+                        
+                        ctx.save();
+                        ctx.globalAlpha = gridOpacity * n.visible;
+                        
+                        // Node glow radial gradient
+                        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 35);
+                        grad.addColorStop(0, n.color + '44');
+                        grad.addColorStop(1, n.color + '00');
+                        ctx.fillStyle = grad;
+                        ctx.beginPath();
+                        ctx.arc(n.x, n.y, 35, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        // Solid dot
+                        ctx.fillStyle = n.color;
+                        ctx.shadowColor = n.color;
+                        ctx.shadowBlur = 8;
+                        ctx.beginPath();
+                        ctx.arc(n.x, n.y, 7, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+
+                        // Text label
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = "bold 18px 'Inter', sans-serif";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'top';
+                        ctx.fillText(n.label, n.x, n.y + 14);
+                        ctx.restore();
+                    });
+
+                    // 4. Draw pulser / question mark before Drottning reveal
+                    if (revealProgress < 0.99) {
+                        ctx.save();
+                        ctx.globalAlpha = gridOpacity * (1 - revealProgress);
+                        
+                        // Pulsing radius
+                        const pulseScale = 1 + Math.sin(time * 6) * 0.15;
+                        const pulseRad = 20 * pulseScale;
+                        
+                        ctx.strokeStyle = 'rgba(251, 191, 36, 0.4)';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([4, 4]);
+                        ctx.beginPath();
+                        ctx.arc(cx + dx, cy - dy, pulseRad, 0, Math.PI * 2);
+                        ctx.stroke();
+
+                        ctx.fillStyle = 'rgba(251, 191, 36, 0.8)';
+                        ctx.shadowColor = '#fbbf24';
+                        ctx.shadowBlur = 10;
+                        ctx.beginPath();
+                        ctx.arc(cx + dx, cy - dy, 6, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+
+                        ctx.fillStyle = '#ffffff';
+                        ctx.font = "bold 20px 'Inter', sans-serif";
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText("?", cx + dx, cy - dy - 22);
+                        ctx.restore();
+                    }
+
+                    // 5. Draw Arrows
+                    // Vector 1: Man ➔ Kung
+                    if (arrow1Length > 0.01) {
+                        const targetY = (cy + dy) - (dy * 2) * arrow1Length;
+                        drawArrow(cx - dx, cy + dy, cx - dx, targetY, 'rgba(56, 189, 248, 0.85)', false, 12);
+                        
+                        // Arrow Label "+ Status"
+                        if (arrow1Length > 0.5) {
+                            ctx.save();
+                            ctx.fillStyle = '#38bdf8';
+                            ctx.font = "bold 13px 'JetBrains Mono', monospace";
+                            ctx.textAlign = 'right';
+                            ctx.globalAlpha = gridOpacity * (arrow1Length - 0.5) * 2;
+                            ctx.fillText("+ Status", cx - dx - 15, (cy + dy + targetY) / 2);
+                            ctx.restore();
+                        }
+                    }
+
+                    // Vector 2: Kvinna ➔ Drottning (Dasher sliding / Solid reveal)
+                    if (arrow2Slide > 0.01) {
+                        const slideX = -dx + (dx * 2) * arrow2Slide;
+                        const opacitySlide = Math.min(1, arrow2Slide * 1.5);
+                        
+                        ctx.save();
+                        ctx.globalAlpha = gridOpacity * opacitySlide;
+                        
+                        const color = arrow2Slide >= 0.98 ? 'rgba(251, 191, 36, 0.9)' : 'rgba(255, 255, 255, 0.45)';
+                        const isDashed = arrow2Slide < 0.98;
+                        
+                        drawArrow(cx + slideX, cy + dy, cx + slideX, cy - dy, color, isDashed, 12);
+                        
+                        // Label "+ Status (transferred)"
+                        if (arrow2Slide > 0.5) {
+                            ctx.fillStyle = color;
+                            ctx.font = "bold 13px 'JetBrains Mono', monospace";
+                            ctx.textAlign = 'left';
+                            ctx.fillText("+ Status", cx + slideX + 15, cy);
+                        }
+                        ctx.restore();
+                    }
+
+                    // Draw sparkles (using robust standard reverse loop to prevent slice issues)
+                    for (let i = explosionParticles.length - 1; i >= 0; i--) {
+                        const p = explosionParticles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vx *= 0.96;
+                        p.vy *= 0.96;
+                        p.alpha -= p.decay;
+                        
+                        if (p.alpha > 0) {
+                            ctx.save();
+                            ctx.globalAlpha = gridOpacity * p.alpha;
+                            ctx.fillStyle = '#fbbf24';
+                            ctx.shadowColor = '#fbbf24';
+                            ctx.shadowBlur = 6;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
+                        } else {
+                            explosionParticles.splice(i, 1);
+                        }
+                    }
+
+                    ctx.restore();
+                }
+
+                // DRAW 3D SYSTEM
+                const camSpeed = 1.2 + time * 0.5;
+                camZ += camSpeed;
+                camX = Math.sin(time * 0.3) * 80;
+
+                // Twinkling Stars
+                stars.forEach(star => {
+                    let sz = star.z - camZ * 0.15;
+                    while (sz < 0) sz += 2000;
+                    while (sz > 2000) sz -= 2000;
+                    
+                    const starScale = 500 / (500 + sz);
+                    const sx = cx + star.x * starScale - camX * 0.3;
+                    const sy = cy + star.y * starScale;
+                    
+                    if (sx >= 0 && sx < w && sy >= 0 && sy < h) {
+                        const starOpacity = star.opacity * Math.abs(Math.sin(time * 2 + star.z)) * starScale * 0.8 * morfProgress;
+                        if (starOpacity > 0.01) {
+                            ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, Math.min(1, starOpacity))})`;
+                            ctx.beginPath();
+                            ctx.arc(sx, sy, star.size * starScale, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+                });
+
+                // Connecting mist connecting super-clusters
+                if (morfProgress > 0.05) {
+                    const fov = 500;
+                    clusters.forEach((c, idx) => {
+                        const angle = time * 0.12 + idx * 0.7;
+                        const rx = Math.cos(angle) * c.origX - Math.sin(angle) * c.origZ * 0.3 - camX;
+                        
+                        let dz = c.origZ - camZ;
+                        while (dz < -200) dz += 2800;
+                        while (dz > 2600) dz -= 2800;
+                        
+                        const ry = c.origY + Math.sin(time * 0.4 + idx) * 120;
+                        
+                        const scale = fov / (fov + dz);
+                        c.projX = cx + rx * scale;
+                        c.projY = cy + ry * scale;
+                        c.scale = Math.max(0, scale);
+                        c.dz = dz;
+                        c.visible = dz > 10;
+                    });
+
+                    // Draw connecting clouds
+                    superClusters.forEach((sc, sci) => {
+                        const groupClusters = clusters.filter(c => c.superCluster === sci && c.visible && c.scale > 0.15);
+                        if (groupClusters.length < 2) return;
+                        
+                        let avgX = 0, avgY = 0, avgScale = 0;
+                        groupClusters.forEach(c => { avgX += c.projX; avgY += c.projY; avgScale += c.scale; });
+                        avgX /= groupClusters.length;
+                        avgY /= groupClusters.length;
+                        avgScale /= groupClusters.length;
+                        
+                        const nebRad = 200 * avgScale * morfProgress;
+                        if (nebRad > 10) {
+                            const nebGrad = ctx.createRadialGradient(avgX, avgY, 0, avgX, avgY, nebRad);
+                            nebGrad.addColorStop(0, 'hsla(' + sc.hue + ', 60%, 40%, ' + (0.025 * avgScale * morfProgress) + ')');
+                            nebGrad.addColorStop(0.6, 'hsla(' + sc.hue + ', 60%, 25%, ' + (0.012 * avgScale * morfProgress) + ')');
+                            nebGrad.addColorStop(1, 'hsla(' + sc.hue + ', 60%, 10%, 0)');
+                            ctx.fillStyle = nebGrad;
+                            ctx.beginPath();
+                            ctx.arc(avgX, avgY, nebRad, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    });
+
+                    // Draw clusters
+                    clusters.forEach(c => {
+                        if (!c.visible) return;
+                        c.pulse *= 0.93;
+                        
+                        const crad = c.radius * c.scale * morfProgress;
+                        const cgrad = ctx.createRadialGradient(c.projX, c.projY, 0, c.projX, c.projY, crad);
+                        cgrad.addColorStop(0, 'hsla(' + c.hue + ', 80%, 60%, ' + ((0.1 + c.pulse) * morfProgress) + ')');
+                        cgrad.addColorStop(1, 'hsla(' + c.hue + ', 80%, 20%, 0)');
+                        ctx.fillStyle = cgrad;
+                        ctx.beginPath();
+                        ctx.arc(c.projX, c.projY, crad, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        // Words
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        const wordSize = Math.max(14, Math.round(20 * c.scale));
+                        c.words.forEach((wObj, wi) => {
+                            const wx = c.projX + Math.cos(time * 0.6 + wi * 1.3) * crad * 0.7 * wObj.dx;
+                            const wy = c.projY + Math.sin(time * 0.6 + wi * 1.3) * crad * 0.7 * wObj.dy;
+                            const wordAlpha = Math.min(0.85, 0.45 + c.pulse * 0.5) * Math.min(1, c.scale * 2) * morfProgress;
+                            if (wordAlpha <= 0.05) return;
+                            
+                            ctx.save();
+                            ctx.globalAlpha = wordAlpha;
+                            ctx.font = `600 ${wordSize}px 'Inter', sans-serif`;
+                            
+                            // stroke
+                            ctx.strokeStyle = 'rgba(0, 0, 0, 0.75)';
+                            ctx.lineWidth = 3;
+                            ctx.strokeText(wObj.txt, wx, wy);
+                            
+                            ctx.fillStyle = 'hsla(' + c.hue + ', 100%, ' + (80 + c.pulse * 20) + '%, 1)';
+                            ctx.fillText(wObj.txt, wx, wy);
+                            ctx.restore();
+                        });
+                    });
+
+                    // Draw Central Nebula
+                    nebulaPulse += 0.05;
+                    const currentNebRadius = (nebulaSize + Math.sin(nebulaPulse) * (nebulaSize * 0.1)) * morfProgress;
+                    if (nebulaHues.length > 0 && currentNebRadius > 1) {
+                        const mixHue = nebulaHues[Math.floor((time * 10) % nebulaHues.length)];
+                        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, currentNebRadius * 2.5);
+                        grad.addColorStop(0, 'hsla(' + mixHue + ', 100%, 80%, ' + (0.9 * morfProgress) + ')');
+                        grad.addColorStop(0.3, 'hsla(' + mixHue + ', 100%, 50%, ' + (0.5 * morfProgress) + ')');
+                        grad.addColorStop(1, 'hsla(' + mixHue + ', 100%, 10%, 0)');
+                        ctx.fillStyle = grad;
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, currentNebRadius * 2.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    // Thread rays
+                    if (!activeRay && rayWait <= 0) {
+                        let nextTarget;
+                        let attempts = 0;
+                        const candidates = clusters.filter(c => c.visible);
+                        if (candidates.length > 0) {
+                            do {
+                                nextTarget = candidates[Math.floor(Math.random() * candidates.length)];
+                                attempts++;
+                            } while (nextTarget === lastTarget && attempts < 10);
+                            activeRay = {
+                                target: nextTarget,
+                                hue: nextTarget.hue,
+                                progress: 0,
+                                curveOffset: (Math.random() - 0.5) * 400
+                            };
+                        }
+                    }
+                    if (rayWait > 0) rayWait--;
+
+                    if (activeRay) {
+                        let startX = cx, startY = cy;
+                        if (lastTarget) {
+                            startX = lastTarget.projX;
+                            startY = lastTarget.projY;
+                        }
+                        const endX = activeRay.target.projX;
+                        const endY = activeRay.target.projY;
+                        
+                        activeRay.progress += 0.012;
+                        
+                        const t = activeRay.progress;
+                        const cpx = (startX + endX) / 2 + activeRay.curveOffset;
+                        const cpy = (startY + endY) / 2 - 200;
+                        
+                        const curX = (1-t)*(1-t)*startX + 2*(1-t)*t*cpx + t*t*endX;
+                        const curY = (1-t)*(1-t)*startY + 2*(1-t)*t*cpy + t*t*endY;
+                        
+                        // draw laser
+                        ctx.save();
+                        ctx.globalAlpha = morfProgress;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.quadraticCurveTo(cpx, cpy, curX, curY);
+                        ctx.strokeStyle = `hsla(${activeRay.hue}, 100%, 65%, 0.15)`;
+                        ctx.lineWidth = 7;
+                        ctx.stroke();
+
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.quadraticCurveTo(cpx, cpy, curX, curY);
+                        ctx.strokeStyle = `hsla(${activeRay.hue}, 100%, 85%, 0.6)`;
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                        
+                        ctx.beginPath();
+                        ctx.arc(curX, curY, 4, 0, Math.PI*2);
+                        ctx.fillStyle = `#ffffff`;
+                        ctx.shadowColor = `hsla(${activeRay.hue}, 100%, 70%, 1)`;
+                        ctx.shadowBlur = 20;
+                        ctx.fill();
+                        ctx.restore();
+                        
+                        if (activeRay.progress >= 1) {
+                            activeRay.target.pulse = 1.5;
+                            const harvestedWord = activeRay.target.words[Math.floor(Math.random() * activeRay.target.words.length)].txt;
+                            particles3D.push({
+                                startX: endX, startY: endY,
+                                x: endX, y: endY,
+                                hue: activeRay.hue,
+                                progress: 0,
+                                phase: 0,
+                                phaseTimer: 0,
+                                speed: 0.012 + Math.random() * 0.006,
+                                word: harvestedWord,
+                                curveOffset: (Math.random() - 0.5) * 300,
+                                viewerX: cx * 0.35 + Math.random() * cx * 0.3,
+                                viewerY: cy * 0.6 + Math.random() * cy * 0.3
+                            });
+                            lastTarget = activeRay.target;
+                            activeRay = null;
+                            rayWait = 40;
+                        }
+                    }
+
+                    // 3d harvested word particles
+                    for (let i = particles3D.length - 1; i >= 0; i--) {
+                        const p = particles3D[i];
+                        let curX, curY, fontSize, alpha, orbSize;
+                        
+                        if (p.phase === 0) {
+                            p.progress += p.speed;
+                            const t = p.progress;
+                            const cpx = (p.startX + p.viewerX) / 2 + p.curveOffset * 0.5;
+                            const cpy = Math.min(p.startY, p.viewerY) - 120;
+                            curX = (1-t)*(1-t)*p.startX + 2*(1-t)*t*cpx + t*t*p.viewerX;
+                            curY = (1-t)*(1-t)*p.startY + 2*(1-t)*t*cpy + t*t*p.viewerY;
+                            fontSize = 14 + t * 34;
+                            alpha = (0.4 + t * 0.6) * morfProgress;
+                            orbSize = 4 + t * 8;
+                            
+                            if (p.progress >= 1) {
+                                p.phase = 1;
+                                p.phaseTimer = 0;
+                                p.progress = 0;
+                            }
+                        } else if (p.phase === 1) {
+                            p.phaseTimer++;
+                            curX = p.viewerX + Math.sin(p.phaseTimer * 0.03) * 8;
+                            curY = p.viewerY + Math.cos(p.phaseTimer * 0.04) * 5;
+                            fontSize = 48;
+                            alpha = morfProgress;
+                            orbSize = 12;
+                            
+                            if (p.phaseTimer > 90) {
+                                p.phase = 2;
+                                p.progress = 0;
+                                p.pauseX = curX;
+                                p.pauseY = curY;
+                            }
+                        } else {
+                            p.progress += p.speed * 0.8;
+                            const t = p.progress;
+                            const cpx = (p.pauseX + cx) / 2 + p.curveOffset * 0.3;
+                            const cpy = (p.pauseY + cy) / 2 + 80;
+                            curX = (1-t)*(1-t)*p.pauseX + 2*(1-t)*t*cpx + t*t*cx;
+                            curY = (1-t)*(1-t)*p.pauseY + 2*(1-t)*t*cpy + t*t*cy;
+                            fontSize = 48 * (1 - t * 0.7);
+                            alpha = (1 - t) * morfProgress;
+                            orbSize = 12 * (1 - t * 0.6);
+                            
+                            if (p.progress >= 1) {
+                                nebulaSize = Math.min(nebulaSize + 3, 120);
+                                if (!nebulaHues.includes(p.hue)) nebulaHues.push(p.hue);
+                                particles3D.splice(i, 1);
+                                continue;
+                            }
+                        }
+                        
+                        ctx.save();
+                        ctx.globalAlpha = alpha;
+                        
+                        ctx.beginPath();
+                        ctx.arc(curX, curY, orbSize * 1.8, 0, Math.PI * 2);
+                        ctx.strokeStyle = `hsla(${p.hue}, 100%, 75%, 0.25)`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+
+                        ctx.beginPath();
+                        ctx.arc(curX, curY, orbSize, 0, Math.PI*2);
+                        ctx.fillStyle = `hsla(${p.hue}, 100%, 85%, 0.85)`;
+                        ctx.shadowColor = `hsla(${p.hue}, 100%, 55%, 1)`;
+                        ctx.shadowBlur = orbSize * 2.5;
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                        
+                        ctx.font = `bold ${fontSize}px 'JetBrains Mono', monospace`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        
+                        ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+                        ctx.lineWidth = 4;
+                        ctx.strokeText(p.word, curX, curY - orbSize - 14);
+                        
+                        ctx.fillStyle = `hsla(${p.hue}, 100%, 95%, 1)`;
+                        ctx.fillText(p.word, curX, curY - orbSize - 14);
+                        ctx.restore();
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+        }, 100);
+
+        return `
+            <div class="slide-vector-nebula no-click-advance" id="${id}">
+                <div class="vn-canvas-container">
+                    <canvas class="vn-canvas" id="${id}-canvas"></canvas>
+                </div>
+                <div class="vn-formula-badge" id="${id}-formula">
+                    <span class="math-var">Kung</span> <span class="math-op">-</span> 
+                    <span class="math-var">Man</span> <span class="math-op">+</span> 
+                    <span class="math-var">Kvinna</span> <span class="math-op">=</span> 
+                    <span class="math-var" style="color:#fbbf24; text-shadow: 0 0 15px rgba(251,191,36,0.6)">Drottning</span>
+                </div>
+                <div class="vn-caption-bar" id="${id}-caption"></div>
+                <div class="vn-click-hint" id="${id}-hint">KLICKA FÖR ATT GÅ VIDARE</div>
+            </div>
+        `;
+    }
+
+
     /**
      * Helper function to render the interactive source popup
      */
@@ -4999,6 +5798,100 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
 
     function renderTitleAstorp(s) {
         const id = 'ta-container-' + Math.random().toString(36).slice(2, 8);
+        
+        // Initialize the canvas animation after element is rendered in DOM
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            if (!container) return;
+            const canvas = container.querySelector('.ta-logo-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+            
+            const resizeObserver = new ResizeObserver(() => {
+                if (!canvas) return;
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+            resizeObserver.observe(canvas);
+            
+            const particles = [];
+            const orbitRadius = Math.min(width, height) * 0.38;
+            
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    angle: Math.random() * Math.PI * 2,
+                    radius: orbitRadius + (Math.random() - 0.5) * 60,
+                    speed: (Math.random() * 0.003 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
+                    size: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.2,
+                    color: Math.random() > 0.6 ? '#8b1d41' : '#ffd700'
+                });
+            }
+            
+            let active = true;
+            function animate() {
+                if (!active) return;
+                if (!document.body.contains(canvas)) {
+                    active = false;
+                    resizeObserver.disconnect();
+                    return;
+                }
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw grid
+                ctx.strokeStyle = 'rgba(139, 29, 65, 0.04)';
+                ctx.lineWidth = 1;
+                const gridSize = 30;
+                for (let x = 0; x < width; x += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, height);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < height; y += gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(width, y);
+                    ctx.stroke();
+                }
+                
+                // Update & Draw particles in orbit around the center logo
+                const centerX = width / 2;
+                const centerY = height / 2;
+                particles.forEach(p => {
+                    p.angle += p.speed;
+                    const x = centerX + Math.cos(p.angle) * p.radius;
+                    const y = centerY + Math.sin(p.angle) * p.radius;
+                    
+                    ctx.beginPath();
+                    ctx.arc(x, y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fill();
+                    
+                    // Connect close particles
+                    particles.forEach(p2 => {
+                        const x2 = centerX + Math.cos(p2.angle) * p2.radius;
+                        const y2 = centerY + Math.sin(p2.angle) * p2.radius;
+                        const dist = Math.hypot(x - x2, y - y2);
+                        if (dist < 75) {
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                            ctx.lineTo(x2, y2);
+                            ctx.strokeStyle = p.color;
+                            ctx.globalAlpha = (1 - dist / 75) * 0.12 * p.opacity;
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }, 200);
+
         return `
             <style>
                 .slide-title-astorp {
@@ -5047,12 +5940,144 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     align-items: center;
                     justify-content: center;
                 }
-                .ta-logo-svg {
+                .ta-logo-container {
+                    position: relative;
+                    width: 28cqw;
+                    height: 28cqw;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .ta-logo-canvas {
+                    position: absolute;
+                    top: -15%; left: -15%; bottom: -15%; right: -15%;
+                    width: 130%;
+                    height: 130%;
+                    pointer-events: none;
+                    z-index: 1;
+                }
+                .ta-hud-ring-outer {
+                    position: absolute;
+                    width: 110%;
+                    height: 110%;
+                    border: 2px dashed var(--accent2, #ffd700);
+                    border-radius: 50%;
+                    opacity: 0.25;
+                    animation: ta-spin-cw 25s linear infinite;
+                    pointer-events: none;
+                    z-index: 2;
+                }
+                .ta-hud-ring-inner {
+                    position: absolute;
+                    width: 95%;
+                    height: 95%;
+                    border: 1px dashed var(--accent);
+                    border-radius: 50%;
+                    opacity: 0.4;
+                    animation: ta-spin-ccw 15s linear infinite;
+                    pointer-events: none;
+                    z-index: 2;
+                }
+                
+                .ta-logo-wrapper {
+                    position: relative;
+                    width: 70%;
+                    height: 70%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 3;
+                }
+                .ta-logo-img {
                     width: 100%;
                     height: auto;
                     max-height: 80cqh;
-                    filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.4));
+                    filter: drop-shadow(0 0 2cqw rgba(139, 29, 65, 0.45));
+                    animation: ta-holo-pulse 4s ease-in-out infinite alternate;
+                    position: relative;
+                    z-index: 3;
                 }
+                .ta-logo-shine {
+                    position: absolute;
+                    top: 0; left: 0; width: 100%; height: 100%;
+                    pointer-events: none;
+                    z-index: 4;
+                    mix-blend-mode: color-dodge;
+                    opacity: 0;
+                }
+                .ta-shine-gold {
+                    -webkit-mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
+                    mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
+                    -webkit-mask-size: 250% 100%;
+                    mask-size: 250% 100%;
+                    filter: brightness(2) sepia(1) saturate(5) hue-rotate(15deg);
+                    animation: ta-shine-sweep-1 6s ease-in-out infinite;
+                }
+                .ta-shine-accent {
+                    -webkit-mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
+                    mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
+                    -webkit-mask-size: 250% 100%;
+                    mask-size: 250% 100%;
+                    filter: brightness(2.5) drop-shadow(0 0 1cqw var(--accent));
+                    animation: ta-shine-sweep-2 6s ease-in-out infinite 3s;
+                }
+                @keyframes ta-shine-sweep-1 {
+                    0% { -webkit-mask-position: 150% 0; mask-position: 150% 0; opacity: 0; }
+                    10% { opacity: 0.85; }
+                    40% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0.85; }
+                    50%, 100% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0; }
+                }
+                @keyframes ta-shine-sweep-2 {
+                    0% { -webkit-mask-position: 150% 0; mask-position: 150% 0; opacity: 0; }
+                    10% { opacity: 0.85; }
+                    40% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0.85; }
+                    50%, 100% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0; }
+                }
+                
+                .ta-logo-overlay {
+                    position: absolute;
+                    width: 70%;
+                    height: 90%;
+                    pointer-events: none;
+                    z-index: 4;
+                    overflow: hidden;
+                    border-radius: 8px;
+                }
+                .ta-laser-bar {
+                    position: absolute;
+                    width: 100%;
+                    height: 2px;
+                    background: linear-gradient(90deg, transparent, var(--accent2, #ffd700), transparent);
+                    box-shadow: 0 0 8px var(--accent2, #ffd700);
+                    top: 0;
+                    animation: ta-laser-move 4s ease-in-out infinite;
+                }
+                @keyframes ta-laser-move {
+                    0% { top: 0%; opacity: 0; }
+                    10% { opacity: 1; }
+                    90% { opacity: 1; }
+                    100% { top: 100%; opacity: 0; }
+                }
+                @keyframes ta-holo-pulse {
+                    0% { transform: scale(1); filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1); }
+                    50% { transform: scale(1.02); filter: drop-shadow(0 0 2.5cqw rgba(255, 42, 109, 0.55)) brightness(1.06); }
+                    100% { transform: scale(1); filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1); }
+                }
+                .ta-telemetry {
+                    position: absolute;
+                    font-family: monospace;
+                    font-size: clamp(0.5rem, 1.2cqh, 0.75rem);
+                    color: var(--accent2, #ffd700);
+                    opacity: 0.6;
+                    text-transform: uppercase;
+                    pointer-events: none;
+                    z-index: 5;
+                }
+                .ta-tel-tl { top: -5%; left: -10%; }
+                .ta-tel-tr { top: -5%; right: -10%; text-align: right; }
+                .ta-tel-bl { bottom: -5%; left: -10%; }
+                .ta-tel-br { bottom: -5%; right: -10%; text-align: right; }
+
                 .ta-text-side {
                     flex: 1;
                     display: flex;
@@ -5136,91 +6161,31 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(-360deg); }
                 }
-                @keyframes bearGlow {
-                    0% { filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.2)); }
-                    100% { filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6)); }
-                }
-                .ta-bear-glow-path {
-                    animation: bearGlow 3s ease-in-out infinite alternate;
-                }
             </style>
             
             <div class="slide-title-astorp" id="${id}">
                 <div class="ta-logo-side">
-                    <svg class="ta-logo-svg" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 50 C20 50, 200 20, 200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 C200 480, 20 430, 20 350 C20 300, 20 50, 20 50 Z" 
-                              stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
-                              fill="rgba(0,0,0,0.6)" />
-                        <path d="M20 50 C20 50, 200 20, 200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 C200 480, 20 430, 20 350 C20 300, 20 50, 20 50 Z" 
-                              stroke="var(--accent2, #ffd700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                              style="opacity: 0.5;" />
-                        <path d="M200 20 C200 20, 20 50, 20 50 C20 50, 20 300, 20 350 C20 430, 200 480, 200 480 L200 20 Z" 
-                              fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="2" />
-                        <path d="M200 20 C200 20, 380 50, 380 50 C380 50, 380 300, 380 350 C380 430, 200 480, 200 480 L200 20 Z" 
-                              fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.05)" stroke-width="2" />
-                        <line x1="200" y1="20" x2="200" y2="480" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
-                        <line x1="200" y1="40" x2="200" y2="460" stroke="var(--accent)" stroke-width="2" style="opacity: 0.8; filter: drop-shadow(0 0 4px var(--accent));" />
-                        <g transform="translate(10, 0)">
-                            <path d="M125 150 L160 170 L145 205 L110 205 L95 170 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" style="opacity:0.9;" />
-                            <path d="M100 135 L120 120 L135 145 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
-                            <circle cx="130" cy="175" r="4" fill="#ffd700" style="filter: drop-shadow(0 0 6px #ffd700); animation: ta-pulse 1s infinite alternate;" />
-                            <path d="M160 170 L180 185 L165 200 L145 205 Z" fill="#600f28" stroke="#ff2a6d" stroke-width="1.5" />
-                            <path d="M145 205 L160 215 L140 225 L125 215 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="1.5" />
-                            <path d="M160 195 C175 195, 185 205, 175 210" stroke="#ffd700" stroke-width="3" stroke-linecap="round" fill="none" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                            <path d="M110 205 L135 240 L120 310 L75 340 L65 310 L85 270 L75 230 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
-                            <path d="M125 220 L155 230 L185 215 L175 195 L145 210 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="1.5" />
-                            <path d="M185 215 L195 210 M182 223 L193 222 M180 207 L190 200" stroke="#ffd700" stroke-width="3.5" stroke-linecap="round" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                            <path d="M120 310 L135 370 L160 395 L170 380 L140 350 L135 310 Z" fill="#8b1d41" stroke="#ff2a6d" stroke-width="2" />
-                            <path d="M160 395 L172 400 M165 388 L175 390 M153 397 L163 403" stroke="#ffd700" stroke-width="3" stroke-linecap="round" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                            <path class="ta-bear-glow-path" d="M115 160 L130 185 L145 185 M105 215 L125 245 L115 285 L85 295 M125 270 L130 330 L150 365" 
-                                  stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" style="filter: drop-shadow(0 0 5px rgba(255,215,0,0.8));" />
-                            <circle cx="145" cy="185" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                            <circle cx="85" cy="295" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                            <circle cx="150" cy="365" r="3" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                        </g>
-                        <g transform="translate(290, 160)">
-                            <g style="animation: ta-spin-cw 12s linear infinite; transform-origin: 0px 0px;">
-                                <circle cx="0" cy="0" r="45" fill="rgba(200,200,220,0.15)" stroke="var(--accent2, #ffd700)" stroke-width="3" />
-                                <circle cx="0" cy="0" r="30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="4,4" />
-                                <circle cx="0" cy="0" r="15" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
-                                <line x1="-45" y1="0" x2="45" y2="0" stroke="var(--accent2, #ffd700)" stroke-width="2" />
-                                <line x1="0" y1="-45" x2="0" y2="45" stroke="var(--accent2, #ffd700)" stroke-width="2" />
-                                <line x1="-32" y1="-32" x2="32" y2="32" stroke="var(--accent2, #ffd700)" stroke-width="1.5" />
-                                <line x1="-32" y1="32" x2="32" y2="-32" stroke="var(--accent2, #ffd700)" stroke-width="1.5" />
-                                <path d="M-5 -45 L-3 -58 L3 -58 L5 -45 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M-5 45 L-3 58 L3 58 L5 45 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M-45 -5 L-58 -3 L-58 3 L-45 5 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M45 -5 L58 -3 L58 3 L45 5 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M-35 -28 L-46 -39 L-39 -46 L-28 -35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M35 28 L46 39 L39 46 L28 35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M-35 28 L-46 39 L-39 46 L-28 35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                                <path d="M35 -28 L46 -39 L39 -46 L28 -35 Z" fill="var(--accent2, #ffd700)" stroke="#fff" stroke-width="1" />
-                            </g>
-                            <circle cx="0" cy="0" r="6" fill="#fff" style="filter: drop-shadow(0 0 4px #fff);" />
-                        </g>
-                        <g transform="translate(290, 310)">
-                            <g style="animation: ta-spin-ccw 8s linear infinite; transform-origin: 0px 0px;">
-                                <circle cx="0" cy="0" r="35" fill="rgba(200,200,220,0.15)" stroke="var(--text, #fff)" stroke-width="3" />
-                                <circle cx="0" cy="0" r="22" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="3,3" />
-                                <circle cx="0" cy="0" r="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
-                                <line x1="-35" y1="0" x2="35" y2="0" stroke="var(--text, #fff)" stroke-width="2" />
-                                <line x1="0" y1="-35" x2="0" y2="35" stroke="var(--text, #fff)" stroke-width="2" />
-                                <line x1="-25" y1="-25" x2="25" y2="25" stroke="var(--text, #fff)" stroke-width="1" />
-                                <line x1="-25" y1="25" x2="25" y2="-25" stroke="var(--text, #fff)" stroke-width="1" />
-                                <path d="M-4 -35 L-2 -46 L2 -46 L4 -35 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M-4 35 L-2 -46 L2 46 L4 35 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M-35 -4 L-46 -2 L-46 2 L-35 4 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M35 -4 L46 -2 L46 2 L35 4 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M-28 -22 L-37 -31 L-31 -37 L-22 -28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M28 22 L37 31 L31 37 L22 28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M-28 22 L-37 31 L-31 37 L-22 28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                                <path d="M28 -22 L37 -31 L31 -37 L22 -28 Z" fill="var(--text, #fff)" stroke="rgba(255,255,255,0.8)" stroke-width="1" />
-                            </g>
-                            <circle cx="0" cy="0" r="5" fill="#ffd700" style="filter: drop-shadow(0 0 4px #ffd700);" />
-                        </g>
-                        <path d="M220 70 L240 70 M340 70 L360 70 M220 400 L240 400 M340 400 L360 400" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-                        <path d="M230 60 L230 80 M350 60 L350 80 M230 390 L230 410 M350 390 L350 410" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
-                    </svg>
+                    <div class="ta-logo-container">
+                        <canvas class="ta-logo-canvas"></canvas>
+                        
+                        <div class="ta-hud-ring-outer"></div>
+                        <div class="ta-hud-ring-inner"></div>
+                        
+                        <div class="ta-logo-overlay">
+                            <div class="ta-laser-bar"></div>
+                        </div>
+                        
+                        <div class="ta-logo-wrapper">
+                            <img src="assets/astorp_logo.svg" class="ta-logo-img" alt="Åstorps logotyp" />
+                            <img src="assets/astorp_logo.svg" class="ta-logo-shine ta-shine-gold" alt="" />
+                            <img src="assets/astorp_logo.svg" class="ta-logo-shine ta-shine-accent" alt="" />
+                        </div>
+                        
+                        <div class="ta-telemetry ta-tel-tl">SYS.LOC // 56.1347° N</div>
+                        <div class="ta-telemetry ta-tel-tr">SYS.LON // 12.9458° E</div>
+                        <div class="ta-telemetry ta-tel-bl">COGNITIVE.ACTIVE</div>
+                        <div class="ta-telemetry ta-tel-br">SEC.ISOLATED // GDPR</div>
+                    </div>
                 </div>
                 <div class="ta-text-side">
                     <div class="ta-badge">ÅSTORPS KOMMUN • BIN WORKSHOP</div>
@@ -5289,6 +6254,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'bento-grid': renderBentoGrid,
         'glitch-warning': renderGlitchWarning,
         'semantic-nebula': renderSemanticNebula,
+        'vector-nebula': renderVectorNebula,
         'prompt-card': renderPromptCard,
         'milestone-reveal': renderMilestoneReveal,
         'chaos-to-clarity': renderChaosToClarity,

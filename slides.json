@@ -88,6 +88,20 @@
       "cardTitle": "Så fungerar en LLM"
     },
     {
+      "id": "llm-latent-rymd-vektor",
+      "section": "start",
+      "type": "vector-nebula",
+      "title": "Ord som vektorer",
+      "cardTitle": "Det latenta rummet (Vektor-intro)",
+      "sentences": [
+        "Ord kan representeras som <strong>vektorer</strong> (koordinater) i ett matematiskt rum baserat på deras semantiska innebörd.",
+        "Skillnaden mellan 'Man' och 'Kung' kan beskrivas som en riktningspil – en vektor för <strong>+ Status</strong>.",
+        "Om vi tar samma förändringsvektor och flyttar den parallellt så att den utgår från ordet 'Kvinna'...",
+        "...så landar vi perfekt på koordinaten för <strong>'Drottning'</strong>! Formel: <strong>Kung - Man + Kvinna = Drottning</strong>.",
+        "Men i verkliga AI-modeller arbetar vi inte bara i 2 dimensioner... utan i <strong>tusentals dimensioner</strong> samtidigt!"
+      ]
+    },
+    {
       "id": "llm-latent-rymd",
       "section": "start",
       "type": "semantic-nebula",

@@ -753,20 +753,20 @@
       "title": "Virtuell Expertpanel i fyra steg",
       "boxes": [
         {
-          "title": "1. Sammansätt panelen",
-          "text": "Be AI:n sätta ihop 10 specialister med kompletterande kompetenser. Definiera tydligt vad de ska granska."
+          "title": "Sammansätt",
+          "text": "10 specialister. Olika kompetenser. Du bestämmer vilka."
         },
         {
-          "title": "2. Installera koordinatorn",
-          "text": "Lägg till instruktionen: 'Fråga mig hur jag vill gå vidare. Fortsätt aldrig utan mitt godkännande.'"
+          "title": "Koordinatorn",
+          "text": "En instruktion: 'Fråga mig innan du fortsätter.'"
         },
         {
-          "title": "3. Led processen",
-          "text": "Be om individuella åsikter först, sedan diskussion, sedan syntes. Du styr varje steg."
+          "title": "Led",
+          "text": "Individuella åsikter → Diskussion → Syntes. Du styr."
         },
         {
-          "title": "4. Spara och återanvänd",
-          "text": "Panelen blir permanent. Nästa gång du har en svår fråga har du redan ditt bollplank redo."
+          "title": "Återanvänd",
+          "text": "Spara panelen. Nästa svåra fråga? Bollplanket finns redo."
         }
       ],
       "sources": [

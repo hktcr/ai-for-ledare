@@ -5838,8 +5838,23 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     color: Math.random() > 0.6 ? '#8b1d41' : '#ffd700'
                 });
             }
+
+            // Create some binary/hex streams crawling upwards
+            const binaryStreams = [];
+            for (let i = 0; i < 10; i++) {
+                binaryStreams.push({
+                    x: (Math.random() - 0.5) * (orbitRadius * 1.6), // horizontal spread
+                    y: height * 0.2 + Math.random() * height * 0.6,
+                    speed: Math.random() * 0.8 + 0.4,
+                    chars: Array.from({length: 5}, () => Math.random() > 0.5 ? '1' : '0'),
+                    charOpacity: Math.random() * 0.35 + 0.1,
+                    changeTimer: 0
+                });
+            }
             
             let active = true;
+            let time = 0;
+            
             function animate() {
                 if (!active) return;
                 if (!document.body.contains(canvas)) {
@@ -5848,6 +5863,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     return;
                 }
                 ctx.clearRect(0, 0, width, height);
+                time += 1;
                 
                 // Draw grid
                 ctx.strokeStyle = 'rgba(139, 29, 65, 0.04)';
@@ -5865,10 +5881,102 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     ctx.lineTo(width, y);
                     ctx.stroke();
                 }
-                
-                // Update & Draw particles in orbit around the center logo
+
                 const centerX = width / 2;
                 const centerY = height / 2;
+
+                // Draw projector cone radiating upwards from bottom
+                ctx.save();
+                const gradProj = ctx.createLinearGradient(centerX, height, centerX, centerY);
+                gradProj.addColorStop(0, 'rgba(255, 42, 109, 0)');
+                gradProj.addColorStop(0.5, 'rgba(139, 29, 65, 0.06)');
+                gradProj.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX - 35, height);
+                ctx.lineTo(centerX + 35, height);
+                ctx.lineTo(centerX + orbitRadius * 0.7, centerY);
+                ctx.lineTo(centerX - orbitRadius * 0.7, centerY);
+                ctx.closePath();
+                ctx.fillStyle = gradProj;
+                ctx.fill();
+                ctx.restore();
+
+                // Draw thin telemetry crosshairs
+                ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
+                ctx.lineWidth = 1;
+                const crossInner = orbitRadius * 0.52;
+                const crossOuter = orbitRadius * 0.88;
+                
+                ctx.beginPath();
+                // Vertical lines
+                ctx.moveTo(centerX, centerY - crossOuter);
+                ctx.lineTo(centerX, centerY - crossInner);
+                ctx.moveTo(centerX, centerY + crossInner);
+                ctx.lineTo(centerX, centerY + crossOuter);
+                // Horizontal lines
+                ctx.moveTo(centerX - crossOuter, centerY);
+                ctx.lineTo(centerX - crossInner, centerY);
+                ctx.moveTo(centerX + crossInner, centerY);
+                ctx.lineTo(centerX + crossOuter, centerY);
+                ctx.stroke();
+
+                // Draw Concentric Rotating Ticks Disc
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(time * 0.002);
+                
+                ctx.strokeStyle = 'rgba(255, 42, 109, 0.18)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(0, 0, orbitRadius * 0.75, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                ctx.strokeStyle = 'rgba(255, 215, 0, 0.25)';
+                const tickCount = 36;
+                for (let i = 0; i < tickCount; i++) {
+                    const angle = (i / tickCount) * Math.PI * 2;
+                    const cos = Math.cos(angle);
+                    const sin = Math.sin(angle);
+                    const innerR = orbitRadius * 0.73;
+                    const outerR = orbitRadius * 0.77;
+                    ctx.beginPath();
+                    ctx.moveTo(cos * innerR, sin * innerR);
+                    ctx.lineTo(cos * outerR, sin * outerR);
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                // Draw crawling binary codes
+                ctx.save();
+                ctx.font = '8px monospace';
+                ctx.fillStyle = 'rgba(0, 255, 255, 0.35)';
+                binaryStreams.forEach(stream => {
+                    stream.y -= stream.speed;
+                    if (stream.y < centerY - orbitRadius * 0.85) {
+                        stream.y = centerY + orbitRadius * 0.85 + Math.random() * 40;
+                        stream.x = (Math.random() - 0.5) * (orbitRadius * 1.6);
+                    }
+                    
+                    stream.changeTimer++;
+                    if (stream.changeTimer > 18) {
+                        stream.chars.shift();
+                        stream.chars.push(Math.random() > 0.5 ? '1' : '0');
+                        stream.changeTimer = 0;
+                    }
+                    
+                    ctx.globalAlpha = stream.charOpacity * (1 - Math.abs(stream.y - centerY) / (orbitRadius * 0.85));
+                    const drawX = centerX + stream.x;
+                    let drawY = stream.y;
+                    
+                    stream.chars.forEach((char, index) => {
+                        ctx.fillText(char, drawX, drawY + index * 10);
+                    });
+                });
+                ctx.restore();
+                ctx.globalAlpha = 1.0;
+                
+                // Update & Draw particles in orbit around the center logo
                 particles.forEach(p => {
                     p.angle += p.speed;
                     const x = centerX + Math.cos(p.angle) * p.radius;
@@ -5900,6 +6008,33 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             }
             animate();
         }, 200);
+
+        // Compile dynamic footer elements based on presenter existence
+        const footerItems = [];
+        if (s.presenter?.name) {
+            footerItems.push(`
+                <div class="ta-footer-item">
+                    <span class="ta-footer-label">FÖRELÄSARE</span>
+                    <span class="ta-footer-val">${s.presenter.name}</span>
+                </div>
+            `);
+        }
+        if (s.presenter?.title) {
+            footerItems.push(`
+                <div class="ta-footer-item">
+                    <span class="ta-footer-label">ROLL</span>
+                    <span class="ta-footer-val">${s.presenter.title}</span>
+                </div>
+            `);
+        }
+        footerItems.push(`
+            <div class="ta-footer-item">
+                <span class="ta-footer-label">DATUM</span>
+                <span class="ta-footer-val">${s.note || '21 maj 2026'}</span>
+            </div>
+        `);
+        
+        const footerHtml = footerItems.join('<div class="ta-divider"></div>');
 
         return `
             <style>
@@ -5967,23 +6102,27 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 }
                 .ta-hud-ring-outer {
                     position: absolute;
-                    width: 110%;
-                    height: 110%;
-                    border: 2px dashed var(--accent2, #ffd700);
+                    width: 112%;
+                    height: 112%;
+                    border: 1px solid rgba(255, 215, 0, 0.15);
+                    border-top: 3px solid var(--accent2, #ffd700);
+                    border-bottom: 3px solid var(--accent2, #ffd700);
                     border-radius: 50%;
-                    opacity: 0.25;
-                    animation: ta-spin-cw 25s linear infinite;
+                    opacity: 0.4;
+                    animation: ta-spin-cw 20s linear infinite;
                     pointer-events: none;
                     z-index: 2;
                 }
                 .ta-hud-ring-inner {
                     position: absolute;
-                    width: 95%;
-                    height: 95%;
+                    width: 92%;
+                    height: 92%;
                     border: 1px dashed var(--accent);
+                    border-left: 2px solid var(--accent);
+                    border-right: 2px solid var(--accent);
                     border-radius: 50%;
-                    opacity: 0.4;
-                    animation: ta-spin-ccw 15s linear infinite;
+                    opacity: 0.5;
+                    animation: ta-spin-ccw 12s linear infinite;
                     pointer-events: none;
                     z-index: 2;
                 }
@@ -6002,7 +6141,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     height: auto;
                     max-height: 80cqh;
                     filter: drop-shadow(0 0 2cqw rgba(139, 29, 65, 0.45));
-                    animation: ta-holo-pulse 4s ease-in-out infinite alternate;
+                    animation: ta-holo-glitch 6s ease-in-out infinite;
                     position: relative;
                     z-index: 3;
                 }
@@ -6067,10 +6206,61 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     90% { opacity: 1; }
                     100% { top: 100%; opacity: 0; }
                 }
-                @keyframes ta-holo-pulse {
-                    0% { transform: scale(1); filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1); }
-                    50% { transform: scale(1.02); filter: drop-shadow(0 0 2.5cqw rgba(255, 42, 109, 0.55)) brightness(1.06); }
-                    100% { transform: scale(1); filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1); }
+                @keyframes ta-holo-glitch {
+                    /* Pulse Phase */
+                    0% {
+                        transform: scale(1) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
+                    }
+                    30% {
+                        transform: scale(1.025) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 2.5cqw rgba(139, 29, 65, 0.55)) brightness(1.05);
+                    }
+                    60% {
+                        transform: scale(1) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
+                    }
+                    /* Micro Glitch Phase */
+                    88% {
+                        transform: scale(1) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
+                        opacity: 1;
+                    }
+                    89% {
+                        transform: scale(1.04) translate(-4px, 2px) skewX(-6deg);
+                        filter: drop-shadow(-5px 0 0 rgba(0, 255, 255, 0.7)) drop-shadow(5px 0 0 rgba(255, 42, 109, 0.7)) brightness(1.4);
+                        opacity: 0.9;
+                    }
+                    90% {
+                        transform: scale(0.97) translate(3px, -2px) skewX(5deg);
+                        filter: drop-shadow(-3px 0 0 rgba(255, 215, 0, 0.8)) drop-shadow(3px 0 0 rgba(139, 29, 65, 0.8)) brightness(1.25);
+                        opacity: 0.85;
+                    }
+                    91% {
+                        transform: scale(1.01) translate(0) skewX(0deg);
+                        filter: drop-shadow(0 0 2cqw rgba(139, 29, 65, 0.45)) brightness(1);
+                        opacity: 1;
+                    }
+                    95% {
+                        transform: scale(1) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
+                        opacity: 1;
+                    }
+                    96% {
+                        transform: scale(1.03) translate(-2px, -3px) skewX(4deg);
+                        filter: drop-shadow(-4px 0 0 rgba(0, 255, 255, 0.6)) drop-shadow(4px 0 0 rgba(255, 42, 109, 0.6)) brightness(1.35);
+                        opacity: 0.92;
+                    }
+                    97% {
+                        transform: scale(0.98) translate(2px, 3px) skewX(-4deg);
+                        filter: drop-shadow(-2px 0 0 rgba(255, 215, 0, 0.7)) drop-shadow(2px 0 0 rgba(139, 29, 65, 0.7)) brightness(1.15);
+                        opacity: 0.95;
+                    }
+                    98%, 100% {
+                        transform: scale(1) translate(0) skew(0deg);
+                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
+                        opacity: 1;
+                    }
                 }
                 .ta-telemetry {
                     position: absolute;
@@ -6203,20 +6393,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     </h1>
                     <p class="ta-subtitle">${s.subtitle || 'Från chattbottar till autonoma agenter'}</p>
                     <div class="ta-footer">
-                        <div class="ta-footer-item">
-                            <span class="ta-footer-label">FÖRELÄSARE</span>
-                            <span class="ta-footer-val">${s.presenter?.name || 'Håkan Karlsson'}</span>
-                        </div>
-                        <div class="ta-divider"></div>
-                        <div class="ta-footer-item">
-                            <span class="ta-footer-label">ROLL</span>
-                            <span class="ta-footer-val">${s.presenter?.title || 'Kommunlektor'}</span>
-                        </div>
-                        <div class="ta-divider"></div>
-                        <div class="ta-footer-item">
-                            <span class="ta-footer-label">DATUM</span>
-                            <span class="ta-footer-val">${s.note || '21 maj 2026'}</span>
-                        </div>
+                        ${footerHtml}
                     </div>
                 </div>
             </div>

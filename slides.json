@@ -721,7 +721,7 @@
       "cardTitle": "Du är dirigenten",
       "title": "Du är dirigenten",
       "subtitle": "Tre roller. En princip. Du bestämmer.",
-      "steps": [
+      "nodes": [
         {
           "label": "Experterna",
           "hint": "5, 10 eller 20 specialister med olika kompetenser. De ger insikt och perspektiv.",

@@ -715,6 +715,68 @@
       ]
     },
     {
+      "id": "du-ar-dirigenten",
+      "section": "agenter",
+      "type": "process-chain",
+      "cardTitle": "Du är dirigenten",
+      "title": "Du är dirigenten",
+      "subtitle": "Tre roller. En princip. Du bestämmer.",
+      "steps": [
+        {
+          "label": "Experterna",
+          "hint": "5, 10 eller 20 specialister med olika kompetenser. De ger insikt och perspektiv.",
+          "icon": "🎻"
+        },
+        {
+          "label": "Koordinatorn",
+          "hint": "Din konsertmästare. Faciliterar processen och frågar DIG hur ni ska gå vidare. Tar aldrig egna beslut.",
+          "icon": "🎼"
+        },
+        {
+          "label": "DU",
+          "hint": "Dirigenten. Du bestämmer tempo, djup och riktning. AI:n hjälper dig. Den leder dig inte.",
+          "icon": "🎯"
+        }
+      ],
+      "sources": [
+        {
+          "text": "Teachiq/KM Workshop (nov 2025): The Conductor Mindset",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
+      "id": "vep-i-praktiken",
+      "section": "agenter",
+      "type": "box-reveal",
+      "cardTitle": "VEP i praktiken",
+      "title": "Virtuell Expertpanel i fyra steg",
+      "boxes": [
+        {
+          "title": "1. Sammansätt panelen",
+          "text": "Be AI:n sätta ihop 10 specialister med kompletterande kompetenser. Definiera tydligt vad de ska granska."
+        },
+        {
+          "title": "2. Installera koordinatorn",
+          "text": "Lägg till instruktionen: 'Fråga mig hur jag vill gå vidare. Fortsätt aldrig utan mitt godkännande.'"
+        },
+        {
+          "title": "3. Led processen",
+          "text": "Be om individuella åsikter först, sedan diskussion, sedan syntes. Du styr varje steg."
+        },
+        {
+          "title": "4. Spara och återanvänd",
+          "text": "Panelen blir permanent. Nästa gång du har en svår fråga har du redan ditt bollplank redo."
+        }
+      ],
+      "sources": [
+        {
+          "text": "Teachiq/KM Workshop (nov 2025): VEP Protocol",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
       "id": "vardags-vep",
       "section": "agenter",
       "type": "prompt-card",

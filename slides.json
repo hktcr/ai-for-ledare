@@ -43,7 +43,8 @@
       "text": "Jag är kommunlektor i Åstorp och gymnasielärare i biologi/matematik, med vetenskaplig bakgrund i beräkningsbiologi och evolutionär ekologi.",
       "attribution": "Håkan Karlsson",
       "context": "hakan.karlsson@edu.astorp.se",
-      "animation": "slide-left"
+      "animation": "slide-left",
+      "cardTitle": "Håkan Karlsson"
     },
     {
       "id": "dialog-first",
@@ -51,7 +52,8 @@
       "type": "quote",
       "text": "*Dialog* före monolog. Avbryt mig. Ställ frågor. *Vi lär av varandra.*",
       "author": "",
-      "style": "typewriter"
+      "style": "typewriter",
+      "cardTitle": "Dialog före monolog"
     },
     {
       "id": "myth-magic-prompt",
@@ -61,13 +63,15 @@
       "badge": "MYTEN OM DEN MAGISKA PROMPTEN",
       "question": "Tror vi att den perfekta superprompten löser alla våra problem?",
       "answer": "Ja. Vi letar ständigt efter genvägar och virala hack.",
-      "correction": "Nej. Vi bygger förmåga genom iterativ dialog. Vi ersätter jakten på magiska ord med din egen expertis och tydliga principer."
+      "correction": "Nej. Vi bygger förmåga genom iterativ dialog. Vi ersätter jakten på magiska ord med din egen expertis och tydliga principer.",
+      "cardTitle": "Myten om den magiska prompten"
     },
     {
       "id": "llm-mekanik",
       "section": "start",
       "type": "token-spinner",
-      "text": "En stor språkmodell är i grunden en avancerad autokorrigering som gissar nästa ord. Eller?"
+      "text": "En stor språkmodell är i grunden en avancerad autokorrigering som gissar nästa ord. Eller?",
+      "cardTitle": "Så fungerar en LLM"
     },
     {
       "id": "llm-latent-rymd",
@@ -81,7 +85,8 @@
         "Strålar av uppmärksamhet söker kopplingar.",
         "Fakta, mönster och toner kondenseras...",
         "...tills ett nytt svar dröms fram."
-      ]
+      ],
+      "cardTitle": "Det latenta rummet"
     },
     {
       "id": "syntes-kognition",
@@ -369,7 +374,8 @@
           "quality": "dubbelt så mycket, dubbelt så bra",
           "time": "hälften så lång tid"
         }
-      ]
+      ],
+      "cardTitle": "Tänk om..."
     },
     {
       "id": "ai-laboratorier-karta",
@@ -466,8 +472,9 @@
       "phrases": [
         "Från publik till dirigent",
         "AI ger dig taktpinnen",
-        "Frågan är vad ni spelar"
-      ]
+        "Orkestern väntar på er"
+      ],
+      "cardTitle": "Från publik till dirigent"
     },
     {
       "id": "stat-kompression",

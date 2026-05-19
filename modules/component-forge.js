@@ -702,7 +702,7 @@
         }
         .bento-title { font-size: 3rem; margin-bottom: 2rem; font-weight: 700; color: var(--text); }
         .bento-container {
-            display: grid; grid-template-columns: repeat(3, 1fr);
+            display: grid; grid-template-columns: repeat(var(--bento-cols, 3), 1fr);
             gap: 1.5rem; width: 100%; max-width: 1200px; margin: 0 auto;
         }
         .bento-item {
@@ -715,6 +715,7 @@
             opacity: 0; transform: translateY(30px);
         }
         .bento-icon { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+        .bento-icon-img { width: 100%; max-height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; }
         .bento-item-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); margin-bottom: 0.5rem; color: white; font-weight: 600; }
         .bento-item-text { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--text-muted); line-height: 1.5; }
 
@@ -3838,13 +3839,17 @@
      */
     function renderBentoGrid(s) {
         const id = 'bento-' + Math.random().toString(36).slice(2, 8);
-        let html = `<div class="slide-bento-grid no-click-advance" id="${id}">`;
+        const cols = s.columns || 3;
+        let html = `<div class="slide-bento-grid no-click-advance" id="${id}" style="--bento-cols:${cols}">`;
         if (s.title) html += `<h2 class="bento-title">${s.title}</h2>`;
         html += `<div class="bento-container">`;
         (s.items || []).forEach((item, i) => {
+            const iconHtml = item.iconSrc
+                ? `<img class="bento-icon-img" src="${item.iconSrc}" alt="${item.title || ''}" />`
+                : `<div class="bento-icon">${item.icon || '✨'}</div>`;
             html += `
                 <div class="bento-item step-hidden" style="grid-column: span ${item.colSpan || 1};">
-                    <div class="bento-icon">${item.icon || '✨'}</div>
+                    ${iconHtml}
                     <h3 class="bento-item-title">${item.title}</h3>
                     <div class="bento-item-text">${item.text}</div>
                 </div>

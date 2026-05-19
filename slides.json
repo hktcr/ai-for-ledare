@@ -751,6 +751,7 @@
       "type": "bento-grid",
       "cardTitle": "VEP i praktiken",
       "title": "Virtuell Expertpanel i fyra steg",
+      "columns": 2,
       "items": [
         {
           "iconSrc": "assets/vep-assemble.png",

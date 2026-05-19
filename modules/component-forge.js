@@ -1686,7 +1686,7 @@
         .slide-mindmap-tree .mt-branch { background: rgba(34,211,238,0.15); border-color: #22d3ee; }
         .slide-mindmap-tree .mt-leaf { background: rgba(168,85,247,0.15); border-color: #a855f7; font-size: 0.9rem; font-weight: 400; }
 
-        /* ===== SIGNATURE: LETTER MORPH ===== */
+        /* ===== SIGNATURE: LETTER MORPH (v2 — Scatter → Blink → Glow → Form → Scatter) ===== */
         .slide-letter-morph {
             position: relative; min-height: 70vh; width: 100%;
             display: flex; align-items: center; justify-content: center;
@@ -1695,18 +1695,45 @@
         .slide-letter-morph .lm-letter {
             position: absolute; font-family: 'Inter', sans-serif;
             font-weight: 700; pointer-events: none;
-            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 1.4s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, opacity, left, top, font-size, color, text-shadow;
         }
-        .slide-letter-morph .lm-letter.lm-active {
+        /* Scattered state — dim, random rotation */
+        .slide-letter-morph .lm-letter.lm-scatter {
+            color: rgba(255,255,255,0.12);
+            text-shadow: none;
+        }
+        /* Blink state — quick orange flash */
+        .slide-letter-morph .lm-letter.lm-blink {
+            color: var(--accent, #f97316);
+            opacity: 0.7 !important;
+            text-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
+            animation: lm-blink-pulse 0.4s ease-in-out;
+        }
+        @keyframes lm-blink-pulse {
+            0% { opacity: 0.12; }
+            50% { opacity: 0.9; }
+            100% { opacity: 0.3; }
+        }
+        /* Glow state — pulsing orange, growing stronger */
+        .slide-letter-morph .lm-letter.lm-glow {
+            color: var(--accent, #f97316);
+            text-shadow: 0 0 20px rgba(249, 115, 22, 0.9), 0 0 40px rgba(249, 115, 22, 0.4);
+            animation: lm-glow-breathe 1.2s ease-in-out infinite;
+        }
+        @keyframes lm-glow-breathe {
+            0%, 100% { text-shadow: 0 0 15px rgba(249, 115, 22, 0.6), 0 0 30px rgba(249, 115, 22, 0.2); }
+            50% { text-shadow: 0 0 25px rgba(249, 115, 22, 1), 0 0 50px rgba(249, 115, 22, 0.5); }
+        }
+        /* Formed state — locked in place, clean white */
+        .slide-letter-morph .lm-letter.lm-formed {
             color: var(--text, #f1f5f9);
+            text-shadow: 0 0 6px rgba(249, 115, 22, 0.2);
+            opacity: 1 !important;
         }
-        .slide-letter-morph .lm-letter.lm-highlight {
-            color: var(--accent, #f97316); opacity: 0.9 !important;
-            text-shadow: 0 0 15px rgba(249, 115, 22, 0.8);
-            z-index: 10;
-        }
+        /* Unused frame letters — very faint */
         .slide-letter-morph .lm-letter.lm-frame {
-            color: var(--accent, #f97316); opacity: 0.06;
+            color: var(--accent, #f97316); opacity: 0.04;
         }
         .slide-letter-morph .lm-hint {
             position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
@@ -3188,17 +3215,16 @@
         `;
     }
 
-    // ===== SIGNATURE: LETTER MORPH =====
-
     /**
-     * letter-morph — Scattered letters form words, unused become elliptical frame.
+     * letter-morph v2 — Scatter → Blink → Glow → Form → Scatter-back.
      * Props: phrases[] (array of strings)
-     * Click to cycle through phrases.
+     * Click to cycle through phrases. Letters start scattered, needed ones
+     * blink orange, glow increasingly, form the sentence, then scatter back.
      */
     function renderLetterMorph(s) {
         const id = 'lm-' + Math.random().toString(36).slice(2, 8);
         const phrases = s.phrases || ['Hej världen'];
-        const totalLetters = 150; 
+        const totalLetters = 120;
 
         setTimeout(() => {
             const el = document.getElementById(id);
@@ -3207,50 +3233,53 @@
             let phraseIdx = 0;
             let letters = [];
             let seed = 42;
-            let isMorphing = false;
+            let isAnimating = false;
 
             function rng() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
 
+            // Generate a random scatter position for a letter
+            function scatterPos(i) {
+                const angle = (i / totalLetters) * Math.PI * 2 + (rng() - 0.5) * 2;
+                return {
+                    x: (rng() * 88 + 6) + '%',
+                    y: (rng() * 82 + 8) + '%',
+                    rot: Math.round((rng() - 0.5) * 70),
+                    size: (12 + rng() * 18) + 'px'
+                };
+            }
+
+            // Phase 0: Create all letters in scattered state
             function createLetters() {
                 letters.forEach(l => l.el && l.el.remove());
                 letters = [];
                 seed = 42;
                 for (let i = 0; i < totalLetters; i++) {
                     const span = document.createElement('span');
-                    span.className = 'lm-letter';
+                    span.className = 'lm-letter lm-scatter';
                     span.textContent = alphabet[Math.floor(rng() * alphabet.length)];
-                    span.style.fontSize = (14 + rng() * 20) + 'px';
-                    span.style.left = (rng() * 90 + 5) + '%';
-                    span.style.top = (rng() * 85 + 5) + '%';
-                    span.style.opacity = '0.08';
-                    span.style.transform = 'rotate(' + (rng() * 60 - 30) + 'deg)';
+                    const pos = scatterPos(i);
+                    span.style.fontSize = pos.size;
+                    span.style.left = pos.x;
+                    span.style.top = pos.y;
+                    span.style.opacity = (0.06 + rng() * 0.08).toFixed(2);
+                    span.style.transform = 'translate(-50%, -50%) rotate(' + pos.rot + 'deg)';
                     el.appendChild(span);
-                    letters.push({ el: span, role: 'scatter' });
+                    letters.push({ el: span, scatterPos: pos });
                 }
             }
 
-            function morphTo(phrase) {
+            // Measure target positions for a phrase
+            function measurePhrase(phrase) {
                 const layout = document.createElement('div');
-                layout.style.position = 'absolute';
-                layout.style.inset = '0';
-                layout.style.display = 'flex';
-                layout.style.flexWrap = 'wrap';
-                layout.style.justifyContent = 'center';
-                layout.style.alignItems = 'center';
-                layout.style.alignContent = 'center';
-                layout.style.padding = '10%';
-                layout.style.gap = '1.5rem';
-                layout.style.visibility = 'hidden';
-                
+                layout.style.cssText = 'position:absolute;inset:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;align-content:center;padding:10%;gap:1.5rem;visibility:hidden;';
                 const charsCount = phrase.replace(/\s+/g, '').length;
-                const fontClamp = charsCount > 40 ? 'clamp(1.5rem, 4vmin, 3.5rem)' : 'clamp(2rem, 6vmin, 5rem)';
+                const fontClamp = charsCount > 30 ? 'clamp(1.8rem, 5vmin, 4rem)' : 'clamp(2.2rem, 7vmin, 5.5rem)';
                 layout.style.fontSize = fontClamp;
                 layout.style.fontWeight = '700';
                 layout.style.textAlign = 'center';
-                
+
                 const words = phrase.toUpperCase().split(' ');
-                const targetSpans = [];
-                
+                const targets = [];
                 words.forEach(word => {
                     const wordDiv = document.createElement('div');
                     wordDiv.style.display = 'flex';
@@ -3258,102 +3287,138 @@
                         const span = document.createElement('span');
                         span.textContent = char;
                         wordDiv.appendChild(span);
-                        targetSpans.push({ char, span });
+                        targets.push({ char, span });
                     });
                     layout.appendChild(wordDiv);
                 });
-                
                 el.appendChild(layout);
-                
-                // Use offsetLeft/Top traversal
-                const targetCoords = targetSpans.map(t => {
-                    let x = t.span.offsetLeft;
-                    let y = t.span.offsetTop;
+
+                const coords = targets.map(t => {
+                    let x = t.span.offsetLeft, y = t.span.offsetTop;
                     let p = t.span.offsetParent;
-                    while(p && p !== el) {
-                        x += p.offsetLeft;
-                        y += p.offsetTop;
-                        p = p.offsetParent;
-                    }
-                    return {
-                        char: t.char,
-                        x: x,
-                        y: y,
-                        width: t.span.offsetWidth,
-                        height: t.span.offsetHeight
-                    };
+                    while (p && p !== el) { x += p.offsetLeft; y += p.offsetTop; p = p.offsetParent; }
+                    return { char: t.char, x: x + t.span.offsetWidth / 2, y: y + t.span.offsetHeight / 2, fontClamp };
                 });
                 el.removeChild(layout);
-
-                letters.forEach((l, i) => {
-                    if (i < targetCoords.length) {
-                        l.el.textContent = targetCoords[i].char;
-                    } else {
-                        l.el.textContent = alphabet[Math.floor(Math.abs(Math.sin(i * 7.3 + phraseIdx)) * alphabet.length)];
-                    }
-                    l.el.className = 'lm-letter lm-frame';
-                    l.el.style.fontSize = (1 + Math.abs(Math.sin(i * 2.1)) * 1.5) + 'rem';
-                    l.el.style.opacity = '0.04';
-                    l.el.style.transform = 'translate(-50%, -50%) rotate(' + Math.round(Math.sin(i * 3.4) * 45) + 'deg)';
-                    const rx = (Math.abs(Math.sin(i * 12.3 + phraseIdx)) * 90 + 5);
-                    const ry = (Math.abs(Math.cos(i * 18.1 + phraseIdx)) * 90 + 5);
-                    l.el.style.left = rx + '%';
-                    l.el.style.top = ry + '%';
-                });
-
-                document.getElementById(`${id}-counter`).textContent = (phraseIdx + 1) + ' / ' + phrases.length;
-
-                if (!el.dataset.firstRunDone) {
-                    el.dataset.firstRunDone = "true";
-                    targetCoords.forEach((t, i) => {
-                        const l = letters[i];
-                        l.el.className = 'lm-letter lm-active';
-                        l.el.style.fontSize = fontClamp;
-                        l.el.style.opacity = '1';
-                        l.el.style.transform = 'translate(-50%, -50%) rotate(0deg)';
-                        l.el.style.left = (t.x + t.width/2) + 'px';
-                        l.el.style.top = (t.y + t.height/2) + 'px';
-                    });
-                    isMorphing = false;
-                    return;
-                }
-
-                setTimeout(() => {
-                    targetCoords.forEach((t, i) => {
-                        const l = letters[i];
-                        l.el.className = 'lm-letter lm-highlight';
-                    });
-                }, 800);
-
-                setTimeout(() => {
-                    targetCoords.forEach((t, i) => {
-                        const l = letters[i];
-                        l.el.className = 'lm-letter lm-active';
-                        l.el.style.fontSize = fontClamp;
-                        l.el.style.opacity = '1';
-                        l.el.style.transform = 'translate(-50%, -50%) rotate(0deg)';
-                        l.el.style.left = (t.x + t.width/2) + 'px';
-                        l.el.style.top = (t.y + t.height/2) + 'px';
-                    });
-                    setTimeout(() => { isMorphing = false; }, 1200);
-                }, 1800);
+                return coords;
             }
 
+            // Full animation cycle for a phrase
+            async function animatePhrase(phrase) {
+                isAnimating = true;
+                const targets = measurePhrase(phrase);
+                document.getElementById(`${id}-counter`).textContent = (phraseIdx + 1) + ' / ' + phrases.length;
+
+                // Assign characters: first N letters get target chars, rest stay random
+                letters.forEach((l, i) => {
+                    if (i < targets.length) {
+                        l.el.textContent = targets[i].char;
+                        l.role = 'target';
+                    } else {
+                        l.el.textContent = alphabet[Math.floor(Math.abs(Math.sin(i * 7.3 + phraseIdx * 3.7)) * alphabet.length)];
+                        l.role = 'bg';
+                    }
+                });
+
+                // Phase 1: BLINK — target letters flash orange briefly (staggered)
+                for (let i = 0; i < targets.length; i++) {
+                    const delay = 30 + Math.random() * 80;
+                    setTimeout(() => {
+                        letters[i].el.className = 'lm-letter lm-blink';
+                        letters[i].el.style.opacity = '0.7';
+                    }, i * delay);
+                }
+                await sleep(targets.length * 50 + 500);
+
+                // Phase 2: GLOW — target letters start pulsing, increasingly stronger
+                for (let i = 0; i < targets.length; i++) {
+                    letters[i].el.className = 'lm-letter lm-glow';
+                    letters[i].el.style.opacity = '0.85';
+                    letters[i].el.style.zIndex = '10';
+                }
+                // Dim background letters further
+                letters.forEach((l, i) => {
+                    if (l.role === 'bg') {
+                        l.el.style.opacity = '0.03';
+                        l.el.className = 'lm-letter lm-frame';
+                    }
+                });
+                await sleep(1200);
+
+                // Phase 3: FORM — target letters fly to their positions
+                const fontClamp = targets[0].fontClamp;
+                for (let i = 0; i < targets.length; i++) {
+                    const l = letters[i];
+                    const t = targets[i];
+                    l.el.className = 'lm-letter lm-formed';
+                    l.el.style.fontSize = fontClamp;
+                    l.el.style.opacity = '1';
+                    l.el.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                    l.el.style.left = t.x + 'px';
+                    l.el.style.top = t.y + 'px';
+                    l.el.style.zIndex = '10';
+                }
+                await sleep(2500);
+
+                isAnimating = false;
+            }
+
+            // Scatter all letters back to random positions
+            async function scatterBack() {
+                isAnimating = true;
+                seed = Date.now() % 100000;
+                letters.forEach((l, i) => {
+                    const pos = scatterPos(i);
+                    l.el.className = 'lm-letter lm-scatter';
+                    l.el.style.fontSize = pos.size;
+                    l.el.style.left = pos.x;
+                    l.el.style.top = pos.y;
+                    l.el.style.opacity = (0.06 + Math.random() * 0.08).toFixed(2);
+                    l.el.style.transform = 'translate(-50%, -50%) rotate(' + pos.rot + 'deg)';
+                    l.el.style.zIndex = '1';
+                    l.el.textContent = alphabet[Math.floor(Math.random() * alphabet.length)];
+                });
+                await sleep(1400);
+                isAnimating = false;
+            }
+
+            function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+            // Initialize
             createLetters();
+
+            // Auto-start on first visibility
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && !el.dataset.initialized) {
                     el.dataset.initialized = "true";
-                    isMorphing = true;
-                    setTimeout(() => morphTo(phrases[phraseIdx]), 50);
+                    animatePhrase(phrases[phraseIdx]);
                 }
             });
             observer.observe(el);
 
+            // Click / navigation to cycle phrases
+            window.handleNextStep = () => {
+                if (isAnimating) return true;
+                if (phraseIdx < phrases.length - 1) {
+                    (async () => {
+                        await scatterBack();
+                        phraseIdx++;
+                        await animatePhrase(phrases[phraseIdx]);
+                    })();
+                    return true;
+                }
+                return false;
+            };
+
             el.addEventListener('click', () => {
-                if (el.dataset.initialized && !isMorphing) {
-                    isMorphing = true;
-                    phraseIdx = (phraseIdx + 1) % phrases.length;
-                    morphTo(phrases[phraseIdx]);
+                if (el.dataset.initialized && !isAnimating) {
+                    if (phraseIdx < phrases.length - 1) {
+                        (async () => {
+                            await scatterBack();
+                            phraseIdx++;
+                            await animatePhrase(phrases[phraseIdx]);
+                        })();
+                    }
                 }
             });
         }, 100);

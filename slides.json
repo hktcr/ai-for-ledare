@@ -748,35 +748,39 @@
     {
       "id": "vep-i-praktiken",
       "section": "agenter",
-      "type": "bento-grid",
+      "type": "vep-stepper",
       "cardTitle": "VEP i praktiken",
-      "title": "Virtuell Expertpanel i fyra steg",
-      "columns": 2,
-      "items": [
+      "title": "Virtuell Expertpanel (VEP)",
+      "steps": [
         {
-          "iconSrc": "assets/vep-assemble.png",
-          "title": "Sammansätt",
-          "text": "10 specialister. Olika kompetenser. Du bestämmer vilka."
+          "image": "assets/vep-assemble.png",
+          "title": "Sammansätt panelen",
+          "text": "Definiera 10 specialister med olika kompetenser. Du väljer vilka perspektiv du behöver: pedagogik, juridik, psykologi, tillgänglighet. Panelen anpassas efter DIN verklighet."
         },
         {
-          "iconSrc": "assets/vep-coordinator.png",
-          "title": "Koordinatorn",
-          "text": "'Fråga mig innan du fortsätter.' En instruktion som förändrar allt."
+          "image": "assets/vep-coordinator.png",
+          "title": "Installera koordinatorn",
+          "text": "En enda instruktion förändrar allt: 'Fråga mig hur jag vill gå vidare. Fortsätt aldrig utan mitt godkännande.' Utan den tar AI:n över. Med den har du kontrollen."
         },
         {
-          "iconSrc": "assets/vep-lead.png",
-          "title": "Led",
-          "text": "Åsikter → Diskussion → Syntes. Du styr varje steg."
+          "image": "assets/vep-lead.png",
+          "title": "Individuella åsikter först",
+          "text": "Be varje expert granska ditt material oberoende av varandra. Du får 10 perspektiv utan att de påverkar varandra. Sedan bestämmer DU vilka trådar du vill dra i."
         },
         {
-          "iconSrc": "assets/vep-reuse.png",
-          "title": "Återanvänd",
-          "text": "Spara panelen som en Gem. Ditt bollplank finns redo."
+          "image": "assets/vep-redteam.png",
+          "title": "Red Team: Hitta svagheterna",
+          "text": "Be panelen diskutera och ifrågasätta. Var är bristerna? Vad missar vi? Varje expert lyfter sin primära oro. Du navigerar konflikterna och styr mot konsensus."
+        },
+        {
+          "image": "assets/vep-reuse.png",
+          "title": "Spara som Gem",
+          "text": "Spara panelen som en permanent Gem i Gemini. Nästa gång du har ett svårt beslut, en föräldrakonflikt eller ett schema att granska har du ditt bollplank redo."
         }
       ],
       "sources": [
         {
-          "text": "Teachiq/KM Workshop (nov 2025): VEP Protocol",
+          "text": "Teachiq/KM Workshop (nov 2025): VEP Protocol, Video 1-2",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ]

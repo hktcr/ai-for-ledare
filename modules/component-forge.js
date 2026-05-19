@@ -4949,8 +4949,123 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'chaos-to-clarity': renderChaosToClarity,
         'leadership-mindmap': renderLeadershipMindmap,
         'gdpr-mindmap': renderLeadershipMindmap,
-        'dual-analysis-prompt': renderDualAnalysisPrompt
+        'dual-analysis-prompt': renderDualAnalysisPrompt,
+        'vep-stepper': renderVepStepper
     };
+
+    /**
+     * vep-stepper: Fullscreen step-by-step with image + text, one at a time.
+     * Props: title, steps[] ({ image, title, text, accent })
+     */
+    function renderVepStepper(s) {
+        const id = 'vs-' + Math.random().toString(36).slice(2, 8);
+        const steps = s.steps || [];
+        if (!steps.length) return '<div>No steps</div>';
+
+        const stepsHtml = steps.map((step, i) => `
+            <div class="vs-step ${i === 0 ? 'vs-active' : ''}" data-step="${i}">
+                <div class="vs-img-wrap">
+                    ${step.image ? `<img src="${step.image}" alt="${step.title || ''}" class="vs-img" />` : ''}
+                </div>
+                <div class="vs-text-wrap">
+                    <div class="vs-step-num" style="color:${step.accent || 'var(--accent, #f97316)'}">Steg ${i + 1} av ${steps.length}</div>
+                    <h3 class="vs-step-title" style="color:${step.accent || 'var(--accent, #f97316)'}">${step.title || ''}</h3>
+                    <p class="vs-step-body">${step.text || ''}</p>
+                </div>
+            </div>
+        `).join('');
+
+        const dots = steps.map((_, i) => `<div class="vs-dot ${i === 0 ? 'vs-dot-active' : ''}" data-dot="${i}"></div>`).join('');
+
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            if (!container) return;
+            let current = 0;
+            const allSteps = container.querySelectorAll('.vs-step');
+            const allDots = container.querySelectorAll('.vs-dot');
+
+            function goTo(idx) {
+                allSteps.forEach((el, i) => el.classList.toggle('vs-active', i === idx));
+                allDots.forEach((el, i) => el.classList.toggle('vs-dot-active', i === idx));
+                current = idx;
+            }
+
+            container.addEventListener('click', (e) => {
+                if (current < steps.length - 1) {
+                    e.stopPropagation();
+                    goTo(current + 1);
+                } else {
+                    container.classList.remove('no-click-advance');
+                }
+            });
+        }, 100);
+
+        return `
+            <style>
+                .slide-vep-stepper {
+                    display: flex; flex-direction: column; height: 100%; width: 100%;
+                    padding: 3vh 4vw; box-sizing: border-box; position: relative; overflow: hidden;
+                    justify-content: center;
+                }
+                .vs-title {
+                    font-size: clamp(1.6rem, 4vh, 2.8rem); font-weight: 700;
+                    color: var(--text); margin-bottom: 2vh; text-align: center;
+                }
+                .vs-step {
+                    display: none; gap: clamp(1.5rem, 4vw, 4rem);
+                    align-items: center; width: 100%; max-width: 1100px; margin: 0 auto;
+                    animation: vsFadeIn 0.5s ease;
+                }
+                .vs-step.vs-active { display: flex; }
+                @keyframes vsFadeIn {
+                    from { opacity: 0; transform: translateX(30px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
+                .vs-img-wrap {
+                    flex: 0 0 clamp(120px, 28vw, 340px);
+                }
+                .vs-img {
+                    width: 100%; aspect-ratio: 1; object-fit: cover;
+                    border-radius: clamp(12px, 2vw, 24px);
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                }
+                .vs-text-wrap { flex: 1; min-width: 0; }
+                .vs-step-num {
+                    font-size: clamp(0.8rem, 1.5vw, 1.1rem); font-weight: 600;
+                    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5vh;
+                    opacity: 0.7;
+                }
+                .vs-step-title {
+                    font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 700;
+                    margin-bottom: 1.5vh; line-height: 1.15;
+                }
+                .vs-step-body {
+                    font-size: clamp(1.1rem, 2.2vw, 1.6rem); color: var(--text-muted);
+                    line-height: 1.6; max-width: 600px;
+                }
+                .vs-dots {
+                    display: flex; justify-content: center; gap: 0.8rem;
+                    margin-top: 3vh;
+                }
+                .vs-dot {
+                    width: clamp(8px, 1vw, 12px); height: clamp(8px, 1vw, 12px);
+                    border-radius: 50%; background: rgba(255,255,255,0.15);
+                    transition: all 0.3s ease;
+                }
+                .vs-dot.vs-dot-active {
+                    background: var(--accent, #f97316);
+                    box-shadow: 0 0 8px var(--accent, #f97316);
+                    transform: scale(1.3);
+                }
+            </style>
+            <div class="slide-vep-stepper no-click-advance" id="${id}">
+                ${s.title ? `<h2 class="vs-title">${s.title}</h2>` : ''}
+                ${stepsHtml}
+                <div class="vs-dots">${dots}</div>
+                ${renderSourcesPopup(s.sources)}
+            </div>
+        `;
+    }
 
     function registerTypes() {
         if (typeof window.slideTypeRegistry === 'object') {

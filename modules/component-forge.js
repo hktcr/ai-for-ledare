@@ -3948,36 +3948,48 @@
             style.innerHTML = `
                 .slide-semantic-nebula { 
                     position: absolute; inset: 0; width: 100vw; height: 100vh; 
-                    background: #000; overflow: hidden; display: flex; 
+                    background: radial-gradient(circle at center, #020617 0%, #000000 100%); overflow: hidden; display: flex; 
                     flex-direction: column; align-items: center; justify-content: center; 
                 }
                 .sn-canvas-container { position: absolute; inset: 0; z-index: 1; }
                 .sn-canvas { width: 100%; height: 100%; display: block; }
                 .sn-sidebar { 
                     position: absolute; top: 0; bottom: 0; right: 0; 
-                    width: 38vw; max-width: 560px; 
-                    background: linear-gradient(to left, rgba(0,0,0,0.92) 30%, rgba(0,0,0,0.6) 70%, transparent); 
+                    width: 42vw; max-width: 600px; 
+                    background: linear-gradient(to left, rgba(0,0,0,0.96) 20%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0.3) 85%, transparent); 
                     display: flex; flex-direction: column; justify-content: center; 
-                    padding: 4rem 3.5rem 4rem 2.5rem; pointer-events: none; z-index: 10; gap: 1.8rem; 
+                    padding: 4rem 4rem 4rem 3rem; pointer-events: none; z-index: 10; gap: 2.2rem; 
                 }
                 .sn-sentence { 
-                    color: rgba(255,255,255,0.85); 
-                    font-size: clamp(1.4rem, 2.2vw, 2rem); 
+                    color: rgba(255,255,255,0.7); 
+                    font-size: clamp(1.2rem, 1.8vw, 1.8rem); 
                     font-weight: 300; 
-                    line-height: 1.5; 
-                    letter-spacing: 0.01em;
+                    line-height: 1.6; 
+                    letter-spacing: 0.02em;
                     opacity: 0; 
                     transform: translateY(40px) scale(0.97); 
-                    transition: opacity 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                                transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                    text-shadow: 0 0 30px rgba(255, 180, 100, 0.08);
-                    border-left: 2px solid transparent;
-                    padding-left: 1.2rem;
+                    transition: all 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    text-shadow: 0 0 40px rgba(255, 180, 100, 0.15);
+                    border-left: 4px solid transparent;
+                    padding: 1.2rem 2rem;
+                    border-radius: 12px;
+                    background: rgba(15, 23, 42, 0.3);
+                    border: 1px solid rgba(255, 255, 255, 0.03);
+                    backdrop-filter: blur(4px);
+                    -webkit-backdrop-filter: blur(4px);
                 }
                 .sn-sentence.active { 
                     opacity: 1; 
+                    color: #fff;
+                    font-weight: 400;
                     transform: translateY(0) scale(1); 
-                    border-left-color: rgba(251, 191, 36, 0.4);
+                    border-left-color: #f59e0b; /* Gorgeous Amber/Gold active line */
+                    background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+                    border: 1px solid rgba(245, 158, 11, 0.3);
+                    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.1);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    text-shadow: 0 0 50px rgba(245, 158, 11, 0.25), 0 0 10px rgba(255,255,255,0.1);
                 }
                 .sn-sentence.fade-out { 
                     opacity: 0; 
@@ -4080,6 +4092,18 @@
             let rayWait = 0;
             const particles = [];
             
+            // Faint, background stars
+            const stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: (Math.random() - 0.5) * 2000,
+                    y: (Math.random() - 0.5) * 2000,
+                    z: Math.random() * 2000,
+                    size: 0.5 + Math.random() * 1.5,
+                    opacity: 0.2 + Math.random() * 0.8
+                });
+            }
+
             // Nebula state
             let nebulaSize = 5;
             let nebulaPulse = 0;
@@ -4096,6 +4120,25 @@
                 const camSpeed = 1.2 + time * 0.5; // Accelerates continuously
                 camZ += camSpeed;
                 camX = Math.sin(time * 0.3) * 80; // Gentle lateral sway
+
+                // Draw background stars
+                stars.forEach(star => {
+                    let sz = star.z - camZ * 0.15; // drift stars slower than clusters
+                    while (sz < 0) sz += 2000;
+                    while (sz > 2000) sz -= 2000;
+                    
+                    const starScale = 500 / (500 + sz);
+                    const sx = cx + star.x * starScale - camX * 0.3;
+                    const sy = cy + star.y * starScale;
+                    
+                    if (sx >= 0 && sx < w && sy >= 0 && sy < h) {
+                        const starOpacity = star.opacity * Math.abs(Math.sin(time * 2 + star.z)) * starScale * 0.8;
+                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, Math.min(1, starOpacity))})`;
+                        ctx.beginPath();
+                        ctx.arc(sx, sy, star.size * starScale, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
                 
                 // Draw Nebula in center
                 nebulaPulse += 0.05;
@@ -4184,13 +4227,21 @@
                     // Draw words — much larger and more visible
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    const wordSize = Math.max(16, Math.round(22 * c.scale));
+                    const wordSize = Math.max(14, Math.round(20 * c.scale));
                     c.words.forEach((wObj, wi) => {
                         const wx = c.projX + Math.cos(time * 0.6 + wi * 1.3) * crad * 0.7 * wObj.dx;
                         const wy = c.projY + Math.sin(time * 0.6 + wi * 1.3) * crad * 0.7 * wObj.dy;
-                        const wordAlpha = Math.min(1, 0.5 + c.pulse * 0.5) * Math.min(1, c.scale * 2);
-                        ctx.font = wordSize + "px 'Inter', sans-serif";
-                        ctx.fillStyle = 'hsla(' + c.hue + ', 100%, ' + (75 + c.pulse * 25) + '%, ' + wordAlpha + ')';
+                        const wordAlpha = Math.min(0.85, 0.45 + c.pulse * 0.5) * Math.min(1, c.scale * 2);
+                        if (wordAlpha <= 0.05) return;
+                        
+                        ctx.font = `600 ${wordSize}px 'Inter', sans-serif`;
+                        
+                        // Faint outline for absolute readability over bright spots
+                        ctx.strokeStyle = 'rgba(0, 0, 0, 0.75)';
+                        ctx.lineWidth = 3;
+                        ctx.strokeText(wObj.txt, wx, wy);
+                        
+                        ctx.fillStyle = 'hsla(' + c.hue + ', 100%, ' + (80 + c.pulse * 20) + '%, ' + wordAlpha + ')';
                         ctx.fillText(wObj.txt, wx, wy);
                     });
                 });
@@ -4249,20 +4300,33 @@
                     const curX = (1-t)*(1-t)*startX + 2*(1-t)*t*cpx + t*t*endX;
                     const curY = (1-t)*(1-t)*startY + 2*(1-t)*t*cpy + t*t*endY;
                     
-                    // Draw the faint thread trail
+                    // 1. Thicker neon glow layer
                     ctx.beginPath();
                     ctx.moveTo(startX, startY);
                     ctx.quadraticCurveTo(cpx, cpy, curX, curY);
-                    ctx.strokeStyle = `hsla(${activeRay.hue}, 100%, 75%, 0.4)`;
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = `hsla(${activeRay.hue}, 100%, 65%, 0.15)`;
+                    ctx.lineWidth = 7;
+                    ctx.stroke();
+
+                    // 2. High-intensity core laser line
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.quadraticCurveTo(cpx, cpy, curX, curY);
+                    ctx.strokeStyle = `hsla(${activeRay.hue}, 100%, 85%, 0.6)`;
+                    ctx.lineWidth = 2;
                     ctx.stroke();
                     
-                    // Draw the glowing "head" of the thread
+                    // Draw the glowing "head" of the thread with dual layers
                     ctx.beginPath();
-                    ctx.arc(curX, curY, 3, 0, Math.PI*2);
-                    ctx.fillStyle = `hsla(${activeRay.hue}, 100%, 90%, 1)`;
+                    ctx.arc(curX, curY, 4, 0, Math.PI*2);
+                    ctx.fillStyle = `#ffffff`;
                     ctx.shadowColor = `hsla(${activeRay.hue}, 100%, 70%, 1)`;
-                    ctx.shadowBlur = 15;
+                    ctx.shadowBlur = 20;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.arc(curX, curY, 1.5, 0, Math.PI*2);
+                    ctx.fillStyle = `#ffffff`;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                     
@@ -4351,23 +4415,40 @@
                         }
                     }
                     
+                    // Draw a subtle halo/ring around the orb for scientific depth
+                    ctx.beginPath();
+                    ctx.arc(curX, curY, orbSize * 1.8, 0, Math.PI * 2);
+                    ctx.strokeStyle = `hsla(${p.hue}, 100%, 75%, ${alpha * 0.25})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
                     // Draw the glowing orb
                     ctx.beginPath();
                     ctx.arc(curX, curY, orbSize, 0, Math.PI*2);
-                    ctx.fillStyle = `hsla(${p.hue}, 100%, 85%, ${alpha * 0.8})`;
-                    ctx.shadowColor = `hsla(${p.hue}, 100%, 50%, 1)`;
-                    ctx.shadowBlur = orbSize * 2;
+                    ctx.fillStyle = `hsla(${p.hue}, 100%, 85%, ${alpha * 0.85})`;
+                    ctx.shadowColor = `hsla(${p.hue}, 100%, 55%, 1)`;
+                    ctx.shadowBlur = orbSize * 2.5;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                     
-                    // The harvested word
-                    ctx.font = `bold ${fontSize}px 'Inter', sans-serif`;
+                    // The harvested word (technical monospaced look)
+                    const fontFam = "'JetBrains Mono', 'Courier New', monospace";
+                    ctx.font = `bold ${fontSize}px ${fontFam}`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
+                    
+                    // Dark, high-contrast text shadow for absolute legibility
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+                    ctx.shadowBlur = 8;
+                    
+                    // Backing text trace for maximum outline readability
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+                    ctx.lineWidth = 4;
+                    ctx.strokeText(p.word, curX, curY - orbSize - 14);
+                    
+                    // High-vibrancy foreground text
                     ctx.fillStyle = `hsla(${p.hue}, 100%, 95%, ${alpha})`;
-                    ctx.shadowColor = `hsla(${p.hue}, 100%, 60%, ${alpha * 0.6})`;
-                    ctx.shadowBlur = 15;
-                    ctx.fillText(p.word, curX, curY - orbSize - 10);
+                    ctx.fillText(p.word, curX, curY - orbSize - 14);
                     ctx.shadowBlur = 0;
                 }
 

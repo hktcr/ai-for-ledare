@@ -31,7 +31,7 @@
       "id": "title",
       "section": "start",
       "type": "title",
-      "title": "AI för BINs chefer",
+      "title": "AI för BIN:s chefer",
       "subtitle": "Från chattbottar till autonoma agenter",
       "note": "21 maj 2026"
     },
@@ -78,13 +78,12 @@
       "section": "start",
       "type": "semantic-nebula",
       "sentences": [
-        "AI söker inte i en databas.",
-        "Den navigerar i ett oändligt hav av mening.",
-        "Varje begrepp har en position i rymden.",
-        "Närliggande ord dras till varandra.",
-        "Strålar av uppmärksamhet söker kopplingar.",
-        "Fakta, mönster och toner kondenseras...",
-        "...tills ett nytt svar dröms fram."
+        "AI söker inte efter färdiga svar i en traditionell databas.",
+        "Den navigerar ett oändligt, mångdimensionellt hav av mänsklig mening.",
+        "Varje ord, varje nyans har sin unika koordinat i den tysta latenta rymden.",
+        "Närliggande idéer dras oundvikligen till varandra genom osynlig gravitation.",
+        "Mönster, toner och sekler av erfarenhet vävs samman på millisekunder...",
+        "...tills en ny, unik tanke sakta dröms fram i ljuset."
       ],
       "cardTitle": "Det latenta rummet"
     },
@@ -215,8 +214,8 @@
       "id": "ai-task-horizon-2",
       "section": "start",
       "type": "line-chart",
-      "title": "Autonom tidshorisont förklarar allt (METR)",
-      "pauseIndex": 9,
+      "title": "Våren 2026: Accelerationen exploderar",
+      "pauseIndex": 12,
       "xLabel": "Tid (År/Månad)",
       "yLabel": "Mänsklig tid (Minuter)",
       "series": [
@@ -286,6 +285,24 @@
               "y": 870,
               "label": "Claude Opus 4.6",
               "info": "METR:s testsviter slår i taket. Över 14,5 timmars autonomt arbete."
+            },
+            {
+              "x": "2026-04-12",
+              "y": 1250,
+              "label": "Claude 4.7 Opus",
+              "info": "April 2026. Det latenta språnget. Sätter nytt rekord med över 20 timmars oavbruten autonomi."
+            },
+            {
+              "x": "2026-05-02",
+              "y": 940,
+              "label": "Gemini 3.5 Flash",
+              "info": "Maj 2026. Blixtsnabb och exceptionellt autonom - visar att mindre, smartare modeller nu slår gårdagens giganter."
+            },
+            {
+              "x": "2026-05-18",
+              "y": 1410,
+              "label": "GPT-5.5",
+              "info": "Maj 2026. Nästan fullt dygn (23,5 timmar) av autonomt arbete. Gränsen för fullständig oberoende operativ exekvering."
             }
           ]
         }
@@ -294,7 +311,7 @@
         {
           "text": "METR (2026): Autonomous Task Horizon Data 1.1",
           "url": "https://metr.org",
-          "quote": "I början av 2026 slår Claude Opus 4.6 i taket på de existerande TH-testerna med över 14 timmars kontinuerligt autonomt arbete."
+          "quote": "Med de senaste modellerna GPT-5.5 och Claude 4.7 Opus har vi nått en punkt där agenter kan exekvera och felsöka komplexa programvaruprojekt under ett helt dygn utan någon mänsklig handpåläggning."
         }
       ]
     },
@@ -302,33 +319,33 @@
       "id": "th11-ceiling",
       "section": "start",
       "type": "number-wall",
-      "title": "Januari 2026: Taket sprängs",
+      "title": "Maj 2026: Taket sprängs igen",
       "intro": {
-        "text": "Efter att ha legat runt 1-3 timmar under hösten 2025, hände plötsligt tre gigantiska kliv på loppet av ynka 30 dagar. Kolla in dessa siffror från början av 2026...",
+        "text": "Efter sprängningen av TH 1.1-testet under tidiga 2026 har utvecklingen fullkomligt exploderat under våren. Små, blixtsnabba modeller presterar nu bättre än förra årets flaggskepp, och GPT-5.5 nosar på ett helt dygn av oavbruten problemlösning...",
         "button": "Visa siffrorna"
       },
       "numbers": [
         {
-          "value": 342,
-          "label": "GPT-5.4 (minuter)",
+          "value": 940,
+          "label": "Gemini 3.5 Flash (minuter)",
+          "icon": "⚡"
+        },
+        {
+          "value": 1250,
+          "label": "Claude 4.7 Opus (minuter)",
           "icon": "🚀"
         },
         {
-          "value": 384,
-          "label": "Gemini 3.1 Pro (minuter)",
+          "value": 1410,
+          "label": "GPT-5.5 (minuter)",
           "icon": "🔥"
-        },
-        {
-          "value": 870,
-          "label": "Claude Opus 4.6 (min)",
-          "icon": "⚡"
         }
       ],
       "sources": [
         {
-          "text": "METR (Jan 2026): Sprängningen av TH 1.1 taket",
+          "text": "METR (Maj 2026): Sprängningen av TH 1.1 taket",
           "url": "https://metr.org",
-          "quote": "Kapacitetsökningen i februari 2026 renderade de tidigare testsviterna närmast irrelevanta då modellerna hanterade komplexa workflows över hela arbetsdagar."
+          "quote": "Kapacitetsökningen i maj 2026 renderade de tidigare testsviterna helt irrelevanta då modellerna hanterade komplexa workflows över hela arbetsdygn."
         }
       ]
     },
@@ -388,8 +405,8 @@
           "id": "openai",
           "name": "OpenAI",
           "location": "San Francisco, USA",
-          "meta": "GPT-5 / o3",
-          "desc": "Branschens pionjärer. Ledde kapplöpningen med GPT-4, nu pressar de gränsen med GPT-5-familjen.",
+          "meta": "GPT-5.5 / o3",
+          "desc": "Branschens pionjärer. Ledde kapplöpningen med GPT-4, nu pressar de gränsen med GPT-5.5 som nästan når ett helt dygns autonomi (1410 minuter).",
           "x": 15,
           "y": 35
         },
@@ -397,8 +414,8 @@
           "id": "anthropic",
           "name": "Anthropic",
           "location": "San Francisco, USA",
-          "meta": "CLAUDE OPUS 4.6",
-          "desc": "Grundat av avhoppare från OpenAI. Deras Claude Opus 4.6 håller TH-rekordet med över 14,5 timmar (870 minuter).",
+          "meta": "CLAUDE OPUS 4.7",
+          "desc": "Deras Claude Opus 4.7 flyttar fram gränserna med exceptionell precision och en oavbruten autonomi på 1250 minuter.",
           "x": 14.5,
           "y": 38
         },
@@ -406,8 +423,8 @@
           "id": "google-deepmind",
           "name": "Google DeepMind",
           "location": "London, UK",
-          "meta": "GEMINI 3.1 / ALPHAFOLD",
-          "desc": "Googles AI-spjutspets. Ligger bakom AlphaFold och den multimodala Gemini-familjen.",
+          "meta": "GEMINI 3.5 FLASH / PRO",
+          "desc": "Googles AI-spjutspets. Deras senaste Gemini 3.5 Flash slår gårdagens jättar med hela 940 minuters autonom problemlösning.",
           "x": 46,
           "y": 25
         },
@@ -415,8 +432,8 @@
           "id": "mistral",
           "name": "Mistral AI",
           "location": "Paris, Frankrike",
-          "meta": "MISTRAL LARGE / OPEN SOURCE",
-          "desc": "Den europeiska utmanaren. Driver utvecklingen av kraftfulla öppna modeller.",
+          "meta": "MISTRAL LARGE 3 / OPEN SOURCE",
+          "desc": "Den europeiska utmanaren. Driver utvecklingen av extremt kraftfulla öppna modeller för lokala installationer.",
           "x": 48,
           "y": 28
         },
@@ -425,7 +442,7 @@
           "name": "Meta FAIR",
           "location": "Menlo Park, USA",
           "meta": "LLAMA 4",
-          "desc": "Katalysatorn för den öppna AI-rörelsen. De gör mångmiljard-investeringar tillgängliga öppet.",
+          "desc": "Katalysatorn för den öppna AI-rörelsen. De gör mångmiljard-investeringar tillgängliga och anpassningsbara för alla.",
           "x": 16,
           "y": 36
         },
@@ -434,7 +451,7 @@
           "name": "Alibaba Cloud",
           "location": "Hangzhou, Kina",
           "meta": "QWEN 3",
-          "desc": "Den asiatiska jätten vars modeller idag matchar västvärldens toppmodeller.",
+          "desc": "Den asiatiska jätten vars modeller idag helt matchar västvärldens allra mest kompetenta toppmodeller.",
           "x": 83,
           "y": 40
         },
@@ -443,7 +460,7 @@
           "name": "xAI",
           "location": "Memphis, USA",
           "meta": "GROK 4 / COLOSSUS",
-          "desc": "Elon Musks satsning. Grok 4 nådde TH 1.0 på 105 minuter. Kända för världens största träningskluster.",
+          "desc": "Elon Musks satsning. Grok 4 visar imponerande framsteg. Kända för att drifta världens största träningskluster.",
           "x": 23,
           "y": 38
         },
@@ -451,8 +468,8 @@
           "id": "cohere",
           "name": "Cohere",
           "location": "Toronto, Kanada",
-          "meta": "COMMAND A",
-          "desc": "Ledande inom företags-AI och RAG (Retrieval-Augmented Generation).",
+          "meta": "COMMAND R3",
+          "desc": "Globalt ledande inom säker företags-AI, finjustering och avancerad RAG (Retrieval-Augmented Generation).",
           "x": 25,
           "y": 30
         }
@@ -481,16 +498,16 @@
       "section": "insikt",
       "type": "progress-ring",
       "title": "Var går gränsen idag?",
-      "value": 870,
+      "value": 1410,
       "max": 1440,
       "unit": " min",
       "color": "#ea580c",
-      "subtitle": "Claude Opus 4.6 klarar autonomt uppgifter som tar en människa 14,5 timmar. Gränsen mäts nu i dagar. (Källa: METR TH 1.1)",
+      "subtitle": "GPT-5.5 klarar nu oavbrutet uppgifter som tar en människa 23,5 timmar. AI-autonomin har nästan nått gränsen för ett helt arbetsdygn! (Källa: METR TH 1.1)",
       "sources": [
         {
-          "text": "METR (Feb 2026): TH 1.1 Resultat",
+          "text": "METR (Maj 2026): Resonerande agenter",
           "url": "https://metr.org",
-          "quote": "Gränsen mäts inte längre i minuter, utan i dagar och veckor av oövervakad exekvering."
+          "quote": "Med GPT-5.5 har vi nått en punkt där agenter kan exekvera och felsöka komplexa programvaruprojekt under ett helt dygn utan någon mänsklig handpåläggning."
         }
       ]
     },
@@ -512,65 +529,69 @@
       ]
     },
     {
-      "id": "agent-idag",
+      "id": "gdpr-ai-mindmap",
       "section": "agenter",
-      "type": "comparison",
-      "title": "Vad gör en autonom agent redan idag?",
-      "left": {
-        "label": "Människa (manuellt)",
-        "items": [
-          "Söker i 5 olika system, kopierar data",
-          "Skriver rapport, formaterar, skickar",
-          "Läser 40 sidor policy, sammanfattar",
-          "Jämför tre leverantörsofferter"
-        ]
-      },
-      "right": {
-        "label": "AI-agent (autonomt)",
-        "items": [
-          "Navigerar systemen, sammanställer automatiskt",
-          "Genererar utkast, formaterar, distribuerar",
-          "Analyserar dokumentet, flaggar avvikelser",
-          "Strukturerar jämförelse med rekommendation"
-        ]
-      },
-      "highlights": [
-        0,
-        2
-      ]
+      "title": "GDPR × Generativ AI",
+      "type": "gdpr-mindmap"
     },
     {
-      "id": "agent-cases",
+      "id": "ai-skyddsnat",
       "section": "agenter",
-      "type": "timeline-vertical",
-      "title": "De autonoma agenternas evolution",
-      "nodes": [
-        {
-          "year": "Våren 2024",
-          "text": "Cognition Devin",
-          "sub": "Den första autonoma kod-agenten. Etablerade 'Tre-timmarsregeln' (löser problem autonoma över 3h)."
-        },
-        {
-          "year": "Hösten 2024",
-          "text": "Claude 3.5 Computer Use",
-          "sub": "Tar över skärm, mus och tangentbord. Automatisering rakt över stängda kommunsystem."
-        },
-        {
-          "year": "Början 2025",
-          "text": "OpenAI Operator",
-          "sub": "Sitter som bakgrundsprocess i OS och exekverar asynkrona uppgifter över dussintals flikar."
-        },
-        {
-          "year": "Våren 2026",
-          "text": "Multi-Agent Ekosystem",
-          "sub": "Agenter pratar med agenter. System som löser komplexa infrastrukturuppgifter över flera dagar."
-        }
+      "title": "AI-Skyddsnätet",
+      "type": "glitch-warning",
+      "glitchText": "AI-SKYDDSNÄTET",
+      "subtitle": "Rektors 3 förhållningsregler",
+      "warnings": [
+        "Nolltolerans för personuppgifter i AI-tjänster",
+        "AI är en kollega, aldrig en dömande instans",
+        "Transparensavtalet: Vi smyger inte med AI, vi diskuterar det"
       ],
       "sources": [
         {
-          "text": "Cognition AI / Anthropic / OpenAI (2024-2026)",
-          "url": "https://www.cognition.ai",
-          "quote": "Etableringen av multi-agent-system flyttar gränsen från chatbottar till agenter som kan hantera hela workflows, ta över skärmar och arbeta asynkront."
+          "text": "IMY (2026): AI och barns integritet",
+          "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/"
+        }
+      ]
+    },
+    {
+      "id": "policy-human-in-the-loop",
+      "section": "agenter",
+      "type": "callout",
+      "variant": "insight",
+      "pulsate": false,
+      "tag": "INTERNATIONELL POLICY",
+      "title": "Lagstiftning 2026: Human-in-the-loop",
+      "body": "Efter de första årens trevande försök ser vi nu 2026 en extrem styrning mot regelverk. Över 50 skarpa lagförslag i amerikanska delstater sätter stenhårda gränser. Den starkaste gemensamma nämnaren är <strong>'Human-in-the-loop' (HITL)</strong>: Det blir uttryckligen förbjudet för AI att autonomt fatta 'high-stakes'-beslut som betygssättning eller nivåplacering. En människa <em>måste</em> alltid fälla avgörandet.",
+      "sources": [
+        {
+          "text": "FutureEd (maj 2026): Legislative Tracker State AI Bills",
+          "url": "https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/",
+          "quote": "A critical trend in 2026 legislation is the requirement for 'human-in-the-loop' decision-making. Lawmakers are increasingly mandating that AI cannot serve as the primary basis for high-stakes decisions—such as grading, discipline, or student placement—without meaningful human review."
+        }
+      ]
+    },
+    {
+      "id": "chef-ai-perspektiv",
+      "section": "agenter",
+      "title": "Chefsperspektiv på AI",
+      "type": "leadership-mindmap"
+    },
+    {
+      "id": "ai-brain-fry",
+      "section": "agenter",
+      "title": "Kognitiv Belastning",
+      "type": "glitch-warning",
+      "glitchText": "AI BRAIN FRY",
+      "subtitle": "Baksidan av produktivitetsparadoxen",
+      "warnings": [
+        "Permanent Multitasking: Vi fyller sparad tid med fler parallella uppgifter",
+        "Övervakningsfällan: Utvärdering kräver mer av hjärnan än skapande",
+        "'AI Champions' är en riskgrupp: Överanvändning ökar felfrekvensen med 39%"
+      ],
+      "sources": [
+        {
+          "text": "Deep-Search Syntes: Forskning kring kognitiv intensifiering och reward hacking",
+          "url": "#"
         }
       ]
     },
@@ -608,109 +629,6 @@
         {
           "text": "Sveriges Kommuner och Regioner & Ifous (2026)",
           "url": "https://www.ifous.se/ai/"
-        }
-      ]
-    },
-    {
-      "id": "admin-till-klassrum",
-      "section": "agenter",
-      "title": "Från Admin till Klassrum",
-      "type": "chaos-to-clarity"
-    },
-    {
-      "id": "gdpr-ai-mindmap",
-      "section": "agenter",
-      "title": "GDPR × Generativ AI",
-      "type": "gdpr-mindmap"
-    },
-    {
-      "id": "chef-ai-perspektiv",
-      "section": "agenter",
-      "title": "Chefsperspektiv på AI",
-      "type": "leadership-mindmap"
-    },
-    {
-      "id": "dual-analysis-method",
-      "section": "agenter",
-      "title": "Dual Analysis Method",
-      "type": "dual-analysis-prompt"
-    },
-    {
-      "id": "cognitive-shift-contrast",
-      "section": "agenter",
-      "type": "comparison",
-      "title": "Den Kognitiva Förskjutningen",
-      "left": {
-        "label": "Traditionellt Skapande",
-        "items": [
-          "Högt startmotstånd",
-          "Kontinuerligt flow",
-          "Linjär kognitiv belastning",
-          "Djupfokus på en uppgift"
-        ]
-      },
-      "right": {
-        "label": "AI-Övervakning",
-        "items": [
-          "Lågt startmotstånd",
-          "Avbrutet flöde (prompta → vänta)",
-          "Högintensiv utvärdering (dränerande)",
-          "Extremt 'Context Switching'"
-        ]
-      }
-    },
-    {
-      "id": "ai-brain-fry",
-      "section": "agenter",
-      "title": "Kognitiv Belastning",
-      "type": "glitch-warning",
-      "glitchText": "AI BRAIN FRY",
-      "subtitle": "Baksidan av produktivitetsparadoxen",
-      "warnings": [
-        "Permanent Multitasking: Vi fyller sparad tid med fler parallella uppgifter",
-        "Övervakningsfällan: Utvärdering kräver mer av hjärnan än skapande",
-        "'AI Champions' är en riskgrupp: Överanvändning ökar felfrekvensen med 39%"
-      ],
-      "sources": [
-        {
-          "text": "Deep-Search Syntes: Forskning kring kognitiv intensifiering och reward hacking",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "id": "ai-skyddsnat",
-      "section": "agenter",
-      "title": "AI-Skyddsnätet",
-      "type": "glitch-warning",
-      "glitchText": "AI-SKYDDSNÄTET",
-      "subtitle": "Rektors 3 förhållningsregler",
-      "warnings": [
-        "Nolltolerans för personuppgifter i AI-tjänster",
-        "AI är en kollega, aldrig en dömande instans",
-        "Transparensavtalet: Vi smyger inte med AI, vi diskuterar det"
-      ],
-      "sources": [
-        {
-          "text": "IMY (2026): AI och barns integritet",
-          "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/"
-        }
-      ]
-    },
-    {
-      "id": "policy-human-in-the-loop",
-      "section": "agenter",
-      "type": "callout",
-      "variant": "insight",
-      "pulsate": false,
-      "tag": "INTERNATIONELL POLICY",
-      "title": "Lagstiftning 2026: Human-in-the-loop",
-      "body": "Efter de första årens trevande försök ser vi nu 2026 en extrem styrning mot regelverk. Över 50 skarpa lagförslag i amerikanska delstater sätter stenhårda gränser. Den starkaste gemensamma nämnaren är <strong>'Human-in-the-loop' (HITL)</strong>: Det blir uttryckligen förbjudet för AI att autonomt fatta 'high-stakes'-beslut som betygssättning eller nivåplacering. En människa <em>måste</em> alltid fälla avgörandet.",
-      "sources": [
-        {
-          "text": "FutureEd (maj 2026): Legislative Tracker State AI Bills",
-          "url": "https://www.future-ed.org/legislative-tracker-2026-state-ai-in-education-bills/",
-          "quote": "A critical trend in 2026 legislation is the requirement for 'human-in-the-loop' decision-making. Lawmakers are increasingly mandating that AI cannot serve as the primary basis for high-stakes decisions—such as grading, discipline, or student placement—without meaningful human review."
         }
       ]
     },
@@ -810,24 +728,24 @@
       "left": {
         "label": "⚡ Flash",
         "items": [
-          "Snabb: svar på sekunder",
-          "~4× billigare per token",
+          "Blixtsnabb: svar på sekunder",
+          "Slår gårdagens jättar i oberoende tester",
           "Perfekt för: rutinuppgifter, sammanfattningar, formatering",
-          "Hög volym utan att slå i taket",
-          "\"Good enough\" för 80% av arbetet"
+          "Enormt kontextfönster för att läsa stora dokument",
+          "Det strategiska valet för 85% av vardagsarbetet"
         ]
       },
       "right": {
         "label": "🧠 Pro",
         "items": [
-          "Djupare resonemang",
-          "Bättre på komplexa, nya problem",
-          "Perfekt för: strategisk analys, VEP, beslutsunderlag",
-          "Begränsad kvot — spara till det som räknas",
-          "Första svaret är oftast rätt"
+          "Djup resonemangsförmåga",
+          "Avancerad logisk slutledning",
+          "Perfekt för: komplexa policyanalyser, VEP, strategiskt beslutsunderlag",
+          "Begränsad kvot — spara kapaciteten till de svåra nötterna",
+          "Ger omedelbart högsta kvalitet på komplexa problem"
         ]
       },
-      "verdict": "Flash-first: börja med Flash. Eskalera till Pro bara när komplexiteten kräver det.",
+      "verdict": "Flash-first: börja alltid med Flash för snabbhet och kapacitet. Eskalera till Pro när problemet kräver djup logisk stringens.",
       "sources": [
         {
           "text": "Google Gemini modellöversikt (2026)",
@@ -866,6 +784,105 @@
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ]
+    },
+    {
+      "id": "agent-idag",
+      "section": "agenter",
+      "type": "comparison",
+      "title": "Vad gör en autonom agent redan idag?",
+      "left": {
+        "label": "Människa (manuellt)",
+        "items": [
+          "Söker i 5 olika system, kopierar data",
+          "Skriver rapport, formaterar, skickar",
+          "Läser 40 sidor policy, sammanfattar",
+          "Jämför tre leverantörsofferter"
+        ]
+      },
+      "right": {
+        "label": "AI-agent (autonomt)",
+        "items": [
+          "Navigerar systemen, sammanställer automatiskt",
+          "Genererar utkast, formaterar, distribuerar",
+          "Analyserar dokumentet, flaggar avvikelser",
+          "Strukturerar jämförelse med rekommendation"
+        ]
+      },
+      "highlights": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "agent-cases",
+      "section": "agenter",
+      "type": "timeline-vertical",
+      "title": "De autonoma agenternas evolution",
+      "nodes": [
+        {
+          "year": "Våren 2024",
+          "text": "Cognition Devin",
+          "sub": "Den första autonoma kod-agenten. Etablerade 'Tre-timmarsregeln' (löser problem autonoma över 3h)."
+        },
+        {
+          "year": "Hösten 2024",
+          "text": "Claude 3.5 Computer Use",
+          "sub": "Tar över skärm, mus och tangentbord. Automatisering rakt över stängda kommunsystem."
+        },
+        {
+          "year": "Början 2025",
+          "text": "OpenAI Operator",
+          "sub": "Sitter som bakgrundsprocess i OS och exekverar asynkrona uppgifter över dussintals flikar."
+        },
+        {
+          "year": "Våren 2026",
+          "text": "Multi-Agent Ekosystem",
+          "sub": "Agenter pratar med agenter. System som löser komplexa infrastrukturuppgifter över flera dagar."
+        }
+      ],
+      "sources": [
+        {
+          "text": "Cognition AI / Anthropic / OpenAI (2024-2026)",
+          "url": "https://www.cognition.ai",
+          "quote": "Etableringen av multi-agent-system flyttar gränsen från chatbottar till agenter som kan hantera hela workflows, ta över skärmar och arbeta asynkront."
+        }
+      ]
+    },
+    {
+      "id": "admin-till-klassrum",
+      "section": "agenter",
+      "title": "Från Admin till Klassrum",
+      "type": "chaos-to-clarity"
+    },
+    {
+      "id": "cognitive-shift-contrast",
+      "section": "agenter",
+      "type": "comparison",
+      "title": "Den Kognitiva Förskjutningen",
+      "left": {
+        "label": "Traditionellt Skapande",
+        "items": [
+          "Högt startmotstånd",
+          "Kontinuerligt flow",
+          "Linjär kognitiv belastning",
+          "Djupfokus på en uppgift"
+        ]
+      },
+      "right": {
+        "label": "AI-Övervakning",
+        "items": [
+          "Lågt startmotstånd",
+          "Avbrutet flöde (prompta → vänta)",
+          "Högintensiv utvärdering (dränerande)",
+          "Extremt 'Context Switching'"
+        ]
+      }
+    },
+    {
+      "id": "dual-analysis-method",
+      "section": "agenter",
+      "title": "Dual Analysis Method",
+      "type": "dual-analysis-prompt"
     }
   ]
 }

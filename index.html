@@ -443,6 +443,14 @@
         const SETLIST_KEY = 'HakanBIN2026_Setlist';
 
         function loadSetlist() {
+            // Priority: URL param > localStorage
+            const urlSetlist = urlParams.get('setlist');
+            if (urlSetlist) {
+                document.getElementById('setlistInput').value = urlSetlist;
+                parseSetlist(urlSetlist);
+                localStorage.setItem(SETLIST_KEY, urlSetlist);
+                return;
+            }
             const saved = localStorage.getItem(SETLIST_KEY);
             if (saved) {
                 document.getElementById('setlistInput').value = saved;
@@ -458,9 +466,22 @@
             setlistOrder = str.split(',').map(s => parseInt(s.trim(), 10) - 1).filter(n => !isNaN(n) && n >= 0 && n < slidesData.length);
         }
 
+        function syncSetlistToUrl(val) {
+            const url = new URL(window.location);
+            if (val.trim()) {
+                url.searchParams.set('setlist', val.trim());
+            } else {
+                url.searchParams.delete('setlist');
+            }
+            // Remove other temp params
+            url.searchParams.delete('t');
+            history.replaceState(null, '', url);
+        }
+
         document.getElementById('setlistInput').addEventListener('input', (e) => {
             const val = e.target.value;
             localStorage.setItem(SETLIST_KEY, val);
+            syncSetlistToUrl(val);
             parseSetlist(val);
             updateSetlistCount();
             renderCards();

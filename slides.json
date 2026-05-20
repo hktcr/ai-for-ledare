@@ -654,7 +654,7 @@
           "examples": [
             "Förbereda svåra personalärenden (avpersonifierat)",
             "Strukturera strategiska visioner och årsplaner",
-            "Trycktesta argument inför stormiga föräldramöten"
+            "Sparring vid komplicerade frågor från vårdnadshavare (säkra lagstöd i Skollagen)"
           ]
         },
         {
@@ -666,9 +666,9 @@
           "compliance": "Gul (Granska noggrant)",
           "complianceColor": "#fbbf24",
           "examples": [
-            "Putsning och språkvård av rektorsbrev till vårdnadshavare",
-            "Sammanfatta mötesnoteringar till ett tydligt beslutsunderlag",
-            "Formulera remissvar baserat på dina egna punktlistor"
+            "Putsning av veckobrev/brev till vårdnadshavare på Edlevo",
+            "Strukturera och renskriva EHT-mötesanteckningar till Prorenata (utan personuppgifter)",
+            "Sammanfatta textanalyser från several avdelningar eller enheter"
           ]
         },
         {
@@ -682,7 +682,7 @@
           "examples": [
             "Uteslutet för myndighetsutövning, betyg och individuella omdömen",
             "Får aldrig matas med känsliga elevdata eller sekretessmaterial",
-            "Endast tillåtet för allmänna standardtexter med låg risk"
+            "Endast tillåtet för allmänna standardtexter med låg risk (t.ex. strukturförslag för sommarschema)"
           ]
         }
       ],
@@ -719,7 +719,7 @@
       "eyebrow": "💡 Praktisk metod: Stilmalls-prompten",
       "title": "Så behåller du din unika röst med AI",
       "prompt": "Här är tre texter som jag själv har skrivit:\n\n[KLISTRA IN TEXT 1]\n[KLISTRA IN TEXT 2]\n[KLISTRA IN TEXT 3]\n\nAnalysera min skrivstil. Fokusera särskilt på:\n1. Tonläge (formell/informell, akademisk, varm/distanserad)\n2. Meningslängd och rytm (varierad, korta kraftfulla satser, flyt)\n3. Ordval (favorituttryck, ord jag ofta använder eller undviker)\n\nSkapa en kort 'stilmall' (10 tydliga skrivregler) som sammanfattar min röst. När jag framöver ber dig skriva eller redigera en text, ska du alltid tillämpa denna stilmall så att texten låter som min egen.",
-      "hint": "Kopilot-metoden: Skriv ett grovt råutkast med dina egna tankar och omdömen först. Låt sedan AI polera formen utifrån din personliga stilmall, utan att tappa själen.",
+      "hint": "Kopilot-metoden: Perfekt för att skriva veckobrev till vårdnadshavare eller renskriva anteckningar utifrån din personliga stilmall, utan att det låter opersonligt.",
       "cardTitle": "Behåll din personliga röst"
     },
     {
@@ -842,15 +842,15 @@
       "type": "prompt-card",
       "eyebrow": "🛠️ Vardagsverktyget",
       "title": "Vardags-VEP:en",
-      "prompt": "Du är min virtuella expertpanel (VEP) bestående av en strateg, en HR-specialist och en skoljurist.\n\n[Klistra in ett luddigt problem, en föräldrakonflikt eller ett schema-förslag här]\n\nGe mig:\n1. De tre största riskerna med detta.\n2. Två konkreta nästa steg.\n3. Ett alternativt perspektiv vi helt missat.",
-      "hint": "Prova det idag. Vänta inte på nationella riktlinjer.",
+      "prompt": "Du är min virtuella expertpanel (VEP) bestående av en skoljurist, en HR-specialist och en specialpedagog för svåra elevärenden.\n\n[Klistra in en komplicerad vårdnadshavarskrivelse, en EHT-situation eller ett schema/sommarschemapussel här]\n\nGe mig:\n1. De tre största riskerna med detta utifrån era respektive expertområden.\n2. Två konkreta nästa steg som underlättar för mig som rektor/förskolechef.\n3. Ett alternativt perspektiv vi helt har missat.",
+      "hint": "Perfekt för att trycktesta svåra elevärenden, personalfriktioner eller schema-pussel innan beslut.",
       "sources": [
         {
           "text": "GAIA Ecosystem (2026): VEP Deliberation Framework",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ],
-      "audience_content_auto": "{\"status\": \"prompt\", \"title\": \"Vardags-VEP:en\", \"prompt\": \"Du är min virtuella expertpanel...\", \"emoji\": \"🛠️\"}"
+      "audience_content_auto": "{\"status\": \"prompt\", \"title\": \"Vardags-VEP:en\", \"prompt\": \"Du är min virtuella expertpanel bestående av en skoljurist, en HR-specialist och en specialpedagog...\", \"emoji\": \"🛠️\"}"
     },
     {
       "id": "valj-ratt-modell",
@@ -982,8 +982,8 @@
       "cardTitle": "Workshop: Dataanalys",
       "eyebrow": "📊 Workshop Case A",
       "title": "Stor datamängd → Insikt → Presentation",
-      "prompt": "Jag har en Excel-fil med [elevresultat / enkätsvar / budgetdata / personalstatistik].\n\nAnalysera den och ge mig:\n1. De tre viktigaste mönstren i datan.\n2. Vilka avvikelser som kräver åtgärd.\n3. En sammanfattning på max 5 rader som jag kan presentera för min ledningsgrupp.\n4. Förslag på en visualisering (diagram) som tydligast kommunicerar budskapet.",
-      "hint": "Ladda upp filen direkt i Gemini. Testa Flash först — byt till Pro om analysen behöver mer djup.",
+      "prompt": "Jag har textbaserade analyser och data insamlad från flera olika enheter eller förskoleavdelningar som ska sammanställas för analys.\n\nAnalysera materialet och sammanställ det för mig:\n1. De tre viktigaste mönstren och gemensamma nämnarna i rapporterna.\n2. Vilka avvikelser eller unika behov på specifika enheter som kräver åtgärd.\n3. En sammanfattning på max 5 rader som jag kan presentera för min ledningsgrupp.\n4. Förslag på hur vi bäst kan visualisera och strukturera detta för att ta beslut.",
+      "hint": "Ladda upp dina textfiler eller enkätsvar direkt i Gemini. Perfekt för sammanställning av förskoleanalyser eller APT-enkäter.",
       "sources": [
         {
           "text": "Workshop: Chefsgruppen 21 maj 2026",

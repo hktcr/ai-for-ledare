@@ -5048,31 +5048,31 @@
                 "label": "Case A: EHT-Dokumentation (Elevhälsa)",
                 "painPoint": "Elevhälsa & känslig dokumentation under GDPR/sekretess.",
                 "context": "Minska administrativ tid i EHT-flöden utan att äventyra GDPR eller sekretesslagstiftning.",
-                "prompt": "Du är en erfaren och metodisk svensk rektor och expert på skollagen, GDPR samt sekretessfrågor i skolan. Jag behöver sparras kring hur jag ska sammanfatta och dokumentera ett komplext elevhälsoärende i Prorenata utan att bryta mot sekretessen.\n\n### Din uppgift:\n1. Skapa en konkret mall eller metod för hur jag kan strukturera ett komplext ärende i Prorenata, där personuppgifter och känsliga detaljer avidentifieras men den pedagogiska/medicinska kärnan bevaras.\n2. Ge mig 3 konkreta exempel på hur en 'dålig/riskabel' (sekretessbrytande) formulering kan skrivas om till en 'säker och professionell' formulering.\n3. Skapa en checklista på 4 punkter som jag kan ha vid min skärm varje gång jag skriver EHT-noteringar.\n\nTänk på att tonen ska vara professionell, rättssäker och anpassad för svensk kommunal skolverksamhet. Fråga mig först om det specifika ärendets allmänna karaktär (t.ex. kränkning, anpassad studiegång eller medicinskt underlag) innan du ger den slutgiltiga strukturen."
+                "prompt": "### 📋 BAKGRUND:\nEn rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte. Det finns en uppenbar risk att känsliga uppgifter dokumenteras på ett sätt som bryter mot GDPR eller sekretesslagstiftningen.\n\n### 🎯 UTMANING:\nHur kan rektorn formulera noteringen så att den medicinska/pedagogiska kärnan bevaras och är juridiskt rättssäker, men utan att röja sekretessbelagd information eller kränka elevens integritet?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka uppgifter måste avidentifieras och vad får absolut inte skrivas i fritext?\n2. Hur skriver vi om riskabla formuleringar till professionella och säkra skrivningar?\n3. Vilka enkla checklistor kan skapas för att stödja pedagoger och EHT-personal vid skärmen?"
             },
             {
                 "label": "Case B: Lagssäkert Edlevo-svar",
                 "painPoint": "Tydliga beslutsformuleringar med lagstöd (Skollagen & Förvaltningslagen).",
                 "context": "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
-                "prompt": "Du är en skicklig svensk kommunjurist och expert på svensk förvaltningsrätt, skollagen och kommunikation inom offentlig sektor. Jag behöver skriva ett formellt beslut och ett tillhörande Edlevo-meddelande till en vårdnadshavare angående [beslutets karaktär, t.ex. avslag på ansökan om modersmålsundervisning eller ledighet].\n\n### Din uppgift:\n1. Formulera ett juridiskt robust beslutsunderlag med uttryckliga hänvisningar till relevanta kapitel och paragrafer i Skollagen (2010:800) och Förvaltningslagen (2017:900).\n2. Skriv ett utkast till det meddelande som ska skickas via Edlevo till vårdnadshavaren. Texten ska vara kortfattad, tydlig, empatisk men extremt korrekt och sakna utrymme för missförstånd.\n3. Ge mig tips på hur jag hanterar eventuella överklagandehänvisningar lagssäkert.\n\nStäll 3 snabba frågor till mig först för att ta reda på: (a) vilket beslut det gäller, (b) vilka skäl vi har angivit, och (c) om det finns några speciella omständigheter."
+                "prompt": "### 📋 BAKGRUND:\nEn vårdnadshavare har ansökt om en längre ledighet för en elev under en period med nationella prov. Rektorn har beslutat om avslag. Beslutet ska kommuniceras formellt och skriftligt via Edlevo.\n\n### 🎯 UTMANING:\nHur formulerar rektorn avslagsbeslutet så att det är juridiskt robust med uttryckliga referenser till Skollagen och Förvaltningslagen, samtidigt som meddelandet är kortfattat, tydligt, empatiskt och lämnar minimalt utrymme för missförstånd?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka specifika kapitel och paragrafer i Skollagen och Förvaltningslagen är tillämpliga?\n2. Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?\n3. Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
             },
             {
                 "label": "Case C: Bemanningsanalys Sommarschema",
                 "painPoint": "Balansera semesterönskemål, fackliga avtal och lagstadgad bemanning.",
                 "context": "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
-                "prompt": "Du är en strategisk förskolechef och expert på schemaläggning, personalplanering och fackliga samverkansavtal inom ramen för Sveriges Lärare och Kommunal. Jag kämpar med att få ihop sommarbemanningen för mina förskolor där semesterönskemål krockar med krav på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila.\n\n### Din uppgift:\n1. Skapa en logisk struktur (t.ex. en tabellmall) för hur jag kan aggregera personalens önskemål, kompetensprofiler och förskolans minimibemanning under semesterveckorna (v. 26-32).\n2. Föreslå en trestegs process för att lösa bemanningstvister på ett sätt som upprätthåller god samverkan och minimerar övertid.\n3. Ge mig ett exempel på hur jag kan formulera ett e-postmeddelande till personalgruppen där jag förklarar läget, efterfrågar frivilliga förskjutningar och sätter upp tydliga, rättvisa ramar för besluten.\n\nInnan du börjar, be mig att klistra in en rå sammanställning av mina bemanningssiffror eller beskriva mina största krockveckor."
+                "prompt": "### 📋 BAKGRUND:\nInför sommaren krockar personalens semesterönskemål på förskolan med kraven på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila och veckovila. Fackliga samverkansavtal med Sveriges Lärare och Kommunal måste också respekteras.\n\n### 🎯 UTMANING:\nHur pusslar förskolechefen ihop sommarschemat (veckorna 26-32) på ett sätt som minimerar övertidskostnader, upprätthåller en god pedagogisk miljö för barnen och bibehåller personalens förtroende och hälsa?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Hur kan bemanningsbehov, kompetenser och önskemål aggregeras och visualiseras tydligt?\n2. Vilken trestegs process kan användas för att lösa bemanningstvister i god samverkan?\n3. Hur formulerar vi en tydlig och rättvis kommunikation till personalen angående förutsättningarna?"
             },
             {
                 "label": "Case D: Systematiskt Kvalitetsarbete",
                 "painPoint": "Aggregera och analysera insamlad barndata i förskolan.",
                 "context": "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
-                "prompt": "Du är en metodisk förskolechef och expert på systematiskt kvalitetsarbete (SKA) och Lpfö18. Jag har samlat in en stor mängd spridda observationer, enkäter från vårdnadshavare och pedagogernas egna reflektioner i olika dokument. Nu ska jag sammanställa och analysera detta inför den årliga kvalitetsrapporten.\n\n### Din uppgift:\n1. Skapa en tydlig och vetenskapligt förankrad analysstruktur (t.ex. baserad på orsak-konsekvens-åtgärd) där jag kan mata in mina rådata för att identifiera röda trådar.\n2. Ge mig instruktioner för hur jag ber en AI sammanställa kvalitativa texter och fritextsvar utan att tappa nyanserna eller introducera partiskhet (bias).\n3. Skriv ett exempel på en professionell sammanfattning av en kvalitetsanalys baserat på fiktiv data, som visar hur kopplingarna till läroplanens mål kan formuleras skarpt.\n\nFråga mig först om vilket läroplansområde (t.ex. språkutveckling, digitalisering eller värdegrund) som analysen ska fokusera på."
+                "prompt": "### 📋 BAKGRUND:\nVid årets slut har förskolan samlat in stora mängder kvalitativa data: observationer, enkäter från vårdnadshavare och pedagogernas egna veckoreflektioner. Materialet är spretigt, ostrukturerat och svårt att få en helhetsbild av.\n\n### 🎯 UTMANING:\nHur aggregerar och analyserar förskolechefen detta material för den årliga kvalitetsrapporten så dat röda trådar identifieras, orsak-konsekvens-åtgärd blir tydlig och kopplingarna till läroplanens mål (Lpfö18) formuleras skarpt?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka analysstrukturer (t.ex. orsak-konsekvens-åtgärd) fungerar bäst för kvalitativa data?\n2. Hur kan AI användas för att sammanställa fritextsvar utan att tappa nyanserna eller bli partisk?\n3. Hur formulerar man skarpa slutsatser som leder till konkreta åtgärdsplaner för nästa läsår?"
             },
             {
                 "label": "Case E: Svåra Samtal & Ledarröst",
                 "painPoint": "Förbereda känsliga samtal och behålla sin personliga ledarröst.",
                 "context": "Rollspela och sparras inför medarbetarsamtal, samt bevara sin personliga röst i skriftlig feedback.",
-                "prompt": "Du är en klok och trygg ledarskapscoach för skolledare och expert på svåra samtal, konflikthantering och arbetsrätt (inkl. LAS-frågor). Jag ska hålla ett svårt samtal med en medarbetare angående [t.ex. samarbetsproblem, bristande engagemang eller misskötsamhet] och känner mig osäker på hur jag ska lägga upp samtalet utan att bli defensiv eller för auktoritär.\n\n### Din uppgift:\n1. Skapa ett rollspels-scenario där DU spelar den aktuella medarbetaren (med en specifik men realistisk försvarsmekanism, t.ex. 'offergörande' eller 'aggressiv avböjning') och LÅT MIG öva på att bemöta dig i korta dialogsteg.\n2. Ge mig en strukturerad samtalsmall i 4 steg (t.ex. Öppning, Beskrivning av friktion, Dialog/Lösning, Avslut) anpassad för svensk skolkultur.\n3. Ge mig tips på hur jag mentalt förbereder mig för att behålla mitt professionella lugn och min unika röst under samtalet.\n\nFråga mig först: (a) vad är kärnan i problemet med medarbetaren, och (b) vilken reaktion eller försvarsmekanism är du mest orolig för?"
+                "prompt": "### 📋 BAKGRUND:\nEn rektor ska hålla ett svårt samtal med en medarbetare angående bristande engagemang och samarbetsproblem i arbetslaget. Medarbetaren har en tendens att bli defensiv, gå i försvarsställning eller spela rollen som offer under mötet.\n\n### 🎯 UTMANING:\nHur lägger rektorn upp samtalets struktur och behåller sitt professionella lugn och sin personliga ledarröst, utan att bli antingen för defensiv eller för auktoritär?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilken samtalsstruktur (t.ex. en fyrstegsmodell) lämäpar sig bäst för svåra medarbetarsamtal?\n2. Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?\n3. Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
             }
         ];
 
@@ -5102,22 +5102,22 @@
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot green"></span>
-                        <span class="terminal-title">WORKSHOP CASE TERMINAL</span>
+                        <span class="terminal-title">UTMANING & SCENARIO</span>
                     </div>
                     <div class="terminal-body" id="${id}-terminal-body">
-                        <div class="terminal-welcome-text" id="${id}-welcome">VÄLJ ETT CASE PÅ VÄNSTER SIDA FÖR ATT INICIERA PROMPTEN...</div>
+                        <div class="terminal-welcome-text" id="${id}-welcome">VÄLJ ETT CASE FÖR ATT INICIERA SCENARIOT...</div>
                         
                         <div class="terminal-case-header" id="${id}-case-header" style="display:none;">
                             <span class="terminal-meta">CASE:</span> <span class="case-label" id="${id}-case-label"></span><br>
                             <span class="terminal-meta">KONTEXT:</span> <span class="case-context" id="${id}-case-context"></span>
                         </div>
                         <div class="terminal-case-divider" id="${id}-case-divider" style="display:none;">--------------------------------------------------------------------------------</div>
-                        <div class="terminal-prompt-prefix" id="${id}-prompt-prefix" style="display:none;">[PROMPT_TEMPLATE] > </div>
+                        <div class="terminal-prompt-prefix" id="${id}-prompt-prefix" style="display:none;">[UTMANING] > </div>
                         <span class="terminal-prompt-content" id="${id}-prompt-content"></span><span class="terminal-cursor" id="${id}-cursor" style="display:none;">█</span>
                     </div>
                     <div class="terminal-footer">
                         <button class="terminal-copy-btn" id="${id}-copy-btn" disabled>
-                            <span class="btn-text">KOPIERA PROMPT</span>
+                            <span class="btn-text">KOPIERA UTMANINGEN</span>
                         </button>
                     </div>
                 </div>
@@ -5214,7 +5214,7 @@
                     if (btnText) btnText.innerHTML = '✔️ KOPIERAD!';
                     setTimeout(() => {
                         copyBtn.classList.remove('copied');
-                        if (btnText) btnText.innerHTML = 'KOPIERA PROMPT';
+                        if (btnText) btnText.innerHTML = 'KOPIERA UTMANINGEN';
                     }, 2000);
                 }
                 

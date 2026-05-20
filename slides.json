@@ -702,6 +702,27 @@
       ]
     },
     {
+      "id": "personal-voice-question",
+      "section": "agenter",
+      "type": "quote",
+      "text": "Vill vi verkligen att alla texter vi lämnar ifrån oss förvisso är *helt grammatiskt korrekta*... men helt utan *personlig stil, röst och själ*?",
+      "author": "En tankeställare inför framtidens kommunikation",
+      "style": "typewriter",
+      "slowSpeed": true,
+      "cardTitle": "Rösten eller korrektheten?",
+      "animation": "slide-left"
+    },
+    {
+      "id": "personal-voice-methods",
+      "section": "agenter",
+      "type": "prompt-card",
+      "eyebrow": "💡 Praktisk metod: Stilmalls-prompten",
+      "title": "Så behåller du din unika röst med AI",
+      "prompt": "Här är tre texter som jag själv har skrivit:\n\n[KLISTRA IN TEXT 1]\n[KLISTRA IN TEXT 2]\n[KLISTRA IN TEXT 3]\n\nAnalysera min skrivstil. Fokusera särskilt på:\n1. Tonläge (formell/informell, akademisk, varm/distanserad)\n2. Meningslängd och rytm (varierad, korta kraftfulla satser, flyt)\n3. Ordval (favorituttryck, ord jag ofta använder eller undviker)\n\nSkapa en kort 'stilmall' (10 tydliga skrivregler) som sammanfattar min röst. När jag framöver ber dig skriva eller redigera en text, ska du alltid tillämpa denna stilmall så att texten låter som min egen.",
+      "hint": "Kopilot-metoden: Skriv ett grovt råutkast med dina egna tankar och omdömen först. Låt sedan AI polera formen utifrån din personliga stilmall, utan att tappa själen.",
+      "cardTitle": "Behåll din personliga röst"
+    },
+    {
       "id": "du-ar-dirigenten",
       "section": "agenter",
       "type": "process-chain",

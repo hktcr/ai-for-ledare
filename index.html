@@ -523,7 +523,7 @@
                     parseSetlist(saved);
                     syncSetlistToUrl(saved);
                 } else {
-                    const defaultSetlist = "1,3,4,41,26,5,6,7,8,9,10,11,12,13,14,15,16,17,19,18,27,20,21,22,23,24,25,28,29,30,31,32,33,34,35,36,37,38,39,40";
+                    const defaultSetlist = "1,3,4,43,26,27,28,5,6,7,8,9,10,11,12,13,14,15,16,17,19,18,29,20,21,22,23,24,25,30,31,32,33,34,35,36,37,38,39,40,41,42";
                     document.getElementById('setlistInput').value = defaultSetlist;
                     parseSetlist(defaultSetlist);
                     syncSetlistToUrl(defaultSetlist);
@@ -1725,6 +1725,20 @@
                     notes.push("Vi jobbar direkt mot Gemini (utan förberedande filer eller agenter) för att se vad råa promptar kan ge direkt.");
                     notes.push("Syftet är att bygga en grundläggande förståelse och vana att använda verktyget direkt i vardagen.");
                     notes.push("Mer avancerade verktyg som NotebookLM och autonoma agenter sparar vi till framtida tillfällen.");
+                    return notes;
+                }
+                if (s.id === 'personal-voice-question') {
+                    notes.push("TANKESTÄLLARE (Henrik/rektor-fallet): Berätta om rektor Henrik vars kollega föredrog hans utkast framför AI:s grammatiskt perfekta text.");
+                    notes.push("PILOT-FÄLLAN: Om maskinen skriver 100% från grunden blir resultatet stelt, generiskt och själlöst.");
+                    notes.push("REFLEKTION: Vill vi ha helt korrekta men standardiserade och opersonliga texter till föräldrar och medarbetare?");
+                    notes.push("OMDÖME: En ledares röst och stil bär förtroende och relationer. Den får inte suddas ut.");
+                    return notes;
+                }
+                if (s.id === 'personal-voice-methods') {
+                    notes.push("PRAKTISK METOD: Hur tränar vi AI att låta som oss själva?");
+                    notes.push("STILMALLS-PROMPTEN: Visa deltagarna hur man matar in egna skrivna texter och ber AI analysera och spara rösten.");
+                    notes.push("KOPILOT-METODEN: Understryk vikten av att börja med egna tankar (råutkast) i stället för en blank prompt – det är där själen ligger.");
+                    notes.push("TIPS: Denna prompt kan kopieras direkt. Spara stilmallen i en anteckning för att enkelt klistra in i nya chattar.");
                     return notes;
                 }
                 

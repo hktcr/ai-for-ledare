@@ -184,11 +184,20 @@
         
         .close-btn {
             position: fixed; top: 1rem; right: 1rem;
-            background: rgba(255,255,255,0.1); border: none; color: white;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
             width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem;
             cursor: pointer; z-index: 101; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-        .close-btn:hover { background: rgba(255,255,255,0.2); }
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
 
         .slide-counter {
             position: fixed; bottom: 1.5rem; right: 1.5rem; font-size: 0.7rem;

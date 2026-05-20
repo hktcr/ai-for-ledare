@@ -816,7 +816,7 @@
         .ms-eyebrow { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-size: clamp(1.2rem, 2cqw, 1.8rem); }
         .ms-title { font-size: clamp(2.5rem, 5cqw, 4rem); font-weight: 900; margin-bottom: 2rem; }
         .ms-features { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .ms-feature { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 12px; font-weight: 700; font-size: clamp(1.2rem, 2cqw, 1.8rem); max-width: 400px; text-align: left; }
+        .ms-feature { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem 2rem; border-radius: 12px; font-weight: 700; font-size: clamp(1.2rem, 2cqw, 1.8rem); max-width: 400px; text-align: left; }
 
         /* ===== BAR RACE ===== */
         @keyframes barGrow {
@@ -932,8 +932,8 @@
             100% { opacity: 1; transform: scale(1); }
         }
         @keyframes calloutPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.1); }
-            50% { box-shadow: 0 0 25px 5px rgba(255,255,255,0.15); }
+            0%, 100% { box-shadow: 0 0 0 0 var(--border); }
+            50% { box-shadow: 0 0 25px 5px var(--border-hover); }
         }
         .slide-callout {
             display: flex; align-items: center; justify-content: center;
@@ -942,7 +942,8 @@
         .slide-callout .co-box {
             max-width: 700px; padding: 2.5rem 3rem;
             border-radius: 16px; border-left: 5px solid var(--co-color, var(--accent, #f97316));
-            background: rgba(255,255,255,0.06);
+            background: var(--surface); border: 1px solid var(--border);
+            border-left: 5px solid var(--co-color, var(--accent, #f97316));
             animation: calloutEnter 0.6s ease-out;
         }
         .slide-callout .co-box.co-pulsate {
@@ -1133,7 +1134,7 @@
         }
         .slide-ai-conversation .aic-chat {
             width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 0.6rem;
-            background: rgba(255,255,255,0.04); border-radius: 16px; padding: 1.5rem;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;
             max-height: 55cqh; overflow-y: auto;
         }
         .slide-ai-conversation .aic-msg {
@@ -1146,7 +1147,7 @@
             border-bottom-right-radius: 4px;
         }
         .slide-ai-conversation .aic-msg.aic-ai {
-            align-self: flex-start; background: rgba(255,255,255,0.1);
+            align-self: flex-start; background: var(--card-bg); border: 1px solid var(--border);
             color: var(--text, #f1f5f9); border-bottom-left-radius: 4px;
         }
         .slide-ai-conversation .aic-label {
@@ -1301,13 +1302,13 @@
         }
         .slide-pitfall .pf-question {
             font-size: 1.1rem; color: var(--text, #f1f5f9); padding: 1rem 1.2rem;
-            background: rgba(255,255,255,0.06); border-radius: 12px;
+            background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
             margin-bottom: 0.8rem;
         }
         .slide-pitfall .pf-answer {
             font-size: 1rem; color: var(--text, #f1f5f9); opacity: 0.8;
-            padding: 1rem 1.2rem; background: rgba(255,255,255,0.03);
-            border-radius: 12px; border-left: 3px solid rgba(255,255,255,0.15);
+            padding: 1rem 1.2rem; background: var(--surface);
+            border-radius: 12px; border-left: 3px solid var(--border);
             position: relative; margin-bottom: 1rem;
         }
         .slide-pitfall .pf-answer .pf-strike {
@@ -1319,13 +1320,13 @@
             animation: pfCorrectionIn 0.6s ease-out 2.5s both;
         }
         .slide-pitfall .pf-correction.pf-sev-warning {
-            background: rgba(245,158,11,0.08); border-color: #f59e0b; color: #fbbf24;
+            background: rgba(245,158,11,0.08); border-color: #f59e0b; color: var(--accent2, #fbbf24);
         }
         .slide-pitfall .pf-correction.pf-sev-danger {
-            background: rgba(239,68,68,0.08); border-color: #ef4444; color: #f87171;
+            background: rgba(239,68,68,0.08); border-color: #ef4444; color: var(--red, #ef4444);
         }
         .slide-pitfall .pf-correction.pf-sev-critical {
-            background: rgba(239,68,68,0.12); border-color: #ef4444; color: #f87171;
+            background: rgba(239,68,68,0.12); border-color: #ef4444; color: var(--red, #ef4444);
             box-shadow: 0 0 20px rgba(239,68,68,0.2);
         }
 
@@ -1780,7 +1781,7 @@
             vertical-align: bottom;
             position: relative;
             margin: 0 0.1em;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--surface);
             border-bottom: 3px solid var(--accent, #f97316);
             border-radius: 4px 4px 0 0;
             transition: background 0.3s, border 0.3s;
@@ -1815,6 +1816,7 @@
         .ts-spinner-wrapper.ts-solidified .ts-spinner-word {
             color: var(--accent, #f97316);
             font-weight: 700;
+            opacity: 1;
         }
         .ts-spinner-track {
             display: flex;
@@ -1829,7 +1831,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.4);
+            color: var(--text);
+            opacity: 0.4;
         }
 
         /* ===== MAP-PROGRESSION ===== */

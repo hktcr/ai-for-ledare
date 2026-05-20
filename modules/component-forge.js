@@ -710,7 +710,7 @@
         .slide-bento-grid {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 5cqh 7cqw; box-sizing: border-box; justify-content: center; position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(15, 15, 30, 0.4) 0%, rgba(5, 5, 10, 0.98) 100%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg);
             overflow: hidden;
         }
         .bento-title {
@@ -843,7 +843,7 @@
         .slide-delegation-radar {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
-            background: radial-gradient(circle at 50% 30%, rgba(20, 15, 45, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%);
+            background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg);
             overflow: hidden;
             transition: background 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -851,8 +851,8 @@
             animation: alert-pulse-bg 4s infinite alternate;
         }
         @keyframes alert-pulse-bg {
-            0% { background: radial-gradient(circle at 50% 30%, rgba(50, 10, 10, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%); }
-            100% { background: radial-gradient(circle at 50% 30%, rgba(90, 15, 15, 0.45) 0%, rgba(8, 5, 8, 0.99) 100%); }
+            0% { background: radial-gradient(circle at 50% 30%, rgba(50, 10, 10, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%), var(--bg); }
+            100% { background: radial-gradient(circle at 50% 30%, rgba(90, 15, 15, 0.45) 0%, rgba(8, 5, 8, 0.99) 100%), var(--bg); }
         }
         .radar-title {
             font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 0.2rem; font-weight: 800;
@@ -1953,7 +1953,7 @@
         .slide-process-chain {
             display: flex; flex-direction: column; align-items: center;
             justify-content: center; padding: 4cqh 6cqw; min-height: 75cqh;
-            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.4) 0%, rgba(10, 10, 15, 0.95) 100%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg);
             overflow: hidden; box-sizing: border-box; width: 100%; height: 100%;
         }
         .slide-process-chain .pc-title {
@@ -2347,8 +2347,8 @@
         }
 
                 /* ===== MAP-PROGRESSION ===== */
-        .slide-map-progression { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #020205; color: #fff; text-align: left; }
-        .mprog-map-area { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #0a0b16 0%, #020205 100%); }
+        .slide-map-progression { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: var(--bg); color: #fff; text-align: left; }
+        .mprog-map-area { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg); }
         
         .mprog-map-wrapper { position: relative; width: 100%; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; display: flex; justify-content: center; align-items: center; }
         .mprog-map-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: contrast(1.2) brightness(0.85); mix-blend-mode: lighten; }
@@ -2514,7 +2514,7 @@
         .slide-interactive-cases {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
-            background: radial-gradient(circle at 50% 30%, rgba(20, 15, 45, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%);
+            background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg);
             overflow: hidden;
         }
         .cases-title {
@@ -6001,7 +6001,7 @@
             style.innerHTML = `
                 .slide-semantic-nebula { 
                     position: absolute; inset: 0; width: 100cqw; height: 100cqh; 
-                    background: radial-gradient(circle at center, #020617 0%, #000000 100%); overflow: hidden; display: flex; 
+                    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg); overflow: hidden; display: flex; 
                     flex-direction: column; align-items: center; justify-content: center; 
                 }
                 .sn-canvas-container { position: absolute; inset: 0; z-index: 1; }
@@ -6584,7 +6584,7 @@
             style.innerHTML = `
                 .slide-vector-nebula { 
                     position: absolute; inset: 0; width: 100cqw; height: 100cqh; 
-                    background: radial-gradient(circle at center, #020617 0%, #000000 100%); overflow: hidden; display: flex; 
+                    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg); overflow: hidden; display: flex; 
                     flex-direction: column; align-items: center; justify-content: center; 
                 }
                 .vn-canvas-container { position: absolute; inset: 0; z-index: 1; }
@@ -7856,24 +7856,25 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
     function renderTitleAstorp(s) {
         const id = 'ta-container-' + Math.random().toString(36).slice(2, 8);
         
-        const presenterName = s.presenter?.name || 'Håkan Karlsson';
-        const presenterTitle = s.presenter?.title || 'Kommunlektor';
-        
         const footerItems = [];
-        footerItems.push(`
-            <div class="ta-footer-item">
-                <span class="ta-footer-label">FÖRELÄSARE</span>
-                <span class="ta-footer-val">${presenterName}</span>
-            </div>
-        `);
-        if (presenterTitle) {
+        
+        if (s.presenter && s.presenter.name) {
             footerItems.push(`
                 <div class="ta-footer-item">
-                    <span class="ta-footer-label">ROLL</span>
-                    <span class="ta-footer-val">${presenterTitle}</span>
+                    <span class="ta-footer-label">FÖRELÄSARE</span>
+                    <span class="ta-footer-val">${s.presenter.name}</span>
                 </div>
             `);
+            if (s.presenter.title) {
+                footerItems.push(`
+                    <div class="ta-footer-item">
+                        <span class="ta-footer-label">ROLL</span>
+                        <span class="ta-footer-val">${s.presenter.title}</span>
+                    </div>
+                `);
+            }
         }
+        
         footerItems.push(`
             <div class="ta-footer-item">
                 <span class="ta-footer-label">DATUM</span>
@@ -8759,7 +8760,12 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             }
             
             function triggerMorph() {
-                if (state === 'MORPH') return;
+                if (state === 'MORPH') {
+                    if (typeof window.nextSlide === 'function') {
+                        window.nextSlide();
+                    }
+                    return;
+                }
                 state = 'MORPH';
                 overlay.style.opacity = '0';
                 overlay.style.pointerEvents = 'none';
@@ -8771,8 +8777,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 });
             }
             
-            canvas.addEventListener('click', triggerMorph);
-            overlay.addEventListener('click', triggerMorph);
+            const container = document.getElementById(id);
+            if (container) {
+                container.addEventListener('click', triggerMorph);
+            }
             
             function draw() {
                 if (!document.getElementById(id)) {
@@ -8825,7 +8833,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         }, 100);
         
         return `
-            <div class="slide-pixel-morph" id="${id}">
+            <div class="slide-pixel-morph no-click-advance" id="${id}">
                 <canvas id="${id}-canvas"></canvas>
                 <div class="pm-text-overlay" id="${id}-overlay">
                     <div class="pm-quote">${s.text || ''}</div>

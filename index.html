@@ -8,14 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: radial-gradient(circle at center, #1e1b4b 0%, #000000 100%);
-            --surface: rgba(30,27,75,0.5);
-            --card-bg: rgba(30,27,75,0.8);
-            --card-bg-hover: rgba(49,46,129,0.8);
-            --text: #f1f5f9; --text-muted: rgba(255,255,255,0.7);
-            --accent: #f97316; --accent2: #fb923c;
+            --bg: radial-gradient(circle at center, #520b1f 0%, #29030e 60%, #0f0105 100%);
+            --surface: rgba(139, 29, 65, 0.12);
+            --card-bg: rgba(41, 3, 14, 0.75);
+            --card-bg-hover: rgba(77, 8, 28, 0.85);
+            --text: #ffffff; --text-muted: rgba(245, 238, 241, 0.75);
+            --accent: #ffd700; --accent2: #ffa500;
             --green: #22c55e; --yellow: #eab308; --red: #ef4444;
-            --border: rgba(255,255,255,0.15); --border-hover: rgba(255,255,255,0.3);
+            --border: rgba(255, 215, 0, 0.2); --border-hover: rgba(255, 215, 0, 0.45);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -464,16 +464,16 @@
         }
         setInterval(pollPresenterState, 1500);
 
-        // === THEMES (optimerade för BIN-workshopen) ===
-        const themes = {
+          const themes = {
+            'Åstorp Premium (Guld & Vinröd)': {"--bg":"radial-gradient(circle at center, #520b1f 0%, #29030e 60%, #0f0105 100%)","--surface":"rgba(139,29,65,0.12)","--card-bg":"rgba(41,3,14,0.75)","--card-bg-hover":"rgba(77,8,28,0.85)","--text":"#ffffff","--text-muted":"rgba(245,238,241,0.75)","--accent":"#ffd700","--accent2":"#ffa500","--border":"rgba(255,215,0,0.2)","--border-hover":"rgba(255,215,0,0.45)"},
             'EHT Midnight (Orange)': {"--bg":"radial-gradient(circle at center, #1e1b4b 0%, #000000 100%)","--surface":"rgba(30,27,75,0.5)","--card-bg":"rgba(30,27,75,0.8)","--card-bg-hover":"rgba(49,46,129,0.8)","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#f97316","--accent2":"#fb923c","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
             'EHT Midnight (Blå)': {"--bg":"radial-gradient(circle at center, #1e1b4b 0%, #000000 100%)","--surface":"rgba(30,27,75,0.5)","--card-bg":"rgba(30,27,75,0.8)","--card-bg-hover":"rgba(49,46,129,0.8)","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#38bdf8","--accent2":"#818cf8","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
             'Auditorium Dark': {"--bg":"#000","--surface":"#1a1a1a","--card-bg":"#2a2a2a","--card-bg-hover":"#333","--text":"#f1f5f9","--text-muted":"rgba(255,255,255,0.7)","--accent":"#f97316","--accent2":"#a855f7","--border":"rgba(255,255,255,0.15)","--border-hover":"rgba(255,255,255,0.3)"},
             'Åstorp Ljust (Profil)': {"--bg":"#fafaf9","--surface":"#f5f5f4","--card-bg":"#ffffff","--card-bg-hover":"#fdfdfd","--text":"#1c1917","--text-muted":"rgba(28,25,23,0.7)","--accent":"#8b1d41","--accent2":"#d97706","--border":"rgba(139,29,65,0.15)","--border-hover":"rgba(139,29,65,0.3)"},
             'Åstorp Mörkt (Cyber)': {"--bg":"radial-gradient(circle at center, #2e0914 0%, #080103 100%)","--surface":"rgba(46,9,20,0.4)","--card-bg":"rgba(32,5,12,0.85)","--card-bg-hover":"rgba(58,10,23,0.9)","--text":"#f5eef1","--text-muted":"rgba(245,238,241,0.7)","--accent":"#ff2a6d","--accent2":"#ffd700","--border":"rgba(255,42,109,0.25)","--border-hover":"rgba(255,42,109,0.45)"}
         };
-
-        let activeTheme = 'Åstorp Mörkt (Cyber)';
+ 
+        let activeTheme = 'Åstorp Premium (Guld & Vinröd)';
 
         // Build theme pills for main menu
         const themeRow = document.getElementById('themeRow');

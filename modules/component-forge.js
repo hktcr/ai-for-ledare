@@ -9247,13 +9247,12 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
     }
 
     // Init
+    registerTypes();
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            registerTypes();
             patchWatchRenderer();
         });
     } else {
-        registerTypes();
         patchWatchRenderer();
     }
 

@@ -1024,6 +1024,22 @@
       "section": "agenter",
       "title": "Dual Analysis Method",
       "type": "dual-analysis-prompt"
+    },
+    {
+      "id": "olampligt-ai",
+      "section": "start",
+      "type": "rewrite-progression",
+      "cardTitle": "När är det olämpligt?",
+      "template": "När är det {modifier} att använda AI?",
+      "prefix": [],
+      "steps": [
+        {
+          "modifier": "olämpligt"
+        },
+        {
+          "modifier": "olämpligt att INTE"
+        }
+      ]
     }
   ]
 }

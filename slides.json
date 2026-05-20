@@ -1204,6 +1204,29 @@
         { "text": "IMY (2026): Dataskydd & AI i skolmiljö", "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/" },
         { "text": "Bedöma.se: Juridiken kring AI-detektorer", "url": "https://bedoma.se/" }
       ]
+    },
+    {
+      "id": "emil-workspace",
+      "section": "start",
+      "type": "title-astorp",
+      "title": "Gemini i Google Workspace",
+      "subtitle": "Praktiska verktyg, säkerhet och administratörsinsyn",
+      "note": "Emil presenterar Åstorps officiella, skyddade AI-miljö",
+      "presenter": {
+        "name": "Emil",
+        "title": "IT-strateg",
+        "org": "Åstorps kommun"
+      },
+      "cardTitle": "Emils Workspace-block"
+    },
+    {
+      "id": "fika-break",
+      "section": "start",
+      "type": "quote",
+      "text": "Kaffe & Bensträckare<br><br><span style='font-size:0.6em; opacity:0.8;'>Låt det latenta rummet sätta sig... (09:45 - 10:00)</span>",
+      "author": "Fika",
+      "style": "typewriter",
+      "cardTitle": "Fika"
     }
   ]
 }

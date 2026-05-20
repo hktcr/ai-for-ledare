@@ -944,6 +944,38 @@
       ]
     },
     {
+      "id": "workshop-meny-mojligheter",
+      "section": "agenter",
+      "type": "bento-grid",
+      "title": "Meny av Möjligheter — Välj din väg",
+      "items": [
+        {
+          "colSpan": 1,
+          "icon": "🟢",
+          "title": "Nivå 1: Kom igång",
+          "text": "Perfekt för att sänka startmotståndet och få direkt nytta.<br><br><b>A. Din personliga stilmall:</b> Klicka 'Kopiera prompt' på föregående bild, analysera din egen röst.<br><b>B. E-post-Sparring:</b> Låt Gemini slipa ett svårt mail baserat på grova punkter."
+        },
+        {
+          "colSpan": 1,
+          "icon": "🟡",
+          "title": "Nivå 2: Trycktesta omdömet",
+          "text": "Använd AI som en aktiv strategisk sparringpartner.<br><br><b>C. Det stormiga föräldramötet:</b> Interaktivt rollspel inför ett svårt samtal.<br><b>D. Dokument-granskaren:</b> Ladda upp en policy och låt AI leta efter svagheter och luckor."
+        },
+        {
+          "colSpan": 1,
+          "icon": "🔴",
+          "title": "Nivå 3: Utsvängningar",
+          "text": "Inse vad AI kan göra som du knappt kunnat ana.<br><br><b>E. Bygg en VEP-expertpanel:</b> Simulera ett möte med flera experter (forskare, kurator, rektor) under din ledning som dirigent."
+        }
+      ],
+      "sources": [
+        {
+          "text": "Strategi & Lathund: AI-Workshop 2026",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
       "id": "workshop-case-data",
       "section": "agenter",
       "type": "prompt-card",

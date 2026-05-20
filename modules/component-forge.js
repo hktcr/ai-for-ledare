@@ -8061,7 +8061,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     <h1 class="ta-title">
                         ${formattedTitle}
                     </h1>
-                    <p class="ta-subtitle">${s.subtitle || 'Från chattbottar till autonoma agenter'}</p>
+                    ${s.subtitle ? `<p class="ta-subtitle">${s.subtitle}</p>` : ''}
                     <div class="ta-footer">
                         ${footerHtml}
                     </div>

@@ -8658,13 +8658,13 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         }
 
                         // Draw particle
-                        ctx.fillStyle = `rgba(${targetColor.r}, ${targetColor.g}, ${targetColor.b}, 0.85)`;
+                        ctx.fillStyle = 'rgba(' + targetColor.r + ', ' + targetColor.g + ', ' + targetColor.b + ', 0.85)';
                         ctx.beginPath();
                         ctx.arc(p1.x, p1.y, p1.r, 0, Math.PI * 2);
                         ctx.fill();
                         
                         // Outer glow ring
-                        ctx.strokeStyle = `rgba(${targetColor.r}, ${targetColor.g}, ${targetColor.b}, 0.18)`;
+                        ctx.strokeStyle = 'rgba(' + targetColor.r + ', ' + targetColor.g + ', ' + targetColor.b + ', 0.18)';
                         ctx.beginPath();
                         ctx.arc(p1.x, p1.y, p1.r + 3, 0, Math.PI * 2);
                         ctx.stroke();

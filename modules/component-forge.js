@@ -2975,16 +2975,20 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            padding: 1.5rem 2rem;
+            padding: 2rem 3rem;
             box-sizing: border-box;
         }
         .slide-cases-grid-popup h2 {
-            font-size: clamp(1.8rem, 3cqw, 2.6rem);
-            margin-bottom: 0.5rem;
+            font-size: clamp(1.8rem, 3.2cqh, 2.6rem);
+            margin-bottom: 0.4rem;
             text-align: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .slide-cases-grid-popup p.subtitle {
-            font-size: clamp(1rem, 1.8cqw, 1.25rem);
+            font-size: clamp(0.95rem, 1.8cqh, 1.2rem);
             color: #94a3b8;
             text-align: center;
             margin-bottom: 1.5rem;
@@ -2992,16 +2996,38 @@
         .cgp-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
+            gap: 1rem;
             flex-grow: 1;
             padding-bottom: 0.5rem;
             overflow-y: auto;
-            max-height: 68vh;
+            max-height: 66vh;
+            padding-right: 4px;
         }
+        
+        /* Elegant Custom Scrollbars */
+        .cgp-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cgp-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 3px;
+        }
+        .cgp-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        .cgp-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--accent, #f97316);
+        }
+
         @media (max-width: 1024px) {
             .cgp-grid {
                 grid-template-columns: repeat(2, 1fr);
-                max-height: 70vh;
+                max-height: 68vh;
+            }
+            .slide-cases-grid-popup {
+                padding: 1.5rem;
             }
         }
         @media (max-width: 640px) {
@@ -3010,109 +3036,85 @@
             }
         }
         .cgp-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1.2rem;
+            background: rgba(30, 41, 59, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 1.3rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
         .cgp-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 100%);
             opacity: 0;
             transition: opacity 0.3s;
         }
         .cgp-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: var(--accent, #f97316);
-            box-shadow: 0 12px 24px rgba(249, 115, 22, 0.15), 0 4px 8px rgba(0,0,0,0.2);
-            background: rgba(30, 41, 59, 0.6);
+            transform: translateY(-4px);
+            border-color: rgba(249, 115, 22, 0.4);
+            box-shadow: 0 16px 36px rgba(249, 115, 22, 0.12), 0 4px 12px rgba(0,0,0,0.3);
+            background: rgba(30, 41, 59, 0.55);
         }
         .cgp-card:hover::before {
             opacity: 1;
         }
         .cgp-card-badge {
             align-self: flex-start;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 800;
-            background: rgba(255,255,255,0.08);
-            color: #cbd5e1;
-            padding: 0.2rem 0.5rem;
+            background: rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 0.25rem 0.55rem;
             border-radius: 6px;
             letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            transition: all 0.3s;
         }
         .cgp-card:hover .cgp-card-badge {
             background: var(--accent, #f97316);
             color: #fff;
         }
         .cgp-card h3 {
-            font-size: clamp(1rem, 1.8cqw, 1.25rem);
+            font-size: clamp(1rem, 2cqh, 1.25rem);
             margin: 0 0 0.5rem 0;
             font-weight: 700;
             color: #fff;
-            line-height: 1.3;
+            line-height: 1.35;
         }
         .cgp-card p {
             font-size: 0.85rem;
             color: #94a3b8;
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.45;
             flex-grow: 1;
         }
         .cgp-card-footer {
             margin-top: 0.8rem;
             font-size: 0.75rem;
             color: var(--accent, #f97316);
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 4px;
-        }
-        .cgp-card.cgp-motivation-card {
-            background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(99,102,241,0.15));
-            border: 1px dashed rgba(249,115,22,0.3);
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            grid-column: span 3;
-        }
-        @media (max-width: 1024px) {
-            .cgp-card.cgp-motivation-card {
-                grid-column: span 2;
-            }
-        }
-        @media (max-width: 640px) {
-            .cgp-card.cgp-motivation-card {
-                grid-column: span 1;
-            }
-        }
-        .cgp-card.cgp-motivation-card h3 {
-            color: var(--accent, #f97316);
-            font-size: clamp(1.1rem, 2cqw, 1.35rem);
-            margin-bottom: 0.4rem;
-        }
-        .cgp-card.cgp-motivation-card p {
-            color: #cbd5e1;
-            flex-grow: 0;
-            font-weight: 500;
+            letter-spacing: 0.02em;
         }
 
         .cgp-modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(10, 15, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
@@ -3126,17 +3128,17 @@
             pointer-events: auto;
         }
         .cgp-modal-container {
-            width: 90%;
-            max-width: 800px;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            padding: 2.2rem;
-            max-height: 85%;
+            width: 92%;
+            max-width: 960px;
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.03);
+            padding: 2.5rem;
+            max-height: 88%;
             overflow-y: auto;
             position: relative;
-            transform: scale(0.95) translateY(10px);
+            transform: scale(0.95) translateY(12px);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             color: #f1f5f9;
         }
@@ -3147,113 +3149,110 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            width: 36px;
-            height: 36px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: #cbd5e1;
-            font-size: 1.5rem;
-            transition: all 0.2s;
+            color: #94a3b8;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
         }
         .cgp-modal-close:hover {
-            background: #ef4444;
+            background: #f43f5e;
             color: #fff;
-            border-color: #ef4444;
+            border-color: #f43f5e;
+            transform: rotate(90deg);
         }
         .cgp-modal-header {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 1rem;
         }
         .cgp-modal-badge {
             display: inline-block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 800;
-            background: var(--accent, #f97316);
+            background: linear-gradient(135deg, var(--accent, #f97316) 0%, #ff8c00 100%);
             color: #fff;
-            padding: 0.25rem 0.6rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 6px;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             margin-bottom: 0.6rem;
+            text-transform: uppercase;
         }
         .cgp-modal-header h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: clamp(1.4rem, 2.8cqh, 2rem);
+            font-weight: 800;
             margin: 0;
             color: #fff;
             text-align: left;
+            letter-spacing: -0.01em;
         }
+        
+        /* 2-Column Split Layout for Scenario & Questions */
         .cgp-modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .cgp-modal-body {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         }
         .cgp-modal-section-title {
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #94a3b8;
-            margin-bottom: 0.4rem;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            margin-bottom: 0.8rem;
         }
         .cgp-modal-challenge {
-            font-size: 1.1rem;
-            line-height: 1.5;
+            font-size: clamp(0.95rem, 1.9cqh, 1.15rem);
+            line-height: 1.6;
             color: #cbd5e1;
             background: rgba(255,255,255,0.02);
-            padding: 1rem;
+            padding: 1.5rem;
             border-left: 4px solid var(--accent, #f97316);
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 16px 16px 0;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.01);
         }
-        .cgp-modal-prompt-wrapper {
-            position: relative;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin-top: 0.5rem;
-        }
-        .cgp-modal-prompt {
-            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #e2e8f0;
-            white-space: pre-wrap;
-            word-break: break-word;
-            margin: 0;
-            max-height: 250px;
-            overflow-y: auto;
-            padding-right: 2.5rem;
-        }
-        .cgp-modal-copy-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #cbd5e1;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 600;
+        .cgp-modal-questions {
             display: flex;
-            align-items: center;
-            gap: 4px;
+            flex-direction: column;
+            gap: 0.8rem;
         }
-        .cgp-modal-copy-btn:hover {
-            border-color: var(--accent, #f97316);
-            color: #fff;
-            background: rgba(249, 115, 22, 0.05);
+        .cgp-question-item {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 1rem 1.2rem;
+            border-radius: 14px;
+            display: flex;
+            gap: 12px;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+            font-size: clamp(0.88rem, 1.7cqh, 1.05rem);
+            color: #cbd5e1;
         }
-        .cgp-modal-copy-btn.copied {
-            border-color: #10b981;
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.05);
+        .cgp-question-item:hover {
+            background: rgba(249, 115, 22, 0.03);
+            border-color: rgba(249, 115, 22, 0.15);
+            transform: translateX(4px);
+        }
+        .cgp-question-bullet {
+            color: var(--accent, #f97316);
+            font-weight: 800;
+            font-size: 1.2rem;
+            line-height: 1;
+            user-select: none;
         }
 
         /* 5. PROCESS CHAIN PROMPT REVEAL DRAWER */
@@ -9119,11 +9118,8 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             const modalBadge = document.getElementById(`${id}-modal-badge`);
             const modalChallenge = document.getElementById(`${id}-modal-challenge`);
             const modalQuestions = document.getElementById(`${id}-modal-questions`);
-            const modalPrompt = document.getElementById(`${id}-modal-prompt`);
-            const copyBtn = document.getElementById(`${id}-modal-copy-btn`);
             
             let keydownHandler = null;
-            let currentPromptText = '';
             
             function openModal(caseData) {
                 modalTitle.innerText = caseData.title || '';
@@ -9131,19 +9127,13 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 modalChallenge.innerHTML = caseData.challenge || '';
                 
                 modalQuestions.innerHTML = (caseData.questions || [])
-                    .map(q => `<div style="margin-bottom: 0.6rem; display: flex; gap: 8px;">
-                                 <span style="color: var(--accent, #f97316); font-weight: bold;">&bull;</span>
+                    .map(q => `<div class="cgp-question-item">
+                                 <span class="cgp-question-bullet">&bull;</span>
                                  <span>${q}</span>
                                </div>`)
                     .join('');
                 
-                currentPromptText = caseData.prompt || '';
-                modalPrompt.textContent = currentPromptText;
-                
                 overlay.classList.add('active');
-                
-                copyBtn.classList.remove('copied');
-                copyBtn.innerHTML = '<span class="icon">📋</span> Kopiera prompt';
                 
                 keydownHandler = (e) => {
                     if (!document.getElementById(id)) {
@@ -9179,20 +9169,6 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             closeBtn.addEventListener('click', closeModal);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeModal();
-            });
-            
-            copyBtn.addEventListener('click', () => {
-                if (!currentPromptText) return;
-                navigator.clipboard.writeText(currentPromptText).then(() => {
-                    copyBtn.classList.add('copied');
-                    copyBtn.innerHTML = '<span class="icon">✅</span> Kopierad!';
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = '<span class="icon">📋</span> Kopiera prompt';
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Could not copy text: ', err);
-                });
             });
             
         }, 100);
@@ -9241,15 +9217,6 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                             <div>
                                 <div class="cgp-modal-section-title">Frågeställningar att diskutera</div>
                                 <div class="cgp-modal-questions" id="${id}-modal-questions"></div>
-                            </div>
-                            <div>
-                                <div class="cgp-modal-section-title">Färdig Prompt Chamber (för kopiering till LLM)</div>
-                                <div class="cgp-modal-prompt-wrapper">
-                                    <pre class="cgp-modal-prompt" id="${id}-modal-prompt"></pre>
-                                    <button class="cgp-modal-copy-btn" id="${id}-modal-copy-btn">
-                                        <span class="icon">📋</span> Kopiera prompt
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>

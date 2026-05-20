@@ -709,98 +709,328 @@
         /* ===== BENTO GRID REDESIGN ===== */
         .slide-bento-grid {
             display: flex; flex-direction: column; height: 100%; width: 100%;
-            padding: 4cqh 6cqw; box-sizing: border-box; justify-content: center; position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.4) 0%, rgba(10, 10, 15, 0.95) 100%);
+            padding: 5cqh 7cqw; box-sizing: border-box; justify-content: center; position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(15, 15, 30, 0.4) 0%, rgba(5, 5, 10, 0.98) 100%);
             overflow: hidden;
         }
         .bento-title {
-            font-size: clamp(2rem, 5cqh, 3.2rem); margin-bottom: 3cqh; font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            font-size: clamp(2.2rem, 5cqh, 3.5rem); margin-bottom: 5cqh; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-align: center; letter-spacing: -0.02em;
+            text-align: center; letter-spacing: -0.03em;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
         }
         .bento-container {
             display: grid; grid-template-columns: repeat(var(--bento-cols, 3), 1fr);
-            gap: clamp(1rem, 2.5cqh, 2.5rem); width: 100%; max-width: 1200px; margin: 0 auto;
-            flex: 1; max-height: 70cqh; align-items: stretch;
+            gap: clamp(1.5rem, 4cqw, 4rem); width: 100%; max-width: 1250px; margin: 0 auto;
+            flex: 1; max-height: 65cqh; align-items: stretch;
         }
         .bento-item {
             position: relative;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
-            border-radius: 24px; padding: clamp(1.5rem, 3cqh, 3rem);
-            display: flex; flex-direction: column; align-items: flex-start;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+            border-radius: 40px 40px 24px 24px; padding: clamp(2rem, 4cqh, 3.5rem) 2.5rem;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 1; transform: translateY(0) scale(1);
-            min-height: 0; overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
+            min-height: 0; overflow: visible;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         .bento-item.step-hidden {
-            opacity: 0; transform: translateY(40px) scale(0.95); pointer-events: none;
+            opacity: 0; transform: translateY(60px) scale(0.92); pointer-events: none;
         }
         
-        /* Status Card Specific Colors & Shadows */
+        /* Status Capsule Themes */
         .bento-item.theme-green {
             --theme-color: #10b981;
-            --theme-glow: hsla(142, 70%, 45%, 0.12);
-            --theme-border: hsla(142, 70%, 45%, 0.25);
-            --theme-text: #34d399;
+            --theme-glow: rgba(16, 185, 129, 0.15);
+            --theme-border: rgba(16, 185, 129, 0.3);
+            --theme-bg-glow: rgba(16, 185, 129, 0.02);
             border: 1px solid var(--theme-border);
+            border-top: 1px solid rgba(16, 185, 129, 0.6);
+            background: linear-gradient(to bottom, var(--theme-bg-glow) 0%, rgba(255, 255, 255, 0.005) 100%);
         }
         .bento-item.theme-yellow {
             --theme-color: #fbbf24;
-            --theme-glow: hsla(45, 93%, 47%, 0.12);
-            --theme-border: hsla(45, 93%, 47%, 0.25);
-            --theme-text: #fbbf24;
+            --theme-glow: rgba(251, 191, 36, 0.15);
+            --theme-border: rgba(251, 191, 36, 0.3);
+            --theme-bg-glow: rgba(251, 191, 36, 0.02);
             border: 1px solid var(--theme-border);
+            border-top: 1px solid rgba(251, 191, 36, 0.6);
+            background: linear-gradient(to bottom, var(--theme-bg-glow) 0%, rgba(255, 255, 255, 0.005) 100%);
         }
         .bento-item.theme-red {
             --theme-color: #ef4444;
-            --theme-glow: hsla(0, 84%, 60%, 0.12);
-            --theme-border: hsla(0, 84%, 60%, 0.25);
-            --theme-text: #f87171;
+            --theme-glow: rgba(239, 68, 68, 0.15);
+            --theme-border: rgba(239, 68, 68, 0.3);
+            --theme-bg-glow: rgba(239, 68, 68, 0.02);
             border: 1px solid var(--theme-border);
+            border-top: 1px solid rgba(239, 68, 68, 0.6);
+            background: linear-gradient(to bottom, var(--theme-bg-glow) 0%, rgba(255, 255, 255, 0.005) 100%);
         }
         
         .bento-item:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--theme-color);
-            box-shadow: 0 16px 48px var(--theme-glow), inset 0 1px 2px rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px var(--theme-glow), inset 0 1px 0 rgba(255,255,255,0.15), 0 0 25px rgba(255, 255, 255, 0.02);
         }
         
-        /* Glowing Indicator Light */
+        /* Floating Capsule Beacons */
         .bento-status-indicator {
-            position: relative; width: 56px; height: 56px; margin-bottom: clamp(1rem, 2cqh, 2rem);
+            position: relative; width: 80px; height: 80px; margin-bottom: clamp(1.5rem, 3cqh, 2.5rem);
             display: flex; align-items: center; justify-content: center;
-            border-radius: 50%; background: rgba(0,0,0,0.4); border: 1px solid var(--theme-border);
+            border-radius: 50%; background: rgba(5, 5, 10, 0.8); 
+            border: 2px solid var(--theme-border);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.05);
+            transform: translateY(-20px);
+            margin-top: -20px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-item:hover .bento-status-indicator {
+            transform: translateY(-28px) scale(1.1);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px var(--theme-color);
+            border-color: var(--theme-color);
         }
         .indicator-pulse {
             position: absolute; width: 100%; height: 100%; border-radius: 50%;
-            background: var(--theme-color); opacity: 0.35;
+            background: var(--theme-color); opacity: 0.25;
             animation: indicatorPulse 2.5s infinite ease-in-out;
         }
         .indicator-core {
-            position: absolute; width: 70%; height: 70%; border-radius: 50%;
-            background: radial-gradient(circle at center, var(--theme-color) 0%, transparent 80%);
-            opacity: 0.85;
+            position: absolute; width: 80%; height: 80%; border-radius: 50%;
+            background: radial-gradient(circle at center, var(--theme-color) 0%, transparent 70%);
+            opacity: 0.6;
         }
         .indicator-icon {
-            font-size: 1.8rem; z-index: 2; display: flex; align-items: center; justify-content: center;
-            filter: drop-shadow(0 0 8px var(--theme-color));
+            font-size: 2.2rem; z-index: 2; display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 0 10px var(--theme-color));
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-item:hover .indicator-icon {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 15px var(--theme-color));
         }
         @keyframes indicatorPulse {
-            0% { transform: scale(1); opacity: 0.35; }
+            0% { transform: scale(1); opacity: 0.25; }
             50% { transform: scale(1.4); opacity: 0; }
-            100% { transform: scale(1); opacity: 0.35; }
+            100% { transform: scale(1); opacity: 0.25; }
         }
         
         .bento-item-title {
-            font-size: clamp(1.3rem, 2.5cqw, 1.8rem); margin-bottom: 0.8rem;
-            color: var(--theme-text); font-weight: 700; letter-spacing: -0.01em;
+            font-size: clamp(1.4rem, 2.5cqw, 2rem); margin-bottom: 1.5rem;
+            color: #fff; font-weight: 800; letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            border-bottom: 2px solid var(--theme-border);
+            padding-bottom: 0.5rem;
+            width: 100%;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-item:hover .bento-item-title {
+            color: var(--theme-color);
+            border-bottom-color: var(--theme-color);
         }
         .bento-item-text {
-            font-size: clamp(0.95rem, 1.8cqw, 1.2rem); color: #cbd5e1;
-            line-height: 1.5; font-weight: 400;
+            font-size: clamp(1rem, 1.8cqw, 1.25rem); color: #94a3b8;
+            line-height: 1.6; font-weight: 400;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bento-item:hover .bento-item-text {
+            color: #f1f5f9;
+        }
+
+        /* ===== DELEGATION RADAR (SLIDE 26 OVERHAUL) ===== */
+        .slide-delegation-radar {
+            display: flex; flex-direction: column; height: 100%; width: 100%;
+            padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
+            background: radial-gradient(circle at 50% 80%, rgba(20, 20, 45, 0.4) 0%, rgba(5, 5, 10, 0.99) 100%);
+            overflow: hidden;
+        }
+        .radar-title {
+            font-size: clamp(2.2rem, 5cqh, 3.5rem); margin-bottom: 0.5rem; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center; letter-spacing: -0.03em;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+        }
+        .radar-subtitle {
+            font-size: clamp(1rem, 2cqh, 1.4rem); color: var(--text-muted);
+            text-align: center; margin-bottom: 3cqh;
+        }
+        .radar-arena {
+            position: relative; flex: 1; width: 100%; max-width: 1200px; margin: 0 auto;
+            min-height: 0; display: flex; justify-content: center; align-items: center;
+        }
+        
+        /* Central Core */
+        .radar-core {
+            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+            width: 160px; height: 160px; border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2) 0%, rgba(15, 15, 35, 0.8) 70%);
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.15), inset 0 2px 10px rgba(255,255,255,0.05);
+            z-index: 10;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .radar-core:hover {
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 70px rgba(168, 85, 247, 0.35), inset 0 2px 15px rgba(255,255,255,0.1);
+            transform: translateX(-50%) scale(1.05);
+        }
+        .core-glow {
+            position: absolute; inset: -10px; border-radius: 50%;
+            border: 1px dashed rgba(168, 85, 247, 0.3);
+            animation: rotateCore 20s linear infinite;
+        }
+        @keyframes rotateCore {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .core-label {
+            font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: 0.15em;
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
+        }
+        .core-sub {
+            font-size: 0.75rem; color: #a855f7; font-weight: 700; letter-spacing: 0.05em; margin-top: 2px;
+        }
+        
+        /* Laser Lines SVG */
+        .radar-lasers {
+            position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;
+        }
+        .laser-path {
+            transition: stroke-dashoffset 2s ease, opacity 0.5s ease;
+            opacity: 0.15;
+        }
+        .laser-path.active {
+            opacity: 0.8;
+            stroke-dasharray: 8 8;
+            animation: laserPulse 1.5s linear infinite;
+        }
+        @keyframes laserPulse {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        /* Floating Orbitals (Zoner) */
+        .radar-orbital {
+            position: absolute; width: 280px; display: flex; flex-direction: column; align-items: center;
+            z-index: 5; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        .radar-orbital.step-hidden {
+            opacity: 0; transform: scale(0.6) translateY(50px); pointer-events: none;
+        }
+        
+        /* Placement of the Orbitals along the arch */
+        .radar-orbital.zone-green {
+            left: 8%; top: 12cqh;
+        }
+        .radar-orbital.zone-yellow {
+            left: 50%; top: 3cqh; transform: translateX(-50%);
+        }
+        .radar-orbital.zone-yellow.step-hidden {
+            transform: translateX(-50%) scale(0.6) translateY(50px);
+        }
+        .radar-orbital.zone-red {
+            right: 8%; top: 12cqh;
+        }
+        
+        /* Orbital styling (Cirkulär high-tech panel) */
+        .orbital-disc {
+            position: relative; width: 120px; height: 120px; border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(15, 15, 30, 0.9) 0%, rgba(5, 5, 10, 0.95) 100%);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 2px 10px rgba(255,255,255,0.05);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+        }
+        .orbital-ring {
+            position: absolute; inset: -8px; border-radius: 50%;
+            border: 2px solid var(--zone-border);
+            border-top-color: transparent; border-bottom-color: transparent;
+            animation: rotateRing 8s linear infinite;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .orbital-beacon {
+            position: absolute; width: 80%; height: 80%; border-radius: 50%;
+            background: radial-gradient(circle at center, var(--zone-color) 0%, transparent 70%);
+            opacity: 0.15; transition: all 0.6s;
+        }
+        .radar-orbital:hover .orbital-beacon {
+            opacity: 0.35;
+        }
+        .orbital-icon {
+            font-size: 3rem; display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 0 15px var(--zone-color));
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3;
+        }
+        
+        /* Content area under disk */
+        .orbital-content {
+            margin-top: 1.5rem; text-align: center;
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 20px; padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.02);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%; box-sizing: border-box;
+        }
+        
+        .radar-orbital:hover .orbital-content {
+            border-color: var(--zone-border);
+            box-shadow: 0 15px 40px var(--zone-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+            transform: translateY(-5px);
+            background: rgba(10, 10, 20, 0.7);
+        }
+        .radar-orbital:hover .orbital-disc {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 0 15px 40px var(--zone-glow), 0 0 20px var(--zone-color);
+        }
+        .radar-orbital:hover .orbital-ring {
+            inset: -12px;
+            animation-duration: 4s;
+            border-color: var(--zone-color);
+        }
+        
+        .orbital-title {
+            font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem;
+            transition: all 0.6s;
+        }
+        .radar-orbital:hover .orbital-title {
+            color: var(--zone-color);
+            border-bottom-color: var(--zone-color);
+        }
+        .orbital-desc {
+            font-size: 0.95rem; color: #94a3b8; line-height: 1.5; font-weight: 400;
+            transition: all 0.6s;
+        }
+        .radar-orbital:hover .orbital-desc {
+            color: #f1f5f9;
+        }
+        
+        /* Zone Themes */
+        .zone-green {
+            --zone-color: #10b981;
+            --zone-border: rgba(16, 185, 129, 0.3);
+            --zone-glow: rgba(16, 185, 129, 0.15);
+        }
+        .zone-yellow {
+            --zone-color: #fbbf24;
+            --zone-border: rgba(251, 191, 36, 0.3);
+            --zone-glow: rgba(251, 191, 36, 0.15);
+        }
+        .zone-red {
+            --zone-color: #ef4444;
+            --zone-border: rgba(239, 68, 68, 0.3);
+            --zone-glow: rgba(239, 68, 68, 0.15);
         }
 
         /* ===== GLITCH WARNING ===== */
@@ -4191,6 +4421,105 @@
     }
 
     /**
+     * delegation-radar: Holographic Risk Radar Console for Slide 26
+     */
+    function renderDelegationRadar(s) {
+        const id = 'radar-' + Math.random().toString(36).slice(2, 8);
+        let html = `<div class="slide-delegation-radar no-click-advance" id="${id}">`;
+        
+        if (s.title) html += `<h2 class="radar-title">${s.title}</h2>`;
+        html += `<div class="radar-subtitle">Navigera efter risk och kognitiv belastning — du är dirigenten</div>`;
+        
+        html += `<div class="radar-arena">`;
+        
+        // Central Core
+        html += `
+            <div class="radar-core">
+                <div class="core-glow"></div>
+                <div class="core-label">DIRIGENTEN</div>
+                <div class="core-sub">Du Bestämmer</div>
+            </div>
+        `;
+        
+        // SVG Lasers
+        html += `
+            <svg class="radar-lasers" viewBox="0 0 1000 600">
+                <path id="${id}-laser-0" class="laser-path path-green" d="M 500 500 Q 250 400 150 260" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
+                <path id="${id}-laser-1" class="laser-path path-yellow" d="M 500 500 Q 500 320 500 210" fill="none" stroke="rgba(251, 191, 36, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
+                <path id="${id}-laser-2" class="laser-path path-red" d="M 500 500 Q 750 400 850 260" fill="none" stroke="rgba(239, 68, 68, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
+            </svg>
+        `;
+        
+        // Orbital Zones
+        const items = s.items || [];
+        items.forEach((item, i) => {
+            let zoneClass = 'zone-green';
+            let icon = '🟢';
+            if (i === 1) { zoneClass = 'zone-yellow'; icon = '🟡'; }
+            if (i === 2) { zoneClass = 'zone-red'; icon = '🔴'; }
+            
+            if (item.icon === '🟢') zoneClass = 'zone-green';
+            if (item.icon === '🟡') zoneClass = 'zone-yellow';
+            if (item.icon === '🔴') zoneClass = 'zone-red';
+            
+            html += `
+                <div class="radar-orbital ${zoneClass} step-hidden" data-index="${i}">
+                    <div class="orbital-ring"></div>
+                    <div class="orbital-disc">
+                        <div class="orbital-beacon"></div>
+                        <span class="orbital-icon">${item.icon || icon}</span>
+                    </div>
+                    <div class="orbital-content">
+                        <h3 class="orbital-title">${item.title}</h3>
+                        <p class="orbital-desc">${item.text}</p>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `</div>`; // .radar-arena
+        html += renderSourcesPopup(s.sources);
+        html += `</div>`; // .slide-delegation-radar
+        
+        // Setup click reveals & laser activation
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            if (!container) return;
+            
+            const orbitals = container.querySelectorAll('.radar-orbital');
+            const lasers = [
+                document.getElementById(`${id}-laser-0`),
+                document.getElementById(`${id}-laser-1`),
+                document.getElementById(`${id}-laser-2`)
+            ];
+            
+            let currentStep = 0;
+            
+            // Show green orbital automatically after a short delay
+            setTimeout(() => {
+                if (orbitals.length > 0) {
+                    orbitals[0].classList.remove('step-hidden');
+                    if (lasers[0]) lasers[0].classList.add('active');
+                }
+                currentStep = 1;
+            }, 600);
+            
+            container.addEventListener('click', (e) => {
+                if (currentStep < orbitals.length) {
+                    e.stopPropagation();
+                    orbitals[currentStep].classList.remove('step-hidden');
+                    if (lasers[currentStep]) lasers[currentStep].classList.add('active');
+                    currentStep++;
+                } else {
+                    container.classList.remove('no-click-advance');
+                }
+            });
+        }, 100);
+        
+        return html;
+    }
+
+    /**
      * glitch-warning: A high-impact warning slide
      */
     function renderGlitchWarning(s) {
@@ -6728,6 +7057,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'warning-pulse': renderWarningPulse,
         'token-spinner': renderTokenSpinner,
         'bento-grid': renderBentoGrid,
+        'delegation-radar': renderDelegationRadar,
         'glitch-warning': renderGlitchWarning,
         'semantic-nebula': renderSemanticNebula,
         'vector-nebula': renderVectorNebula,

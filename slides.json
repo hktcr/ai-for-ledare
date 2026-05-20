@@ -640,7 +640,7 @@
       "id": "ai-delegation",
       "section": "agenter",
       "size": "large",
-      "type": "bento-grid",
+      "type": "delegation-radar",
       "title": "Delegations-matrisen",
       "items": [
         {

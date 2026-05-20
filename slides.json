@@ -838,6 +838,63 @@
       ]
     },
     {
+      "id": "anthropomorphism",
+      "section": "agenter",
+      "type": "anthropomorphism",
+      "cardTitle": "Antropomorfisering",
+      "image": "assets/android.png",
+      "title": "Är det ok att behandla AI som en människa?",
+      "subtitle": "Antropomorfisering: för- och nackdelar i praktiken",
+      "pros": [
+        "Naturlig interaktion: Mänskligt språk minskar trösklar och gör tekniken mer tillgänglig.",
+        "Ökad kreativitet: Genom att se AI som en samtalspartner stimuleras nya infallsvinklar.",
+        "Bättre resultat: Tydliga sociala instruktioner (rollspel, artighet) kan faktiskt förbättra svaren."
+      ],
+      "cons": [
+        "Falsk tillit: Att tillskriva AI avsikter och känslor döljer modellens felbarhet och begränsningar.",
+        "Ansvarsskyldighet: Vi riskerar att skylla på systemet istället för att ta eget professionellt ansvar.",
+        "GDPR och integritet: Socialt förtroende ökar risken att dela känslig eller konfidentiell information."
+      ],
+      "sources": [
+        {
+          "text": "Antropomorfism inom AI (Teachiq/KM 2026)",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
+      "id": "workshop-focus",
+      "section": "agenter",
+      "type": "workshop-focus",
+      "cardTitle": "Dagens fokus: Gemini",
+      "title": "Dagens fokus: Gemini från grunden",
+      "subtitle": "Idag fokuserar vi på ett verktyg för att lära oss grunderna",
+      "focusToday": {
+        "title": "Det vi gör idag",
+        "points": [
+          "Direktarbete mot Gemini (utan förarbete)",
+          "Utforska vad råa promptar och filer ger direkt",
+          "Bygga förståelse för grundläggande svar och interaktion",
+          "Etablera omedelbar vana att använda verktyget i vardagen"
+        ]
+      },
+      "nextSteps": {
+        "title": "Det vi sparar till senare",
+        "points": [
+          "NotebookLM (djupanalys av hela bibliotek)",
+          "Avancerade skrivregler och grundläggande arbetssätt",
+          "Strukturerade prompt-mallar och automatiserade mallar",
+          "Autonoma agenter som körs helt i bakgrunden"
+        ]
+      },
+      "sources": [
+        {
+          "text": "Workshop: BINs chefer 21 maj 2026",
+          "url": "https://hktcr.github.io/ai-for-ledare/"
+        }
+      ]
+    },
+    {
       "id": "workshop-case-data",
       "section": "agenter",
       "type": "prompt-card",

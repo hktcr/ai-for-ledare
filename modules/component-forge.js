@@ -6737,7 +6737,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'leadership-mindmap': renderLeadershipMindmap,
         'gdpr-mindmap': renderLeadershipMindmap,
         'dual-analysis-prompt': renderDualAnalysisPrompt,
-        'vep-stepper': renderVepStepper
+        'vep-stepper': renderVepStepper,
+        'anthropomorphism': renderAnthropomorphism,
+        'workshop-focus': renderWorkshopFocus
     };
 
     /**
@@ -6849,6 +6851,427 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 ${s.title ? `<h2 class="vs-title">${s.title}</h2>` : ''}
                 ${stepsHtml}
                 <div class="vs-dots">${dots}</div>
+                ${renderSourcesPopup(s.sources)}
+            </div>
+        `;
+    }
+
+    /**
+     * anthropomorphism: Är det ok att behandla AI som en människa?
+     * Shows a dark themed portrait of an android and pros/cons glowing cards.
+     */
+    function renderAnthropomorphism(s) {
+        const id = s.id || 'slide-anthropomorphism';
+        
+        const prosHtml = (s.pros || []).map(item => `
+            <li class="am-item">
+                <span class="am-icon am-icon-pro">✔</span>
+                <div class="am-item-text">${item}</div>
+            </li>
+        `).join('');
+
+        const consHtml = (s.cons || []).map(item => `
+            <li class="am-item">
+                <span class="am-icon am-icon-con">✕</span>
+                <div class="am-item-text">${item}</div>
+            </li>
+        `).join('');
+
+        return `
+            <style>
+                .am-container {
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    height: 100%;
+                    gap: 3cqw;
+                    align-items: center;
+                    padding: 2cqh 3cqw;
+                    box-sizing: border-box;
+                }
+                .am-left {
+                    flex: 0 0 35cqw;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    height: 80cqh;
+                }
+                .am-image-wrapper {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 24px;
+                    overflow: hidden;
+                }
+                .am-image {
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: cover;
+                    border-radius: 20px;
+                    mix-blend-mode: lighten;
+                    mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 95%);
+                    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 95%);
+                    filter: contrast(1.05) brightness(0.95);
+                    animation: am-fade-in 1.2s ease-out;
+                }
+                .am-right {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 2cqh;
+                    min-width: 0;
+                }
+                .am-title-group {
+                    margin-bottom: 1cqh;
+                }
+                .am-title {
+                    font-size: clamp(1.8rem, 4.2cqh, 2.6rem);
+                    font-weight: 800;
+                    line-height: 1.15;
+                    color: #fff;
+                    margin: 0 0 1cqh 0;
+                }
+                .am-title span {
+                    background: linear-gradient(135deg, var(--accent, #ff2a6d) 0%, var(--accent2, #ffd700) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .am-subtitle {
+                    font-size: clamp(0.9rem, 2cqh, 1.3rem);
+                    color: var(--text-muted, rgba(255,255,255,0.7));
+                    margin: 0;
+                    font-weight: 500;
+                }
+                .am-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 2cqw;
+                    width: 100%;
+                }
+                .am-card {
+                    background: rgba(30, 27, 75, 0.35);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 16px;
+                    padding: 2.5cqh 2cqw;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2cqh;
+                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
+                    overflow: hidden;
+                }
+                .am-card:hover {
+                    transform: translateY(-4px);
+                    background: rgba(30, 27, 75, 0.5);
+                }
+                .am-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0; left: 0; right: 0; height: 3px;
+                }
+                .am-card-pro::before {
+                    background: linear-gradient(90deg, #10b981, #34d399);
+                }
+                .am-card-con::before {
+                    background: linear-gradient(90deg, #f43f5e, #fb7185);
+                }
+                .am-card-pro:hover {
+                    border-color: rgba(16, 185, 129, 0.35);
+                    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.12);
+                }
+                .am-card-con:hover {
+                    border-color: rgba(244, 63, 94, 0.35);
+                    box-shadow: 0 12px 40px rgba(244, 63, 94, 0.12);
+                }
+                .am-card-title {
+                    font-size: clamp(1rem, 2.2cqh, 1.4rem);
+                    font-weight: 700;
+                    margin: 0;
+                }
+                .am-card-pro .am-card-title { color: #34d399; }
+                .am-card-con .am-card-title { color: #fb7185; }
+                
+                .am-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.8cqh;
+                }
+                .am-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.8cqw;
+                }
+                .am-icon {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    font-size: 0.75rem;
+                    font-weight: bold;
+                    flex-shrink: 0;
+                    margin-top: 2px;
+                }
+                .am-icon-pro {
+                    background: rgba(16, 185, 129, 0.15);
+                    color: #34d399;
+                    border: 1px solid rgba(16, 185, 129, 0.3);
+                }
+                .am-icon-con {
+                    background: rgba(244, 63, 94, 0.15);
+                    color: #fb7185;
+                    border: 1px solid rgba(244, 63, 94, 0.3);
+                }
+                .am-item-text {
+                    font-size: clamp(0.85rem, 1.9cqh, 1.15rem);
+                    line-height: 1.45;
+                    color: rgba(255, 255, 255, 0.85);
+                }
+                
+                @keyframes am-fade-in {
+                    from { opacity: 0; transform: scale(0.95); filter: contrast(1) brightness(0.2); }
+                    to { opacity: 0.95; transform: scale(1); filter: contrast(1.05) brightness(0.95); }
+                }
+                
+                @media (max-width: 1024px) {
+                    .am-container { flex-direction: column; padding: 2cqh; gap: 2cqh; }
+                    .am-left { flex: 0 0 22cqh; height: 22cqh; width: 100%; }
+                    .am-image { max-height: 22cqh; }
+                    .am-grid { grid-template-columns: 1fr; gap: 1.5cqh; }
+                }
+            </style>
+            <div class="am-container" id="${id}">
+                <div class="am-left">
+                    <div class="am-image-wrapper">
+                        <img src="${s.image || 'assets/android.png'}" class="am-image" alt="Android portrait" />
+                    </div>
+                </div>
+                <div class="am-right">
+                    <div class="am-title-group">
+                        <h2 class="am-title">Är det ok att behandla AI som en <span>människa?</span></h2>
+                        <p class="am-subtitle">${s.subtitle || ''}</p>
+                    </div>
+                    <div class="am-grid">
+                        <div class="am-card am-card-pro">
+                            <h3 class="am-card-title">Möjligheter (Antropomorfisering)</h3>
+                            <ul class="am-list">
+                                ${prosHtml}
+                            </ul>
+                        </div>
+                        <div class="am-card am-card-con">
+                            <h3 class="am-card-title">Utmaningar och risker</h3>
+                            <ul class="am-list">
+                                ${consHtml}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                ${renderSourcesPopup(s.sources)}
+            </div>
+        `;
+    }
+
+    /**
+     * workshop-focus: Dagens fokus: Gemini från grunden vs Senare
+     * High-contrast glassmorphic split cards explaining the focus.
+     */
+    function renderWorkshopFocus(s) {
+        const id = s.id || 'slide-workshop-focus';
+        
+        const focusHtml = (s.focusToday.points || []).map(p => `
+            <li class="wf-item">
+                <span class="wf-dot wf-dot-today">✦</span>
+                <span class="wf-item-text">${p}</span>
+            </li>
+        `).join('');
+
+        const nextHtml = (s.nextSteps.points || []).map(p => `
+            <li class="wf-item">
+                <span class="wf-dot wf-dot-later">▲</span>
+                <span class="wf-item-text">${p}</span>
+            </li>
+        `).join('');
+
+        return `
+            <style>
+                .wf-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 4cqh 5cqw;
+                    box-sizing: border-box;
+                    gap: 3cqh;
+                }
+                .wf-header-group {
+                    text-align: center;
+                    max-width: 900px;
+                    margin-bottom: 1cqh;
+                }
+                .wf-title {
+                    font-size: clamp(2rem, 5cqh, 3rem);
+                    font-weight: 800;
+                    line-height: 1.15;
+                    color: #fff;
+                    margin: 0 0 1cqh 0;
+                }
+                .wf-title span {
+                    background: linear-gradient(135deg, var(--accent, #ff2a6d) 0%, var(--accent2, #ffd700) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .wf-subtitle {
+                    font-size: clamp(0.95rem, 2.2cqh, 1.4rem);
+                    color: var(--text-muted, rgba(255,255,255,0.7));
+                    margin: 0;
+                    font-weight: 500;
+                }
+                .wf-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 3cqw;
+                    width: 100%;
+                    max-width: 1200px;
+                    flex: 1;
+                }
+                .wf-card {
+                    background: rgba(30, 27, 75, 0.3);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(255, 255, 255, 0.06);
+                    border-radius: 20px;
+                    padding: 4cqh 3cqw;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2.5cqh;
+                    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
+                }
+                .wf-card:hover {
+                    transform: translateY(-4px);
+                    background: rgba(30, 27, 75, 0.45);
+                }
+                .wf-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0; left: 0; right: 0; height: 4px;
+                    border-radius: 20px 20px 0 0;
+                }
+                .wf-card-today::before {
+                    background: linear-gradient(90deg, #10b981, #059669);
+                }
+                .wf-card-later::before {
+                    background: linear-gradient(90deg, #a855f7, #6366f1);
+                }
+                .wf-card-today:hover {
+                    border-color: rgba(16, 185, 129, 0.25);
+                    box-shadow: 0 16px 48px rgba(16, 185, 129, 0.1);
+                }
+                .wf-card-later:hover {
+                    border-color: rgba(168, 85, 247, 0.25);
+                    box-shadow: 0 16px 48px rgba(168, 85, 247, 0.1);
+                }
+                
+                .wf-badge {
+                    align-self: flex-start;
+                    padding: 0.5cqh 1.2cqw;
+                    border-radius: 999px;
+                    font-size: clamp(0.65rem, 1.4cqh, 0.85rem);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 1.5px;
+                }
+                .wf-badge-today {
+                    background: rgba(16, 185, 129, 0.15);
+                    color: #34d399;
+                    border: 1px solid rgba(16, 185, 129, 0.3);
+                }
+                .wf-badge-later {
+                    background: rgba(168, 85, 247, 0.15);
+                    color: #c084fc;
+                    border: 1px solid rgba(168, 85, 247, 0.3);
+                }
+                
+                .wf-card-title {
+                    font-size: clamp(1.2rem, 2.6cqh, 1.7rem);
+                    font-weight: 800;
+                    color: #fff;
+                    margin: 0;
+                }
+                .wf-card-desc {
+                    font-size: clamp(0.85rem, 1.8cqh, 1.15rem);
+                    color: var(--text-muted, rgba(255,255,255,0.7));
+                    margin: -1.5cqh 0 0 0;
+                    font-weight: 450;
+                }
+                .wf-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2cqh;
+                    flex: 1;
+                    justify-content: center;
+                }
+                .wf-item {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.8cqw;
+                }
+                .wf-dot {
+                    font-size: clamp(0.8rem, 1.8cqh, 1.1rem);
+                    flex-shrink: 0;
+                    margin-top: 1px;
+                }
+                .wf-dot-today { color: #34d399; text-shadow: 0 0 8px rgba(52, 211, 153, 0.5); }
+                .wf-dot-later { color: #c084fc; text-shadow: 0 0 8px rgba(192, 132, 252, 0.5); }
+                
+                .wf-item-text {
+                    font-size: clamp(0.9rem, 2cqh, 1.25rem);
+                    line-height: 1.45;
+                    color: rgba(255, 255, 255, 0.88);
+                }
+                
+                @media (max-width: 1024px) {
+                    .wf-grid { grid-template-columns: 1fr; gap: 2cqh; }
+                    .wf-container { padding: 3cqh; }
+                }
+            </style>
+            <div class="wf-container" id="${id}">
+                <div class="wf-header-group">
+                    <h2 class="wf-title">Dagens fokus: Gemini från <span>grunden</span></h2>
+                    <p class="wf-subtitle">${s.subtitle || ''}</p>
+                </div>
+                <div class="wf-grid">
+                    <div class="wf-card wf-card-today">
+                        <span class="wf-badge wf-badge-today">Idag</span>
+                        <h3 class="wf-card-title">${s.focusToday.title || 'Det vi gör idag'}</h3>
+                        <p class="wf-card-desc">Omedelbart, rått arbete utan förberedda strukturer</p>
+                        <ul class="wf-list">
+                            ${focusHtml}
+                        </ul>
+                    </div>
+                    <div class="wf-card wf-card-later">
+                        <span class="wf-badge wf-badge-later">Senare</span>
+                        <h3 class="wf-card-title">${s.nextSteps.title || 'Det vi sparar till senare'}</h3>
+                        <p class="wf-card-desc">Fördjupning, regler, mallar och autonoma agenter</p>
+                        <ul class="wf-list">
+                            ${nextHtml}
+                        </ul>
+                    </div>
+                </div>
                 ${renderSourcesPopup(s.sources)}
             </div>
         `;

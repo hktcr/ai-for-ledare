@@ -101,12 +101,12 @@
       "section": "start",
       "type": "semantic-nebula",
       "sentences": [
-        "AI söker inte efter färdiga svar i en traditionell databas.",
-        "Den navigerar ett oändligt, mångdimensionellt hav av mänsklig mening.",
-        "Varje ord, varje nyans har sin unika koordinat i den tysta latenta rymden.",
-        "Närliggande idéer dras oundvikligen till varandra genom osynlig gravitation.",
-        "Mönster, toner och sekler av erfarenhet vävs samman på millisekunder...",
-        "...tills en ny, unik tanke sakta dröms fram i ljuset."
+        "Språkmodellen söker inte efter färdiga svar i en traditionell databas.",
+        "Den översätter ord och begrepp till täta matematiska vektorer i en högdimensionell rymd.",
+        "I denna \"latenta rymd\" placeras ord med liknande betydelse nära varandra baserat på semantisk närhet.",
+        "Genom attention-mekanismer beräknar modellen matematiskt hur ord relaterar till varandra i sitt sammanhang.",
+        "LLM:er navigerar mellan dessa vektorer för att syntetisera och kombinera idéer på helt nya sätt.",
+        "Slutresultatet genereras token för token genom att statistiskt förutsäga det mest sannolika nästa ordet."
       ],
       "cardTitle": "Det latenta rummet"
     },

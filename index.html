@@ -405,6 +405,7 @@
         // === LIVE SYNC & SPEAKER MODE ===
         const urlParams = new URLSearchParams(window.location.search);
         const isSpeakerMode = urlParams.get('mode') === 'speaker';
+        const isPresentationMode = urlParams.get('mode') === 'presentation';
         const kvKey = 'HakanBIN2026_LiveSync'; 
         const IM_URL = 'https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/' + kvKey + '/';
 
@@ -462,7 +463,9 @@
                 console.error('Sync polling error:', err);
             }
         }
-        setInterval(pollPresenterState, 1500);
+        if (!isSpeakerMode && !isPresentationMode) {
+            setInterval(pollPresenterState, 1500);
+        }
 
           const themes = {
             'Åstorp Premium (Guld & Vinröd)': {"--bg":"radial-gradient(circle at center, #520b1f 0%, #29030e 60%, #0f0105 100%)","--surface":"rgba(139,29,65,0.12)","--card-bg":"rgba(41,3,14,0.75)","--card-bg-hover":"rgba(77,8,28,0.85)","--text":"#ffffff","--text-muted":"rgba(245,238,241,0.75)","--accent":"#ffd700","--accent2":"#ffa500","--border":"rgba(255,215,0,0.2)","--border-hover":"rgba(255,215,0,0.45)"},
@@ -595,6 +598,7 @@
             const btnCopyPublic = document.getElementById('btnCopyPublic');
             if (lnkPublic && btnCopyPublic) {
                 const pbUrl = new URL('https://hktcr.github.io/ai-for-ledare/');
+                pbUrl.searchParams.set('mode', 'presentation');
                 if (hasSetlist) {
                     pbUrl.searchParams.set('setlist', setlistVal.trim());
                 }
@@ -863,7 +867,13 @@
         document.getElementById('deckFullscreenBtn').onclick = toggleFullScreen;
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeSlide();
+            if (e.key === 'Escape') {
+                if (isPresentationMode) {
+                    e.preventDefault();
+                    return;
+                }
+                closeSlide();
+            }
             if (e.key === 'f' || e.key === 'F') toggleFullScreen();
             if (document.getElementById('slideView').classList.contains('active')) {
                 // Manuell Push via M-tangenten (Alternativ 1)
@@ -1840,19 +1850,30 @@
                 listGrid.appendChild(item);
             });
             
-            // Sök efter existerande presentationstillstånd först för att undvika att nollställa presentationen
-            pollPresenterState().then(() => {
-                const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
-                // Om currentIdx fortfarande inte är satt till en giltig slide, starta på standard
-                if (currentIdx === undefined || currentIdx === null || currentIdx === 0) {
-                    openSlide(defaultStartIdx);
-                } else {
-                    openSlide(currentIdx);
-                }
-            }).catch(() => {
+            if (isPresentationMode) {
                 const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
                 openSlide(defaultStartIdx);
-            });
+                const closeBtn = document.getElementById('closeBtn');
+                if (closeBtn) closeBtn.style.display = 'none';
+                const presLinks = document.getElementById('presenterLinks');
+                if (presLinks) presLinks.style.display = 'none';
+                const slBar = document.getElementById('setlistBar');
+                if (slBar) slBar.style.display = 'none';
+            } else {
+                // Sök efter existerande presentationstillstånd först för att undvika att nollställa presentationen
+                pollPresenterState().then(() => {
+                    const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
+                    // Om currentIdx fortfarande inte är satt till en giltig slide, starta på standard
+                    if (currentIdx === undefined || currentIdx === null || currentIdx === 0) {
+                        openSlide(defaultStartIdx);
+                    } else {
+                        openSlide(currentIdx);
+                    }
+                }).catch(() => {
+                    const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
+                    openSlide(defaultStartIdx);
+                });
+            }
         }
 
         // === LOAD SLIDES ===

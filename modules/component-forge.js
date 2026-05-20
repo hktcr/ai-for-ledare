@@ -2509,6 +2509,215 @@
             animation: gtWordFade 0.6s ease forwards 0.6s;
             max-width: 800px;
         }
+
+        /* ===== INTERACTIVE CASES ===== */
+        .slide-interactive-cases {
+            display: flex; flex-direction: column; height: 100%; width: 100%;
+            padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
+            background: radial-gradient(circle at 50% 30%, rgba(20, 15, 45, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%);
+            overflow: hidden;
+        }
+        .cases-title {
+            font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 3cqh; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center; letter-spacing: -0.02em;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+            z-index: 5;
+        }
+        .cases-workspace {
+            display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3cqw;
+            width: 100%; flex: 1; max-width: 1200px; margin: 0 auto; min-height: 0;
+            z-index: 5; box-sizing: border-box;
+        }
+        .cases-cards-column {
+            display: flex; flex-direction: column; gap: 1.5cqh;
+            justify-content: center; height: 100%; overflow: visible;
+        }
+        .case-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 4px solid rgba(255, 255, 255, 0.2);
+            padding: 2cqh 2cqw;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            backdrop-filter: blur(10px);
+        }
+        .case-card:hover {
+            transform: translateX(8px);
+            border-left-color: var(--accent, #f97316);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .case-card.active {
+            border-left-color: var(--accent, #f97316);
+            border-color: rgba(249, 115, 22, 0.3);
+            background: rgba(249, 115, 22, 0.05);
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+            transform: translateX(12px);
+        }
+        .case-card-num {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--accent, #f97316);
+            font-weight: 700;
+            margin-bottom: 0.3cqh;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .case-card-title {
+            font-size: clamp(1.1rem, 2cqh, 1.4rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5cqh;
+        }
+        .case-card-painpoint {
+            font-size: clamp(0.85rem, 1.6cqh, 1.05rem);
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+        .case-card.active .case-card-title {
+            color: var(--accent, #f97316);
+        }
+        
+        .cases-terminal-column {
+            display: flex; flex-direction: column; justify-content: center; height: 100%;
+        }
+        .terminal-panel {
+            background: rgba(10, 10, 20, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            display: flex; flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            height: 60cqh; max-height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+        .terminal-header {
+            display: flex; align-items: center; gap: 8px;
+            padding: 1.5cqh 2cqw;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .terminal-header .dot {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+        .terminal-header .dot.red { background: #ef4444; }
+        .terminal-header .dot.yellow { background: #fbbf24; }
+        .terminal-header .dot.green { background: #10b981; }
+        .terminal-title {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-left: 8px;
+            letter-spacing: 1px;
+        }
+        .terminal-body {
+            flex: 1;
+            padding: 3cqh 3cqw;
+            overflow-y: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: clamp(0.85rem, 1.7cqh, 1.15rem);
+            line-height: 1.6;
+            color: #a7f3d0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        .terminal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .terminal-body::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        .terminal-body::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .terminal-welcome-text {
+            color: #64748b;
+            text-align: center;
+            margin-top: 15cqh;
+            font-style: italic;
+            animation: pulse-welcome 2s infinite ease-in-out;
+        }
+        @keyframes pulse-welcome {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.4; }
+        }
+        .terminal-meta {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+        .case-label {
+            color: #fff;
+            font-weight: bold;
+        }
+        .case-context {
+            color: #cbd5e1;
+        }
+        .terminal-prompt-prefix {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: #a7f3d0;
+            margin-left: 2px;
+            animation: blink-cursor 1s infinite steps(2, start);
+            vertical-align: middle;
+        }
+        @keyframes blink-cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .terminal-footer {
+            padding: 1.5cqh 2cqw;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: flex-end;
+        }
+        .terminal-copy-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            padding: 1cqh 2cqw;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .terminal-copy-btn:not(:disabled):hover {
+            border-color: var(--accent, #f97316);
+            color: #fff;
+            background: rgba(249, 115, 22, 0.05);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
+        }
+        .terminal-copy-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .terminal-copy-btn.copied {
+            border-color: #10b981;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
     `;
     document.head.appendChild(style);
 
@@ -4822,6 +5031,222 @@
                         activateMode(idx);
                     }
                 });
+            });
+            
+        }, 100);
+        
+        return html;
+    }
+
+    /**
+     * interactive-cases: Interactive workshop cases with typewriter effect and clipboard copy
+     */
+    function renderInteractiveCases(s) {
+        const id = 'cases-' + Math.random().toString(36).slice(2, 8);
+        const cases = s.cases || [
+            {
+                "label": "Case A: EHT-Dokumentation (Elevhälsa)",
+                "painPoint": "Elevhälsa & känslig dokumentation under GDPR/sekretess.",
+                "context": "Minska administrativ tid i EHT-flöden utan att äventyra GDPR eller sekretesslagstiftning.",
+                "prompt": "Du är en erfaren och metodisk svensk rektor och expert på skollagen, GDPR samt sekretessfrågor i skolan. Jag behöver sparras kring hur jag ska sammanfatta och dokumentera ett komplext elevhälsoärende i Prorenata utan att bryta mot sekretessen.\n\n### Din uppgift:\n1. Skapa en konkret mall eller metod för hur jag kan strukturera ett komplext ärende i Prorenata, där personuppgifter och känsliga detaljer avidentifieras men den pedagogiska/medicinska kärnan bevaras.\n2. Ge mig 3 konkreta exempel på hur en 'dålig/riskabel' (sekretessbrytande) formulering kan skrivas om till en 'säker och professionell' formulering.\n3. Skapa en checklista på 4 punkter som jag kan ha vid min skärm varje gång jag skriver EHT-noteringar.\n\nTänk på att tonen ska vara professionell, rättssäker och anpassad för svensk kommunal skolverksamhet. Fråga mig först om det specifika ärendets allmänna karaktär (t.ex. kränkning, anpassad studiegång eller medicinskt underlag) innan du ger den slutgiltiga strukturen."
+            },
+            {
+                "label": "Case B: Lagssäkert Edlevo-svar",
+                "painPoint": "Tydliga beslutsformuleringar med lagstöd (Skollagen & Förvaltningslagen).",
+                "context": "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
+                "prompt": "Du är en skicklig svensk kommunjurist och expert på svensk förvaltningsrätt, skollagen och kommunikation inom offentlig sektor. Jag behöver skriva ett formellt beslut och ett tillhörande Edlevo-meddelande till en vårdnadshavare angående [beslutets karaktär, t.ex. avslag på ansökan om modersmålsundervisning eller ledighet].\n\n### Din uppgift:\n1. Formulera ett juridiskt robust beslutsunderlag med uttryckliga hänvisningar till relevanta kapitel och paragrafer i Skollagen (2010:800) och Förvaltningslagen (2017:900).\n2. Skriv ett utkast till det meddelande som ska skickas via Edlevo till vårdnadshavaren. Texten ska vara kortfattad, tydlig, empatisk men extremt korrekt och sakna utrymme för missförstånd.\n3. Ge mig tips på hur jag hanterar eventuella överklagandehänvisningar lagssäkert.\n\nStäll 3 snabba frågor till mig först för att ta reda på: (a) vilket beslut det gäller, (b) vilka skäl vi har angivit, och (c) om det finns några speciella omständigheter."
+            },
+            {
+                "label": "Case C: Bemanningsanalys Sommarschema",
+                "painPoint": "Balansera semesterönskemål, fackliga avtal och lagstadgad bemanning.",
+                "context": "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
+                "prompt": "Du är en strategisk förskolechef och expert på schemaläggning, personalplanering och fackliga samverkansavtal inom ramen för Sveriges Lärare och Kommunal. Jag kämpar med att få ihop sommarbemanningen för mina förskolor där semesterönskemål krockar med krav på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila.\n\n### Din uppgift:\n1. Skapa en logisk struktur (t.ex. en tabellmall) för hur jag kan aggregera personalens önskemål, kompetensprofiler och förskolans minimibemanning under semesterveckorna (v. 26-32).\n2. Föreslå en trestegs process för att lösa bemanningstvister på ett sätt som upprätthåller god samverkan och minimerar övertid.\n3. Ge mig ett exempel på hur jag kan formulera ett e-postmeddelande till personalgruppen där jag förklarar läget, efterfrågar frivilliga förskjutningar och sätter upp tydliga, rättvisa ramar för besluten.\n\nInnan du börjar, be mig att klistra in en rå sammanställning av mina bemanningssiffror eller beskriva mina största krockveckor."
+            },
+            {
+                "label": "Case D: Systematiskt Kvalitetsarbete",
+                "painPoint": "Aggregera och analysera insamlad barndata i förskolan.",
+                "context": "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
+                "prompt": "Du är en metodisk förskolechef och expert på systematiskt kvalitetsarbete (SKA) och Lpfö18. Jag har samlat in en stor mängd spridda observationer, enkäter från vårdnadshavare och pedagogernas egna reflektioner i olika dokument. Nu ska jag sammanställa och analysera detta inför den årliga kvalitetsrapporten.\n\n### Din uppgift:\n1. Skapa en tydlig och vetenskapligt förankrad analysstruktur (t.ex. baserad på orsak-konsekvens-åtgärd) där jag kan mata in mina rådata för att identifiera röda trådar.\n2. Ge mig instruktioner för hur jag ber en AI sammanställa kvalitativa texter och fritextsvar utan att tappa nyanserna eller introducera partiskhet (bias).\n3. Skriv ett exempel på en professionell sammanfattning av en kvalitetsanalys baserat på fiktiv data, som visar hur kopplingarna till läroplanens mål kan formuleras skarpt.\n\nFråga mig först om vilket läroplansområde (t.ex. språkutveckling, digitalisering eller värdegrund) som analysen ska fokusera på."
+            },
+            {
+                "label": "Case E: Svåra Samtal & Ledarröst",
+                "painPoint": "Förbereda känsliga samtal och behålla sin personliga ledarröst.",
+                "context": "Rollspela och sparras inför medarbetarsamtal, samt bevara sin personliga röst i skriftlig feedback.",
+                "prompt": "Du är en klok och trygg ledarskapscoach för skolledare och expert på svåra samtal, konflikthantering och arbetsrätt (inkl. LAS-frågor). Jag ska hålla ett svårt samtal med en medarbetare angående [t.ex. samarbetsproblem, bristande engagemang eller misskötsamhet] och känner mig osäker på hur jag ska lägga upp samtalet utan att bli defensiv eller för auktoritär.\n\n### Din uppgift:\n1. Skapa ett rollspels-scenario där DU spelar den aktuella medarbetaren (med en specifik men realistisk försvarsmekanism, t.ex. 'offergörande' eller 'aggressiv avböjning') och LÅT MIG öva på att bemöta dig i korta dialogsteg.\n2. Ge mig en strukturerad samtalsmall i 4 steg (t.ex. Öppning, Beskrivning av friktion, Dialog/Lösning, Avslut) anpassad för svensk skolkultur.\n3. Ge mig tips på hur jag mentalt förbereder mig för att behålla mitt professionella lugn och min unika röst under samtalet.\n\nFråga mig först: (a) vad är kärnan i problemet med medarbetaren, och (b) vilken reaktion eller försvarsmekanism är du mest orolig för?"
+            }
+        ];
+
+        let html = `<div class="slide-interactive-cases no-click-advance" id="${id}">`;
+        if (s.title) html += `<h2 class="cases-title">${s.title}</h2>`;
+        
+        html += `<div class="cases-workspace">`;
+        
+        // Left Column: Cards list
+        html += `<div class="cases-cards-column">`;
+        cases.forEach((c, idx) => {
+            html += `
+                <div class="case-card" data-index="${idx}">
+                    <div class="case-card-num">CASE 0${idx + 1}</div>
+                    <div class="case-card-title">${c.label}</div>
+                    <div class="case-card-painpoint">${c.painPoint}</div>
+                </div>
+            `;
+        });
+        html += `</div>`; // .cases-cards-column
+        
+        // Right Column: Terminal preview panel
+        html += `
+            <div class="cases-terminal-column">
+                <div class="terminal-panel">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="terminal-title">WORKSHOP CASE TERMINAL</span>
+                    </div>
+                    <div class="terminal-body" id="${id}-terminal-body">
+                        <div class="terminal-welcome-text" id="${id}-welcome">VÄLJ ETT CASE PÅ VÄNSTER SIDA FÖR ATT INICIERA PROMPTEN...</div>
+                        
+                        <div class="terminal-case-header" id="${id}-case-header" style="display:none;">
+                            <span class="terminal-meta">CASE:</span> <span class="case-label" id="${id}-case-label"></span><br>
+                            <span class="terminal-meta">KONTEXT:</span> <span class="case-context" id="${id}-case-context"></span>
+                        </div>
+                        <div class="terminal-case-divider" id="${id}-case-divider" style="display:none;">--------------------------------------------------------------------------------</div>
+                        <div class="terminal-prompt-prefix" id="${id}-prompt-prefix" style="display:none;">[PROMPT_TEMPLATE] > </div>
+                        <span class="terminal-prompt-content" id="${id}-prompt-content"></span><span class="terminal-cursor" id="${id}-cursor" style="display:none;">█</span>
+                    </div>
+                    <div class="terminal-footer">
+                        <button class="terminal-copy-btn" id="${id}-copy-btn" disabled>
+                            <span class="btn-text">KOPIERA PROMPT</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        html += `</div>`; // .cases-workspace
+        html += `</div>`; // .slide-interactive-cases
+        
+        // Setup behaviors in a setTimeout to ensure DOM is available
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            if (!container) return;
+            
+            const cards = container.querySelectorAll('.case-card');
+            const terminalBody = container.querySelector('#' + id + '-terminal-body');
+            const welcomeText = container.querySelector('#' + id + '-welcome');
+            const caseHeader = container.querySelector('#' + id + '-case-header');
+            const caseLabel = container.querySelector('#' + id + '-case-label');
+            const caseContext = container.querySelector('#' + id + '-case-context');
+            const caseDivider = container.querySelector('#' + id + '-case-divider');
+            const promptPrefix = container.querySelector('#' + id + '-prompt-prefix');
+            const promptContent = container.querySelector('#' + id + '-prompt-content');
+            const cursor = container.querySelector('#' + id + '-cursor');
+            const copyBtn = container.querySelector('#' + id + '-copy-btn');
+            
+            let activePromptText = "";
+            let typeInterval = null;
+            
+            function typeWrite(text, containerEl, onComplete) {
+                if (typeInterval) clearInterval(typeInterval);
+                containerEl.textContent = "";
+                
+                let index = 0;
+                const chunkSize = 6;
+                const delay = 2; // Extremely fast chunk typing
+                
+                typeInterval = setInterval(() => {
+                    if (index < text.length) {
+                        containerEl.textContent += text.slice(index, index + chunkSize);
+                        index += chunkSize;
+                        if (terminalBody) {
+                            terminalBody.scrollTop = terminalBody.scrollHeight;
+                        }
+                    } else {
+                        clearInterval(typeInterval);
+                        typeInterval = null;
+                        if (onComplete) onComplete();
+                    }
+                }, delay);
+            }
+            
+            cards.forEach((card, idx) => {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Stop click from triggering next slide advance
+                    
+                    // Toggle active class on cards
+                    cards.forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    
+                    // Load case details
+                    const selectedCase = cases[idx];
+                    activePromptText = selectedCase.prompt;
+                    
+                    // Toggle terminal elements visibility
+                    welcomeText.style.display = 'none';
+                    caseHeader.style.display = 'block';
+                    caseDivider.style.display = 'block';
+                    promptPrefix.style.display = 'block';
+                    cursor.style.display = 'inline-block';
+                    
+                    // Set header meta
+                    caseLabel.textContent = selectedCase.label;
+                    caseContext.textContent = selectedCase.context;
+                    
+                    // Disable copy button during typing
+                    copyBtn.disabled = true;
+                    
+                    // Typewrite the prompt content
+                    typeWrite(selectedCase.prompt, promptContent, () => {
+                        // Enable copy button when completed
+                        copyBtn.removeAttribute('disabled');
+                    });
+                });
+            });
+            
+            copyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (!activePromptText) return;
+                
+                function showCopied() {
+                    copyBtn.classList.add('copied');
+                    const btnText = copyBtn.querySelector('.btn-text');
+                    if (btnText) btnText.innerHTML = '✔️ KOPIERAD!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        if (btnText) btnText.innerHTML = 'KOPIERA PROMPT';
+                    }, 2000);
+                }
+                
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(activePromptText).then(showCopied).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        fallbackCopy(activePromptText);
+                    });
+                } else {
+                    fallbackCopy(activePromptText);
+                }
+                
+                function fallbackCopy(str) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = str;
+                    textarea.style.position = 'fixed';
+                    document.body.appendChild(textarea);
+                    textarea.focus();
+                    textarea.select();
+                    try {
+                        document.execCommand('copy');
+                        showCopied();
+                    } catch (err) {
+                        console.error('Fallback copy failed', err);
+                    }
+                    document.body.removeChild(textarea);
+                }
+            });
+            
+            // Slide click-reveal bypass: when clicking the workspace, stop propagation to prevent accidental slide transitions
+            container.addEventListener('click', (e) => {
+                e.stopPropagation();
             });
             
         }, 100);
@@ -7367,6 +7792,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'warning-pulse': renderWarningPulse,
         'token-spinner': renderTokenSpinner,
         'bento-grid': renderBentoGrid,
+        'interactive-cases': renderInteractiveCases,
         'delegation-radar': renderDelegationRadar,
         'glitch-warning': renderGlitchWarning,
         'semantic-nebula': renderSemanticNebula,

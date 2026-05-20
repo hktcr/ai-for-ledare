@@ -839,11 +839,11 @@
         .bento-item:hover .bento-item-text {
             color: #f1f5f9;
         }
-               /* ===== DELEGATION RADAR (BOX-FRI HOLOGRAFISK HUD) ===== */
+               /* ===== DELEGATION RADAR (CONCENTRIC ORB CONSOLE) ===== */
         .slide-delegation-radar {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
-            background: radial-gradient(circle at 50% 30%, rgba(25, 20, 50, 0.25) 0%, rgba(8, 8, 15, 0.99) 100%);
+            background: radial-gradient(circle at 50% 30%, rgba(20, 15, 45, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%);
             overflow: hidden;
             transition: background 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -851,8 +851,8 @@
             animation: alert-pulse-bg 4s infinite alternate;
         }
         @keyframes alert-pulse-bg {
-            0% { background: radial-gradient(circle at 50% 30%, rgba(50, 10, 10, 0.25) 0%, rgba(8, 8, 15, 0.99) 100%); }
-            100% { background: radial-gradient(circle at 50% 30%, rgba(90, 15, 15, 0.35) 0%, rgba(8, 5, 8, 0.99) 100%); }
+            0% { background: radial-gradient(circle at 50% 30%, rgba(50, 10, 10, 0.3) 0%, rgba(5, 5, 10, 0.99) 100%); }
+            100% { background: radial-gradient(circle at 50% 30%, rgba(90, 15, 15, 0.45) 0%, rgba(8, 5, 8, 0.99) 100%); }
         }
         .radar-title {
             font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 0.2rem; font-weight: 800;
@@ -863,120 +863,189 @@
             z-index: 5;
         }
         .radar-subtitle {
-            font-size: clamp(0.95rem, 1.8cqh, 1.25rem); color: var(--hud-color);
+            font-size: clamp(0.95rem, 1.8cqh, 1.25rem); color: var(--radar-color, #10b981);
             text-align: center; margin-bottom: 3cqh; font-weight: 400;
             letter-spacing: 0.05em; transition: color 0.5s ease;
             z-index: 5;
         }
-        
-        .hud-container {
-            display: flex; flex-direction: column; gap: 2.5cqh; flex: 1; width: 100%;
-            max-width: 1200px; margin: 0 auto; min-height: 0; justify-content: flex-start;
-            z-index: 5;
+
+        .radar-workspace {
+            display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4cqw;
+            width: 100%; flex: 1; max-width: 1200px; margin: 0 auto; min-height: 0;
+            align-items: center; justify-content: center; z-index: 5;
         }
 
-        /* Top Area: Interactive SVG Selector Arc */
-        .hud-selector-area {
-            position: relative; width: 100%; max-width: 900px; margin: 0 auto;
-            height: auto;
+        /* LEFT SIDE: Concentric Radar Screen */
+        .radar-screen-container {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            width: 100%; height: 100%; aspect-ratio: 1; max-height: 60cqh;
         }
-        .hud-arc-svg {
-            width: 100%; height: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.02));
+        
+        .radar-svg-canvas {
+            width: 100%; height: auto; max-height: 100%;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
         }
-        .hud-arc-track {
-            transition: stroke 0.5s;
+
+        /* SVG Components */
+        .radar-grid-line {
+            stroke: rgba(255, 255, 255, 0.02); stroke-width: 1px; stroke-dasharray: 2 4;
         }
-        .hud-arc-active-glow {
-            transition: stroke 0.5s, opacity 0.5s;
+        .radar-orbit-track {
+            fill: none; stroke: rgba(255, 255, 255, 0.04); stroke-width: 1.5px;
+            transition: stroke 0.5s ease, stroke-width 0.5s ease;
         }
-        .hud-reticle {
-            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        .radar-orbit-track.active {
+            stroke: var(--radar-glow-color); stroke-width: 2.5px;
+            filter: drop-shadow(0 0 4px var(--radar-glow-color));
         }
-        .hud-node-group {
-            outline: none;
+        .radar-orbit-dashed {
+            fill: none; stroke: rgba(255, 255, 255, 0.08); stroke-width: 1px;
+            stroke-dasharray: 4 6; transform-origin: center;
+            transition: stroke 0.5s ease;
         }
-        .hud-node-dot {
-            fill: rgba(15, 15, 30, 0.95);
-            stroke: rgba(255, 255, 255, 0.2);
-            stroke-width: 1.5px;
+        .radar-orbit-dashed.active {
+            stroke: var(--radar-color);
+        }
+
+        /* Rotating animation classes */
+        .rotate-clockwise {
+            animation: spin-clockwise 60s linear infinite; transform-origin: 150px 150px;
+        }
+        .rotate-counter {
+            animation: spin-counter 80s linear infinite; transform-origin: 150px 150px;
+        }
+        @keyframes spin-clockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes spin-counter {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Sweep Scanner */
+        .radar-sweep-beam {
+            fill: none; stroke: none; transform-origin: 150px 150px;
+            animation: spin-clockwise 8s linear infinite;
+        }
+
+        /* Glowing Center Anchor */
+        .radar-center-group {
+            cursor: pointer;
+        }
+        .radar-center-bg {
+            fill: #05050a; stroke: var(--radar-color); stroke-width: 2px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 0 15px var(--radar-glow-color));
         }
-        .hud-node-group:hover .hud-node-dot {
-            stroke: var(--hud-color);
-            filter: drop-shadow(0 0 8px var(--hud-color));
-            r: 10;
+        .radar-center-ripple {
+            fill: none; stroke: var(--radar-color); stroke-width: 1px;
+            transform-origin: 150px 150px;
+            animation: radar-ripple 3s infinite ease-out;
+            opacity: 0;
         }
-        .hud-node-group.active .hud-node-dot {
-            fill: var(--hud-color);
-            stroke: #fff;
-            stroke-width: 2px;
-            filter: drop-shadow(0 0 12px var(--hud-color));
-            r: 9;
+        .radar-center-ripple-2 {
+            animation-delay: 1.5s;
         }
-        .hud-node-emoji {
-            font-size: 26px;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        @keyframes radar-ripple {
+            0% { r: 24px; opacity: 0.6; stroke-width: 1.5px; }
+            100% { r: 80px; opacity: 0; stroke-width: 0.5px; }
         }
-        .hud-node-group:hover .hud-node-emoji {
-            transform: scale(1.2) translateY(-2px);
+        .radar-center-avatar {
+            font-size: 16px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.8));
         }
-        .hud-node-label {
-            font-size: 10px; font-weight: 800; fill: rgba(255, 255, 255, 0.4);
-            letter-spacing: 2px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .radar-center-text {
+            font-size: 5.5px; font-weight: 900; fill: #fff; letter-spacing: 1px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
-        .hud-node-group:hover .hud-node-label {
+
+        /* Floating Interactive Orbs */
+        .radar-node-orb {
+            cursor: pointer;
+            transform: translate(var(--x), var(--y)) scale(1);
+            transform-origin: center;
+            transform-box: fill-box;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .radar-node-glow-ring {
+            fill: none; stroke: var(--node-color); stroke-width: 1.5px;
+            opacity: 0.3; transition: all 0.5s ease;
+        }
+        .radar-node-orb.active .radar-node-glow-ring {
+            stroke-width: 3px; opacity: 0.8;
+            animation: orb-ping 2s infinite ease-out;
+        }
+        @keyframes orb-ping {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        .radar-node-base {
+            fill: #090915; stroke: rgba(255,255,255,0.15); stroke-width: 1.5px;
+            transition: all 0.5s ease;
+        }
+        .radar-node-orb.active .radar-node-base {
+            fill: var(--node-color); stroke: #fff; stroke-width: 2px;
+            filter: drop-shadow(0 0 10px var(--node-glow));
+        }
+        .radar-node-orb:hover .radar-node-base {
+            stroke: var(--node-color);
+            filter: drop-shadow(0 0 8px var(--node-glow));
+        }
+        .radar-node-emoji {
+            font-size: 13px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            transition: transform 0.5s ease;
+        }
+        .radar-node-orb:hover .radar-node-emoji {
+            transform: scale(1.1);
+        }
+        .radar-node-text {
+            font-size: 6px; font-weight: 900; fill: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px; transition: all 0.5s ease;
+        }
+        .radar-node-orb:hover .radar-node-text {
             fill: #fff;
-            letter-spacing: 2.5px;
         }
-        .hud-node-group.active .hud-node-label {
-            fill: var(--hud-color);
-            font-weight: 900;
-            text-shadow: 0 0 8px var(--hud-glow);
-            letter-spacing: 2.5px;
+        .radar-node-orb.active .radar-node-text {
+            fill: var(--node-color); text-shadow: 0 0 8px var(--node-glow);
         }
-        .hud-node-group.step-hidden {
+
+        .radar-node-orb.step-hidden {
             opacity: 0; pointer-events: none;
-            transform: scale(0.85);
+            transform: translate(var(--x), var(--y)) scale(0.8);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .hud-node-group.step-hidden-remove {
+        .radar-node-orb.step-hidden-remove {
             opacity: 1; pointer-events: auto;
-            transform: scale(1);
+            transform: translate(var(--x), var(--y)) scale(1);
         }
 
-        /* Console Grid - Flanking Panels & Circular Gauge Center */
-        .hud-console {
-            display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; gap: 3cqw;
-            width: 100%; min-height: 0; align-items: stretch;
-        }
-        
-        /* Floating Transparent Panels - Box-Free */
-        .hud-panel {
+        /* RIGHT SIDE: Immersive Glassmorphic detail panel */
+        .radar-hud-panel {
             position: relative;
-            background: transparent;
-            border: none;
-            padding: 3cqh 2.5cqw;
+            background: rgba(10, 10, 20, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--radar-color);
+            padding: 4cqh 3cqw;
+            border-radius: 24px;
             display: flex; flex-direction: column;
             justify-content: flex-start;
-            box-shadow: none;
-            backdrop-filter: none; -webkit-backdrop-filter: none;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0; transform: translateY(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0; transform: translateX(30px);
+            min-height: 52cqh;
         }
-        .hud-panel.visible {
-            opacity: 1; transform: translateY(0);
+        .radar-hud-panel.visible {
+            opacity: 1; transform: translateX(0);
         }
-        .hud-panel:hover {
-            background: transparent;
-            box-shadow: none;
+        .radar-hud-panel:hover {
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 25px rgba(255, 255, 255, 0.01);
+            border-color: var(--radar-color);
         }
-        
-        /* Corner Hooks */
+
         .hud-corner {
             position: absolute; width: 12px; height: 12px;
-            border-color: var(--hud-color); border-style: solid;
+            border-color: var(--radar-color); border-style: solid;
             pointer-events: none; transition: border-color 0.5s ease;
         }
         .hud-corner-tl { top: -1px; left: -1px; border-width: 1.5px 0 0 1.5px; }
@@ -984,167 +1053,125 @@
         .hud-corner-bl { bottom: -1px; left: -1px; border-width: 0 0 1.5px 1.5px; }
         .hud-corner-br { bottom: -1px; right: -1px; border-width: 0 1.5px 1.5px 0; }
 
-        .hud-panel-title {
-            font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.4);
-            letter-spacing: 2px; margin-bottom: 2.5cqh; border-bottom: 1px solid rgba(255,255,255,0.04);
-            padding-bottom: 1cqh; display: flex; align-items: center; justify-content: space-between;
+        .radar-panel-header {
+            display: flex; flex-direction: column; gap: 0.4cqh;
+            margin-bottom: 3cqh; border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.5cqh;
         }
-        
-        /* Metric block details */
-        .hud-metric-row {
-            margin-bottom: 2cqh; display: flex; flex-direction: column; gap: 0.3cqh;
+        .radar-panel-badge {
+            align-self: flex-start; font-size: 9px; font-weight: 900;
+            padding: 3px 8px; border-radius: 20px; letter-spacing: 1.5px;
+            text-transform: uppercase; background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--radar-color); color: var(--radar-color);
+            box-shadow: 0 0 10px rgba(var(--radar-rgb), 0.15);
+            transition: all 0.5s ease;
         }
-        .hud-metric-label {
-            font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4); letter-spacing: 1px;
-        }
-        .hud-metric-value {
-            font-size: 26px; font-weight: 900; color: var(--hud-color);
-            transition: all 0.5s ease; text-shadow: 0 0 12px var(--hud-glow);
-        }
-        .hud-metric-desc {
-            font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.4;
+        .radar-panel-title {
+            font-size: clamp(1.4rem, 2.8cqh, 2rem); font-weight: 800; color: #fff;
+            letter-spacing: -0.01em; margin-top: 0.5cqh;
         }
 
-        /* Floating status banner - Box-Free */
-        .hud-status-banner {
-            display: flex; align-items: center; gap: 12px; margin-top: auto;
-            padding: 1.2cqh 0; border-left: 2px solid var(--hud-color);
-            background: transparent; border-radius: 0;
+        /* METERS */
+        .radar-meters-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw;
+            margin-bottom: 3cqh;
+        }
+        .radar-meter-box {
+            display: flex; flex-direction: column; gap: 0.5cqh;
+            background: rgba(255, 255, 255, 0.01); padding: 1.5cqh 1.2cqw;
+            border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.02);
             transition: all 0.5s ease;
         }
-        .hud-status-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--hud-color); box-shadow: 0 0 8px var(--hud-color);
+        .radar-meter-label {
+            font-size: 9px; font-weight: 800; color: rgba(255,255,255,0.4);
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .radar-meter-value {
+            font-size: 26px; font-weight: 900; color: var(--radar-color);
+            text-shadow: 0 0 12px var(--radar-glow-color);
             transition: all 0.5s ease;
         }
-        .hud-status-info {
-            display: flex; flex-direction: column; gap: 0.1cqh;
+        .radar-meter-track {
+            height: 4px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px; overflow: hidden; width: 100%;
         }
-        .hud-status-label {
-            font-size: 8px; font-weight: 800; color: rgba(255,255,255,0.35); letter-spacing: 1px;
-        }
-        .hud-status-desc {
-            font-size: 13px; font-weight: 900; color: var(--hud-color);
-            transition: all 0.5s ease;
-        }
-        
-        /* Central Concentric Gauges Console */
-        .hud-panel-center {
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; position: relative; align-self: center;
-        }
-        .hud-gauges-svg {
-            width: 250px; height: 250px;
-            filter: drop-shadow(0 0 15px var(--hud-glow));
-            transition: filter 0.5s ease;
-        }
-        .hud-ring {
-            transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.5s ease;
-        }
-        .hud-center-title {
-            transition: fill 0.5s ease;
-        }
-        .hud-center-subtitle {
-            transition: fill 0.5s ease;
-        }
-        
-        /* Floating alert indicator beneath the gauges */
-        .hud-alert-label {
-            font-size: 10px; font-weight: 800; color: var(--hud-color);
-            letter-spacing: 1.5px; padding: 4px 0;
-            background: transparent;
-            margin-top: 15px;
-            transition: all 0.5s ease;
-            text-transform: uppercase;
-            text-shadow: 0 0 8px var(--hud-glow);
-        }
-        .theme-pilot .hud-alert-label {
-            color: #ef4444;
-            animation: alert-blink 1s infinite alternate;
-        }
-        @keyframes alert-blink {
-            0% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(239,68,68,0.4)); }
-            100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(239,68,68,0.8)); }
+        .radar-meter-bar {
+            height: 100%; background: var(--radar-color);
+            box-shadow: 0 0 8px var(--radar-color);
+            border-radius: 2px; width: 0%;
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.5s ease;
         }
 
-        /* Right Panel: School Examples and details */
-        .hud-mode-description {
-            font-size: 13.5px; color: rgba(255,255,255,0.7); line-height: 1.5;
-            margin-bottom: 2cqh; font-style: italic;
+        /* DESCRIPTION & EXAMPLES */
+        .radar-panel-desc {
+            font-size: clamp(0.9rem, 1.7cqh, 1.15rem); color: rgba(255, 255, 255, 0.7);
+            line-height: 1.55; margin-bottom: 3.5cqh; font-weight: 400;
         }
-        .hud-examples-title {
-            font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4);
-            letter-spacing: 1px; margin-bottom: 1.5cqh;
+        .radar-examples-title {
+            font-size: 10px; font-weight: 800; color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1.5px; text-transform: uppercase;
+            margin-bottom: 1.8cqh; border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding-bottom: 0.5cqh;
         }
-        .hud-examples-list {
-            display: flex; flex-direction: column; gap: 1cqh;
+        .radar-examples-list {
+            display: flex; flex-direction: column; gap: 1.2cqh;
         }
-        .hud-example-item {
-            font-size: clamp(0.8rem, 1.5cqh, 1rem); color: rgba(255,255,255,0.75);
-            padding-left: 22px; position: relative; line-height: 1.4;
+        .radar-example-item {
+            font-size: clamp(0.85rem, 1.6cqh, 1.05rem); color: rgba(255, 255, 255, 0.75);
+            padding-left: 24px; position: relative; line-height: 1.4;
             opacity: 0; transform: translateX(-15px);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hud-example-item.visible {
+        .radar-example-item.visible {
             opacity: 1; transform: translateX(0);
         }
-        .hud-example-item::before {
-            content: "✓"; position: absolute; left: 0; top: 0;
-            color: var(--hud-color); font-weight: 900; font-size: 12px;
+        .radar-example-item::before {
+            content: "✓"; position: absolute; left: 0; top: -1px;
+            color: var(--radar-color); font-weight: 900; font-size: 13px;
             transition: all 0.5s ease;
         }
-        .theme-pilot .hud-example-item::before {
-            content: "\\2715"; /* Warning Cross */
-            color: var(--hud-color);
+        .theme-pilot .radar-example-item::before {
+            content: "\\2715"; /* Cross */
         }
 
-        /* Radar scan animations */
-        .spin-slow {
-            animation: spin-clockwise 25s linear infinite;
-            transform-origin: center;
-        }
-        @keyframes spin-clockwise {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .hud-radar-sweep {
+        /* Radar scan sweeps / decoration */
+        .radar-radar-sweep {
             position: absolute; inset: 0; pointer-events: none;
-            background: linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.02) 50%, transparent 100%);
+            background: linear-gradient(180deg, transparent 0%, rgba(var(--radar-rgb), 0.015) 50%, transparent 100%);
             animation: radar-sweep 5s linear infinite;
             z-index: 1;
         }
-        .theme-kopilot .hud-radar-sweep {
-            background: linear-gradient(180deg, transparent 0%, rgba(251, 191, 36, 0.02) 50%, transparent 100%);
-        }
-        .theme-pilot .hud-radar-sweep {
-            background: linear-gradient(180deg, transparent 0%, rgba(239, 68, 68, 0.035) 50%, transparent 100%);
-            animation: radar-sweep 2.5s linear infinite;
+        .theme-pilot .radar-radar-sweep {
+            animation-duration: 2.5s;
         }
         @keyframes radar-sweep {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100%); }
         }
-        .hud-grid-overlay {
+        .radar-grid-overlay {
             position: absolute; inset: 0; pointer-events: none;
-            background-size: 32px 32px;
+            background-size: 30px 30px;
             background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.005) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
             z-index: 1;
         }
 
-        /* Active themes mapping */
+        /* Themes mapping */
         .theme-sparring {
-            --hud-color: #10b981;
-            --hud-glow: rgba(16, 185, 129, 0.25);
+            --radar-color: #10b981;
+            --radar-glow-color: rgba(16, 185, 129, 0.25);
+            --radar-rgb: 16, 185, 129;
         }
         .theme-kopilot {
-            --hud-color: #fbbf24;
-            --hud-glow: rgba(251, 191, 36, 0.25);
+            --radar-color: #fbbf24;
+            --radar-glow-color: rgba(251, 191, 36, 0.25);
+            --radar-rgb: 251, 191, 36;
         }
         .theme-pilot {
-            --hud-color: #ef4444;
-            --hud-glow: rgba(239, 68, 68, 0.35);
+            --radar-color: #ef4444;
+            --radar-glow-color: rgba(239, 68, 68, 0.35);
+            --radar-rgb: 239, 68, 68;
         }
 
         /* ===== GLITCH WARNING ===== */
@@ -4546,145 +4573,111 @@
         if (s.title) html += `<h2 class="radar-title">${s.title}</h2>`;
         html += `<div class="radar-subtitle" id="${id}-subtitle">SPARRING: AI som ditt kognitiva bollplank</div>`;
         
-        html += `<div class="hud-container">`;
+        html += `<div class="radar-workspace">`;
         
-        // 1. Interactive SVG Selector Arc at the top
+        // Left Side: Circular Radar Screen SVG
         html += `
-            <div class="hud-selector-area">
-                <svg class="hud-arc-svg" viewBox="0 0 1000 140">
-                    <!-- Glowing Arc Track -->
-                    <path class="hud-arc-track-glow" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="var(--hud-glow)" stroke-width="5" style="opacity: 0.15;" />
-                    <path class="hud-arc-track" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 4" />
-                    <path class="hud-arc-active-glow" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="var(--hud-color)" stroke-width="1.5" style="opacity: 0.35; transition: stroke 0.5s ease;" />
+            <div class="radar-screen-container">
+                <svg class="radar-svg-canvas" viewBox="0 0 300 300">
+                    <!-- Crosshairs & Grid Lines -->
+                    <line x1="150" y1="10" x2="150" y2="290" class="radar-grid-line" />
+                    <line x1="10" y1="150" x2="290" y2="150" class="radar-grid-line" />
                     
-                    <!-- Sliding Holographic Target Reticle -->
-                    <g class="hud-reticle" id="${id}-reticle" transform="translate(250, 80)">
-                        <circle r="22" fill="none" stroke="var(--hud-color)" stroke-width="1" stroke-dasharray="6 3" class="spin-slow" style="transition: stroke 0.5s ease;" />
-                        <circle r="14" fill="none" stroke="var(--hud-color)" stroke-width="1.5" style="transition: stroke 0.5s ease;" />
-                        <circle r="4" fill="var(--hud-color)" style="transition: fill 0.5s ease;" />
-                        <!-- Crosshair ticks -->
-                        <line x1="-30" y1="0" x2="-18" y2="0" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
-                        <line x1="18" y1="0" x2="30" y2="0" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
-                        <line x1="0" y1="-30" x2="0" y2="-18" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
-                        <line x1="0" y1="18" x2="0" y2="30" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
+                    <!-- Orbit Tracks -->
+                    <circle class="radar-orbit-track active" cx="150" cy="150" r="40" id="${id}-track-0" />
+                    <circle class="radar-orbit-dashed rotate-clockwise" cx="150" cy="150" r="40" id="${id}-dashed-0" />
+                    <circle class="radar-orbit-track" cx="150" cy="150" r="80" id="${id}-track-1" />
+                    <circle class="radar-orbit-dashed rotate-counter" cx="150" cy="150" r="80" id="${id}-dashed-1" />
+                    <circle class="radar-orbit-track" cx="150" cy="150" r="120" id="${id}-track-2" />
+                    <circle class="radar-orbit-dashed rotate-clockwise" cx="150" cy="150" r="120" id="${id}-dashed-2" />
+                    
+                    <!-- Rotating Scanner Sweep line with inline style override -->
+                    <line x1="150" y1="150" x2="150" y2="30" class="radar-sweep-beam" id="${id}-sweep" style="stroke: var(--radar-color) !important; stroke-width: 1.5px; opacity: 0.4;" />
+                    
+                    <!-- Center pulsing anchor (Leader Håkan) -->
+                    <g class="radar-center-group" transform="translate(150, 150)">
+                        <circle r="60" class="radar-center-ripple" />
+                        <circle r="60" class="radar-center-ripple radar-center-ripple-2" />
+                        <circle r="22" class="radar-center-bg" />
+                        <text y="-3" text-anchor="middle" class="radar-center-avatar">👔</text>
+                        <text y="10" text-anchor="middle" class="radar-center-text">LEDAREN</text>
                     </g>
-
-                    <!-- Selector Nodes (Glow Circles & Interactive Labels) -->
-                    <!-- Sparring (data-index 0) -->
-                    <g class="hud-node-group step-hidden" data-index="0" cursor="pointer" transform="translate(250, 80)">
-                        <circle r="8" class="hud-node-dot" />
-                        <text y="-32" text-anchor="middle" class="hud-node-emoji">🧠</text>
-                        <text y="28" text-anchor="middle" class="hud-node-label">SPARRING</text>
+                    
+                    <!-- Floating Status Orbs -->
+                    <!-- Node 0: Sparring -->
+                    <g class="radar-node-orb step-hidden" id="${id}-node-0" data-index="0" style="--x:178px; --y:122px; --node-color:#10b981; --node-glow:rgba(16,185,129,0.4);">
+                        <circle r="16" class="radar-node-glow-ring" />
+                        <circle r="12" class="radar-node-base" />
+                        <text y="4" text-anchor="middle" class="radar-node-emoji">🧠</text>
+                        <text y="24" text-anchor="middle" class="radar-node-text">SPARRING</text>
                     </g>
-                    <!-- Kopilot (data-index 1) -->
-                    <g class="hud-node-group step-hidden" data-index="1" cursor="pointer" transform="translate(500, 50)">
-                        <circle r="8" class="hud-node-dot" />
-                        <text y="-32" text-anchor="middle" class="hud-node-emoji">✍️</text>
-                        <text y="28" text-anchor="middle" class="hud-node-label">KOPILOT</text>
+                    <!-- Node 1: Kopilot -->
+                    <g class="radar-node-orb step-hidden" id="${id}-node-1" data-index="1" style="--x:206px; --y:206px; --node-color:#fbbf24; --node-glow:rgba(251,191,36,0.4);">
+                        <circle r="16" class="radar-node-glow-ring" />
+                        <circle r="12" class="radar-node-base" />
+                        <text y="4" text-anchor="middle" class="radar-node-emoji">✍️</text>
+                        <text y="24" text-anchor="middle" class="radar-node-text">KOPILOT</text>
                     </g>
-                    <!-- Pilot (data-index 2) -->
-                    <g class="hud-node-group step-hidden" data-index="2" cursor="pointer" transform="translate(750, 80)">
-                        <circle r="8" class="hud-node-dot" />
-                        <text y="-32" text-anchor="middle" class="hud-node-emoji">🤖</text>
-                        <text y="28" text-anchor="middle" class="hud-node-label">PILOT</text>
+                    <!-- Node 2: Pilot -->
+                    <g class="radar-node-orb step-hidden" id="${id}-node-2" data-index="2" style="--x:30px; --y:150px; --node-color:#ef4444; --node-glow:rgba(239,68,68,0.4);">
+                        <circle r="16" class="radar-node-glow-ring" />
+                        <circle r="12" class="radar-node-base" />
+                        <text y="4" text-anchor="middle" class="radar-node-emoji">🤖</text>
+                        <text y="24" text-anchor="middle" class="radar-node-text">PILOT</text>
                     </g>
                 </svg>
             </div>
         `;
         
-        // 2. Main Console layout with flanking panels and gauges in center
+        // Right Side: Immersive Glassmorphic details panel
         html += `
-            <div class="hud-console">
-                <!-- Left Panel: Dynamic Metrics -->
-                <div class="hud-panel hud-panel-left">
-                    <div class="hud-corner hud-corner-tl"></div>
-                    <div class="hud-corner hud-corner-tr"></div>
-                    <div class="hud-corner hud-corner-bl"></div>
-                    <div class="hud-corner hud-corner-br"></div>
-                    
-                    <div class="hud-panel-title">MÄTNING & JURIDIK</div>
-                    
-                    <div class="hud-metric-row">
-                        <div class="hud-metric-label">🧠 KOGNITIV KONTROLL</div>
-                        <div class="hud-metric-value" id="${id}-cognitive-text">100%</div>
-                        <div class="hud-metric-desc">Ditt aktiva professionella omdöme och personliga delaktighet i textskapandet.</div>
+            <div class="radar-hud-panel" id="${id}-hud-panel">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+                
+                <div class="radar-panel-header">
+                    <div class="radar-panel-badge" id="${id}-panel-badge">SPARRINGPARTNER</div>
+                    <div class="radar-panel-title" id="${id}-panel-title">SPARRING</div>
+                </div>
+                
+                <div class="radar-meters-grid">
+                    <!-- Cognitive Control -->
+                    <div class="radar-meter-box">
+                        <div class="radar-meter-label">🧠 KOGNITIV KONTROLL</div>
+                        <div class="radar-meter-value" id="${id}-cognitive-val">100%</div>
+                        <div class="radar-meter-track">
+                            <div class="radar-meter-bar" id="${id}-cognitive-bar" style="width: 100%"></div>
+                        </div>
                     </div>
                     
-                    <div class="hud-metric-row">
-                        <div class="hud-metric-label">⚖️ JURIDISK SÄKERHET</div>
-                        <div class="hud-metric-value" id="${id}-compliance-text">100%</div>
-                        <div class="hud-metric-desc">Följsamhet mot sekretessregler, skollagen samt IMY:s riktlinjer för GDPR.</div>
-                    </div>
-
-                    <div class="hud-status-banner">
-                        <div class="hud-status-dot"></div>
-                        <div class="hud-status-info">
-                            <div class="hud-status-label">INTEGRITET- & RISKRADAR</div>
-                            <div class="hud-status-desc" id="${id}-status-desc">Laddar...</div>
+                    <!-- Legal Compliance -->
+                    <div class="radar-meter-box">
+                        <div class="radar-meter-label">⚖️ JURIDISK SÄKERHET</div>
+                        <div class="radar-meter-value" id="${id}-compliance-val">100%</div>
+                        <div class="radar-meter-track">
+                            <div class="radar-meter-bar" id="${id}-compliance-bar" style="width: 100%"></div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Center Dashboard: SVG Concentric Dials -->
-                <div class="hud-panel-center">
-                    <svg class="hud-gauges-svg" viewBox="0 0 240 240">
-                        <!-- Background faint rings -->
-                        <circle cx="120" cy="120" r="85" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6" />
-                        <circle cx="120" cy="120" r="65" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6" />
-                        
-                        <!-- Concentric grid ticks -->
-                        <line x1="120" y1="15" x2="120" y2="225" stroke="rgba(255,255,255,0.02)" stroke-width="0.5" stroke-dasharray="2 3" />
-                        <line x1="15" y1="120" x2="225" y2="120" stroke="rgba(255,255,255,0.02)" stroke-width="0.5" stroke-dasharray="2 3" />
-                        
-                        <!-- Outer concentric gauge: Cognitive Control -->
-                        <!-- R=85, C=2*PI*85 = 534.07 -->
-                        <circle class="hud-ring" id="${id}-ring-outer" cx="120" cy="120" r="85" fill="none" 
-                                stroke="var(--hud-color)" stroke-width="6" stroke-linecap="round"
-                                stroke-dasharray="534.07" stroke-dashoffset="534.07" transform="rotate(-90 120 120)" />
-                                
-                        <!-- Inner concentric gauge: Compliance Safety -->
-                        <!-- R=65, C=2*PI*65 = 408.41 -->
-                        <circle class="hud-ring" id="${id}-ring-inner" cx="120" cy="120" r="65" fill="none" 
-                                stroke="var(--hud-color)" stroke-width="6" stroke-linecap="round"
-                                stroke-dasharray="408.41" stroke-dashoffset="408.41" transform="rotate(-90 120 120)" />
-                                
-                        <!-- Central Console Text -->
-                        <g transform="translate(120, 120)" text-anchor="middle">
-                            <text class="hud-center-emoji" id="${id}-center-emoji" y="-12" font-size="28" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🧠</text>
-                            <text class="hud-center-title" id="${id}-center-title" y="20" font-size="12" font-weight="900" fill="#fff" letter-spacing="1.5">SPARRING</text>
-                            <text class="hud-center-subtitle" id="${id}-center-subtitle" y="38" font-size="8.5" font-weight="800" fill="var(--hud-color)" letter-spacing="2">PARTNER</text>
-                        </g>
-                    </svg>
-                    
-                    <div class="hud-alert-label" id="${id}-alert-label">[ MONITOR SPARRING-LÄGE ]</div>
+                <div class="radar-panel-desc" id="${id}-panel-desc">
+                    Laddar information...
                 </div>
                 
-                <!-- Right Panel: Examples in school context -->
-                <div class="hud-panel hud-panel-right">
-                    <div class="hud-corner hud-corner-tl"></div>
-                    <div class="hud-corner hud-corner-tr"></div>
-                    <div class="hud-corner hud-corner-bl"></div>
-                    <div class="hud-corner hud-corner-br"></div>
-                    
-                    <div class="hud-panel-title">I PRAKTIKEN FÖR BIN-CHEFEN</div>
-                    
-                    <div class="hud-mode-description" id="${id}-mode-desc">
-                        Laddar information...
-                    </div>
-                    
-                    <div class="hud-examples-title">⚡ METODISKA EXEMPEL</div>
-                    <div class="hud-examples-list" id="${id}-examples-list">
-                        <!-- Loaded dynamically -->
-                    </div>
+                <div class="radar-examples-title" id="${id}-compliance-title">METODISK EXEMPEL</div>
+                <div class="radar-examples-list" id="${id}-examples-list">
+                    <!-- Loaded dynamically -->
                 </div>
             </div>
         `;
         
-        html += `</div>`; // .hud-container
+        html += `</div>`; // .radar-workspace
         
         // Background decorative overlays
-        html += `<div class="hud-radar-sweep"></div>`;
-        html += `<div class="hud-grid-overlay"></div>`;
+        html += `<div class="radar-radar-sweep"></div>`;
+        html += `<div class="radar-grid-overlay"></div>`;
         
         html += renderSourcesPopup(s.sources);
         html += `</div>`; // .slide-delegation-radar
@@ -4694,30 +4687,20 @@
             const container = document.getElementById(id);
             if (!container) return;
             
-            const nodes = container.querySelectorAll('.hud-node-group');
-            const reticle = document.getElementById(`${id}-reticle`);
-            const outerRing = document.getElementById(`${id}-ring-outer`);
-            const innerRing = document.getElementById(`${id}-ring-inner`);
-            const centerEmoji = document.getElementById(`${id}-center-emoji`);
-            const centerTitle = document.getElementById(`${id}-center-title`);
-            const centerSubtitle = document.getElementById(`${id}-center-subtitle`);
-            const cognitiveText = document.getElementById(`${id}-cognitive-text`);
-            const complianceText = document.getElementById(`${id}-compliance-text`);
-            const statusDesc = document.getElementById(`${id}-status-desc`);
-            const modeDesc = document.getElementById(`${id}-mode-desc`);
-            const alertLabel = document.getElementById(`${id}-alert-label`);
+            const nodes = container.querySelectorAll('.radar-node-orb');
+            const hudPanel = document.getElementById(`${id}-hud-panel`);
+            const panelBadge = document.getElementById(`${id}-panel-badge`);
+            const panelTitle = document.getElementById(`${id}-panel-title`);
+            const cognitiveVal = document.getElementById(`${id}-cognitive-val`);
+            const cognitiveBar = document.getElementById(`${id}-cognitive-bar`);
+            const complianceVal = document.getElementById(`${id}-compliance-val`);
+            const complianceBar = document.getElementById(`${id}-compliance-bar`);
+            const panelDesc = document.getElementById(`${id}-panel-desc`);
+            const complianceTitle = document.getElementById(`${id}-compliance-title`);
             const examplesList = document.getElementById(`${id}-examples-list`);
             const subtitle = document.getElementById(`${id}-subtitle`);
             
-            const leftPanel = container.querySelector('.hud-panel-left');
-            const rightPanel = container.querySelector('.hud-panel-right');
-            
-            const outerCirc = 2 * Math.PI * 85; // 534.07
-            const innerCirc = 2 * Math.PI * 65; // 408.41
-            
-            const reticleX = [250, 500, 750];
-            const reticleY = [80, 50, 80];
-            const centerSubtitles = ['PARTNER', 'REDAKTÖR', 'AUTOMATION'];
+            const badgeLabels = ['SPARRINGPARTNER', 'KOPILOT / REDAKTÖR', 'AUTOMATISK PILOT'];
             const centerTitles = ['SPARRING', 'KOPILOT', 'PILOT'];
             
             function activateMode(index) {
@@ -4732,57 +4715,68 @@
                     }
                 });
                 
-                // 2. Update dashboard container themes
+                // 2. Update active states on tracks and dashed circles
+                for (let i = 0; i < 3; i++) {
+                    const track = document.getElementById(`${id}-track-${i}`);
+                    const dashed = document.getElementById(`${id}-dashed-${i}`);
+                    if (track) {
+                        if (i === index) {
+                            track.classList.add('active');
+                        } else {
+                            track.classList.remove('active');
+                        }
+                    }
+                    if (dashed) {
+                        if (i === index) {
+                            dashed.classList.add('active');
+                        } else {
+                            dashed.classList.remove('active');
+                        }
+                    }
+                }
+                
+                // 3. Update dashboard container themes
                 container.classList.remove('theme-sparring', 'theme-kopilot', 'theme-pilot');
                 
                 if (index === 0) {
                     container.classList.add('theme-sparring');
                     subtitle.innerText = "SPARRING: AI som ditt kognitiva bollplank";
-                    alertLabel.innerText = "[ MONITOR SPARRING-LÄGE ]";
                 } else if (index === 1) {
                     container.classList.add('theme-kopilot');
                     subtitle.innerText = "KOPILOT: AI som din redaktör och språkhjälp";
-                    alertLabel.innerText = "[ MONITOR KOPILOT-LÄGE ]";
                 } else if (index === 2) {
                     container.classList.add('theme-pilot');
                     subtitle.innerText = "PILOT: Fullständig automation — risk för ansvarsavsägelse";
-                    alertLabel.innerText = "[ RISK: SEKRETESS-BARRIÄR FLÄCKAD ]";
                 }
                 
-                // 3. Retrieve dynamic values
+                // 4. Retrieve dynamic values
                 const data = items[index];
                 if (!data) return;
                 
-                // Cognitive Control Ring
+                // Update badge & title
+                panelBadge.innerText = badgeLabels[index];
+                panelTitle.innerText = centerTitles[index];
+                
+                // Cognitive Control percentage
                 const cogPercent = data.cognitive || 0;
-                cognitiveText.innerText = cogPercent + '%';
-                const outerOffset = outerCirc - (cogPercent / 100) * outerCirc;
-                outerRing.style.strokeDashoffset = outerOffset;
+                cognitiveVal.innerText = cogPercent + '%';
+                cognitiveBar.style.width = cogPercent + '%';
                 
-                // Legal Compliance Ring
+                // Legal Compliance percentage
                 const compPercent = (index === 0) ? 100 : (index === 1 ? 80 : 10);
-                complianceText.innerText = compPercent + '%';
-                const innerOffset = innerCirc - (compPercent / 100) * innerCirc;
-                innerRing.style.strokeDashoffset = innerOffset;
+                complianceVal.innerText = compPercent + '%';
+                complianceBar.style.width = compPercent + '%';
                 
-                // Status Description & description text
-                statusDesc.innerText = data.compliance || '';
-                modeDesc.innerText = data.text || '';
+                // Description & compliance title/label
+                panelDesc.innerText = data.text || '';
+                complianceTitle.innerText = data.compliance || 'METODISKT EXEMPEL';
                 
-                // SVG Central Texts
-                centerEmoji.textContent = data.icon || '🧠';
-                centerTitle.textContent = centerTitles[index];
-                centerSubtitle.textContent = centerSubtitles[index];
-                
-                // Translate SVG target reticle
-                reticle.setAttribute('transform', `translate(${reticleX[index]}, ${reticleY[index]})`);
-                
-                // 4. Update school examples list with smooth entrance animations
+                // Update examples list with staggered entry animation
                 examplesList.innerHTML = '';
                 const examples = data.examples || [];
                 examples.forEach((ex, idx) => {
                     const li = document.createElement('div');
-                    li.className = 'hud-example-item';
+                    li.className = 'radar-example-item';
                     li.innerText = ex;
                     examplesList.appendChild(li);
                     
@@ -4799,8 +4793,7 @@
             setTimeout(() => {
                 if (nodes.length > 0) {
                     nodes[0].classList.add('step-hidden-remove');
-                    leftPanel.classList.add('visible');
-                    rightPanel.classList.add('visible');
+                    hudPanel.classList.add('visible');
                     activateMode(0);
                 }
                 currentStep = 1;

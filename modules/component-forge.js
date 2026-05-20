@@ -1835,39 +1835,124 @@
             opacity: 0.4;
         }
 
-        /* ===== MAP-PROGRESSION ===== */
-        .slide-map-progression { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; color: #fff; text-align: left; }
-        .mprog-map-area { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; background: #050505; }
+                /* ===== MAP-PROGRESSION ===== */
+        .slide-map-progression { display: flex; width: 100%; height: 100%; position: relative; overflow: hidden; background: #020205; color: #fff; text-align: left; }
+        .mprog-map-area { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #0a0b16 0%, #020205 100%); }
         
-        /* The wrapper guarantees that the pins' percentage coordinates always exactly match the map image, regardless of screen shape */
         .mprog-map-wrapper { position: relative; width: 100%; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; display: flex; justify-content: center; align-items: center; }
-        .mprog-map-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; filter: contrast(1.1); }
+        .mprog-map-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: contrast(1.2) brightness(0.85); mix-blend-mode: lighten; }
         
-        .mprog-sidebar { width: clamp(260px, 22cqw, 360px); background: rgba(10,10,15,0.95); border-left: 1px solid rgba(255,255,255,0.1); padding: clamp(1.5rem, 2cqw, 2.5rem) clamp(1rem, 1.5cqw, 1.5rem); display: flex; flex-direction: column; z-index: 10; box-shadow: -15px 0 40px rgba(0,0,0,0.6); }
-        .mprog-title { font-size: clamp(1.8rem, 2cqw, 2.2rem); font-weight: 300; margin-bottom: 2rem; color: var(--accent); line-height: 1.2; letter-spacing: -0.02em; }
-        .mprog-list { display: flex; flex-direction: column; gap: 0.8rem; overflow-y: auto; padding-right: 0.5rem; }
-        .mprog-item { padding: 1rem 1.2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; cursor: pointer; transition: all 0.3s cubic-bezier(0.2,0.8,0.2,1); opacity: 0; transform: translateX(30px); display: none; }
-        .mprog-item.revealed { opacity: 1; transform: translateX(0); display: block; }
-        .mprog-item:hover, .mprog-item.active { background: rgba(255,255,255,0.08); border-color: var(--accent); transform: scale(1.02); }
-        .mprog-item-title { font-weight: 600; font-size: clamp(1.2rem, 1.6cqw, 1.6rem); margin-bottom: 0.4rem; color: #fff; }
-        .mprog-item-subtitle { font-size: clamp(0.8rem, 1cqw, 1rem); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1.5px; }
+        .mprog-sidebar { width: clamp(340px, 25cqw, 440px); background: rgba(11, 11, 18, 0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-left: 1px solid rgba(255,255,255,0.06); padding: clamp(1.2rem, 1.8cqw, 2rem) 1rem; display: flex; flex-direction: column; z-index: 10; box-shadow: -15px 0 40px rgba(0,0,0,0.6); height: 100%; }
+        .mprog-title { font-size: clamp(1.4rem, 1.8cqw, 1.8rem); font-weight: 800; margin-bottom: 1.2rem; color: var(--accent); line-height: 1.2; letter-spacing: -0.02em; text-transform: uppercase; border-bottom: 2px solid rgba(249, 115, 22, 0.15); padding-bottom: 0.5rem; }
+        .mprog-list { display: flex; flex-direction: column; gap: 0.6rem; overflow-y: auto; flex: 1; padding-right: 0.3rem; margin-bottom: 1rem; }
         
-        .mprog-pin { position: absolute; width: clamp(20px, 2cqw, 28px); height: clamp(20px, 2cqw, 28px); background: #fff; border-radius: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; z-index: 5; box-shadow: 0 0 20px rgba(255,255,255,0.8); display: none; }
-        .mprog-pin.revealed { transform: translate(-50%, -50%) scale(1); display: block; }
-        .mprog-pin.active { background: #ef4444; box-shadow: 0 0 30px rgba(239,68,68,0.8); z-index: 6; }
-        .mprog-pin.active::after { content: ''; position: absolute; top: -16px; left: -16px; right: -16px; bottom: -16px; border-radius: 50%; border: 3px solid #ef4444; animation: mprog-pulse 2s cubic-bezier(0.2,0.8,0.2,1) infinite; }
+        .mprog-list::-webkit-scrollbar { width: 5px; }
+        .mprog-list::-webkit-scrollbar-track { background: transparent; }
+        .mprog-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+        .mprog-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+
+        /* All items always displayed but initially dimmed (opacity: 0.35) */
+        .mprog-item { 
+            padding: 0.8rem 1rem; 
+            background: rgba(255,255,255,0.01); 
+            border: 1px solid rgba(255,255,255,0.03); 
+            border-left: 3px solid rgba(255,255,255,0.05); 
+            border-radius: 6px; 
+            cursor: pointer; 
+            transition: all 0.25s cubic-bezier(0.2,0.8,0.2,1); 
+            opacity: 0.35; 
+            transform: translateX(0); 
+        }
+        .mprog-item.revealed { 
+            opacity: 1; 
+            background: rgba(255,255,255,0.03); 
+            border-color: rgba(255,255,255,0.06); 
+            border-left-color: rgba(255,255,255,0.3); 
+        }
+        .mprog-item:hover { 
+            background: rgba(255,255,255,0.06); 
+            border-color: rgba(255,255,255,0.15); 
+            border-left-color: var(--accent); 
+            transform: translateX(2px); 
+            opacity: 1; 
+        }
+        .mprog-item.active { 
+            background: rgba(249, 115, 22, 0.08); 
+            border-color: rgba(249, 115, 22, 0.3); 
+            border-left-color: var(--accent); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35); 
+            transform: translateX(4px); 
+            opacity: 1; 
+        }
+        .mprog-item-title { font-weight: 700; font-size: clamp(1.05rem, 1.3cqw, 1.3rem); margin-bottom: 0.25rem; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .mprog-item-subtitle { font-size: clamp(0.7rem, 0.85cqw, 0.85rem); color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .mprog-item-badge { font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; }
+        .badge-us { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-us-uk { background: rgba(147, 51, 234, 0.15); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.3); }
+        .badge-eu { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-cn { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-ca { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        
+        /* All pins always displayed, unrevealed is scale(0.7) and white-translucent */
+        .mprog-pin { 
+            position: absolute; 
+            width: clamp(18px, 1.6cqw, 24px); 
+            height: clamp(18px, 1.6cqw, 24px); 
+            background: rgba(255,255,255,0.2); 
+            border: 2px solid rgba(255,255,255,0.3); 
+            border-radius: 50%; 
+            transform: translate(-50%, -50%) scale(0.7); 
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
+            cursor: pointer; 
+            z-index: 5; 
+            box-shadow: 0 0 5px rgba(255,255,255,0.1); 
+        }
+        .mprog-pin.revealed { 
+            background: #fff; 
+            border-color: var(--accent, #f97316); 
+            transform: translate(-50%, -50%) scale(1); 
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.5); 
+        }
+        .mprog-pin.active { 
+            background: var(--accent, #f97316); 
+            border-color: #fff; 
+            box-shadow: 0 0 25px var(--accent, #f97316); 
+            z-index: 6; 
+            transform: translate(-50%, -50%) scale(1.1); 
+        }
+        .mprog-pin.active::after { content: ''; position: absolute; top: -16px; left: -16px; right: -16px; bottom: -16px; border-radius: 50%; border: 3px solid var(--accent, #f97316); animation: mprog-pulse 2s cubic-bezier(0.2,0.8,0.2,1) infinite; }
         @keyframes mprog-pulse { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.8); opacity: 0; } }
         
-        .mprog-infobox { position: absolute; width: clamp(400px, 45cqw, 650px); background: rgba(15, 15, 20, 0.9); border: 1px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 16px; padding: clamp(1.5rem, 3cqw, 3rem); z-index: 20; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1); backdrop-filter: blur(15px); box-shadow: 0 25px 60px rgba(0,0,0,0.7); transform: translateY(30px); }
+        .mprog-infobox { position: absolute; width: clamp(400px, 45cqw, 650px); background: rgba(15, 15, 22, 0.92); border: 1px solid rgba(255,255,255,0.08); border-top: 4px solid var(--accent); border-radius: 16px; padding: clamp(1.5rem, 3cqw, 3rem); z-index: 20; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1); backdrop-filter: blur(20px); box-shadow: 0 25px 60px rgba(0,0,0,0.8); transform: translateY(30px); }
         .mprog-infobox.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .mprog-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2.5rem; cursor: pointer; opacity: 0.4; transition: opacity 0.2s; padding: 0; line-height: 1; }
         .mprog-close:hover { opacity: 1; }
-        .mprog-info-title { font-size: clamp(2.2rem, 3.5cqw, 3.5rem); font-weight: 300; margin-bottom: 0.8rem; color: #fff; letter-spacing: -0.02em; }
+        .mprog-info-title { font-size: clamp(2.2rem, 3.5cqw, 3.5rem); font-weight: 800; margin-bottom: 0.8rem; color: #fff; letter-spacing: -0.02em; }
         .mprog-info-meta { font-size: clamp(0.9rem, 1.2cqw, 1.2rem); color: var(--accent); margin-bottom: clamp(1rem, 2cqw, 2rem); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
-        .mprog-info-desc { font-size: clamp(1.1rem, 1.6cqw, 1.6rem); line-height: 1.6; color: rgba(255,255,255,0.9); font-weight: 300; }
+        .mprog-info-desc { font-size: clamp(1.1rem, 1.6cqw, 1.6rem); line-height: 1.6; color: rgba(255,255,255,0.95); font-weight: 400; }
         
         .mprog-svg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 15; }
         .mprog-svg-overlay line { transition: opacity 0.3s ease; stroke-linecap: round; }
+        
+        /* Modernized Takeaway container style at the bottom of the sidebar */
+        .mprog-takeaway { 
+            background: rgba(249, 115, 22, 0.04); 
+            border: 1px solid rgba(249, 115, 22, 0.12); 
+            border-left: 3px solid var(--accent); 
+            border-radius: 8px; 
+            padding: 0.9rem 1.1rem; 
+            margin-top: auto; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4); 
+            transition: all 0.3s ease; 
+        }
+        .mprog-takeaway:hover {
+            background: rgba(249, 115, 22, 0.08); 
+            border-color: rgba(249, 115, 22, 0.25); 
+            transform: translateY(-2px);
+        }
+        .mprog-takeaway-title { font-size: clamp(0.85rem, 1cqw, 1rem); font-weight: 800; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'JetBrains Mono', monospace; }
+        .mprog-takeaway-text { font-size: clamp(0.75rem, 0.9cqw, 0.9rem); line-height: 1.5; color: rgba(255,255,255,0.75); }
 
         /* ===== WARNING PULSE ===== */
         @keyframes warnPulse {
@@ -3012,12 +3097,38 @@
         const id = 'mprog_' + Math.random().toString(36).slice(2, 8);
         const labs = s.labs || [];
         
-        const sidebarHtml = labs.map((l, i) => `
-            <div class="mprog-item" id="${id}-item-${i}" onclick="window.${id}_activate(${i})">
-                <div class="mprog-item-title">${l.name || ''}</div>
-            <div class="mprog-item-subtitle">${l.location || ''}</div>
-            </div>
-        `).join('');
+        const sidebarHtml = labs.map((l, i) => {
+            let badgeCls = '';
+            let badgeText = '';
+            const loc = l.location || '';
+            
+            if (loc.includes('USA')) {
+                badgeCls = 'badge-us';
+                badgeText = '🇺🇸 USA';
+            } else if (loc.includes('UK')) {
+                badgeCls = 'badge-us-uk';
+                badgeText = '🇬🇧 UK';
+            } else if (loc.includes('Frankrike') || loc.includes('Paris')) {
+                badgeCls = 'badge-eu';
+                badgeText = '🇫🇷 EU';
+            } else if (loc.includes('Kina') || loc.includes('Hangzhou')) {
+                badgeCls = 'badge-cn';
+                badgeText = '🇨🇳 KINA';
+            } else if (loc.includes('Kanada') || loc.includes('Toronto')) {
+                badgeCls = 'badge-ca';
+                badgeText = '🇨🇦 KANADA';
+            }
+
+            return `
+                <div class="mprog-item" id="${id}-item-${i}" onclick="window.${id}_activate(${i})">
+                    <div class="mprog-item-title">
+                        <span>${l.name || ''}</span>
+                        ${badgeText ? `<span class="mprog-item-badge ${badgeCls}">${badgeText}</span>` : ''}
+                    </div>
+                    <div class="mprog-item-subtitle">${loc}</div>
+                </div>
+            `;
+        }).join('');
 
         const pinsHtml = labs.map((l, i) => `
             <div class="mprog-pin" id="${id}-pin-${i}" style="left:${l.x}%; top:${l.y}%;" onclick="window.${id}_activate(${i})"></div>
@@ -3025,7 +3136,6 @@
 
         // Provide logic via setTimeout
         setTimeout(() => {
-            let step = 0;
             let activeIdx = -1;
             let lineReqFrame;
             const infoBox = document.getElementById(`${id}-infobox`);
@@ -3070,8 +3180,12 @@
             }
             
             window[`${id}_activate`] = (idx) => {
-                // You can only click items that have been revealed (idx < step)
-                if(idx >= step) return;
+                // Instantly reveal the selected element and pin on click or sequential step
+                const item = document.getElementById(`${id}-item-${idx}`);
+                const pin = document.getElementById(`${id}-pin-${idx}`);
+                if(item) item.classList.add('revealed');
+                if(pin) pin.classList.add('revealed');
+
                 // Deactivate old
                 if(activeIdx >= 0) {
                     const oldItem = document.getElementById(`${id}-item-${activeIdx}`);
@@ -3081,8 +3195,6 @@
                 }
                 activeIdx = idx;
                 const lab = labs[idx];
-                const item = document.getElementById(`${id}-item-${idx}`);
-                const pin = document.getElementById(`${id}-pin-${idx}`);
                 if(item) item.classList.add('active');
                 if(pin) pin.classList.add('active');
                 
@@ -3127,19 +3239,17 @@
             };
 
             window.handleNextStep = () => {
-                if (step < labs.length) {
-                    // Reveal next
-                    const stepItem = document.getElementById(`${id}-item-${step}`);
-                    const stepPin = document.getElementById(`${id}-pin-${step}`);
-                    if(stepItem) stepItem.classList.add('revealed');
-                    if(stepPin) stepPin.classList.add('revealed');
-                    
-                    // Increment step first so activate allows it
-                    const currentStep = step;
-                    step++;
-                    
-                    // Activate it automatically
-                    window[`${id}_activate`](currentStep);
+                // Find the first unrevealed element
+                let nextIdx = -1;
+                for (let i = 0; i < labs.length; i++) {
+                    const item = document.getElementById(`${id}-item-${i}`);
+                    if (item && !item.classList.contains('revealed')) {
+                        nextIdx = i;
+                        break;
+                    }
+                }
+                if (nextIdx !== -1) {
+                    window[`${id}_activate`](nextIdx);
                     return true;
                 }
                 return false; // Let it proceed to next slide
@@ -3147,7 +3257,7 @@
         }, 50);
 
         return `
-            <div class="slide-map-progression">
+            <div class="slide-map-progression no-click-advance">
                 <div class="mprog-map-area">
                     <div class="mprog-map-wrapper" id="${id}-wrapper">
                         <img class="mprog-map-img" src="${s.mapImage || ''}" alt="Map">
@@ -3167,6 +3277,10 @@
                     <div class="mprog-title">${s.title || ''}</div>
                     <div class="mprog-list">
                         ${sidebarHtml}
+                    </div>
+                    <div class="mprog-takeaway">
+                        <div class="mprog-takeaway-title">Geopolitisk analys</div>
+                        <div class="mprog-takeaway-text">Europa har en extrem "datorkrafts-skuld". Med endast Mistral (Frankrike) som utmanare saknas de mångmiljard-kluster av chip som bygger framtidens gränsöverskridande modeller i USA och Kina.</div>
                     </div>
                 </div>
             </div>

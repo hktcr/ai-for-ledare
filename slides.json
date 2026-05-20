@@ -226,6 +226,42 @@
               "y": 162,
               "label": "GPT-5.1",
               "info": "Motsvarar nästan tre timmars självständigt arbete. Här nås max för TH 1.0 testet."
+            },
+            {
+              "x": "2026-01-10",
+              "y": 342,
+              "label": "GPT-5.4",
+              "info": "TH 1.1 introduceras."
+            },
+            {
+              "x": "2026-01-15",
+              "y": 384,
+              "label": "Gemini 3.1 Pro",
+              "info": "Google kontrar."
+            },
+            {
+              "x": "2026-02-05",
+              "y": 870,
+              "label": "Claude Opus 4.6",
+              "info": "METR:s testsviter slår i taket. Över 14,5 timmars autonomt arbete."
+            },
+            {
+              "x": "2026-04-12",
+              "y": 1250,
+              "label": "Claude 4.7 Opus",
+              "info": "April 2026. Det latenta språnget. Sätter nytt rekord med över 20 timmars oavbruten autonomi."
+            },
+            {
+              "x": "2026-05-19",
+              "y": 940,
+              "label": "Gemini 3.5 Flash",
+              "info": "Presenterad för två dagar sedan! Google DeepMinds senaste drag – blixtsnabb och exceptionellt autonom."
+            },
+            {
+              "x": "2026-05-18",
+              "y": 1410,
+              "label": "GPT-5.5",
+              "info": "Maj 2026. Nästan fullt dygn (23,5 timmar) av autonomt arbete. Gränsen för fullständig oberoende operativ exekvering."
             }
           ]
         }
@@ -236,7 +272,18 @@
           "url": "https://metr.org",
           "quote": "Hur länge en AI kan arbeta autonomt utan mänsklig inblandning har blivit det primära måttet på förmåga (Task Horizon)."
         }
-      ]
+      ],
+      "pauseIndex": 9,
+      "newsFlash": {
+        "title": "🚨 NEWS FLASH // 19 MAJ 2026",
+        "subtitle": "Google lanserar Gemini 3.5 Flash",
+        "text": "Blixtsnabb och exceptionellt autonom modell som skakar om spelplanen:",
+        "bullets": [
+          "940 minuters autonomi (över 15 timmars självständigt arbete)",
+          "Presterar i par med gårdagens största flaggskepp till en bråkdel av kostnaden",
+          "Utformad för att köra komplexa agent-loopar i realtid"
+        ]
+      }
     },
     {
       "id": "ai-task-horizon-2",
@@ -704,13 +751,10 @@
     {
       "id": "personal-voice-question",
       "section": "agenter",
-      "type": "quote",
-      "text": "Vill vi verkligen att alla texter vi lämnar ifrån oss förvisso är *helt grammatiskt korrekta*... men helt utan *personlig stil, röst och själ*?",
-      "author": "En tankeställare inför framtidens kommunikation",
-      "style": "typewriter",
-      "slowSpeed": true,
+      "type": "pixel-morph",
       "cardTitle": "Rösten eller korrektheten?",
-      "animation": "slide-left"
+      "animation": "slide-left",
+      "question": "Men måste det bli så?"
     },
     {
       "id": "personal-voice-methods",
@@ -751,7 +795,8 @@
           "text": "Teachiq/KM Workshop (nov 2025): The Conductor Mindset",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
-      ]
+      ],
+      "prompt": "Sammansätt en virtuell expertpanel om fem personer med olika relevanta perspektiv på [ämnet/frågan]. Låt var och en uttala sig om [idén/texten/förslaget] och ge ett betyg. De får inte tala med varandra än."
     },
     {
       "id": "vep-i-praktiken",
@@ -889,7 +934,7 @@
     {
       "id": "anthropomorphism",
       "section": "agenter",
-      "type": "anthropomorphism",
+      "type": "scanned-sentences",
       "cardTitle": "Antropomorfisering",
       "image": "assets/android.png",
       "title": "Är det ok att behandla AI som en människa?",
@@ -909,7 +954,9 @@
           "text": "Antropomorfism inom AI (Teachiq/KM 2026)",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
-      ]
+      ],
+      "prosHeader": "Möjligheter & Fördelar",
+      "consHeader": "Utmaningar & Risker"
     },
     {
       "id": "workshop-focus",
@@ -1136,8 +1183,14 @@
         "Det juridiska ansvaret övergår nu helt till huvudmannen som 'deployer'."
       ],
       "sources": [
-        { "text": "EU AI Act: Artikel 4 & Högrisk-klassificering (2026)", "url": "https://artificialintelligenceact.eu/" },
-        { "text": "Edwall Zackariasson: AI Act & Skolan", "url": "https://edwallzackariassonutbildning.com/" }
+        {
+          "text": "EU AI Act: Artikel 4 & Högrisk-klassificering (2026)",
+          "url": "https://artificialintelligenceact.eu/"
+        },
+        {
+          "text": "Edwall Zackariasson: AI Act & Skolan",
+          "url": "https://edwallzackariassonutbildning.com/"
+        }
       ]
     },
     {
@@ -1166,7 +1219,10 @@
         }
       ],
       "sources": [
-        { "text": "Skolverket (2026): Betyg & Bedömning i AI-eran", "url": "https://www.skolverket.se/skolutveckling/inspiration-och-stod-i-arbetet/stod-i-arbetet/artificiell-intelligens-ai-i-skolan" }
+        {
+          "text": "Skolverket (2026): Betyg & Bedömning i AI-eran",
+          "url": "https://www.skolverket.se/skolutveckling/inspiration-och-stod-i-arbetet/stod-i-arbetet/artificiell-intelligens-ai-i-skolan"
+        }
       ]
     },
     {
@@ -1179,12 +1235,26 @@
         "button": "Visa omfattningen"
       },
       "numbers": [
-        { "value": 30, "label": "Gymnasieskolor djupgranskas nu", "icon": "🏫" },
-        { "value": 2027, "label": "April: Slutrapport till regeringen", "icon": "📅" }
+        {
+          "value": 30,
+          "label": "Gymnasieskolor djupgranskas nu",
+          "icon": "🏫"
+        },
+        {
+          "value": 2027,
+          "label": "April: Slutrapport till regeringen",
+          "icon": "📅"
+        }
       ],
       "sources": [
-        { "text": "Skolinspektionen (2026): Tillsyn av AI & bedömning", "url": "https://www.skolinspektionen.se/" },
-        { "text": "Regeringen.se: Uppdrag till Skolinspektionen", "url": "https://www.regeringen.se/" }
+        {
+          "text": "Skolinspektionen (2026): Tillsyn av AI & bedömning",
+          "url": "https://www.skolinspektionen.se/"
+        },
+        {
+          "text": "Regeringen.se: Uppdrag till Skolinspektionen",
+          "url": "https://www.regeringen.se/"
+        }
       ]
     },
     {
@@ -1201,8 +1271,14 @@
         "AI-detektorer läcker data. Många plattformar lagrar elevers skrivstil otillåtet."
       ],
       "sources": [
-        { "text": "IMY (2026): Dataskydd & AI i skolmiljö", "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/" },
-        { "text": "Bedöma.se: Juridiken kring AI-detektorer", "url": "https://bedoma.se/" }
+        {
+          "text": "IMY (2026): Dataskydd & AI i skolmiljö",
+          "url": "https://www.imy.se/verksamhet/dataskydd/det-har-galler-enligt-gdpr/ai-och-dataskydd/"
+        },
+        {
+          "text": "Bedöma.se: Juridiken kring AI-detektorer",
+          "url": "https://bedoma.se/"
+        }
       ]
     },
     {
@@ -1231,38 +1307,104 @@
     {
       "id": "workshop-interactive-cases",
       "section": "cases",
-      "type": "interactive-cases",
+      "type": "cases-grid-popup",
       "title": "Verkstad: Praktiska AI-case för skolledare",
       "cases": [
         {
-          "label": "Case A: EHT-Dokumentation (Elevhälsa)",
-          "painPoint": "Elevhälsa & känslig dokumentation under GDPR/sekretess.",
-          "context": "Minska administrativ tid i EHT-flöden utan att äventyra GDPR eller sekretesslagstiftning.",
-          "prompt": "### 📋 BAKGRUND:\\nEn rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte. Det finns en uppenbar risk att känsliga uppgifter dokumenteras på ett sätt som bryter mot GDPR eller sekretesslagstiftningen.\\n\\n### 🎯 UTMANING:\\nHur kan rektorn formulera noteringen så att den medicinska/pedagogiska kärnan bevaras och är juridiskt rättssäker, men utan att röja sekretessbelagd information eller kränka elevens integritet?\\n\\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\\n1. Vilka uppgifter måste avidentifieras och vad får absolut inte skrivas i fritext?\\n2. Hur skriver vi om riskabla formuleringar till professionella och säkra skrivningar?\\n3. Vilka enkla checklistor kan skapas för att stödja pedagoger och EHT-personal vid skärmen?"
+          "id": "A",
+          "badge": "CASE A: EHT-DOKUMENTATION",
+          "title": "EHT-Dokumentation (Elevhälsa)",
+          "description": "Minska administrativ tid i EHT-flöden – utan att äventyra GDPR eller sekretess.",
+          "challenge": "En rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte. Det finns en uppenbar risk att känsliga uppgifter dokumenteras på ett sätt som bryter mot GDPR eller sekretesslagstiftningen. Hur kan rektorn formulera noteringen så att den medicinsk–pedagogiska kärnan bevaras och är juridiskt rättssäker, men utan att röja sekretessbelagd information eller kränka elevens integritet?",
+          "questions": [
+            "Vilka uppgifter måste avidentifieras och vad får absolut inte skrivas i fritext?",
+            "Hur skriver vi om riskabla formuleringar till professionella och säkra skrivningar?",
+            "Vilka enkla checklistor kan skapas för att stödja pedagoger och EHT-personal vid skärmen?"
+          ],
+          "prompt": "Du är en erfaren och juridiskt kunnig specialpedagog och expert på skoldokumentation i Sverige.\nHjälp mig att formulera en mötesanteckning för Prorenata utifrån följande grova anteckningar från ett elevhälsoärende.\nMålet är att anteckningen ska vara saklig, professionell och juridiskt hållbar enligt Skollagen och GDPR.\n\nHär är mina grova anteckningar (som innehåller känslig information):\n[KLISTRA IN DINA GROVA ANTECKNINGAR HÄR]\n\nGör följande:\n1. Rensa helt bort personuppgifter, namn, familjesituationer eller spekulationer om diagnoser.\n2. Formulera om texten till ett professionellt och neutralt språk som fokuserar på elevens pedagogiska behov och beslutade stödåtgärder.\n3. Skapa ett färdigt förslag på text som jag säkert kan klistra in i Prorenata."
         },
         {
-          "label": "Case B: Lagssäkert Edlevo-svar",
-          "painPoint": "Tydliga beslutsformuleringar med lagstöd (Skollagen & Förvaltningslagen).",
-          "context": "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
-          "prompt": "### 📋 BAKGRUND:\\nEn vårdnadshavare har ansökt om en längre ledighet för en elev under en period med nationella prov. Rektorn har beslutat om avslag. Beslutet ska kommuniceras formellt och skriftligt via Edlevo.\\n\\n### 🎯 UTMANING:\\nHur formulerar rektorn avslagsbeslutet så att det är juridiskt robust med uttryckliga referenser till Skollagen och Förvaltningslagen, samtidigt som meddelandet är kortfattat, tydligt, empatiskt och lämnar minimalt utrymme för missförstånd?\\n\\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\\n1. Vilka specifika kapitel och paragrafer i Skollagen och Förvaltningslagen är tillämpliga?\\n2. Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?\\n3. Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
+          "id": "B",
+          "badge": "CASE B: LAGSSÄKERT EDLEVO-SVAR",
+          "title": "Lagssäkert Edlevo-svar",
+          "description": "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
+          "challenge": "En vårdnadshavare har ansökt om en längre ledighet för en elev under en period med nationella prov. Rektorn har beslutat om avslag. Beslutet ska kommuniceras formellt och skriftligt via Edlevo. Hur formulerar rektorn avslagsbeslutet så att det är juridiskt robust med uttryckliga referenser till Skollagen och Förvaltningslagen, samtidigt som meddelandet är kortfattat, tydligt, empatiskt och lämnar minimalt utrymme för missförstånd?",
+          "questions": [
+            "Vilka specifika kapitel och paragrafer i Skollagen och Förvaltningslagen är tillämpliga?",
+            "Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?",
+            "Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
+          ],
+          "prompt": "Du är en expert på svensk skoljuridik och förvaltningsrätt.\nHjälp mig att formulera ett avslagsbeslut för en ledighetsansökan som ska skickas till vårdnadshavare via Edlevo.\nEleven går i årskurs 9 och ansökan gäller 5 dagar under perioden för nationella prov.\n\nSkapa ett svar som innehåller:\n1. Ett tydligt men empatiskt avslag.\n2. Tydliga referenser till Skollagen kapitel 7 § 18 (ledighet) och vikten av deltagande i nationella prov.\n3. Förklaring av skolans ansvar för att säkerställa elevens måluppfyllelse.\n4. Information om hur beslutet kan överklagas (laglighetsprövning enligt Kommunallagen).\nTexten ska vara kort, professionell och lättbegriplig för vårdnadshavare."
         },
         {
-          "label": "Case C: Bemanningsanalys Sommarschema",
-          "painPoint": "Balansera semesterönskemål, fackliga avtal och lagstadgad bemanning.",
-          "context": "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
-          "prompt": "### 📋 BAKGRUND:\\nInför sommaren krockar personalens semesterönskemål på förskolan med kraven på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila och veckovila. Fackliga samverkansavtal med Sveriges Lärare och Kommunal måste också respekteras.\\n\\n### 🎯 UTMANING:\\nHur pusslar förskolechefen ihop sommarschemat (veckorna 26-32) på ett sätt som minimerar övertidskostnader, upprätthåller en god pedagogisk miljö för barnen och bibehåller personalens förtroende och hälsa?\\n\\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\\n1. Hur kan bemanningsbehov, kompetenser och önskemål aggregeras och visualiseras tydligt?\\n2. Vilken trestegs process kan användas för att lösa bemanningstvister i god samverkan?\\n3. Hur formulerar vi en tydlig och rättvis kommunikation till personalen angående förutsättningarna?"
+          "id": "C",
+          "badge": "CASE C: BEMANNINGSANALYS",
+          "title": "Bemanningsanalys Sommarschema",
+          "description": "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
+          "challenge": "Inför sommaren krockar personalens semesterönskemål på förskolan med kraven på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila och veckovila. Fackliga samverkansavtal med Sveriges Lärare och Kommunal måste också respekteras. Hur pusslar förskolechefen ihop sommarschemat (veckorna 26–32) på ett sätt som minimerar övertidskostnader, upprätthåller en god pedagogisk miljö för barnen och bibehåller personalens förtroende och hälsa?",
+          "questions": [
+            "Hur kan bemanningsbehov, kompetenser och önskemål aggregeras och visualiseras tydligt?",
+            "Vilken trestegs process kan användas för att lösa bemanningstvister i god samverkan?",
+            "Hur formulerar vi en tydlig och rättvis kommunikation till personalen angående förutsättningarna?"
+          ],
+          "prompt": "Du är en erfaren förskolechef och schemaplanerare med djup kunskap om Arbetstidslagen (ATL) och samverkansavtal inom skolväsendet.\nHjälp mig att skapa en strukturerad plan för sommarbemanningen på min enhet (veckorna 26–32).\n\nHär är mina förutsättningar:\n- Antal barn per vecka: [V26: 45 barn, V27: 30 barn, V28: 15 barn, V29–31: 10 barn, V32: 35 barn]\n- Personalresurser och deras semesterönskemål: [KLISTRA IN ELLER BESKRIV DINA RESURSER HÄR]\n- Krav: Minst en behörig förskollärare i tjänst varje dag, dygnsvila på minst 11 timmar måste respekteras.\n\nHjälp mig att:\n1. Identifiera kritiska veckor med bemanningsbrist.\n2. Föreslå konkreta schemajusteringar eller sammanslagningar av avdelningar för att lösa ekvationen.\n3. Skriva ett utkast till ett e-postmeddelande till personalen där jag förklarar hur vi löst schemat i samverkan och vilka principer vi utgått ifrån."
         },
         {
-          "label": "Case D: Systematiskt Kvalitetsarbete",
-          "painPoint": "Aggregera och analysera insamlad barndata i förskolan.",
-          "context": "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
-          "prompt": "### 📋 BAKGRUND:\\nVid årets slut har förskolan samlat in stora mängder kvalitativa data: observationer, enkäter från vårdnadshavare och pedagogernas egna veckoreflektioner. Materialet är spretigt, ostrukturerat och svårt att få en helhetsbild av.\\n\\n### 🎯 UTMANING:\\nHur aggregerar och analyserar förskolechefen detta material för den årliga kvalitetsrapporten så att röda trådar identifieras, orsak-konsekvens-åtgärd blir tydlig och kopplingarna till läroplanens mål (Lpfö18) formuleras skarpt?\\n\\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\\n1. Vilka analysstrukturer (t.ex. orsak-konsekvens-åtgärd) fungerar bäst för kvalitativa data?\\n2. Hur kan AI användas för att sammanställa fritextsvar utan att tappa nyanserna eller bli partisk?\\n3. Hur formulerar man skarpa slutsatser som leder till konkreta åtgärdsplaner för nästa läsår?"
+          "id": "D",
+          "badge": "CASE D: KVALITETSARBETE",
+          "title": "Systematiskt Kvalitetsarbete",
+          "description": "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
+          "challenge": "Vid årets slut har förskolan samlat in stora mängder kvalitativa data: observationer, enkäter från vårdnadshavare och pedagogernas egna veckoreflektioner. Materialet är spretigt, ostrukturerat och svårt att få en helhetsbild av. Hur aggregerar och analyserar förskolechefen detta material för den årliga kvalitetsrapporten så dat röda trådar identifieras, orsak–konsekvens–åtgärd blir tydlig och kopplingarna till läroplanens mål (Lpfö18) formuleras skarpt?",
+          "questions": [
+            "Vilka analysstrukturer (t.ex. orsak–konsekvens–åtgärd) fungerar bäst för kvalitativa data?",
+            "Hur kan AI användas för att sammanställa fritextsvar utan att tappa nyanserna eller bli partisk?",
+            "Hur formulerar man skarpa slutsatser som leder till konkreta åtgärdsplaner för nästa läsår?"
+          ],
+          "prompt": "Du är en expert på systematiskt kvalitetsarbete (SKA) och pedagogisk analys i svensk förskola.\nHjälp mig att analysera och sammanställa årets insamlade underlag till vår kvalitetsrapport utifrån modellen Orsak – Konsekvens – Åtgärd.\n\nHär är årets insamlade data (observationer och reflektioner kring språkutveckling):\n[KLISTRA IN DIN TEXT ELLER DINA PUNKTER HÄR]\n\nUtför följande analys:\n1. Koda och kategorisera texten – vilka är de tre tydligaste mönstren eller röda trådarna?\n2. Strukturera analysen enligt:\n   - Vad ser vi för resultat? (Konsekvens)\n   - Varför ser det ut så? (Orsak – kopplat till pedagogers förhållningssätt och miljö)\n   - Hur går vi vidare? (Åtgärd – konkreta insatser för nästa läsår)\n3. Formulera skarpa kopplingar till läroplanens (Lpfö18) mål för språkutveckling."
         },
         {
-          "label": "Case E: Svåra Samtal & Ledarröst",
-          "painPoint": "Förbereda känsliga samtal och behålla sin personliga ledarröst.",
-          "context": "Rollspela och sparras inför medarbetarsamtal, samt bevara sin personliga röst i skriftlig feedback.",
-          "prompt": "### 📋 BAKGRUND:\\nEn rektor ska hålla ett svårt samtal med en medarbetare angående bristande engagemang och samarbetsproblem i arbetslaget. Medarbetaren har en tendens att bli defensiv, gå i försvarsställning eller spela rollen som offer under mötet.\\n\\n### 🎯 UTMANING:\\nHur lägger rektorn upp samtalets struktur och behåller sitt professionella lugn och sin personliga ledarröst, utan att bli antingen för defensiv eller för auktoritär?\\n\\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\\n1. Vilken samtalsstruktur (t.ex. en fyrstegsmodell) lämäpar sig bäst för svåra medarbetarsamtal?\\n2. Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?\\n3. Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
+          "id": "E",
+          "badge": "CASE E: LEDARRÖST",
+          "title": "Svåra Samtal & Ledarröst",
+          "description": "Rollspela och sparras inför medarbetarsamtal, samt bevara din personliga röst i skriftlig feedback.",
+          "challenge": "En rektor ska hålla ett svårt samtal med en medarbetare angående bristande engagemang och samarbetsproblem i arbetslaget. Medarbetaren har en tendens att bli defensiv, gå i försvarsställning eller spela rollen som offer under mötet. Hur lägger rektorn upp samtalets struktur och behåller sitt professionella lugn och sin personliga ledarröst, utan att bli antingen för defensiv eller för auktoritär?",
+          "questions": [
+            "Vilken samtalsstruktur (t.ex. en fyrstegsmodell) lämpar sig bäst för svåra medarbetarsamtal?",
+            "Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?",
+            "Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
+          ],
+          "prompt": "Du är en erfaren ledarskapscoach och expert på svåra samtal inom skolans värld.\nHjälp mig att förbereda och rollspela ett samtal med en medarbetare som har stora samarbetsproblem i sitt arbetslag.\nMedarbetaren blir lätt defensiv och går i försvarsställning.\n\nGör följande för att sparra mig:\n1. Ge mig eine tydlig samtalsstruktur i 5 steg (från inledning till överenskommelse).\n2. Ge mig 3 konkreta exempel på hur jag kan formulera mig när medarbetaren avleder samtalet eller går i försvarsställning, så att jag behåller initiativet på ett lugnt och respektfullt sätt.\n3. Agera som medarbetaren i en interaktiv rollspelssimulering. Börja med att säga: 'Jag förstår inte alls varför vi har det här mötet, allt fungerar jättebra i mitt arbetslag.' Vänta på mitt svar innan du fortsätter."
+        },
+        {
+          "id": "F",
+          "badge": "CASE F: VEP KOMPETENSUTVECKLING",
+          "title": "VEP Kompetensutveckling",
+          "description": "Använd virtuella expertpaneler för att stötta pedagogers kompetensutveckling.",
+          "challenge": "En rektor vill utforma ett interaktivt kompetensutvecklingsprogram för lärare kring AI-didaktik. Målet är att använda VEP-metodiken för att låta lärare sparra med virtuella ämnesexperter, specialpedagoger och IT-pedagoger.",
+          "questions": [
+            "Vilka roller bör ingå i lärarnas virtuella expertpanel?",
+            "Hur säkrar vi att lärarna behåller sin pedagogiska suveränitet och inte överlåter lektionsplaneringen helt till AI?",
+            "Hur kan vi utvärdera effekten av VEP-sparringen på elevernas lärande?"
+          ],
+          "prompt": "Sammansätt en virtuell expertpanel bestående av en erfaren specialpedagog, en IT-pedagog, en erfaren ämnesdidaktiker och en utomstående skolforskare.\nInitiera en koordinator som leder samtalet. Vi ska utforma ett lektionsupplägg för årskurs 8 i NO där eleverna ska lära sig om genetik med stöd av AI. Låt experterna ge sina oberoende perspektiv och identifiera pedagogiska risker och möjligheter."
+        },
+        {
+          "id": "G",
+          "badge": "CASE G: VÅRDNADSHAVARMEJLET",
+          "title": "Vårdnadshavarmejlet",
+          "description": "Svara på infekterade och komplicerade mejl från vårdnadshavare på ett empatiskt men juridiskt och sakligt korrekt sätt.",
+          "challenge": "En förälder har skickat ett långt och argt mejl där de anklagar skolan för bristande stöd och felaktig betygssättning av deras barn, med hot om anmälan till Skolinspektionen. Rektorn behöver svara på ett sätt som lugnar situationen, men som också står fast vid fattade beslut och har fullt lagstöd.",
+          "questions": [
+            "Hur balanserar vi empati och förståelse med strikt myndighetsutövning och lagbundenhet?",
+            "Vilka delar av mejlet ska besvaras formellt och vilka delar kräver ett personligt samtal?",
+            "Hur kan vi använda Gemini för att rensa bort emotionella laddningar i utkastet och fokusera på ren fakta och lagrum?"
+          ],
+          "prompt": "Här är ett argt mejl från en vårdnadshavare:\n[KLISTRA IN MEJLET]\n\nAnalysera mejlet och dela upp det i:\n1. Sakliga påståenden och krav.\n2. Känslomässiga uttryck.\n\nHjälp mig att formulera ett empatiskt, lugnt och professionellt svar som förklarar skolans beslut utifrån Skollagen kapitel 3 (betyg och stöd), men utan att gå i försvarsställning. Svaret ska vara formellt korrekt men varmt i tonen."
+        },
+        {
+          "type": "motivation",
+          "title": "Håll i ratten!",
+          "text": "Välj din utmaning och sparras med Gemini. Kom ihåg att hålla i ratten – det är ditt unika ledarskap, ditt professionella omdöme och ditt legala ansvar som styr maskinen. Du är dirigenten!"
         }
       ]
     }

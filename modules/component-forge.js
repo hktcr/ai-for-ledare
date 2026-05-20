@@ -2718,6 +2718,612 @@
             background: rgba(16, 185, 129, 0.05);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
         }
+
+        /* ===== WORKSHOP CUSTOM COMPONENTS ===== */
+
+        /* 1. NEWS FLASH ON LINE CHART */
+        .lc-news-flash {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -10%) scale(0.95);
+            width: 85%;
+            max-width: 580px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(249, 115, 22, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.8rem;
+            color: #f1f5f9;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lc-news-flash.lc-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, 0) scale(1);
+        }
+        .lc-news-flash-badge {
+            background: linear-gradient(135deg, #ef4444, #ea580c);
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+        }
+        .lc-news-flash h4 {
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+            color: #fff;
+        }
+        .lc-news-flash p {
+            font-size: 0.95rem;
+            margin: 0 0 1rem 0;
+            line-height: 1.4;
+            color: #cbd5e1;
+        }
+        .lc-news-flash ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .lc-news-flash li {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #e2e8f0;
+        }
+        .lc-news-flash li strong {
+            color: var(--accent, #f97316);
+        }
+        .lc-news-flash-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .lc-news-flash-close:hover {
+            color: #fff;
+        }
+
+        /* 2. PIXEL MORPH CITAT */
+        .slide-pixel-morph {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        .slide-pixel-morph canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .pm-text-overlay {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            max-width: 80%;
+            cursor: pointer;
+            transition: opacity 1.5s ease-out;
+        }
+        .pm-quote {
+            font-size: clamp(1.8rem, 3.5cqw, 2.8rem);
+            line-height: 1.5;
+            font-weight: 500;
+            color: #f8fafc;
+            font-family: 'Outfit', 'Inter', sans-serif;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            margin-bottom: 2rem;
+        }
+        .pm-hint {
+            font-size: clamp(0.9rem, 1.5cqw, 1.2rem);
+            color: var(--accent, #f97316);
+            opacity: 0.8;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            animation: pulseHint 2s infinite ease-in-out;
+        }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.02); }
+        }
+
+        /* 3. SCANNED SENTENCES */
+        .slide-scanned-sentences {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 2rem 3rem;
+            box-sizing: border-box;
+            justify-content: flex-start;
+        }
+        .slide-scanned-sentences h2 {
+            font-size: clamp(2rem, 4cqw, 3rem);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, #fff 30%, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ss-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            flex-grow: 1;
+            margin-top: 1rem;
+            position: relative;
+        }
+        .ss-col {
+            position: relative;
+            padding-left: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .ss-col::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+        }
+        .ss-laser-axis {
+            position: absolute;
+            left: -1px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, #6366f1, #3b82f6, #f97316);
+            filter: blur(1px) drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .slide-active .ss-laser-axis {
+            opacity: 1;
+        }
+        .ss-laser-glow-bar {
+            position: absolute;
+            left: -10px;
+            width: calc(100% + 10px);
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent, #f97316) 0%, rgba(249,115,22,0.8) 10%, rgba(249,115,22,0) 100%);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.9), 0 0 5px rgba(249, 115, 22, 0.5);
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .slide-active .ss-laser-glow-bar-left {
+            animation: scanSweepLeft 4s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.5s;
+        }
+        .slide-active .ss-laser-glow-bar-right {
+            animation: scanSweepRight 4s cubic-bezier(0.25, 1, 0.5, 1) forwards 1.2s;
+        }
+        @keyframes scanSweepLeft {
+            0% { top: 0%; opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        @keyframes scanSweepRight {
+            0% { top: 0%; opacity: 1; }
+            95% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .ss-header {
+            font-size: clamp(1.4rem, 2.5cqw, 2rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+        .ss-col-left .ss-header {
+            color: #3b82f6;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+        .ss-col-right .ss-header {
+            color: #ea580c;
+            text-shadow: 0 0 15px rgba(234, 88, 12, 0.3);
+        }
+        .ss-item {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ss-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .ss-sentence {
+            font-size: clamp(1.1rem, 2cqw, 1.45rem);
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        /* 4. CASES GRID POPUP */
+        .slide-cases-grid-popup {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 1.5rem 2rem;
+            box-sizing: border-box;
+        }
+        .slide-cases-grid-popup h2 {
+            font-size: clamp(1.8rem, 3cqw, 2.6rem);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .slide-cases-grid-popup p.subtitle {
+            font-size: clamp(1rem, 1.8cqw, 1.25rem);
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .cgp-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem;
+            flex-grow: 1;
+            padding-bottom: 0.5rem;
+        }
+        @media (max-width: 1024px) {
+            .cgp-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+            }
+        }
+        .cgp-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .cgp-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cgp-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--accent, #f97316);
+            box-shadow: 0 12px 24px rgba(249, 115, 22, 0.15), 0 4px 8px rgba(0,0,0,0.2);
+            background: rgba(30, 41, 59, 0.6);
+        }
+        .cgp-card:hover::before {
+            opacity: 1;
+        }
+        .cgp-card-badge {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 800;
+            background: rgba(255,255,255,0.08);
+            color: #cbd5e1;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .cgp-card:hover .cgp-card-badge {
+            background: var(--accent, #f97316);
+            color: #fff;
+        }
+        .cgp-card h3 {
+            font-size: clamp(1rem, 1.8cqw, 1.25rem);
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .cgp-card p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        .cgp-card-footer {
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            color: var(--accent, #f97316);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .cgp-card.cgp-motivation-card {
+            background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(99,102,241,0.15));
+            border: 1px dashed rgba(249,115,22,0.3);
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .cgp-card.cgp-motivation-card h3 {
+            color: var(--accent, #f97316);
+            font-size: clamp(1.1rem, 2cqw, 1.35rem);
+            margin-bottom: 0.4rem;
+        }
+        .cgp-card.cgp-motivation-card p {
+            color: #cbd5e1;
+            flex-grow: 0;
+            font-weight: 500;
+        }
+
+        .cgp-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cgp-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cgp-modal-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            padding: 2.2rem;
+            max-height: 85%;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95) translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #f1f5f9;
+        }
+        .cgp-modal-overlay.active .cgp-modal-container {
+            transform: scale(1) translateY(0);
+        }
+        .cgp-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+        }
+        .cgp-modal-close:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+        .cgp-modal-header {
+            margin-bottom: 1.2rem;
+        }
+        .cgp-modal-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            background: var(--accent, #f97316);
+            color: #fff;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+        }
+        .cgp-modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+            text-align: left;
+        }
+        .cgp-modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .cgp-modal-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+        }
+        .cgp-modal-challenge {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+            background: rgba(255,255,255,0.02);
+            padding: 1rem;
+            border-left: 4px solid var(--accent, #f97316);
+            border-radius: 0 8px 8px 0;
+        }
+        .cgp-modal-prompt-wrapper {
+            position: relative;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .cgp-modal-prompt {
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin: 0;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 2.5rem;
+        }
+        .cgp-modal-copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .cgp-modal-copy-btn:hover {
+            border-color: var(--accent, #f97316);
+            color: #fff;
+            background: rgba(249, 115, 22, 0.05);
+        }
+        .cgp-modal-copy-btn.copied {
+            border-color: #10b981;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        /* 5. PROCESS CHAIN PROMPT REVEAL DRAWER */
+        .pc-drawer-btn {
+            position: absolute;
+            bottom: clamp(1rem, 3cqw, 2rem);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: clamp(0.6rem, 1.5cqw, 1rem) clamp(1.5rem, 3cqw, 2.5rem);
+            font-size: clamp(1rem, 1.8cqw, 1.4rem);
+            font-weight: 700;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1.5px solid var(--accent, #f97316);
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 90;
+            box-shadow: 0 4px 15px rgba(249,115,22,0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pc-drawer-btn:hover {
+            background: var(--accent, #f97316);
+            box-shadow: 0 8px 25px rgba(249,115,22,0.4);
+            transform: translateX(-50%) translateY(-2px);
+        }
+        .pc-drawer-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            z-index: 150;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pc-drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .pc-drawer-container {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%) translateY(100%);
+            width: 90%;
+            max-width: 850px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.5);
+            padding: 2.2rem;
+            z-index: 160;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #f1f5f9;
+        }
+        .pc-drawer-overlay.active .pc-drawer-container {
+            transform: translateX(-50%) translateY(0);
+        }
+        .pc-drawer-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        .pc-drawer-close:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
     `;
     document.head.appendChild(style);
 
@@ -3026,6 +3632,21 @@
             `;
         }
         
+        let newsFlashHTML = '';
+        if (s.newsFlash) {
+            newsFlashHTML = `
+                <div class="lc-news-flash">
+                    <button class="lc-news-flash-close" onclick="this.parentElement.classList.remove('lc-visible');" aria-label="Stäng">&times;</button>
+                    <div class="lc-news-flash-badge">${s.newsFlash.title}</div>
+                    <h4>${s.newsFlash.subtitle}</h4>
+                    <p>${s.newsFlash.text}</p>
+                    <ul>
+                        ${s.newsFlash.bullets.map(b => `<li>${b}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+        
         let revealStageBtnHTML = '';
         if (s.pauseIndex) {
             revealStageBtnHTML = `
@@ -3036,6 +3657,12 @@
                         el.classList.add('lc-reveal-stage');
                         el.classList.remove('lc-paused-stage');
                     });
+                    const nf = document.getElementById('${id}').querySelector('.lc-news-flash');
+                    if (nf) {
+                        setTimeout(() => {
+                            nf.classList.add('lc-visible');
+                        }, 2000);
+                    }
                 " style="position: absolute; bottom: clamp(1rem, 3cqw, 2rem); right: clamp(1rem, 3cqw, 2rem); padding: clamp(0.5rem, 1cqw, 0.8rem) clamp(1rem, 2cqw, 1.5rem); font-size: clamp(0.9rem, 1.5cqw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
                     Visa 2026 →
                 </button>
@@ -3047,6 +3674,7 @@
                 ${introOverlayHTML}
                 ${morphBtnHTML}
                 ${revealStageBtnHTML}
+                ${newsFlashHTML}
                 <h2>${s.title || ''}</h2>
                 <div class="lc-chart">
                     <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="overflow: visible;">
@@ -3781,6 +4409,48 @@
             `;
         }).join('');
 
+        let drawerHTML = '';
+        if (s.prompt) {
+            const drawerId = 'pc-dr-' + Math.random().toString(36).slice(2, 8);
+            drawerHTML = `
+                <button class="pc-drawer-btn" onclick="
+                    const drawer = document.getElementById('${drawerId}');
+                    drawer.classList.add('active');
+                ">
+                    🎹 Visa Dirigent-prompt
+                </button>
+                <div class="pc-drawer-overlay" id="${drawerId}" onclick="
+                    if (event.target === this || event.target.classList.contains('pc-drawer-close')) {
+                        this.classList.remove('active');
+                    }
+                ">
+                    <div class="pc-drawer-container" onclick="event.stopPropagation()">
+                        <button class="pc-drawer-close" onclick="document.getElementById('${drawerId}').classList.remove('active')">&times;</button>
+                        <div style="font-size: 1.25rem; font-weight: 800; color: var(--accent, #f97316); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                            KOMMA IGÅNG: VEP DIRIGENT-PROMPT
+                        </div>
+                        <p style="font-size: 1rem; color: #94a3b8; margin: 0 0 1.2rem 0; line-height: 1.5;">
+                            Kopiera och klistra in denna prompt i Gemini för att initiera din egen Virtuella Expertpanel (VEP). Det etablerar koordinatorn som sedan sätter samman din panel av experter.
+                        </p>
+                        <div class="cgp-modal-prompt-wrapper" style="margin-top:0;">
+                            <button class="cgp-modal-copy-btn" onclick="
+                                const pText = this.nextElementSibling.innerText;
+                                navigator.clipboard.writeText(pText).then(() => {
+                                    this.classList.add('copied');
+                                    this.innerText = '✅ Kopierat!';
+                                    setTimeout(() => {
+                                        this.classList.remove('copied');
+                                        this.innerText = '📋 Kopiera';
+                                    }, 2500);
+                                });
+                            ">📋 Kopiera</button>
+                            <pre class="cgp-modal-prompt" style="max-height: 300px;">${s.prompt}</pre>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         return `
             <div class="slide-process-chain">
                 ${s.title ? `<div class="pc-title">${s.title}</div>` : ''}
@@ -3788,6 +4458,7 @@
                 <div class="pc-chain">
                     ${html}
                 </div>
+                ${drawerHTML}
             </div>
         `;
     }
@@ -7805,7 +8476,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         'dual-analysis-prompt': renderDualAnalysisPrompt,
         'vep-stepper': renderVepStepper,
         'anthropomorphism': renderAnthropomorphism,
-        'workshop-focus': renderWorkshopFocus
+        'workshop-focus': renderWorkshopFocus,
+        'pixel-morph': renderPixelMorph,
+        'scanned-sentences': renderScannedSentences,
+        'cases-grid-popup': renderCasesGridPopup
     };
 
     /**
@@ -8339,6 +9013,381 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     </div>
                 </div>
                 ${renderSourcesPopup(s.sources)}
+            </div>
+        `;
+    }
+
+    // ===== Interactive Slide Types =====
+    
+    function renderPixelMorph(s) {
+        const id = 'pm-' + Math.random().toString(36).slice(2, 8);
+        
+        setTimeout(() => {
+            const canvas = document.getElementById(`${id}-canvas`);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const overlay = document.getElementById(`${id}-overlay`);
+            
+            let w, h;
+            let particles = [];
+            let state = 'FLOAT'; // FLOAT or MORPH
+            const fontFam = "'Outfit', 'Inter', sans-serif";
+            
+            function scanText() {
+                const offscreen = document.createElement('canvas');
+                const offscreenCtx = offscreen.getContext('2d');
+                
+                const dpi = window.devicePixelRatio || 1;
+                offscreen.width = w * dpi;
+                offscreen.height = h * dpi;
+                offscreenCtx.scale(dpi, dpi);
+                
+                const questionText = s.question || "Men måste det bli så?";
+                const fontSize = Math.min(w * 0.07, h * 0.12);
+                offscreenCtx.font = `bold ${fontSize}px ${fontFam}`;
+                offscreenCtx.fillStyle = '#fff';
+                offscreenCtx.textAlign = 'center';
+                offscreenCtx.textBaseline = 'middle';
+                
+                offscreenCtx.fillText(questionText, w / 2, h / 2);
+                
+                const imgData = offscreenCtx.getImageData(0, 0, w * dpi, h * dpi);
+                const data = imgData.data;
+                const step = Math.max(3, Math.floor((w * dpi) / 280));
+                const targets = [];
+                
+                for (let y = 0; y < h * dpi; y += step) {
+                    for (let x = 0; x < w * dpi; x += step) {
+                        const idx = (y * w * dpi + x) * 4;
+                        if (data[idx + 3] > 128) {
+                            targets.push({
+                                x: x / dpi,
+                                y: y / dpi
+                            });
+                        }
+                    }
+                }
+                return targets;
+            }
+            
+            function resize() {
+                if (!canvas || !document.getElementById(id)) {
+                    window.removeEventListener('resize', resize);
+                    return;
+                }
+                const rect = canvas.parentElement.getBoundingClientRect();
+                w = rect.width;
+                h = rect.height;
+                
+                const dpi = window.devicePixelRatio || 1;
+                canvas.width = w * dpi;
+                canvas.height = h * dpi;
+                ctx.scale(dpi, dpi);
+                
+                const targets = scanText();
+                
+                if (state === 'FLOAT') {
+                    particles = [];
+                    const particleCount = Math.max(targets.length, 300);
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push({
+                            x: Math.random() * w,
+                            y: Math.random() * h,
+                            vx: (Math.random() - 0.5) * 1.5,
+                            vy: (Math.random() - 0.5) * 1.5,
+                            targetX: targets[i % targets.length]?.x || Math.random() * w,
+                            targetY: targets[i % targets.length]?.y || Math.random() * h,
+                            size: Math.random() * 2 + 0.8,
+                            color: `rgba(99, 102, 241, ${Math.random() * 0.4 + 0.3})`
+                        });
+                    }
+                } else {
+                    particles.forEach((p, idx) => {
+                        const t = targets[idx % targets.length];
+                        if (t) {
+                            p.targetX = t.x;
+                            p.targetY = t.y;
+                        }
+                    });
+                }
+            }
+            
+            function triggerMorph() {
+                if (state === 'MORPH') return;
+                state = 'MORPH';
+                overlay.style.opacity = '0';
+                overlay.style.pointerEvents = 'none';
+                
+                particles.forEach(p => {
+                    p.vx = (Math.random() - 0.5) * 22;
+                    p.vy = (Math.random() - 0.5) * 22;
+                    p.color = `rgba(249, ${115 + Math.floor(Math.random()*40)}, ${22 + Math.floor(Math.random()*40)}, ${Math.random() * 0.5 + 0.5})`;
+                });
+            }
+            
+            canvas.addEventListener('click', triggerMorph);
+            overlay.addEventListener('click', triggerMorph);
+            
+            function draw() {
+                if (!document.getElementById(id)) {
+                    window.removeEventListener('resize', resize);
+                    return;
+                }
+                ctx.clearRect(0, 0, w, h);
+                
+                particles.forEach(p => {
+                    if (state === 'MORPH') {
+                        const dx = p.targetX - p.x;
+                        const dy = p.targetY - p.y;
+                        const dist = Math.hypot(dx, dy);
+                        const stiffness = 0.07;
+                        const damping = 0.84;
+                        
+                        const ax = dx * stiffness;
+                        const ay = dy * stiffness;
+                        
+                        p.vx = (p.vx + ax) * damping;
+                        p.vy = (p.vy + ay) * damping;
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        
+                        p.alpha = Math.min(1, 0.4 + (1 - Math.min(dist, 100) / 100) * 0.6);
+                    } else {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        if (p.x < 0 || p.x > w) p.vx *= -1;
+                        if (p.y < 0 || p.y > h) p.vy *= -1;
+                    }
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    if (state === 'MORPH') {
+                        ctx.shadowColor = p.color;
+                        ctx.shadowBlur = p.size * 2;
+                    }
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+                
+                requestAnimationFrame(draw);
+            }
+            
+            window.addEventListener('resize', resize);
+            resize();
+            draw();
+        }, 100);
+        
+        return `
+            <div class="slide-pixel-morph" id="${id}">
+                <canvas id="${id}-canvas"></canvas>
+                <div class="pm-text-overlay" id="${id}-overlay">
+                    <div class="pm-quote">${s.text || ''}</div>
+                    <div class="pm-hint">${s.hint || 'Klicka för att ställa frågan'}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderScannedSentences(s) {
+        const id = 'ss-' + Math.random().toString(36).slice(2, 8);
+        
+        setTimeout(() => {
+            const slideEl = document.getElementById(id);
+            if (!slideEl) return;
+            
+            const leftItems = slideEl.querySelectorAll('.ss-col-left .ss-item');
+            leftItems.forEach((el, i) => {
+                setTimeout(() => {
+                    if (document.body.contains(el)) el.classList.add('revealed');
+                }, 600 + i * 800);
+            });
+            
+            const rightItems = slideEl.querySelectorAll('.ss-col-right .ss-item');
+            rightItems.forEach((el, i) => {
+                setTimeout(() => {
+                    if (document.body.contains(el)) el.classList.add('revealed');
+                }, 1400 + i * 800);
+            });
+        }, 100);
+        
+        return `
+            <div class="slide-scanned-sentences" id="${id}">
+                <h2>${s.title || ''}</h2>
+                <div class="ss-grid">
+                    <div class="ss-col ss-col-left">
+                        <div class="ss-laser-axis"></div>
+                        <div class="ss-laser-glow-bar ss-laser-glow-bar-left"></div>
+                        <div class="ss-header">${s.prosHeader || ''}</div>
+                        ${(s.pros || []).map((item, idx) => `
+                            <div class="ss-item ss-item-left" data-index="${idx}">
+                                <div class="ss-sentence">${item}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="ss-col ss-col-right">
+                        <div class="ss-laser-axis"></div>
+                        <div class="ss-laser-glow-bar ss-laser-glow-bar-right"></div>
+                        <div class="ss-header">${s.consHeader || ''}</div>
+                        ${(s.cons || []).map((item, idx) => `
+                            <div class="ss-item ss-item-right" data-index="${idx}">
+                                <div class="ss-sentence">${item}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderCasesGridPopup(s) {
+        const id = 'cgp-' + Math.random().toString(36).slice(2, 8);
+        
+        setTimeout(() => {
+            const container = document.getElementById(id);
+            if (!container) return;
+            
+            const overlay = document.getElementById(`${id}-modal-overlay`);
+            const closeBtn = document.getElementById(`${id}-modal-close`);
+            const modalTitle = document.getElementById(`${id}-modal-title`);
+            const modalBadge = document.getElementById(`${id}-modal-badge`);
+            const modalChallenge = document.getElementById(`${id}-modal-challenge`);
+            const modalQuestions = document.getElementById(`${id}-modal-questions`);
+            const modalPrompt = document.getElementById(`${id}-modal-prompt`);
+            const copyBtn = document.getElementById(`${id}-modal-copy-btn`);
+            
+            let keydownHandler = null;
+            let currentPromptText = '';
+            
+            function openModal(caseData) {
+                modalTitle.innerText = caseData.title || '';
+                modalBadge.innerText = caseData.badge || `CASE ${caseData.id}`;
+                modalChallenge.innerHTML = caseData.challenge || '';
+                
+                modalQuestions.innerHTML = (caseData.questions || [])
+                    .map(q => `<div style="margin-bottom: 0.6rem; display: flex; gap: 8px;">
+                                 <span style="color: var(--accent, #f97316); font-weight: bold;">&bull;</span>
+                                 <span>${q}</span>
+                               </div>`)
+                    .join('');
+                
+                currentPromptText = caseData.prompt || '';
+                modalPrompt.textContent = currentPromptText;
+                
+                overlay.classList.add('active');
+                
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = '<span class="icon">📋</span> Kopiera prompt';
+                
+                keydownHandler = (e) => {
+                    if (!document.getElementById(id)) {
+                        document.removeEventListener('keydown', keydownHandler);
+                        return;
+                    }
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                };
+                document.addEventListener('keydown', keydownHandler);
+            }
+            
+            function closeModal() {
+                overlay.classList.remove('active');
+                if (keydownHandler) {
+                    document.removeEventListener('keydown', keydownHandler);
+                    keydownHandler = null;
+                }
+            }
+            
+            const cards = container.querySelectorAll('.cgp-card');
+            cards.forEach(card => {
+                const idx = card.dataset.index;
+                if (idx !== undefined) {
+                    card.addEventListener('click', () => {
+                        const caseData = s.cases[idx];
+                        if (caseData) openModal(caseData);
+                    });
+                }
+            });
+            
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
+            });
+            
+            copyBtn.addEventListener('click', () => {
+                if (!currentPromptText) return;
+                navigator.clipboard.writeText(currentPromptText).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = '<span class="icon">✅</span> Kopierad!';
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = '<span class="icon">📋</span> Kopiera prompt';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+            
+        }, 100);
+        
+        const casesHtml = (s.cases || []).map((c, i) => {
+            if (c.type === 'motivation') {
+                return `
+                    <div class="cgp-card cgp-motivation-card">
+                        <h3>${c.title}</h3>
+                        <p>${c.text}</p>
+                    </div>
+                `;
+            }
+            return `
+                <div class="cgp-card" data-index="${i}" tabindex="0" role="button" aria-label="Visa ${c.title}">
+                    <div class="cgp-card-badge">${c.badge || `CASE ${c.id}`}</div>
+                    <div>
+                        <h3>${c.title}</h3>
+                        <p>${c.description}</p>
+                    </div>
+                    <div class="cgp-card-footer">Visa diskussionsunderlag &rarr;</div>
+                </div>
+            `;
+        }).join('');
+        
+        return `
+            <div class="slide-cases-grid-popup" id="${id}">
+                <h2>${s.title || ''}</h2>
+                <p class="subtitle">${s.subtitle || ''}</p>
+                <div class="cgp-grid">
+                    ${casesHtml}
+                </div>
+                
+                <div class="cgp-modal-overlay" id="${id}-modal-overlay">
+                    <div class="cgp-modal-container" role="dialog" aria-modal="true">
+                        <button class="cgp-modal-close" id="${id}-modal-close" aria-label="Stäng">&times;</button>
+                        <div class="cgp-modal-header">
+                            <div class="cgp-modal-badge" id="${id}-modal-badge"></div>
+                            <h2 id="${id}-modal-title"></h2>
+                        </div>
+                        <div class="cgp-modal-body">
+                            <div>
+                                <div class="cgp-modal-section-title">Bakgrund & Scenario</div>
+                                <div class="cgp-modal-challenge" id="${id}-modal-challenge"></div>
+                            </div>
+                            <div>
+                                <div class="cgp-modal-section-title">Frågeställningar att diskutera</div>
+                                <div class="cgp-modal-questions" id="${id}-modal-questions"></div>
+                            </div>
+                            <div>
+                                <div class="cgp-modal-section-title">Färdig Prompt Chamber (för kopiering till LLM)</div>
+                                <div class="cgp-modal-prompt-wrapper">
+                                    <pre class="cgp-modal-prompt" id="${id}-modal-prompt"></pre>
+                                    <button class="cgp-modal-copy-btn" id="${id}-modal-copy-btn">
+                                        <span class="icon">📋</span> Kopiera prompt
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         `;
     }

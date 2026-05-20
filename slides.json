@@ -957,25 +957,29 @@
       "id": "workshop-focus",
       "section": "agenter",
       "type": "workshop-focus",
-      "cardTitle": "Dagens fokus: Gemini",
-      "title": "Dagens fokus: Gemini från grunden",
-      "subtitle": "Idag fokuserar vi på ett verktyg för att lära oss grunderna",
+      "cardTitle": "Verktyg & Principer",
+      "titleHtml": "Verktyg förändras – <span>principer består</span>",
+      "subtitle": "Vi utgår från Gemini idag, men bygger färdigheter för framtiden",
       "focusToday": {
-        "title": "Det vi gör idag",
+        "badge": "Verktyget",
+        "title": "Varför Gemini Advanced idag?",
+        "desc": "En kraftfull och lättillgänglig utgångspunkt för praktiskt arbete",
         "points": [
-          "Direktarbete mot Gemini (utan förarbete)",
-          "Utforska vad råa promptar och filer ger direkt",
-          "Bygga förståelse för grundläggande svar och interaktion",
-          "Etablera omedelbar vana att använda verktyget i vardagen"
+          "Sömlöst integrerat i vår befintliga Google-miljö",
+          "Blixtsnabb sparring och avancerad filanalys direkt i chatten",
+          "En modell i absolut världsklass för dagliga ledarskapsuppgifter",
+          "Sänker startmotståndet så att du får omedelbar nytta i vardagen"
         ]
       },
       "nextSteps": {
-        "title": "Det vi sparar till senare",
+        "badge": "Principerna",
+        "title": "Universella metoder för alla AI-verktyg",
+        "desc": "Det du lär dig idag fungerar oavsett vilket gränssnitt du möter",
         "points": [
-          "NotebookLM (djupanalys av hela bibliotek)",
-          "Avancerade skrivregler och grundläggande arbetssätt",
-          "Strukturerade prompt-mallar och automatiserade mallar",
-          "Autonoma agenter som körs helt i bakgrunden"
+          "Grundläggande prompt-teknik och struktur är universell",
+          "Fungerar precis lika bra i ChatGPT, Claude eller Microsoft Copilot",
+          "Omdömet, källkritiken och dirigentrollen (styrningen) är alltid din",
+          "Tekniken och modellerna utvecklas – ditt strategiska arbetssätt består"
         ]
       },
       "sources": [

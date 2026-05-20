@@ -8638,22 +8638,22 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             </style>
             <div class="wf-container" id="${id}">
                 <div class="wf-header-group">
-                    <h2 class="wf-title">Dagens fokus: Gemini från <span>grunden</span></h2>
+                    <h2 class="wf-title">${s.titleHtml || s.title || 'Dagens fokus: Gemini från <span>grunden</span>'}</h2>
                     <p class="wf-subtitle">${s.subtitle || ''}</p>
                 </div>
                 <div class="wf-grid">
                     <div class="wf-card wf-card-today">
-                        <span class="wf-badge wf-badge-today">Idag</span>
+                        <span class="wf-badge wf-badge-today">${s.focusToday.badge || 'Idag'}</span>
                         <h3 class="wf-card-title">${s.focusToday.title || 'Det vi gör idag'}</h3>
-                        <p class="wf-card-desc">Omedelbart, rått arbete utan förberedda strukturer</p>
+                        <p class="wf-card-desc">${s.focusToday.desc || 'Omedelbart, rått arbete utan förberedda strukturer'}</p>
                         <ul class="wf-list">
                             ${focusHtml}
                         </ul>
                     </div>
                     <div class="wf-card wf-card-later">
-                        <span class="wf-badge wf-badge-later">Senare</span>
+                        <span class="wf-badge wf-badge-later">${s.nextSteps.badge || 'Senare'}</span>
                         <h3 class="wf-card-title">${s.nextSteps.title || 'Det vi sparar till senare'}</h3>
-                        <p class="wf-card-desc">Fördjupning, regler, mallar och autonoma agenter</p>
+                        <p class="wf-card-desc">${s.nextSteps.desc || 'Fördjupning, regler, mallar och autonoma agenter'}</p>
                         <ul class="wf-list">
                             ${nextHtml}
                         </ul>

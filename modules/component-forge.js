@@ -706,32 +706,102 @@
         }
         .source-close-btn:hover { background: rgba(255,255,255,0.1); color: white; }
 
-        /* ===== BENTO GRID ===== */
+        /* ===== BENTO GRID REDESIGN ===== */
         .slide-bento-grid {
             display: flex; flex-direction: column; height: 100%; width: 100%;
-            padding: 2cqh 4cqw; box-sizing: border-box; justify-content: center; position: relative;
+            padding: 4cqh 6cqw; box-sizing: border-box; justify-content: center; position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.4) 0%, rgba(10, 10, 15, 0.95) 100%);
             overflow: hidden;
         }
-        .bento-title { font-size: clamp(1.8rem, 4cqh, 3rem); margin-bottom: 1.5cqh; font-weight: 700; color: var(--text); }
+        .bento-title {
+            font-size: clamp(2rem, 5cqh, 3.2rem); margin-bottom: 3cqh; font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-align: center; letter-spacing: -0.02em;
+        }
         .bento-container {
             display: grid; grid-template-columns: repeat(var(--bento-cols, 3), 1fr);
-            gap: clamp(0.5rem, 1.5cqh, 1.5rem); width: 100%; max-width: 1200px; margin: 0 auto;
-            flex: 1; max-height: 85cqh;
+            gap: clamp(1rem, 2.5cqh, 2.5rem); width: 100%; max-width: 1200px; margin: 0 auto;
+            flex: 1; max-height: 70cqh; align-items: stretch;
         }
         .bento-item {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: clamp(12px, 2cqw, 24px); padding: clamp(0.8rem, 2cqh, 2rem); display: flex; flex-direction: column;
-            backdrop-filter: blur(10px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            opacity: 1; transform: translateY(0);
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
+            border-radius: 24px; padding: clamp(1.5rem, 3cqh, 3rem);
+            display: flex; flex-direction: column; align-items: flex-start;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1; transform: translateY(0) scale(1);
             min-height: 0; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
         }
         .bento-item.step-hidden {
-            opacity: 0; transform: translateY(30px);
+            opacity: 0; transform: translateY(40px) scale(0.95); pointer-events: none;
         }
-        .bento-icon { font-size: clamp(2rem, 4cqw, 3rem); margin-bottom: clamp(0.3rem, 1cqh, 1rem); }
-        .bento-icon-img { width: 100%; height: clamp(60px, 15cqh, 160px); object-fit: cover; border-radius: clamp(6px, 1cqw, 12px); margin-bottom: clamp(0.3rem, 1cqh, 1rem); }
-        .bento-item-title { font-size: clamp(1.2rem, 2.5cqw, 2.2rem); margin-bottom: 0.3rem; color: white; font-weight: 600; }
-        .bento-item-text { font-size: clamp(0.9rem, 1.8cqw, 1.4rem); color: var(--text-muted); line-height: 1.4; }
+        
+        /* Status Card Specific Colors & Shadows */
+        .bento-item.theme-green {
+            --theme-color: #10b981;
+            --theme-glow: hsla(142, 70%, 45%, 0.12);
+            --theme-border: hsla(142, 70%, 45%, 0.25);
+            --theme-text: #34d399;
+            border: 1px solid var(--theme-border);
+        }
+        .bento-item.theme-yellow {
+            --theme-color: #fbbf24;
+            --theme-glow: hsla(45, 93%, 47%, 0.12);
+            --theme-border: hsla(45, 93%, 47%, 0.25);
+            --theme-text: #fbbf24;
+            border: 1px solid var(--theme-border);
+        }
+        .bento-item.theme-red {
+            --theme-color: #ef4444;
+            --theme-glow: hsla(0, 84%, 60%, 0.12);
+            --theme-border: hsla(0, 84%, 60%, 0.25);
+            --theme-text: #f87171;
+            border: 1px solid var(--theme-border);
+        }
+        
+        .bento-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--theme-color);
+            box-shadow: 0 16px 48px var(--theme-glow), inset 0 1px 2px rgba(255,255,255,0.1);
+        }
+        
+        /* Glowing Indicator Light */
+        .bento-status-indicator {
+            position: relative; width: 56px; height: 56px; margin-bottom: clamp(1rem, 2cqh, 2rem);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: rgba(0,0,0,0.4); border: 1px solid var(--theme-border);
+        }
+        .indicator-pulse {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            background: var(--theme-color); opacity: 0.35;
+            animation: indicatorPulse 2.5s infinite ease-in-out;
+        }
+        .indicator-core {
+            position: absolute; width: 70%; height: 70%; border-radius: 50%;
+            background: radial-gradient(circle at center, var(--theme-color) 0%, transparent 80%);
+            opacity: 0.85;
+        }
+        .indicator-icon {
+            font-size: 1.8rem; z-index: 2; display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 0 8px var(--theme-color));
+        }
+        @keyframes indicatorPulse {
+            0% { transform: scale(1); opacity: 0.35; }
+            50% { transform: scale(1.4); opacity: 0; }
+            100% { transform: scale(1); opacity: 0.35; }
+        }
+        
+        .bento-item-title {
+            font-size: clamp(1.3rem, 2.5cqw, 1.8rem); margin-bottom: 0.8rem;
+            color: var(--theme-text); font-weight: 700; letter-spacing: -0.01em;
+        }
+        .bento-item-text {
+            font-size: clamp(0.95rem, 1.8cqw, 1.2rem); color: #cbd5e1;
+            line-height: 1.5; font-weight: 400;
+        }
 
         /* ===== GLITCH WARNING ===== */
         @keyframes bgPulseDanger {
@@ -1511,34 +1581,104 @@
         }
         .slide-process-chain {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 2rem 3rem; min-height: 70cqh;
+            justify-content: center; padding: 4cqh 6cqw; min-height: 75cqh;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.4) 0%, rgba(10, 10, 15, 0.95) 100%);
+            overflow: hidden; box-sizing: border-box; width: 100%; height: 100%;
         }
         .slide-process-chain .pc-title {
-            font-size: 1.3rem; font-weight: 700; color: var(--text, #f1f5f9);
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 5cqh, 3.2rem); font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5cqh; text-align: center; letter-spacing: -0.02em;
+        }
+        .slide-process-chain .pc-subtitle {
+            font-size: clamp(1rem, 2.2cqh, 1.4rem); color: var(--accent, #f97316);
+            margin-bottom: 4cqh; text-align: center; font-weight: 600;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.2));
         }
         .slide-process-chain .pc-chain {
-            display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-            justify-content: center;
+            display: flex; align-items: stretch; gap: clamp(1rem, 2cqw, 2.5rem);
+            width: 100%; max-width: 1200px; justify-content: center;
         }
         .slide-process-chain .pc-node {
-            padding: 0.8rem 1.2rem; background: rgba(255,255,255,0.06);
-            border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center; opacity: 0; animation: pcNodeIn 0.4s ease-out forwards;
-            min-width: 100px;
+            flex: 1; max-width: 340px; padding: clamp(1.5rem, 3cqh, 2.5rem);
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
+            border-radius: 24px; border: 1px solid rgba(255,255,255,0.08);
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            opacity: 0; animation: pcNodeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
         }
-        .slide-process-chain .pc-node.pc-active {
-            border-color: var(--accent, #f97316);
-            box-shadow: 0 0 15px rgba(249,115,22,0.2);
+        .slide-process-chain .pc-node.theme-experterna {
+            --theme-color: #38bdf8;
+            --theme-glow: rgba(56, 189, 248, 0.12);
+            --theme-border: rgba(56, 189, 248, 0.25);
+            --theme-text: #38bdf8;
+            border-color: var(--theme-border);
+        }
+        .slide-process-chain .pc-node.theme-koordinatorn {
+            --theme-color: #a855f7;
+            --theme-glow: rgba(168, 85, 247, 0.12);
+            --theme-border: rgba(168, 85, 247, 0.25);
+            --theme-text: #c084fc;
+            border-color: var(--theme-border);
+        }
+        .slide-process-chain .pc-node.theme-du {
+            --theme-color: #f97316;
+            --theme-glow: rgba(249, 115, 22, 0.3);
+            --theme-border: rgba(249, 115, 22, 0.4);
+            --theme-text: #fb923c;
+            border-width: 2px !important;
+            border-color: var(--theme-border);
+            animation: pcNodeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, heroPulse 4s infinite ease-in-out;
+        }
+        @keyframes heroPulse {
+            0% { box-shadow: 0 8px 32px var(--theme-glow), inset 0 1px 1px rgba(255,255,255,0.05); }
+            50% { box-shadow: 0 16px 48px rgba(249, 115, 22, 0.45), inset 0 1px 2px rgba(255,255,255,0.15); border-color: #fb923c; }
+            100% { box-shadow: 0 8px 32px var(--theme-glow), inset 0 1px 1px rgba(255,255,255,0.05); }
+        }
+        .slide-process-chain .pc-node:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--theme-color);
+            box-shadow: 0 16px 48px var(--theme-glow), inset 0 1px 2px rgba(255,255,255,0.1);
+        }
+        .slide-process-chain .pc-node-icon {
+            font-size: 3rem; margin-bottom: 1.2rem;
+            filter: drop-shadow(0 0 12px var(--theme-color));
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+        @keyframes floatIcon {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
         }
         .slide-process-chain .pc-node-label {
-            font-size: 0.95rem; font-weight: 700; color: var(--text, #f1f5f9);
+            font-size: clamp(1.2rem, 2.5cqw, 1.8rem); font-weight: 800;
+            color: var(--theme-text); margin-bottom: 1rem; letter-spacing: -0.01em;
         }
         .slide-process-chain .pc-node-hint {
-            font-size: 0.75rem; color: var(--text, #f1f5f9); opacity: 0.5; margin-top: 0.2rem;
+            font-size: clamp(0.9rem, 1.6cqw, 1.15rem); color: #cbd5e1;
+            line-height: 1.5; font-weight: 400; margin-top: 0;
         }
-        .slide-process-chain .pc-arrow {
-            color: var(--accent, #f97316); font-size: 1.2rem; opacity: 0.5;
+        .slide-process-chain .pc-arrow-container {
+            display: flex; align-items: center; justify-content: center;
+            width: clamp(40px, 6cqw, 120px); flex-shrink: 0; height: 100%;
+        }
+        .slide-process-chain .pc-svg-arrow {
+            width: 100%; height: 24px; overflow: visible;
+        }
+        .slide-process-chain .pc-flow-dot {
+            motion-path: path("M 0 12 L 100 12");
+            motion-offset: 0%;
+            offset-path: path("M 0 12 L 100 12");
+            offset-distance: 0%;
+            animation: flowDot 2.5s infinite linear;
+        }
+        @keyframes flowDot {
+            0% { motion-offset: 0%; offset-distance: 0%; }
+            100% { motion-offset: 100%; offset-distance: 100%; }
         }
 
         /* ===== SPRINT 7+8: ACRONYM LIST ===== */
@@ -3023,18 +3163,51 @@
     function renderProcessChain(s) {
         const nodes = s.nodes || [];
         const html = nodes.map((n, i) => {
-            const cls = n.status === 'active' ? 'pc-active' : '';
+            let themeCls = '';
+            if (i === 0) themeCls = 'theme-experterna';
+            else if (i === 1) themeCls = 'theme-koordinatorn';
+            else if (i === 2) themeCls = 'theme-du';
+
             const delay = i * 0.2;
-            const arrow = i < nodes.length - 1 ? '<span class="pc-arrow">→</span>' : '';
-            return `<div class="pc-node ${cls}" style="animation-delay:${delay}s">
-                <div class="pc-node-label">${n.label || ''}</div>
-                ${n.hint ? `<div class="pc-node-hint">${n.hint}</div>` : ''}
-            </div>${arrow}`;
+            
+            let arrowHtml = '';
+            if (i < nodes.length - 1) {
+                let strokeColor = 'rgba(255,255,255,0.2)';
+                let dotColor = '#a855f7';
+                if (i === 0) {
+                    strokeColor = 'rgba(56, 189, 248, 0.3)';
+                    dotColor = '#38bdf8';
+                } else if (i === 1) {
+                    strokeColor = 'rgba(168, 85, 247, 0.3)';
+                    dotColor = '#a855f7';
+                }
+                arrowHtml = `
+                    <div class="pc-arrow-container">
+                        <svg class="pc-svg-arrow" viewBox="0 0 100 24" fill="none">
+                            <path d="M 0 12 L 95 12 M 88 6 L 95 12 L 88 18" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle class="pc-flow-dot" r="4" fill="${dotColor}" style="--theme-color: ${dotColor}" />
+                        </svg>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="pc-node ${themeCls}" style="animation-delay:${delay}s">
+                    ${n.icon ? `<div class="pc-node-icon">${n.icon}</div>` : ''}
+                    <div class="pc-node-label">${n.label || ''}</div>
+                    ${n.hint ? `<div class="pc-node-hint">${n.hint}</div>` : ''}
+                </div>
+                ${arrowHtml}
+            `;
         }).join('');
+
         return `
             <div class="slide-process-chain">
                 ${s.title ? `<div class="pc-title">${s.title}</div>` : ''}
-                <div class="pc-chain">${html}</div>
+                ${s.subtitle ? `<div class="pc-subtitle">${s.subtitle}</div>` : ''}
+                <div class="pc-chain">
+                    ${html}
+                </div>
             </div>
         `;
     }
@@ -3346,7 +3519,6 @@
             </div>
         `;
     }
-
     /**
      * letter-morph v2 — Scatter → Blink → Glow → Form → Scatter-back.
      * Props: phrases[] (array of strings)
@@ -3362,7 +3534,7 @@
             const el = document.getElementById(id);
             if (!el) return;
             const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ';
-            let phraseIdx = 0;
+            let phraseIdx = -1; // Start at -1 for scattered chaos start
             let letters = [];
             let seed = 42;
             let isAnimating = false;
@@ -3440,6 +3612,7 @@
                 isAnimating = true;
                 const targets = measurePhrase(phrase);
                 document.getElementById(`${id}-counter`).textContent = (phraseIdx + 1) + ' / ' + phrases.length;
+                document.getElementById(`${id}-hint`).textContent = 'Klicka eller tryck Enter för nästa';
 
                 // Assign characters: first N letters get target chars, rest stay random
                 letters.forEach((l, i) => {
@@ -3466,7 +3639,7 @@
                 for (let i = 0; i < targets.length; i++) {
                     letters[i].el.className = 'lm-letter lm-glow';
                     letters[i].el.style.opacity = '0.85';
-                    letters[i].el.style.zIndex = '10';
+                    letters[i].el.zIndex = '10';
                 }
                 // Dim background letters further
                 letters.forEach((l, i) => {
@@ -3519,21 +3692,22 @@
             // Initialize
             createLetters();
 
-            // Auto-start on first visibility
+            // IntersectionObserver only marks the slide as initialized; NO AUTO-START!
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && !el.dataset.initialized) {
                     el.dataset.initialized = "true";
-                    animatePhrase(phrases[phraseIdx]);
                 }
             });
             observer.observe(el);
 
-            // Click / navigation to cycle phrases
+            // Click / navigation to cycle phrases starting from scattered chaos start
             window.handleNextStep = () => {
                 if (isAnimating) return true;
                 if (phraseIdx < phrases.length - 1) {
                     (async () => {
-                        await scatterBack();
+                        if (phraseIdx >= 0) {
+                            await scatterBack();
+                        }
                         phraseIdx++;
                         await animatePhrase(phrases[phraseIdx]);
                     })();
@@ -3541,28 +3715,15 @@
                 }
                 return false;
             };
-
-            el.addEventListener('click', () => {
-                if (el.dataset.initialized && !isAnimating) {
-                    if (phraseIdx < phrases.length - 1) {
-                        (async () => {
-                            await scatterBack();
-                            phraseIdx++;
-                            await animatePhrase(phrases[phraseIdx]);
-                        })();
-                    }
-                }
-            });
         }, 100);
 
         return `
             <div class="slide-letter-morph" id="${id}">
-                <div class="lm-hint">Klicka för nästa</div>
-                <div class="lm-counter" id="${id}-counter"></div>
+                <div class="lm-counter" id="${id}-counter">0 / ${phrases.length}</div>
+                <div class="lm-hint" id="${id}-hint">Klicka för att starta</div>
             </div>
         `;
     }
-
     /**
      * rewrite-progression - Typewriter replacing text in specific slots
      * Props: template, prefix (array), steps (array of objects mapping slot keys to text)
@@ -3975,11 +4136,23 @@
         if (s.title) html += `<h2 class="bento-title">${s.title}</h2>`;
         html += `<div class="bento-container">`;
         (s.items || []).forEach((item, i) => {
-            const iconHtml = item.iconSrc
-                ? `<img class="bento-icon-img" src="${item.iconSrc}" alt="${item.title || ''}" />`
-                : `<div class="bento-icon">${item.icon || '✨'}</div>`;
+            let themeClass = 'theme-green';
+            if (i === 1) themeClass = 'theme-yellow';
+            if (i === 2) themeClass = 'theme-red';
+            
+            if (item.icon === '🟢') themeClass = 'theme-green';
+            if (item.icon === '🟡') themeClass = 'theme-yellow';
+            if (item.icon === '🔴') themeClass = 'theme-red';
+
+            const iconHtml = `
+                <div class="bento-status-indicator">
+                    <span class="indicator-pulse"></span>
+                    <span class="indicator-core"></span>
+                    <span class="indicator-icon">${item.icon || '✨'}</span>
+                </div>
+            `;
             html += `
-                <div class="bento-item step-hidden" style="grid-column: span ${item.colSpan || 1};">
+                <div class="bento-item step-hidden ${themeClass}" style="grid-column: span ${item.colSpan || 1};">
                     ${iconHtml}
                     <h3 class="bento-item-title">${item.title}</h3>
                     <div class="bento-item-text">${item.text}</div>

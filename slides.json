@@ -528,9 +528,9 @@
       "section": "insikt",
       "type": "letter-morph",
       "phrases": [
-        "Från publik till dirigent",
-        "AI ger dig taktpinnen",
-        "Orkestern väntar på er"
+        "Du är inte publiken. Du är dirigenten.",
+        "En orkester utan dirigent spelar noter. Med dirigent skapar de musik.",
+        "Du har spelat noter länge nog. Det är dags att bli dirigent."
       ],
       "cardTitle": "Från publik till dirigent"
     },

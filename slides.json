@@ -1415,6 +1415,19 @@
           "prompt": "Du är en expertpanel bestående av en skolforskare (evidensfokus), en erfaren mellanstadielärare (pedagogiskt fokus), en barnpsykolog (hälsocentralt fokus) och en sociolog (likvärdighetsfokus). \nInitiera en koordinator som leder samtalet.\n\nVi ska utforma en ny, balanserad läxpolicy för vår grundskola (F–9).\nLåt experterna ge sina oberoende perspektiv på läxors för- och nackdelar.\n\nGör följande:\n1. Utför en 360-analys där varje expert presenterar sina tre starkaste argument utifrån sin yrkesroll.\n2. Låt experterna sparra mot varandra: Låt skolforskarens evidens om effektstorlekar krocka med lärarens tidsbrist och sociologens krav på likvärdighet.\n3. Koka ner diskussionen till ett konkret, genomförbart policydokument med 5 tydliga spelregler (inklusive maxtider för olika åldersgrupper och rekommendationer för hemmiljö)."
         },
         {
+          "id": "I",
+          "badge": "CASE I: OMVÄRLDSBEVAKNING & PRESENTATIONER",
+          "title": "Omvärldsbevakning & Presentationer",
+          "description": "Researcha skolforskning på djupet och generera ett komplett Google Slides-manus och Apps Script på sekunder.",
+          "challenge": "En skolledare behöver göra en djup och uppdaterad omvärldsanalys kring ett komplext område (t.ex. läxornas faktiska effekter eller skärmtid i grundskolan) inför en presentation för skolstyrelsen. Att manuellt söka forskning, sammanställa rapporter och designa en presentation tar dagar. Hur kan ledaren använda AI för att (1) söka och sammanställa aktuell global forskning, (2) bygga en logisk röd tråd slide-för-slide med talarmanus, och (3) generera ett färdigt Google Apps Script som på fem sekunder bygger hela presentationen direkt i Google Slides?",
+          "questions": [
+            "Djupresearch: Hur instruerar vi AI att göra en opartisk analys av ett ämne baserat på global forskning och effektstorlekar?",
+            "Visuell struktur: Hur ber vi AI designa en logisk röd tråd slide-för-slide med talarmanus och visuella koncept?",
+            "Google Workspace-effekt: Hur kan AI generera källkod som vi klistrar in i Google Drive för att omedelbart bygga presentationen i Google Slides?"
+          ],
+          "prompt": "Du är en skolforskare och expert på visuell kommunikation.\nHjälp mig att förbereda en dragning för skolstyrelsen om läxors effekter i grundskolan baserat på aktuell forskning (t.ex. John Hatties metastudier).\n\nGör följande:\n1. Skapa en slide-för-slide disposition för totalt 6 slides (Intro, Bakgrund/Utmaning, Evidens yngre elever, Evidens äldre elever, Förslag på ny policy, Slutsats/Nästa steg).\n2. För varje slide, ge mig:\n   - Skarp rubrik och 3 korta punktlistor (innehåll på sliden).\n   - Ett professionellt talarmanus på 3 meningar.\n   - Visuell idé för layout eller bildval.\n3. Generera ett komplett, välkommenterat Google Apps Script som jag kan köra i Google Slides editor (Script Editor) för att automatiskt bygga upp dessa 6 slides med korrekt formaterade rubriker och punktlistor. Använd standard SlidesApp funktioner."
+        },
+        {
           "type": "motivation",
           "title": "Håll i ratten!",
           "text": "Välj din utmaning och sparras med Gemini. Kom ihåg att hålla i ratten – det är ditt unika ledarskap, ditt professionella omdöme och ditt legala ansvar som styr maskinen. Du är dirigenten!"

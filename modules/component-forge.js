@@ -3084,6 +3084,17 @@
             text-align: center;
             justify-content: center;
             align-items: center;
+            grid-column: span 3;
+        }
+        @media (max-width: 1024px) {
+            .cgp-card.cgp-motivation-card {
+                grid-column: span 2;
+            }
+        }
+        @media (max-width: 640px) {
+            .cgp-card.cgp-motivation-card {
+                grid-column: span 1;
+            }
         }
         .cgp-card.cgp-motivation-card h3 {
             color: var(--accent, #f97316);

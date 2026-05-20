@@ -7883,8 +7883,8 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         
         const footerHtml = footerItems.join('<div class="ta-divider"></div>');
 
-        const rawTitle = s.title || 'Chefsgruppens AI-resa';
-        const formattedTitle = rawTitle.replace(/(AI-resa|AI-workshop)/g, '<span>$1</span>');
+        const rawTitle = s.title || 'AI för chefsgruppen';
+        const formattedTitle = rawTitle.replace(/(AI-resa|AI-workshop|AI)/g, '<span>$1</span>');
 
         return `
             <style>

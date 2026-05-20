@@ -1281,7 +1281,7 @@
         }
         .slide-bar-race .brc-row {
             display: grid;
-            grid-template-columns: 120px 1fr 50px;
+            grid-template-columns: 240px 1fr 60px;
             align-items: center;
             gap: 0.8rem;
             margin-bottom: 0.8rem;
@@ -4879,7 +4879,7 @@
                 isAnimating = true;
                 const targets = measurePhrase(phrase);
                 document.getElementById(`${id}-counter`).textContent = (phraseIdx + 1) + ' / ' + phrases.length;
-                document.getElementById(`${id}-hint`).textContent = 'Klicka eller tryck Enter för nästa';
+                document.getElementById(`${id}-hint`).textContent = '';
 
                 // Assign characters: first N letters get target chars, rest stay random
                 letters.forEach((l, i) => {
@@ -4987,7 +4987,7 @@
         return `
             <div class="slide-letter-morph" id="${id}">
                 <div class="lm-counter" id="${id}-counter">0 / ${phrases.length}</div>
-                <div class="lm-hint" id="${id}-hint">Klicka för att starta</div>
+                <div class="lm-hint" id="${id}-hint"></div>
             </div>
         `;
     }
@@ -6673,7 +6673,7 @@
                     if (formulaBadge) formulaBadge.classList.remove('visible');
                 }
                 if (currentStep === 4) {
-                    if (clickHint) clickHint.innerText = "KLICKA FÖR NÄSTA SLIDE";
+                    if (clickHint) clickHint.innerText = "";
                     // Once 3D morph has started, allow slide advance after a delay
                     setTimeout(() => {
                         if (container) container.classList.remove('no-click-advance');
@@ -7358,7 +7358,7 @@
                     <span class="math-var" style="color:#fbbf24; text-shadow: 0 0 15px rgba(251,191,36,0.6)">${wordD}</span>
                 </div>
                 <div class="vn-caption-bar" id="${id}-caption"></div>
-                <div class="vn-click-hint" id="${id}-hint">KLICKA FÖR ATT GÅ VIDARE</div>
+                <div class="vn-click-hint" id="${id}-hint"></div>
             </div>
         `;
     }
@@ -9048,7 +9048,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 <canvas id="${id}-canvas"></canvas>
                 <div class="pm-text-overlay" id="${id}-overlay">
                     <div class="pm-quote">${s.text || ''}</div>
-                    <div class="pm-hint">${s.hint || 'Klicka för att ställa frågan'}</div>
+                    <div class="pm-hint">${s.hint || ''}</div>
                 </div>
             </div>
         `;

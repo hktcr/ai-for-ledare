@@ -247,12 +247,6 @@
               "info": "April 2026. Det latenta språnget. Sätter nytt rekord med över 20 timmars oavbruten autonomi."
             },
             {
-              "x": "2026-05-19",
-              "y": 940,
-              "label": "Gemini 3.5 Flash",
-              "info": "Presenterad för två dagar sedan! Google DeepMinds senaste drag – blixtsnabb och exceptionellt autonom."
-            },
-            {
               "x": "2026-05-18",
               "y": 1410,
               "label": "GPT-5.5",
@@ -363,12 +357,6 @@
               "info": "April 2026. Det latenta språnget. Sätter nytt rekord med över 20 timmars oavbruten autonomi."
             },
             {
-              "x": "2026-05-19",
-              "y": 940,
-              "label": "Gemini 3.5 Flash",
-              "info": "Presenterad för två dagar sedan! Google DeepMinds senaste drag – blixtsnabb och exceptionellt autonom."
-            },
-            {
               "x": "2026-05-18",
               "y": 1410,
               "label": "GPT-5.5",
@@ -431,6 +419,31 @@
           "quote": "Kapacitetsökningen i maj 2026 renderade de tidigare testsviterna helt irrelevanta då modellerna hanterade komplexa workflows över hela arbetsdygn."
         }
       ]
+    },
+    {
+      "id": "gemini-efficiency",
+      "section": "start",
+      "type": "bar-race",
+      "title": "Kostnadseffektivitet: Agent-loopar per 100 kr",
+      "unit": " st",
+      "items": [
+        {
+          "label": "Gemini 3.5 Flash",
+          "value": 1500,
+          "color": "#fbbf24"
+        },
+        {
+          "label": "Claude 4.7 Opus (Frontier)",
+          "value": 25,
+          "color": "#ef4444"
+        },
+        {
+          "label": "GPT-5.5 (Frontier)",
+          "value": 12,
+          "color": "#991b1b"
+        }
+      ],
+      "cardTitle": "Kostnadseffektivitet"
     },
     {
       "id": "th11-acceleration",
@@ -749,6 +762,7 @@
       "type": "pixel-morph",
       "cardTitle": "Rösten eller korrektheten?",
       "animation": "slide-left",
+      "text": "När vi låter AI ta över skrivandet förlorar vi ofta vår unika röst i utbyte mot själlös korrekthet.",
       "question": "Men måste det bli så?"
     },
     {

@@ -572,7 +572,7 @@
       "phrases": [
         "Du är inte publiken. Du är dirigenten.",
         "En orkester utan dirigent spelar noter. Med dirigent skapar de musik.",
-        "Du har spelat noter länge nog. Det är dags att bli dirigent."
+        "Låt oss lyfta blicken. Det är dags att ta taktpinnen."
       ],
       "cardTitle": "Från publik till dirigent"
     },
@@ -929,10 +929,11 @@
     {
       "id": "anthropomorphism",
       "section": "agenter",
-      "type": "scanned-sentences",
+      "type": "anthropomorphism",
       "cardTitle": "Antropomorfisering",
       "image": "assets/android.png",
-      "title": "Är det ok att behandla AI som en människa?",
+      "title": "Bör vi behandla AI som en människa?",
+      "titleHtml": "Bör vi behandla AI som en <span>människa?</span>",
       "subtitle": "Antropomorfisering: för- och nackdelar i praktiken",
       "pros": [
         "Naturlig interaktion: Mänskligt språk minskar trösklar och gör tekniken mer tillgänglig.",
@@ -950,8 +951,8 @@
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ],
-      "prosHeader": "Möjligheter & Fördelar",
-      "consHeader": "Utmaningar & Risker"
+      "prosHeader": "Mänsklig spegling (Möjligheter)",
+      "consHeader": "Mekanisk maskin (Risker)"
     },
     {
       "id": "workshop-focus",

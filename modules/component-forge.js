@@ -8271,9 +8271,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     flex-direction: row;
                     width: 100%;
                     height: 100%;
-                    gap: 3cqw;
+                    gap: 4cqw;
                     align-items: center;
-                    padding: 2cqh 3cqw;
+                    padding: 3cqh 5cqw;
                     box-sizing: border-box;
                 }
                 .am-left {
@@ -8282,35 +8282,65 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     justify-content: center;
                     align-items: center;
                     position: relative;
-                    height: 80cqh;
+                    height: 75cqh;
                 }
-                .am-image-wrapper {
-                    width: 100%;
-                    height: 100%;
+                
+                /* ===== DUAL INTERACTIVE PORTAL ===== */
+                .am-portal-wrapper {
                     position: relative;
+                    width: clamp(280px, 35cqh, 380px);
+                    height: clamp(280px, 35cqh, 380px);
+                    border-radius: 50%;
+                    background: rgba(15, 10, 30, 0.25);
+                    border: 2px solid rgba(255, 255, 255, 0.08);
+                    box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.01);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 24px;
-                    overflow: hidden;
+                    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
                 }
-                .am-image {
-                    max-width: 100%;
-                    max-height: 100%;
-                    object-fit: cover;
-                    border-radius: 20px;
-                    mix-blend-mode: lighten;
-                    mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 95%);
-                    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 95%);
-                    filter: contrast(1.05) brightness(0.95);
-                    animation: am-fade-in 1.2s ease-out;
+                .am-portal-wrapper.mode-organic {
+                    border-color: rgba(52, 211, 153, 0.45);
+                    box-shadow: 0 0 50px rgba(52, 211, 153, 0.18), inset 0 0 40px rgba(52, 211, 153, 0.06);
+                    background: rgba(52, 211, 153, 0.02);
                 }
+                .am-portal-wrapper.mode-algorithmic {
+                    border-color: rgba(192, 132, 252, 0.45);
+                    box-shadow: 0 0 50px rgba(192, 132, 252, 0.18), inset 0 0 40px rgba(192, 132, 252, 0.06);
+                    background: rgba(192, 132, 252, 0.02);
+                }
+                .am-canvas {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    border-radius: 50%;
+                }
+                
+                .am-portal-indicator {
+                    position: absolute;
+                    bottom: -2.5cqh;
+                    font-size: clamp(0.7rem, 1.5cqh, 0.9rem);
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    color: rgba(255, 255, 255, 0.4);
+                    transition: all 0.5s;
+                }
+                .am-portal-wrapper.mode-organic .am-portal-indicator {
+                    color: #34d399;
+                    text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+                }
+                .am-portal-wrapper.mode-algorithmic .am-portal-indicator {
+                    color: #c084fc;
+                    text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+                }
+
                 .am-right {
                     flex: 1;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    gap: 2cqh;
+                    gap: 3cqh;
                     min-width: 0;
                 }
                 .am-title-group {
@@ -8337,30 +8367,30 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 .am-grid {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    gap: 2cqw;
+                    gap: 2.5cqw;
                     width: 100%;
                 }
                 .am-card {
-                    background: rgba(30, 27, 75, 0.35);
+                    background: rgba(30, 27, 75, 0.25);
                     backdrop-filter: blur(12px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    border-radius: 16px;
-                    padding: 2.5cqh 2cqw;
+                    border: 1px solid rgba(255, 255, 255, 0.06);
+                    border-radius: 20px;
+                    padding: 3cqh 2.2cqw;
                     display: flex;
                     flex-direction: column;
-                    gap: 2cqh;
+                    gap: 2.5cqh;
                     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                     position: relative;
                     overflow: hidden;
                 }
                 .am-card:hover {
                     transform: translateY(-4px);
-                    background: rgba(30, 27, 75, 0.5);
+                    background: rgba(30, 27, 75, 0.4);
                 }
                 .am-card::before {
                     content: '';
                     position: absolute;
-                    top: 0; left: 0; right: 0; height: 3px;
+                    top: 0; left: 0; right: 0; height: 4px;
                 }
                 .am-card-pro::before {
                     background: linear-gradient(90deg, #10b981, #34d399);
@@ -8369,17 +8399,18 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     background: linear-gradient(90deg, #f43f5e, #fb7185);
                 }
                 .am-card-pro:hover {
-                    border-color: rgba(16, 185, 129, 0.35);
-                    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.12);
+                    border-color: rgba(16, 185, 129, 0.3);
+                    box-shadow: 0 16px 40px rgba(16, 185, 129, 0.1);
                 }
                 .am-card-con:hover {
-                    border-color: rgba(244, 63, 94, 0.35);
-                    box-shadow: 0 12px 40px rgba(244, 63, 94, 0.12);
+                    border-color: rgba(244, 63, 94, 0.3);
+                    box-shadow: 0 16px 40px rgba(244, 63, 94, 0.1);
                 }
                 .am-card-title {
-                    font-size: clamp(1rem, 2.2cqh, 1.4rem);
-                    font-weight: 700;
+                    font-size: clamp(1rem, 2.2cqh, 1.45rem);
+                    font-weight: 800;
                     margin: 0;
+                    letter-spacing: -0.01em;
                 }
                 .am-card-pro .am-card-title { color: #34d399; }
                 .am-card-con .am-card-title { color: #fb7185; }
@@ -8390,7 +8421,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     margin: 0;
                     display: flex;
                     flex-direction: column;
-                    gap: 1.8cqh;
+                    gap: 2cqh;
                 }
                 .am-item {
                     display: flex;
@@ -8420,43 +8451,39 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     border: 1px solid rgba(244, 63, 94, 0.3);
                 }
                 .am-item-text {
-                    font-size: clamp(0.85rem, 1.9cqh, 1.15rem);
+                    font-size: clamp(0.85rem, 1.9cqh, 1.2rem);
                     line-height: 1.45;
-                    color: rgba(255, 255, 255, 0.85);
-                }
-                
-                @keyframes am-fade-in {
-                    from { opacity: 0; transform: scale(0.95); filter: contrast(1) brightness(0.2); }
-                    to { opacity: 0.95; transform: scale(1); filter: contrast(1.05) brightness(0.95); }
+                    color: rgba(255, 255, 255, 0.88);
                 }
                 
                 @media (max-width: 1024px) {
                     .am-container { flex-direction: column; padding: 2cqh; gap: 2cqh; }
-                    .am-left { flex: 0 0 22cqh; height: 22cqh; width: 100%; }
-                    .am-image { max-height: 22cqh; }
+                    .am-left { flex: 0 0 25cqh; height: 25cqh; width: 100%; }
+                    .am-portal-wrapper { width: 220px; height: 220px; }
                     .am-grid { grid-template-columns: 1fr; gap: 1.5cqh; }
                 }
             </style>
             <div class="am-container" id="${id}">
                 <div class="am-left">
-                    <div class="am-image-wrapper">
-                        <img src="${s.image || 'assets/android.png'}" class="am-image" alt="Android portrait" />
+                    <div class="am-portal-wrapper mode-organic">
+                        <canvas class="am-canvas"></canvas>
+                        <div class="am-portal-indicator">Neural Core</div>
                     </div>
                 </div>
                 <div class="am-right">
                     <div class="am-title-group">
-                        <h2 class="am-title">Är det ok att behandla AI som en <span>människa?</span></h2>
+                        <h2 class="am-title">${s.titleHtml || s.title || 'Är det ok att behandla AI som en <span>människa?</span>'}</h2>
                         <p class="am-subtitle">${s.subtitle || ''}</p>
                     </div>
                     <div class="am-grid">
                         <div class="am-card am-card-pro">
-                            <h3 class="am-card-title">Möjligheter (Antropomorfisering)</h3>
+                            <h3 class="am-card-title">${s.prosHeader || 'Möjligheter & Fördelar'}</h3>
                             <ul class="am-list">
                                 ${prosHtml}
                             </ul>
                         </div>
                         <div class="am-card am-card-con">
-                            <h3 class="am-card-title">Utmaningar och risker</h3>
+                            <h3 class="am-card-title">${s.consHeader || 'Utmaningar & Risker'}</h3>
                             <ul class="am-list">
                                 ${consHtml}
                             </ul>
@@ -8465,6 +8492,191 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 </div>
                 ${renderSourcesPopup(s.sources)}
             </div>
+            
+            <script>
+            (function() {
+                const id = '${id}';
+                const container = document.getElementById(id);
+                if (!container) return;
+                const canvas = container.querySelector('.am-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                
+                let width = canvas.width = canvas.offsetWidth || 350;
+                let height = canvas.height = canvas.offsetHeight || 350;
+                
+                window.addEventListener('resize', () => {
+                    if (!canvas.isConnected) return;
+                    width = canvas.width = canvas.offsetWidth || 350;
+                    height = canvas.height = canvas.offsetHeight || 350;
+                });
+
+                const numParticles = 90;
+                const particles = [];
+                let mode = 0; // 0: Organic, 1: Algorithmic
+                let mouse = { x: -1000, y: -1000, active: false };
+
+                // Initialize particles
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 1.2,
+                        vy: (Math.random() - 0.5) * 1.2,
+                        r: Math.random() * 2.5 + 1.5,
+                        angle: Math.random() * Math.PI * 2,
+                        speed: Math.random() * 0.015 + 0.005,
+                        orbitRadius: Math.random() * (width * 0.38) + 20
+                    });
+                }
+
+                // Grid coordinates for Algorithmic mode
+                const cols = 9;
+                const rows = 9;
+                const gridPoints = [];
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        gridPoints.push({
+                            x: (c + 0.5) * (width / cols),
+                            y: (r + 0.5) * (height / rows)
+                        });
+                    }
+                }
+
+                // Hover triggers
+                const proCard = container.querySelector('.am-card-pro');
+                const conCard = container.querySelector('.am-card-con');
+                const portal = container.querySelector('.am-portal-wrapper');
+                const indicator = container.querySelector('.am-portal-indicator');
+                
+                if (proCard && portal && indicator) {
+                    proCard.addEventListener('mouseenter', () => {
+                        mode = 0;
+                        portal.classList.remove('mode-algorithmic');
+                        portal.classList.add('mode-organic');
+                        indicator.innerText = 'Neural Core';
+                    });
+                }
+                if (conCard && portal && indicator) {
+                    conCard.addEventListener('mouseenter', () => {
+                        mode = 1;
+                        portal.classList.remove('mode-organic');
+                        portal.classList.add('mode-algorithmic');
+                        indicator.innerText = 'Data Matrix';
+                    });
+                }
+
+                container.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                    mouse.active = true;
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    mouse.active = false;
+                    mouse.x = -1000;
+                    mouse.y = -1000;
+                });
+
+                let animationFrameId;
+                function animate() {
+                    if (!canvas.isConnected) {
+                        cancelAnimationFrame(animationFrameId);
+                        return;
+                    }
+                    
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    // Dynamic colors based on mode
+                    const targetColor = mode === 0 ? { r: 52, g: 211, b: 153 } : { r: 192, g: 132, b: 252 };
+                    const lineColor = mode === 0 ? 'rgba(52, 211, 153, 0.06)' : 'rgba(192, 132, 252, 0.06)';
+
+                    // Draw connections
+                    ctx.strokeStyle = lineColor;
+                    ctx.lineWidth = 1;
+                    
+                    for (let i = 0; i < numParticles; i++) {
+                        const p1 = particles[i];
+                        
+                        // Define target positions based on mode
+                        let tx, ty;
+                        if (mode === 1) {
+                            // Algorithmic: Grid mapping
+                            const gIdx = i % gridPoints.length;
+                            tx = gridPoints[gIdx].x;
+                            ty = gridPoints[gIdx].y;
+                        } else {
+                            // Organic: Orbiting around center + mouse attraction
+                            p1.angle += p1.speed;
+                            const cx = width / 2;
+                            const cy = height / 2;
+                            tx = cx + Math.cos(p1.angle) * p1.orbitRadius;
+                            ty = cy + Math.sin(p1.angle) * p1.orbitRadius;
+                        }
+
+                        // Interpolate toward target
+                        p1.x += (tx - p1.x) * 0.08;
+                        p1.y += (ty - p1.y) * 0.08;
+
+                        // Mouse interaction
+                        if (mouse.active) {
+                            const dx = mouse.x - p1.x;
+                            const dy = mouse.y - p1.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 70) {
+                                const force = (70 - dist) / 70;
+                                if (mode === 0) {
+                                    p1.x += dx * force * 0.12;
+                                    p1.y += dy * force * 0.12;
+                                } else {
+                                    p1.x -= (dx / dist) * force * 4;
+                                    p1.y -= (dy / dist) * force * 4;
+                                }
+                            }
+                        }
+
+                        // Draw connections to nearby particles
+                        for (let j = i + 1; j < numParticles; j++) {
+                            const p2 = particles[j];
+                            const dx = p1.x - p2.x;
+                            const dy = p1.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (mode === 0 && dist < 65) {
+                                ctx.beginPath();
+                                ctx.moveTo(p1.x, p1.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.stroke();
+                            } else if (mode === 1 && dist < 45) {
+                                if (Math.abs(dx) < 15 || Math.abs(dy) < 15) {
+                                    ctx.beginPath();
+                                    ctx.moveTo(p1.x, p1.y);
+                                    ctx.lineTo(p2.x, p2.y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+
+                        // Draw particle
+                        ctx.fillStyle = `rgba(${targetColor.r}, ${targetColor.g}, ${targetColor.b}, 0.85)`;
+                        ctx.beginPath();
+                        ctx.arc(p1.x, p1.y, p1.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        // Outer glow ring
+                        ctx.strokeStyle = `rgba(${targetColor.r}, ${targetColor.g}, ${targetColor.b}, 0.18)`;
+                        ctx.beginPath();
+                        ctx.arc(p1.x, p1.y, p1.r + 3, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                    
+                    animationFrameId = requestAnimationFrame(animate);
+                }
+                
+                setTimeout(animate, 300);
+            })();
+            </script>
         `;
     }
 

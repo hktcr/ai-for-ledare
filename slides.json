@@ -641,35 +641,63 @@
       "section": "agenter",
       "size": "large",
       "type": "delegation-radar",
-      "title": "Delegations-matrisen",
+      "title": "Delegation & Professionellt Omdöme",
       "items": [
         {
-          "title": "KÖR (Låg risk)",
-          "text": "Sammanfatta 40 sidor fackliga protokoll. Skapa mallar för incidentrapporter.",
-          "icon": "🟢",
-          "colSpan": 1
+          "title": "SPARRING (Partner)",
+          "subtitle": "AI som ditt bollplank",
+          "text": "Trycktesta svåra samtal, scenarioträna inför förhandlingar, leta blinda fläckar i dina planer. Du formulerar och skriver allt själv.",
+          "icon": "🧠",
+          "cognitive": 100,
+          "compliance": "Grön (Fullt lagligt)",
+          "complianceColor": "#10b981",
+          "examples": [
+            "Förbereda svåra personalärenden (avpersonifierat)",
+            "Strukturera strategiska visioner och årsplaner",
+            "Trycktesta argument inför stormiga föräldramöten"
+          ]
         },
         {
-          "title": "SPARRING (Medel)",
-          "text": "Trycktesta argument inför svåra föräldramöten. Kräver avpersonifiering.",
-          "icon": "🟡",
-          "colSpan": 1
+          "title": "KOPILOT (Co-Writer)",
+          "subtitle": "AI som din redaktör",
+          "text": "Du skriver ett grovt utkast med dina egna tankar och professionella omdömen. AI strukturerar om, polerar och förbättrar formateringen.",
+          "icon": "✍️",
+          "cognitive": 50,
+          "compliance": "Gul (Granska noggrant)",
+          "complianceColor": "#fbbf24",
+          "examples": [
+            "Putsning och språkvård av rektorsbrev till vårdnadshavare",
+            "Sammanfatta mötesnoteringar till ett tydligt beslutsunderlag",
+            "Formulera remissvar baserat på dina egna punktlistor"
+          ]
         },
         {
-          "title": "STOPP (Hög risk)",
-          "text": "Skriva individuella elevomdömen eller sätta betyg. (IMY-larm & Lagbrott)",
-          "icon": "🔴",
-          "colSpan": 1
+          "title": "PILOT (Automation)",
+          "subtitle": "AI som självständig producent",
+          "text": "Du ger en kort prompt och låter maskinen skriva hela texten från grunden. Du abdikerar från skrivandet och hamnar i passiv övervakning.",
+          "icon": "🤖",
+          "cognitive": 5,
+          "compliance": "RÖD (STOPP för känslig data)",
+          "complianceColor": "#ef4444",
+          "examples": [
+            "Uteslutet för myndighetsutövning, betyg och individuella omdömen",
+            "Får aldrig matas med känsliga elevdata eller sekretessmaterial",
+            "Endast tillåtet för allmänna standardtexter med låg risk"
+          ]
         }
       ],
       "sources": [
         {
-          "text": "Skolverket (2026): Riktlinjer för AI-användning",
-          "url": "https://www.skolverket.se/skolutveckling/inspiration-och-stod-i-arbetet/stod-i-arbetet/artificiell-intelligens-ai-i-skolan"
+          "text": "Kommunallagen & Skollagen: Ansvar för myndighetsutövning",
+          "url": "#"
         },
         {
-          "text": "Sveriges Kommuner och Regioner & Ifous (2026)",
-          "url": "https://www.ifous.se/ai/"
+          "text": "Offentlighets- och sekretesslagen & GDPR (IMY-larm)",
+          "url": "#"
+        },
+        {
+          "text": "VEP Forskningsrådet (2026): Active Control & Automation Bias",
+          "url": "#"
         }
       ]
     },

@@ -840,197 +840,209 @@
             color: #f1f5f9;
         }
 
-        /* ===== DELEGATION RADAR (SLIDE 26 OVERHAUL) ===== */
+        /* ===== DELEGATION RADAR (KOGNITIV INSTRUMENTPANEL) ===== */
         .slide-delegation-radar {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
-            background: radial-gradient(circle at 50% 80%, rgba(20, 20, 45, 0.4) 0%, rgba(5, 5, 10, 0.99) 100%);
+            background: radial-gradient(circle at 50% 30%, rgba(25, 20, 50, 0.3) 0%, rgba(8, 8, 15, 0.99) 100%);
             overflow: hidden;
         }
         .radar-title {
-            font-size: clamp(2.2rem, 5cqh, 3.5rem); margin-bottom: 0.5rem; font-weight: 800;
+            font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 0.2rem; font-weight: 800;
             background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-align: center; letter-spacing: -0.03em;
+            text-align: center; letter-spacing: -0.02em;
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
         }
         .radar-subtitle {
-            font-size: clamp(1rem, 2cqh, 1.4rem); color: var(--text-muted);
-            text-align: center; margin-bottom: 3cqh;
+            font-size: clamp(0.95rem, 1.8cqh, 1.25rem); color: var(--text-muted);
+            text-align: center; margin-bottom: 3cqh; font-weight: 400;
         }
-        .radar-arena {
-            position: relative; flex: 1; width: 100%; max-width: 1200px; margin: 0 auto;
-            min-height: 0; display: flex; justify-content: center; align-items: center;
+        .console-arena {
+            display: flex; flex-direction: column; gap: 3cqh; flex: 1; width: 100%; max-width: 1200px;
+            margin: 0 auto; min-height: 0; justify-content: flex-start;
         }
         
-        /* Central Core */
-        .radar-core {
-            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
-            width: 160px; height: 160px; border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2) 0%, rgba(15, 15, 35, 0.8) 70%);
-            border: 2px solid rgba(168, 85, 247, 0.4);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.15), inset 0 2px 10px rgba(255,255,255,0.05);
-            z-index: 10;
+        /* The Three Main Mode Panels */
+        .console-modes {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5cqw; width: 100%;
+        }
+        .mode-card {
+            background: rgba(15, 15, 30, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 2.5cqh 2.5cqw;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            cursor: pointer; position: relative; overflow: hidden;
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.02);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .radar-core:hover {
-            border-color: rgba(168, 85, 247, 0.8);
-            box-shadow: 0 0 70px rgba(168, 85, 247, 0.35), inset 0 2px 15px rgba(255,255,255,0.1);
-            transform: translateX(-50%) scale(1.05);
+        .mode-card.step-hidden {
+            opacity: 0; transform: translateY(30px) scale(0.95); pointer-events: none;
         }
-        .core-glow {
-            position: absolute; inset: -10px; border-radius: 50%;
-            border: 1px dashed rgba(168, 85, 247, 0.3);
-            animation: rotateCore 20s linear infinite;
-        }
-        @keyframes rotateCore {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .core-label {
-            font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: 0.15em;
-            text-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
-        }
-        .core-sub {
-            font-size: 0.75rem; color: #a855f7; font-weight: 700; letter-spacing: 0.05em; margin-top: 2px;
-        }
-        
-        /* Laser Lines SVG */
-        .radar-lasers {
-            position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;
-        }
-        .laser-path {
-            transition: stroke-dashoffset 2s ease, opacity 0.5s ease;
-            opacity: 0.15;
-        }
-        .laser-path.active {
-            opacity: 0.8;
-            stroke-dasharray: 8 8;
-            animation: laserPulse 1.5s linear infinite;
-        }
-        @keyframes laserPulse {
-            0% { stroke-dashoffset: 100; }
-            100% { stroke-dashoffset: 0; }
-        }
-        
-        /* Floating Orbitals (Zoner) */
-        .radar-orbital {
-            position: absolute; width: 280px; display: flex; flex-direction: column; align-items: center;
-            z-index: 5; transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-        }
-        .radar-orbital.step-hidden {
-            opacity: 0; transform: scale(0.6) translateY(50px); pointer-events: none;
-        }
-        
-        /* Placement of the Orbitals along the arch */
-        .radar-orbital.zone-green {
-            left: 8%; top: 12cqh;
-        }
-        .radar-orbital.zone-yellow {
-            left: 50%; top: 3cqh; transform: translateX(-50%);
-        }
-        .radar-orbital.zone-yellow.step-hidden {
-            transform: translateX(-50%) scale(0.6) translateY(50px);
-        }
-        .radar-orbital.zone-red {
-            right: 8%; top: 12cqh;
-        }
-        
-        /* Orbital styling (Cirkulär high-tech panel) */
-        .orbital-disc {
-            position: relative; width: 120px; height: 120px; border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(15, 15, 30, 0.9) 0%, rgba(5, 5, 10, 0.95) 100%);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 2px 10px rgba(255,255,255,0.05);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 2;
-        }
-        .orbital-ring {
-            position: absolute; inset: -8px; border-radius: 50%;
-            border: 2px solid var(--zone-border);
-            border-top-color: transparent; border-bottom-color: transparent;
-            animation: rotateRing 8s linear infinite;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .orbital-beacon {
-            position: absolute; width: 80%; height: 80%; border-radius: 50%;
-            background: radial-gradient(circle at center, var(--zone-color) 0%, transparent 70%);
-            opacity: 0.15; transition: all 0.6s;
-        }
-        .radar-orbital:hover .orbital-beacon {
-            opacity: 0.35;
-        }
-        .orbital-icon {
-            font-size: 3rem; display: flex; align-items: center; justify-content: center;
-            filter: drop-shadow(0 0 15px var(--zone-color));
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 3;
-        }
-        
-        /* Content area under disk */
-        .orbital-content {
-            margin-top: 1.5rem; text-align: center;
-            background: rgba(10, 10, 20, 0.5);
-            border-radius: 20px; padding: 1.2rem 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.02);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%; box-sizing: border-box;
-        }
-        
-        .radar-orbital:hover .orbital-content {
-            border-color: var(--zone-border);
-            box-shadow: 0 15px 40px var(--zone-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+        .mode-card:hover {
             transform: translateY(-5px);
-            background: rgba(10, 10, 20, 0.7);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
-        .radar-orbital:hover .orbital-disc {
-            transform: translateY(-8px) scale(1.08);
-            box-shadow: 0 15px 40px var(--zone-glow), 0 0 20px var(--zone-color);
-        }
-        .radar-orbital:hover .orbital-ring {
-            inset: -12px;
-            animation-duration: 4s;
-            border-color: var(--zone-color);
+        .mode-card.active {
+            background: rgba(20, 20, 45, 0.75);
+            border-color: var(--mode-color);
+            box-shadow: 0 0 35px var(--mode-glow), inset 0 1px 0 rgba(255,255,255,0.05);
         }
         
-        .orbital-title {
-            font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;
-            letter-spacing: 0.05em; text-transform: uppercase;
-            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem;
-            transition: all 0.6s;
+        .mode-glow-effect {
+            position: absolute; inset: 0; opacity: 0;
+            background: radial-gradient(circle at center, var(--mode-color) 0%, transparent 70%);
+            transition: all 0.5s ease; pointer-events: none; z-index: 1;
         }
-        .radar-orbital:hover .orbital-title {
-            color: var(--zone-color);
-            border-bottom-color: var(--zone-color);
+        .mode-card.active .mode-glow-effect {
+            opacity: 0.12;
         }
-        .orbital-desc {
-            font-size: 0.95rem; color: #94a3b8; line-height: 1.5; font-weight: 400;
-            transition: all 0.6s;
+        
+        .mode-icon-wrapper {
+            position: relative; width: 80px; height: 80px; border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(15, 15, 30, 0.9) 0%, rgba(5, 5, 10, 0.95) 100%);
+            border: 2px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 2cqh; z-index: 2; transition: all 0.5s;
         }
-        .radar-orbital:hover .orbital-desc {
+        .mode-card.active .mode-icon-wrapper {
+            border-color: var(--mode-color);
+            box-shadow: 0 0 20px var(--mode-glow);
+            transform: scale(1.05);
+        }
+        .mode-icon {
+            font-size: 2.8rem; display: flex; align-items: center; justify-content: center;
+            transition: all 0.5s; filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+        }
+        .mode-card.active .mode-icon {
+            filter: drop-shadow(0 0 12px var(--mode-color));
+        }
+        
+        .mode-card-title {
+            font-size: clamp(1.2rem, 2.5cqh, 1.6rem); font-weight: 800; color: #fff;
+            letter-spacing: 0.03em; margin-bottom: 0.3rem; z-index: 2; transition: all 0.5s;
+        }
+        .mode-card.active .mode-card-title {
+            color: var(--mode-color);
+            text-shadow: 0 0 10px var(--mode-glow);
+        }
+        .mode-card-subtitle {
+            font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;
+            letter-spacing: 0.08em; margin-bottom: 1.5cqh; z-index: 2;
+        }
+        .mode-card.active .mode-card-subtitle {
             color: #f1f5f9;
         }
+        .mode-card-text {
+            font-size: clamp(0.85rem, 1.6cqh, 1rem); color: #64748b; line-height: 1.5;
+            font-weight: 400; z-index: 2; transition: all 0.5s;
+        }
+        .mode-card.active .mode-card-text {
+            color: #cbd5e1;
+        }
         
-        /* Zone Themes */
-        .zone-green {
-            --zone-color: #10b981;
-            --zone-border: rgba(16, 185, 129, 0.3);
-            --zone-glow: rgba(16, 185, 129, 0.15);
+        /* Bottom Dashboard Console */
+        .console-dashboard {
+            background: rgba(10, 10, 20, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px; padding: 2.5cqh 3cqw;
+            display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 4cqw;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.01);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; opacity: 0; transform: translateY(20px);
         }
-        .zone-yellow {
-            --zone-color: #fbbf24;
-            --zone-border: rgba(251, 191, 36, 0.3);
-            --zone-glow: rgba(251, 191, 36, 0.15);
+        .console-dashboard.visible {
+            opacity: 1; transform: translateY(0);
         }
-        .zone-red {
-            --zone-color: #ef4444;
-            --zone-border: rgba(239, 68, 68, 0.3);
-            --zone-glow: rgba(239, 68, 68, 0.15);
+        
+        /* Dynamic Gauges & Indicators */
+        .dashboard-gauges {
+            display: flex; flex-direction: column; gap: 2.5cqh; justify-content: center;
+        }
+        .gauge-item {
+            display: flex; flex-direction: column; gap: 0.6rem;
+        }
+        .gauge-header {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .gauge-label {
+            font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .gauge-value {
+            font-size: 0.95rem; font-weight: 800; color: var(--mode-color); transition: all 0.5s;
+        }
+        .gauge-track {
+            height: 10px; background: rgba(255,255,255,0.03); border-radius: 5px;
+            overflow: hidden; border: 1px solid rgba(255,255,255,0.02); position: relative;
+        }
+        .gauge-fill {
+            height: 100%; background: var(--mode-color); border-radius: 5px; width: 0%;
+            box-shadow: 0 0 10px var(--mode-glow); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
+        }
+        
+        /* Compliance Status Banner */
+        .compliance-indicator {
+            display: flex; align-items: center; gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px; padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.5s;
+        }
+        .compliance-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--mode-color); box-shadow: 0 0 10px var(--mode-glow);
+            transition: all 0.5s;
+        }
+        .compliance-label {
+            font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .compliance-text {
+            font-size: 1rem; font-weight: 800; color: var(--mode-color); transition: all 0.5s;
+        }
+        
+        /* Concrete Examples List */
+        .dashboard-examples {
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .examples-title {
+            font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase;
+            letter-spacing: 0.05em; margin-bottom: 1.5cqh; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .examples-list {
+            display: flex; flex-direction: column; gap: 1cqh;
+        }
+        .example-item {
+            font-size: clamp(0.85rem, 1.6cqh, 1.05rem); color: #cbd5e1;
+            padding-left: 1.5rem; position: relative; line-height: 1.4;
+            opacity: 0; transform: translateX(-10px); transition: all 0.5s ease;
+        }
+        .example-item.visible {
+            opacity: 1; transform: translateX(0);
+        }
+        .example-item::before {
+            content: "✓"; position: absolute; left: 0; top: 0;
+            color: var(--mode-color); font-weight: 900; font-size: 1rem;
+            transition: all 0.5s;
+        }
+        .console-dashboard.active-red .example-item::before {
+            content: "✕";
+        }
+        
+        /* Themes per Mode */
+        .theme-sparring {
+            --mode-color: #10b981;
+            --mode-glow: rgba(16, 185, 129, 0.25);
+        }
+        .theme-kopilot {
+            --mode-color: #fbbf24;
+            --mode-glow: rgba(251, 191, 36, 0.25);
+        }
+        .theme-pilot {
+            --mode-color: #ef4444;
+            --mode-glow: rgba(239, 68, 68, 0.25);
         }
 
         /* ===== GLITCH WARNING ===== */
@@ -4425,95 +4437,197 @@
      */
     function renderDelegationRadar(s) {
         const id = 'radar-' + Math.random().toString(36).slice(2, 8);
-        let html = `<div class="slide-delegation-radar no-click-advance" id="${id}">`;
+        let html = `<div class="slide-delegation-radar no-click-advance theme-sparring" id="${id}">`;
         
         if (s.title) html += `<h2 class="radar-title">${s.title}</h2>`;
         html += `<div class="radar-subtitle">Navigera efter risk och kognitiv belastning — du är dirigenten</div>`;
         
-        html += `<div class="radar-arena">`;
+        html += `<div class="console-arena">`;
         
-        // Central Core
-        html += `
-            <div class="radar-core">
-                <div class="core-glow"></div>
-                <div class="core-label">DIRIGENTEN</div>
-                <div class="core-sub">Du Bestämmer</div>
-            </div>
-        `;
-        
-        // SVG Lasers
-        html += `
-            <svg class="radar-lasers" viewBox="0 0 1000 600">
-                <path id="${id}-laser-0" class="laser-path path-green" d="M 500 500 Q 250 400 150 260" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
-                <path id="${id}-laser-1" class="laser-path path-yellow" d="M 500 500 Q 500 320 500 210" fill="none" stroke="rgba(251, 191, 36, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
-                <path id="${id}-laser-2" class="laser-path path-red" d="M 500 500 Q 750 400 850 260" fill="none" stroke="rgba(239, 68, 68, 0.4)" stroke-dasharray="8 8" stroke-width="3" />
-            </svg>
-        `;
-        
-        // Orbital Zones
+        // Three Mode Cards Grid
+        html += `<div class="console-modes">`;
         const items = s.items || [];
         items.forEach((item, i) => {
-            let zoneClass = 'zone-green';
-            let icon = '🟢';
-            if (i === 1) { zoneClass = 'zone-yellow'; icon = '🟡'; }
-            if (i === 2) { zoneClass = 'zone-red'; icon = '🔴'; }
-            
-            if (item.icon === '🟢') zoneClass = 'zone-green';
-            if (item.icon === '🟡') zoneClass = 'zone-yellow';
-            if (item.icon === '🔴') zoneClass = 'zone-red';
+            let roleClass = '';
+            if (i === 0) roleClass = 'role-sparring';
+            if (i === 1) roleClass = 'role-kopilot';
+            if (i === 2) roleClass = 'role-pilot';
             
             html += `
-                <div class="radar-orbital ${zoneClass} step-hidden" data-index="${i}">
-                    <div class="orbital-ring"></div>
-                    <div class="orbital-disc">
-                        <div class="orbital-beacon"></div>
-                        <span class="orbital-icon">${item.icon || icon}</span>
+                <div class="mode-card step-hidden ${roleClass}" data-index="${i}">
+                    <div class="mode-glow-effect"></div>
+                    <div class="mode-icon-wrapper">
+                        <span class="mode-icon">${item.icon || '🧠'}</span>
                     </div>
-                    <div class="orbital-content">
-                        <h3 class="orbital-title">${item.title}</h3>
-                        <p class="orbital-desc">${item.text}</p>
-                    </div>
+                    <div class="mode-card-title">${item.title}</div>
+                    <div class="mode-card-subtitle">${item.subtitle || ''}</div>
+                    <div class="mode-card-text">${item.text}</div>
                 </div>
             `;
         });
+        html += `</div>`; // .console-modes
         
-        html += `</div>`; // .radar-arena
+        // Bottom Dashboard Console
+        html += `
+            <div class="console-dashboard">
+                <!-- Left Side: Dynamic Gauges & Indicators -->
+                <div class="dashboard-gauges">
+                    <div class="gauge-item">
+                        <div class="gauge-header">
+                            <span class="gauge-label">🧠 Kognitiv kontroll (Active Control)</span>
+                            <span class="gauge-value" id="${id}-cognitive-val">0%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" id="${id}-cognitive-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="gauge-item">
+                        <div class="gauge-header">
+                            <span class="gauge-label">⚖️ Juridisk Säkerhet (GDPR)</span>
+                            <span class="gauge-value" id="${id}-compliance-val">0%</span>
+                        </div>
+                        <div class="gauge-track">
+                            <div class="gauge-fill" id="${id}-compliance-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Compliance Status Indicator Banner -->
+                    <div class="compliance-indicator">
+                        <div class="compliance-dot"></div>
+                        <div class="compliance-info">
+                            <div class="compliance-label">Sekretess & Myndighetsutövning</div>
+                            <div class="compliance-text" id="${id}-compliance-text">Laddar...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Concrete Examples List -->
+                <div class="dashboard-examples">
+                    <div class="examples-title">
+                        <span class="examples-icon">⚡</span> I PRAKTIKEN FÖR BIN-CHEFEN
+                    </div>
+                    <div class="examples-list" id="${id}-examples-list">
+                        <!-- Dynamic school-level examples dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        html += `</div>`; // .console-arena
         html += renderSourcesPopup(s.sources);
         html += `</div>`; // .slide-delegation-radar
         
-        // Setup click reveals & laser activation
+        // Setup click reveals & interactive console behaviors
         setTimeout(() => {
             const container = document.getElementById(id);
             if (!container) return;
             
-            const orbitals = container.querySelectorAll('.radar-orbital');
-            const lasers = [
-                document.getElementById(`${id}-laser-0`),
-                document.getElementById(`${id}-laser-1`),
-                document.getElementById(`${id}-laser-2`)
-            ];
+            const cards = container.querySelectorAll('.mode-card');
+            const dashboard = container.querySelector('.console-dashboard');
+            const cognitiveVal = document.getElementById(`${id}-cognitive-val`);
+            const cognitiveFill = document.getElementById(`${id}-cognitive-fill`);
+            const complianceVal = document.getElementById(`${id}-compliance-val`);
+            const complianceFill = document.getElementById(`${id}-compliance-fill`);
+            const complianceText = document.getElementById(`${id}-compliance-text`);
+            const examplesList = document.getElementById(`${id}-examples-list`);
+            
+            const itemsData = s.items || [];
+            
+            function activateMode(index) {
+                if (index < 0 || index >= cards.length) return;
+                
+                // 1. Update active card state
+                cards.forEach((c, idx) => {
+                    if (idx === index) {
+                        c.classList.add('active');
+                    } else {
+                        c.classList.remove('active');
+                    }
+                });
+                
+                // 2. Update dashboard container themes
+                container.classList.remove('theme-sparring', 'theme-kopilot', 'theme-pilot');
+                dashboard.classList.remove('active-red');
+                
+                if (index === 0) {
+                    container.classList.add('theme-sparring');
+                } else if (index === 1) {
+                    container.classList.add('theme-kopilot');
+                } else if (index === 2) {
+                    container.classList.add('theme-pilot');
+                    dashboard.classList.add('active-red');
+                }
+                
+                // 3. Retrieve dynamic values
+                const data = itemsData[index];
+                if (!data) return;
+                
+                // Kognitiv Kontroll
+                cognitiveVal.innerText = data.cognitive + '%';
+                cognitiveFill.style.width = data.cognitive + '%';
+                
+                // Juridisk Säkerhet
+                const compPercent = (index === 0) ? 100 : (index === 1 ? 80 : 10);
+                complianceVal.innerText = compPercent + '%';
+                complianceFill.style.width = compPercent + '%';
+                
+                // Compliance Text
+                complianceText.innerText = data.compliance || '';
+                
+                // 4. Update school examples list with smooth entrance animations
+                examplesList.innerHTML = '';
+                const examples = data.examples || [];
+                examples.forEach((ex, idx) => {
+                    const li = document.createElement('div');
+                    li.className = 'example-item';
+                    li.innerText = ex;
+                    examplesList.appendChild(li);
+                    
+                    // Staggered entry animation
+                    setTimeout(() => {
+                        li.classList.add('visible');
+                    }, idx * 120);
+                });
+            }
             
             let currentStep = 0;
             
-            // Show green orbital automatically after a short delay
+            // Show the first card (Sparring) automatically after a short delay
             setTimeout(() => {
-                if (orbitals.length > 0) {
-                    orbitals[0].classList.remove('step-hidden');
-                    if (lasers[0]) lasers[0].classList.add('active');
+                if (cards.length > 0) {
+                    cards[0].classList.remove('step-hidden');
+                    dashboard.classList.add('visible');
+                    activateMode(0);
                 }
                 currentStep = 1;
             }, 600);
             
+            // Step-by-step reveal handler on slide click
             container.addEventListener('click', (e) => {
-                if (currentStep < orbitals.length) {
+                if (currentStep < cards.length) {
                     e.stopPropagation();
-                    orbitals[currentStep].classList.remove('step-hidden');
-                    if (lasers[currentStep]) lasers[currentStep].classList.add('active');
+                    cards[currentStep].classList.remove('step-hidden');
+                    activateMode(currentStep);
                     currentStep++;
-                } else {
-                    container.classList.remove('no-click-advance');
+                    
+                    if (currentStep === cards.length) {
+                        // All cards are now revealed! Remove the slide-blocking class
+                        container.classList.remove('no-click-advance');
+                    }
                 }
             });
+            
+            // Allow manual exploration of already revealed cards
+            cards.forEach((card, idx) => {
+                card.addEventListener('click', (e) => {
+                    if (!card.classList.contains('step-hidden')) {
+                        e.stopPropagation(); // Stop click from triggering next global slide step
+                        activateMode(idx);
+                    }
+                });
+            });
+            
         }, 100);
         
         return html;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI för BINs chefer — 21 maj 2026</title>
+    <title>Chefsgruppens AI-resa — 21 maj 2026</title>
     <meta name="description" content="Showcase av 9 animerade slide-typer i SlideCraft Component Forge. All data är fiktiv/demo.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -26,8 +26,8 @@
             border-bottom: 1px solid var(--border);
             position: relative;
         }
-        .showcase-header h1 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 900; letter-spacing: -0.02em; }
-        .showcase-header h1 span { color: var(--accent); }
+        .showcase-header h1 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 900; letter-spacing: -0.02em; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .showcase-header h1 span { color: var(--accent); text-shadow: 0 0 15px rgba(249, 115, 22, 0.3); }
         .showcase-header p { color: var(--text-muted); font-size: 0.75rem; margin-top: 0.3rem; opacity: 0.7; }
 
         /* === THEME SWITCHER === */
@@ -211,8 +211,8 @@
 
         /* === TITLE SLIDE (manual) === */
         .slide-title-custom { text-align: center; padding: 2rem; width: 100%; }
-        .slide-title-custom h1 { font-size: clamp(2rem, 8cqmin, 5rem); font-weight: 900; line-height: 1.1; }
-        .slide-title-custom h1 span { color: var(--accent); }
+        .slide-title-custom h1 { font-size: clamp(2rem, 8cqmin, 5rem); font-weight: 900; line-height: 1.05; text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); }
+        .slide-title-custom h1 span { color: var(--accent); text-shadow: 0 0 25px rgba(249, 115, 22, 0.45); }
         .slide-title-custom .subtitle { font-size: clamp(1rem, 3cqmin, 2rem); color: var(--text-muted); margin-top: 1rem; }
         .slide-title-custom .note { font-size: 0.8rem; color: rgba(239,68,68,0.6); margin-top: 2rem; }
 
@@ -302,7 +302,7 @@
 <body id="appBody">
     <div class="showcase-header" id="showcaseHeader">
         <button class="fullscreen-btn" id="deckFullscreenBtn" title="Helskärm (F)" style="position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.6rem; color: var(--text-muted); font-size: 0.9rem; cursor: pointer; transition: all 0.2s;">⛶</button>
-        <h1>AI för <span>BINs chefer</span></h1>
+        <h1>Chefsgruppens <span>AI-resa</span></h1>
         <p>Workshop · 21 maj 2026 · 34 slides</p>
         <div class="theme-row" id="themeRow"></div>
     </div>
@@ -771,8 +771,16 @@
                 const posInSetlist = setlistOrder.indexOf(currentIdx);
                 if (posInSetlist >= 0 && posInSetlist < setlistOrder.length - 1) {
                     openSlide(setlistOrder[posInSetlist + 1]);
+                } else if (posInSetlist === -1) {
+                    // Fallback: find the first slide in setlist that comes after currentIdx
+                    const nextActiveIdx = setlistOrder.find(idx => idx > currentIdx);
+                    if (nextActiveIdx !== undefined) {
+                        openSlide(nextActiveIdx);
+                    } else {
+                        // If none, default to first slide of setlist
+                        openSlide(setlistOrder[0]);
+                    }
                 }
-                // If not in setlist, don't navigate
             } else {
                 if (currentIdx < slidesData.length - 1) openSlide(currentIdx + 1);
             }
@@ -782,6 +790,15 @@
                 const posInSetlist = setlistOrder.indexOf(currentIdx);
                 if (posInSetlist > 0) {
                     openSlide(setlistOrder[posInSetlist - 1]);
+                } else if (posInSetlist === -1) {
+                    // Fallback: find the last slide in setlist that comes before currentIdx
+                    const prevActiveIdx = [...setlistOrder].reverse().find(idx => idx < currentIdx);
+                    if (prevActiveIdx !== undefined) {
+                        openSlide(prevActiveIdx);
+                    } else {
+                        // If none, default to last slide of setlist
+                        openSlide(setlistOrder[setlistOrder.length - 1]);
+                    }
                 }
             } else {
                 if (currentIdx > 0) openSlide(currentIdx - 1);
@@ -1763,14 +1780,16 @@
             
             // Sök efter existerande presentationstillstånd först för att undvika att nollställa presentationen
             pollPresenterState().then(() => {
-                // Om currentIdx fortfarande inte är satt till en giltig slide, starta på 0
+                const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
+                // Om currentIdx fortfarande inte är satt till en giltig slide, starta på standard
                 if (currentIdx === undefined || currentIdx === null || currentIdx === 0) {
-                    openSlide(0);
+                    openSlide(defaultStartIdx);
                 } else {
                     openSlide(currentIdx);
                 }
             }).catch(() => {
-                openSlide(0);
+                const defaultStartIdx = setlistOrder.length > 0 ? setlistOrder[0] : 0;
+                openSlide(defaultStartIdx);
             });
         }
 

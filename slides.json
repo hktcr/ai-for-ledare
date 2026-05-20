@@ -31,7 +31,7 @@
       "id": "title-astorp",
       "section": "start",
       "type": "title-astorp",
-      "title": "AI för BIN:s chefer",
+      "title": "Chefsgruppens AI-resa",
       "subtitle": "Från chattbottar till autonoma agenter",
       "note": "21 maj 2026",
       "presenter": {
@@ -45,7 +45,7 @@
       "id": "title",
       "section": "start",
       "type": "title",
-      "title": "AI för BIN:s chefer",
+      "title": "Chefsgruppens AI-resa",
       "subtitle": "Från chattbottar till autonoma agenter",
       "note": "21 maj 2026"
     },
@@ -917,7 +917,7 @@
       },
       "sources": [
         {
-          "text": "Workshop: BINs chefer 21 maj 2026",
+          "text": "Workshop: Chefsgruppen 21 maj 2026",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ]
@@ -933,7 +933,7 @@
       "hint": "Ladda upp filen direkt i Gemini. Testa Flash först — byt till Pro om analysen behöver mer djup.",
       "sources": [
         {
-          "text": "Workshop: BINs chefer 21 maj 2026",
+          "text": "Workshop: Chefsgruppen 21 maj 2026",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ]

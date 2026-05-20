@@ -839,13 +839,20 @@
         .bento-item:hover .bento-item-text {
             color: #f1f5f9;
         }
-
-        /* ===== DELEGATION RADAR (KOGNITIV INSTRUMENTPANEL) ===== */
+               /* ===== DELEGATION RADAR (BOX-FRI HOLOGRAFISK HUD) ===== */
         .slide-delegation-radar {
             display: flex; flex-direction: column; height: 100%; width: 100%;
             padding: 4cqh 5cqw; box-sizing: border-box; justify-content: flex-start; position: relative;
-            background: radial-gradient(circle at 50% 30%, rgba(25, 20, 50, 0.3) 0%, rgba(8, 8, 15, 0.99) 100%);
+            background: radial-gradient(circle at 50% 30%, rgba(25, 20, 50, 0.25) 0%, rgba(8, 8, 15, 0.99) 100%);
             overflow: hidden;
+            transition: background 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .slide-delegation-radar.theme-pilot {
+            animation: alert-pulse-bg 4s infinite alternate;
+        }
+        @keyframes alert-pulse-bg {
+            0% { background: radial-gradient(circle at 50% 30%, rgba(50, 10, 10, 0.25) 0%, rgba(8, 8, 15, 0.99) 100%); }
+            100% { background: radial-gradient(circle at 50% 30%, rgba(90, 15, 15, 0.35) 0%, rgba(8, 5, 8, 0.99) 100%); }
         }
         .radar-title {
             font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 0.2rem; font-weight: 800;
@@ -853,196 +860,291 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-align: center; letter-spacing: -0.02em;
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+            z-index: 5;
         }
         .radar-subtitle {
-            font-size: clamp(0.95rem, 1.8cqh, 1.25rem); color: var(--text-muted);
+            font-size: clamp(0.95rem, 1.8cqh, 1.25rem); color: var(--hud-color);
             text-align: center; margin-bottom: 3cqh; font-weight: 400;
-        }
-        .console-arena {
-            display: flex; flex-direction: column; gap: 3cqh; flex: 1; width: 100%; max-width: 1200px;
-            margin: 0 auto; min-height: 0; justify-content: flex-start;
+            letter-spacing: 0.05em; transition: color 0.5s ease;
+            z-index: 5;
         }
         
-        /* The Three Main Mode Panels */
-        .console-modes {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5cqw; width: 100%;
+        .hud-container {
+            display: flex; flex-direction: column; gap: 2.5cqh; flex: 1; width: 100%;
+            max-width: 1200px; margin: 0 auto; min-height: 0; justify-content: flex-start;
+            z-index: 5;
         }
-        .mode-card {
-            background: rgba(15, 15, 30, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px; padding: 2.5cqh 2.5cqw;
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            cursor: pointer; position: relative; overflow: hidden;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.02);
+
+        /* Top Area: Interactive SVG Selector Arc */
+        .hud-selector-area {
+            position: relative; width: 100%; max-width: 900px; margin: 0 auto;
+            height: auto;
+        }
+        .hud-arc-svg {
+            width: 100%; height: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.02));
+        }
+        .hud-arc-track {
+            transition: stroke 0.5s;
+        }
+        .hud-arc-active-glow {
+            transition: stroke 0.5s, opacity 0.5s;
+        }
+        .hud-reticle {
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hud-node-group {
+            outline: none;
+        }
+        .hud-node-dot {
+            fill: rgba(15, 15, 30, 0.95);
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 1.5px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .mode-card.step-hidden {
-            opacity: 0; transform: translateY(30px) scale(0.95); pointer-events: none;
+        .hud-node-group:hover .hud-node-dot {
+            stroke: var(--hud-color);
+            filter: drop-shadow(0 0 8px var(--hud-color));
+            r: 10;
         }
-        .mode-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        .hud-node-group.active .hud-node-dot {
+            fill: var(--hud-color);
+            stroke: #fff;
+            stroke-width: 2px;
+            filter: drop-shadow(0 0 12px var(--hud-color));
+            r: 9;
         }
-        .mode-card.active {
-            background: rgba(20, 20, 45, 0.75);
-            border-color: var(--mode-color);
-            box-shadow: 0 0 35px var(--mode-glow), inset 0 1px 0 rgba(255,255,255,0.05);
+        .hud-node-emoji {
+            font-size: 26px;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        .mode-glow-effect {
-            position: absolute; inset: 0; opacity: 0;
-            background: radial-gradient(circle at center, var(--mode-color) 0%, transparent 70%);
-            transition: all 0.5s ease; pointer-events: none; z-index: 1;
+        .hud-node-group:hover .hud-node-emoji {
+            transform: scale(1.2) translateY(-2px);
         }
-        .mode-card.active .mode-glow-effect {
-            opacity: 0.12;
+        .hud-node-label {
+            font-size: 10px; font-weight: 800; fill: rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        .mode-icon-wrapper {
-            position: relative; width: 80px; height: 80px; border-radius: 50%;
-            background: radial-gradient(circle at center, rgba(15, 15, 30, 0.9) 0%, rgba(5, 5, 10, 0.95) 100%);
-            border: 2px solid rgba(255,255,255,0.05);
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 2cqh; z-index: 2; transition: all 0.5s;
+        .hud-node-group:hover .hud-node-label {
+            fill: #fff;
+            letter-spacing: 2.5px;
         }
-        .mode-card.active .mode-icon-wrapper {
-            border-color: var(--mode-color);
-            box-shadow: 0 0 20px var(--mode-glow);
-            transform: scale(1.05);
+        .hud-node-group.active .hud-node-label {
+            fill: var(--hud-color);
+            font-weight: 900;
+            text-shadow: 0 0 8px var(--hud-glow);
+            letter-spacing: 2.5px;
         }
-        .mode-icon {
-            font-size: 2.8rem; display: flex; align-items: center; justify-content: center;
-            transition: all 0.5s; filter: drop-shadow(0 0 8px rgba(0,0,0,0.5));
+        .hud-node-group.step-hidden {
+            opacity: 0; pointer-events: none;
+            transform: scale(0.85);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .mode-card.active .mode-icon {
-            filter: drop-shadow(0 0 12px var(--mode-color));
+        .hud-node-group.step-hidden-remove {
+            opacity: 1; pointer-events: auto;
+            transform: scale(1);
         }
-        
-        .mode-card-title {
-            font-size: clamp(1.2rem, 2.5cqh, 1.6rem); font-weight: 800; color: #fff;
-            letter-spacing: 0.03em; margin-bottom: 0.3rem; z-index: 2; transition: all 0.5s;
-        }
-        .mode-card.active .mode-card-title {
-            color: var(--mode-color);
-            text-shadow: 0 0 10px var(--mode-glow);
-        }
-        .mode-card-subtitle {
-            font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;
-            letter-spacing: 0.08em; margin-bottom: 1.5cqh; z-index: 2;
-        }
-        .mode-card.active .mode-card-subtitle {
-            color: #f1f5f9;
-        }
-        .mode-card-text {
-            font-size: clamp(0.85rem, 1.6cqh, 1rem); color: #64748b; line-height: 1.5;
-            font-weight: 400; z-index: 2; transition: all 0.5s;
-        }
-        .mode-card.active .mode-card-text {
-            color: #cbd5e1;
+
+        /* Console Grid - Flanking Panels & Circular Gauge Center */
+        .hud-console {
+            display: grid; grid-template-columns: 1.15fr 0.9fr 1.15fr; gap: 3cqw;
+            width: 100%; min-height: 0; align-items: stretch;
         }
         
-        /* Bottom Dashboard Console */
-        .console-dashboard {
-            background: rgba(10, 10, 20, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 20px; padding: 2.5cqh 3cqw;
-            display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 4cqw;
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.01);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; opacity: 0; transform: translateY(20px);
+        /* Floating Transparent Panels - Box-Free */
+        .hud-panel {
+            position: relative;
+            background: transparent;
+            border: none;
+            padding: 3cqh 2.5cqw;
+            display: flex; flex-direction: column;
+            justify-content: flex-start;
+            box-shadow: none;
+            backdrop-filter: none; -webkit-backdrop-filter: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0; transform: translateY(20px);
         }
-        .console-dashboard.visible {
+        .hud-panel.visible {
             opacity: 1; transform: translateY(0);
         }
-        
-        /* Dynamic Gauges & Indicators */
-        .dashboard-gauges {
-            display: flex; flex-direction: column; gap: 2.5cqh; justify-content: center;
-        }
-        .gauge-item {
-            display: flex; flex-direction: column; gap: 0.6rem;
-        }
-        .gauge-header {
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .gauge-label {
-            font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em;
-        }
-        .gauge-value {
-            font-size: 0.95rem; font-weight: 800; color: var(--mode-color); transition: all 0.5s;
-        }
-        .gauge-track {
-            height: 10px; background: rgba(255,255,255,0.03); border-radius: 5px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.02); position: relative;
-        }
-        .gauge-fill {
-            height: 100%; background: var(--mode-color); border-radius: 5px; width: 0%;
-            box-shadow: 0 0 10px var(--mode-glow); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
+        .hud-panel:hover {
+            background: transparent;
+            box-shadow: none;
         }
         
-        /* Compliance Status Banner */
-        .compliance-indicator {
-            display: flex; align-items: center; gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px; padding: 1rem 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.5s;
+        /* Corner Hooks */
+        .hud-corner {
+            position: absolute; width: 12px; height: 12px;
+            border-color: var(--hud-color); border-style: solid;
+            pointer-events: none; transition: border-color 0.5s ease;
         }
-        .compliance-dot {
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--mode-color); box-shadow: 0 0 10px var(--mode-glow);
-            transition: all 0.5s;
-        }
-        .compliance-label {
-            font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em;
-        }
-        .compliance-text {
-            font-size: 1rem; font-weight: 800; color: var(--mode-color); transition: all 0.5s;
+        .hud-corner-tl { top: -1px; left: -1px; border-width: 1.5px 0 0 1.5px; }
+        .hud-corner-tr { top: -1px; right: -1px; border-width: 1.5px 1.5px 0 0; }
+        .hud-corner-bl { bottom: -1px; left: -1px; border-width: 0 0 1.5px 1.5px; }
+        .hud-corner-br { bottom: -1px; right: -1px; border-width: 0 1.5px 1.5px 0; }
+
+        .hud-panel-title {
+            font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.4);
+            letter-spacing: 2px; margin-bottom: 2.5cqh; border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding-bottom: 1cqh; display: flex; align-items: center; justify-content: space-between;
         }
         
-        /* Concrete Examples List */
-        .dashboard-examples {
-            display: flex; flex-direction: column; justify-content: center;
+        /* Metric block details */
+        .hud-metric-row {
+            margin-bottom: 2cqh; display: flex; flex-direction: column; gap: 0.3cqh;
         }
-        .examples-title {
-            font-size: 0.95rem; font-weight: 800; color: #fff; text-transform: uppercase;
-            letter-spacing: 0.05em; margin-bottom: 1.5cqh; display: flex; align-items: center; gap: 0.5rem;
+        .hud-metric-label {
+            font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4); letter-spacing: 1px;
         }
-        .examples-list {
+        .hud-metric-value {
+            font-size: 26px; font-weight: 900; color: var(--hud-color);
+            transition: all 0.5s ease; text-shadow: 0 0 12px var(--hud-glow);
+        }
+        .hud-metric-desc {
+            font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.4;
+        }
+
+        /* Floating status banner - Box-Free */
+        .hud-status-banner {
+            display: flex; align-items: center; gap: 12px; margin-top: auto;
+            padding: 1.2cqh 0; border-left: 2px solid var(--hud-color);
+            background: transparent; border-radius: 0;
+            transition: all 0.5s ease;
+        }
+        .hud-status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--hud-color); box-shadow: 0 0 8px var(--hud-color);
+            transition: all 0.5s ease;
+        }
+        .hud-status-info {
+            display: flex; flex-direction: column; gap: 0.1cqh;
+        }
+        .hud-status-label {
+            font-size: 8px; font-weight: 800; color: rgba(255,255,255,0.35); letter-spacing: 1px;
+        }
+        .hud-status-desc {
+            font-size: 13px; font-weight: 900; color: var(--hud-color);
+            transition: all 0.5s ease;
+        }
+        
+        /* Central Concentric Gauges Console */
+        .hud-panel-center {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; position: relative; align-self: center;
+        }
+        .hud-gauges-svg {
+            width: 250px; height: 250px;
+            filter: drop-shadow(0 0 15px var(--hud-glow));
+            transition: filter 0.5s ease;
+        }
+        .hud-ring {
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.5s ease;
+        }
+        .hud-center-title {
+            transition: fill 0.5s ease;
+        }
+        .hud-center-subtitle {
+            transition: fill 0.5s ease;
+        }
+        
+        /* Floating alert indicator beneath the gauges */
+        .hud-alert-label {
+            font-size: 10px; font-weight: 800; color: var(--hud-color);
+            letter-spacing: 1.5px; padding: 4px 0;
+            background: transparent;
+            margin-top: 15px;
+            transition: all 0.5s ease;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px var(--hud-glow);
+        }
+        .theme-pilot .hud-alert-label {
+            color: #ef4444;
+            animation: alert-blink 1s infinite alternate;
+        }
+        @keyframes alert-blink {
+            0% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(239,68,68,0.4)); }
+            100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(239,68,68,0.8)); }
+        }
+
+        /* Right Panel: School Examples and details */
+        .hud-mode-description {
+            font-size: 13.5px; color: rgba(255,255,255,0.7); line-height: 1.5;
+            margin-bottom: 2cqh; font-style: italic;
+        }
+        .hud-examples-title {
+            font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4);
+            letter-spacing: 1px; margin-bottom: 1.5cqh;
+        }
+        .hud-examples-list {
             display: flex; flex-direction: column; gap: 1cqh;
         }
-        .example-item {
-            font-size: clamp(0.85rem, 1.6cqh, 1.05rem); color: #cbd5e1;
-            padding-left: 1.5rem; position: relative; line-height: 1.4;
-            opacity: 0; transform: translateX(-10px); transition: all 0.5s ease;
+        .hud-example-item {
+            font-size: clamp(0.8rem, 1.5cqh, 1rem); color: rgba(255,255,255,0.75);
+            padding-left: 22px; position: relative; line-height: 1.4;
+            opacity: 0; transform: translateX(-15px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .example-item.visible {
+        .hud-example-item.visible {
             opacity: 1; transform: translateX(0);
         }
-        .example-item::before {
+        .hud-example-item::before {
             content: "✓"; position: absolute; left: 0; top: 0;
-            color: var(--mode-color); font-weight: 900; font-size: 1rem;
-            transition: all 0.5s;
+            color: var(--hud-color); font-weight: 900; font-size: 12px;
+            transition: all 0.5s ease;
         }
-        .console-dashboard.active-red .example-item::before {
-            content: "✕";
+        .theme-pilot .hud-example-item::before {
+            content: "\\2715"; /* Warning Cross */
+            color: var(--hud-color);
         }
-        
-        /* Themes per Mode */
+
+        /* Radar scan animations */
+        .spin-slow {
+            animation: spin-clockwise 25s linear infinite;
+            transform-origin: center;
+        }
+        @keyframes spin-clockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hud-radar-sweep {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.02) 50%, transparent 100%);
+            animation: radar-sweep 5s linear infinite;
+            z-index: 1;
+        }
+        .theme-kopilot .hud-radar-sweep {
+            background: linear-gradient(180deg, transparent 0%, rgba(251, 191, 36, 0.02) 50%, transparent 100%);
+        }
+        .theme-pilot .hud-radar-sweep {
+            background: linear-gradient(180deg, transparent 0%, rgba(239, 68, 68, 0.035) 50%, transparent 100%);
+            animation: radar-sweep 2.5s linear infinite;
+        }
+        @keyframes radar-sweep {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .hud-grid-overlay {
+            position: absolute; inset: 0; pointer-events: none;
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            z-index: 1;
+        }
+
+        /* Active themes mapping */
         .theme-sparring {
-            --mode-color: #10b981;
-            --mode-glow: rgba(16, 185, 129, 0.25);
+            --hud-color: #10b981;
+            --hud-glow: rgba(16, 185, 129, 0.25);
         }
         .theme-kopilot {
-            --mode-color: #fbbf24;
-            --mode-glow: rgba(251, 191, 36, 0.25);
+            --hud-color: #fbbf24;
+            --hud-glow: rgba(251, 191, 36, 0.25);
         }
         .theme-pilot {
-            --mode-color: #ef4444;
-            --mode-glow: rgba(239, 68, 68, 0.25);
+            --hud-color: #ef4444;
+            --hud-glow: rgba(239, 68, 68, 0.35);
         }
 
         /* ===== GLITCH WARNING ===== */
@@ -4437,84 +4539,153 @@
      */
     function renderDelegationRadar(s) {
         const id = 'radar-' + Math.random().toString(36).slice(2, 8);
+        const items = s.items || [];
+        
         let html = `<div class="slide-delegation-radar no-click-advance theme-sparring" id="${id}">`;
         
         if (s.title) html += `<h2 class="radar-title">${s.title}</h2>`;
-        html += `<div class="radar-subtitle">Navigera efter risk och kognitiv belastning — du är dirigenten</div>`;
+        html += `<div class="radar-subtitle" id="${id}-subtitle">SPARRING: AI som ditt kognitiva bollplank</div>`;
         
-        html += `<div class="console-arena">`;
+        html += `<div class="hud-container">`;
         
-        // Three Mode Cards Grid
-        html += `<div class="console-modes">`;
-        const items = s.items || [];
-        items.forEach((item, i) => {
-            let roleClass = '';
-            if (i === 0) roleClass = 'role-sparring';
-            if (i === 1) roleClass = 'role-kopilot';
-            if (i === 2) roleClass = 'role-pilot';
-            
-            html += `
-                <div class="mode-card step-hidden ${roleClass}" data-index="${i}">
-                    <div class="mode-glow-effect"></div>
-                    <div class="mode-icon-wrapper">
-                        <span class="mode-icon">${item.icon || '🧠'}</span>
-                    </div>
-                    <div class="mode-card-title">${item.title}</div>
-                    <div class="mode-card-subtitle">${item.subtitle || ''}</div>
-                    <div class="mode-card-text">${item.text}</div>
-                </div>
-            `;
-        });
-        html += `</div>`; // .console-modes
-        
-        // Bottom Dashboard Console
+        // 1. Interactive SVG Selector Arc at the top
         html += `
-            <div class="console-dashboard">
-                <!-- Left Side: Dynamic Gauges & Indicators -->
-                <div class="dashboard-gauges">
-                    <div class="gauge-item">
-                        <div class="gauge-header">
-                            <span class="gauge-label">🧠 Kognitiv kontroll (Active Control)</span>
-                            <span class="gauge-value" id="${id}-cognitive-val">0%</span>
-                        </div>
-                        <div class="gauge-track">
-                            <div class="gauge-fill" id="${id}-cognitive-fill" style="width: 0%;"></div>
-                        </div>
+            <div class="hud-selector-area">
+                <svg class="hud-arc-svg" viewBox="0 0 1000 140">
+                    <!-- Glowing Arc Track -->
+                    <path class="hud-arc-track-glow" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="var(--hud-glow)" stroke-width="5" style="opacity: 0.15;" />
+                    <path class="hud-arc-track" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 4" />
+                    <path class="hud-arc-active-glow" d="M 150 100 C 300 40, 700 40, 850 100" fill="none" stroke="var(--hud-color)" stroke-width="1.5" style="opacity: 0.35; transition: stroke 0.5s ease;" />
+                    
+                    <!-- Sliding Holographic Target Reticle -->
+                    <g class="hud-reticle" id="${id}-reticle" transform="translate(250, 80)">
+                        <circle r="22" fill="none" stroke="var(--hud-color)" stroke-width="1" stroke-dasharray="6 3" class="spin-slow" style="transition: stroke 0.5s ease;" />
+                        <circle r="14" fill="none" stroke="var(--hud-color)" stroke-width="1.5" style="transition: stroke 0.5s ease;" />
+                        <circle r="4" fill="var(--hud-color)" style="transition: fill 0.5s ease;" />
+                        <!-- Crosshair ticks -->
+                        <line x1="-30" y1="0" x2="-18" y2="0" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
+                        <line x1="18" y1="0" x2="30" y2="0" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
+                        <line x1="0" y1="-30" x2="0" y2="-18" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
+                        <line x1="0" y1="18" x2="0" y2="30" stroke="var(--hud-color)" stroke-width="1" style="transition: stroke 0.5s ease;" />
+                    </g>
+
+                    <!-- Selector Nodes (Glow Circles & Interactive Labels) -->
+                    <!-- Sparring (data-index 0) -->
+                    <g class="hud-node-group step-hidden" data-index="0" cursor="pointer" transform="translate(250, 80)">
+                        <circle r="8" class="hud-node-dot" />
+                        <text y="-32" text-anchor="middle" class="hud-node-emoji">🧠</text>
+                        <text y="28" text-anchor="middle" class="hud-node-label">SPARRING</text>
+                    </g>
+                    <!-- Kopilot (data-index 1) -->
+                    <g class="hud-node-group step-hidden" data-index="1" cursor="pointer" transform="translate(500, 50)">
+                        <circle r="8" class="hud-node-dot" />
+                        <text y="-32" text-anchor="middle" class="hud-node-emoji">✍️</text>
+                        <text y="28" text-anchor="middle" class="hud-node-label">KOPILOT</text>
+                    </g>
+                    <!-- Pilot (data-index 2) -->
+                    <g class="hud-node-group step-hidden" data-index="2" cursor="pointer" transform="translate(750, 80)">
+                        <circle r="8" class="hud-node-dot" />
+                        <text y="-32" text-anchor="middle" class="hud-node-emoji">🤖</text>
+                        <text y="28" text-anchor="middle" class="hud-node-label">PILOT</text>
+                    </g>
+                </svg>
+            </div>
+        `;
+        
+        // 2. Main Console layout with flanking panels and gauges in center
+        html += `
+            <div class="hud-console">
+                <!-- Left Panel: Dynamic Metrics -->
+                <div class="hud-panel hud-panel-left">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="hud-panel-title">MÄTNING & JURIDIK</div>
+                    
+                    <div class="hud-metric-row">
+                        <div class="hud-metric-label">🧠 KOGNITIV KONTROLL</div>
+                        <div class="hud-metric-value" id="${id}-cognitive-text">100%</div>
+                        <div class="hud-metric-desc">Ditt aktiva professionella omdöme och personliga delaktighet i textskapandet.</div>
                     </div>
                     
-                    <div class="gauge-item">
-                        <div class="gauge-header">
-                            <span class="gauge-label">⚖️ Juridisk Säkerhet (GDPR)</span>
-                            <span class="gauge-value" id="${id}-compliance-val">0%</span>
-                        </div>
-                        <div class="gauge-track">
-                            <div class="gauge-fill" id="${id}-compliance-fill" style="width: 0%;"></div>
-                        </div>
+                    <div class="hud-metric-row">
+                        <div class="hud-metric-label">⚖️ JURIDISK SÄKERHET</div>
+                        <div class="hud-metric-value" id="${id}-compliance-text">100%</div>
+                        <div class="hud-metric-desc">Följsamhet mot sekretessregler, skollagen samt IMY:s riktlinjer för GDPR.</div>
                     </div>
-                    
-                    <!-- Compliance Status Indicator Banner -->
-                    <div class="compliance-indicator">
-                        <div class="compliance-dot"></div>
-                        <div class="compliance-info">
-                            <div class="compliance-label">Sekretess & Myndighetsutövning</div>
-                            <div class="compliance-text" id="${id}-compliance-text">Laddar...</div>
+
+                    <div class="hud-status-banner">
+                        <div class="hud-status-dot"></div>
+                        <div class="hud-status-info">
+                            <div class="hud-status-label">INTEGRITET- & RISKRADAR</div>
+                            <div class="hud-status-desc" id="${id}-status-desc">Laddar...</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right Side: Concrete Examples List -->
-                <div class="dashboard-examples">
-                    <div class="examples-title">
-                        <span class="examples-icon">⚡</span> I PRAKTIKEN FÖR BIN-CHEFEN
+                <!-- Center Dashboard: SVG Concentric Dials -->
+                <div class="hud-panel-center">
+                    <svg class="hud-gauges-svg" viewBox="0 0 240 240">
+                        <!-- Background faint rings -->
+                        <circle cx="120" cy="120" r="85" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6" />
+                        <circle cx="120" cy="120" r="65" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="6" />
+                        
+                        <!-- Concentric grid ticks -->
+                        <line x1="120" y1="15" x2="120" y2="225" stroke="rgba(255,255,255,0.02)" stroke-width="0.5" stroke-dasharray="2 3" />
+                        <line x1="15" y1="120" x2="225" y2="120" stroke="rgba(255,255,255,0.02)" stroke-width="0.5" stroke-dasharray="2 3" />
+                        
+                        <!-- Outer concentric gauge: Cognitive Control -->
+                        <!-- R=85, C=2*PI*85 = 534.07 -->
+                        <circle class="hud-ring" id="${id}-ring-outer" cx="120" cy="120" r="85" fill="none" 
+                                stroke="var(--hud-color)" stroke-width="6" stroke-linecap="round"
+                                stroke-dasharray="534.07" stroke-dashoffset="534.07" transform="rotate(-90 120 120)" />
+                                
+                        <!-- Inner concentric gauge: Compliance Safety -->
+                        <!-- R=65, C=2*PI*65 = 408.41 -->
+                        <circle class="hud-ring" id="${id}-ring-inner" cx="120" cy="120" r="65" fill="none" 
+                                stroke="var(--hud-color)" stroke-width="6" stroke-linecap="round"
+                                stroke-dasharray="408.41" stroke-dashoffset="408.41" transform="rotate(-90 120 120)" />
+                                
+                        <!-- Central Console Text -->
+                        <g transform="translate(120, 120)" text-anchor="middle">
+                            <text class="hud-center-emoji" id="${id}-center-emoji" y="-12" font-size="28" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">🧠</text>
+                            <text class="hud-center-title" id="${id}-center-title" y="20" font-size="12" font-weight="900" fill="#fff" letter-spacing="1.5">SPARRING</text>
+                            <text class="hud-center-subtitle" id="${id}-center-subtitle" y="38" font-size="8.5" font-weight="800" fill="var(--hud-color)" letter-spacing="2">PARTNER</text>
+                        </g>
+                    </svg>
+                    
+                    <div class="hud-alert-label" id="${id}-alert-label">[ MONITOR SPARRING-LÄGE ]</div>
+                </div>
+                
+                <!-- Right Panel: Examples in school context -->
+                <div class="hud-panel hud-panel-right">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="hud-panel-title">I PRAKTIKEN FÖR BIN-CHEFEN</div>
+                    
+                    <div class="hud-mode-description" id="${id}-mode-desc">
+                        Laddar information...
                     </div>
-                    <div class="examples-list" id="${id}-examples-list">
-                        <!-- Dynamic school-level examples dynamically loaded here -->
+                    
+                    <div class="hud-examples-title">⚡ METODISKA EXEMPEL</div>
+                    <div class="hud-examples-list" id="${id}-examples-list">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
             </div>
         `;
         
-        html += `</div>`; // .console-arena
+        html += `</div>`; // .hud-container
+        
+        // Background decorative overlays
+        html += `<div class="hud-radar-sweep"></div>`;
+        html += `<div class="hud-grid-overlay"></div>`;
+        
         html += renderSourcesPopup(s.sources);
         html += `</div>`; // .slide-delegation-radar
         
@@ -4523,81 +4694,113 @@
             const container = document.getElementById(id);
             if (!container) return;
             
-            const cards = container.querySelectorAll('.mode-card');
-            const dashboard = container.querySelector('.console-dashboard');
-            const cognitiveVal = document.getElementById(`${id}-cognitive-val`);
-            const cognitiveFill = document.getElementById(`${id}-cognitive-fill`);
-            const complianceVal = document.getElementById(`${id}-compliance-val`);
-            const complianceFill = document.getElementById(`${id}-compliance-fill`);
+            const nodes = container.querySelectorAll('.hud-node-group');
+            const reticle = document.getElementById(`${id}-reticle`);
+            const outerRing = document.getElementById(`${id}-ring-outer`);
+            const innerRing = document.getElementById(`${id}-ring-inner`);
+            const centerEmoji = document.getElementById(`${id}-center-emoji`);
+            const centerTitle = document.getElementById(`${id}-center-title`);
+            const centerSubtitle = document.getElementById(`${id}-center-subtitle`);
+            const cognitiveText = document.getElementById(`${id}-cognitive-text`);
             const complianceText = document.getElementById(`${id}-compliance-text`);
+            const statusDesc = document.getElementById(`${id}-status-desc`);
+            const modeDesc = document.getElementById(`${id}-mode-desc`);
+            const alertLabel = document.getElementById(`${id}-alert-label`);
             const examplesList = document.getElementById(`${id}-examples-list`);
+            const subtitle = document.getElementById(`${id}-subtitle`);
             
-            const itemsData = s.items || [];
+            const leftPanel = container.querySelector('.hud-panel-left');
+            const rightPanel = container.querySelector('.hud-panel-right');
+            
+            const outerCirc = 2 * Math.PI * 85; // 534.07
+            const innerCirc = 2 * Math.PI * 65; // 408.41
+            
+            const reticleX = [250, 500, 750];
+            const reticleY = [80, 50, 80];
+            const centerSubtitles = ['PARTNER', 'REDAKTÖR', 'AUTOMATION'];
+            const centerTitles = ['SPARRING', 'KOPILOT', 'PILOT'];
             
             function activateMode(index) {
-                if (index < 0 || index >= cards.length) return;
+                if (index < 0 || index >= items.length) return;
                 
-                // 1. Update active card state
-                cards.forEach((c, idx) => {
+                // 1. Update node active states
+                nodes.forEach((n, idx) => {
                     if (idx === index) {
-                        c.classList.add('active');
+                        n.classList.add('active');
                     } else {
-                        c.classList.remove('active');
+                        n.classList.remove('active');
                     }
                 });
                 
                 // 2. Update dashboard container themes
                 container.classList.remove('theme-sparring', 'theme-kopilot', 'theme-pilot');
-                dashboard.classList.remove('active-red');
                 
                 if (index === 0) {
                     container.classList.add('theme-sparring');
+                    subtitle.innerText = "SPARRING: AI som ditt kognitiva bollplank";
+                    alertLabel.innerText = "[ MONITOR SPARRING-LÄGE ]";
                 } else if (index === 1) {
                     container.classList.add('theme-kopilot');
+                    subtitle.innerText = "KOPILOT: AI som din redaktör och språkhjälp";
+                    alertLabel.innerText = "[ MONITOR KOPILOT-LÄGE ]";
                 } else if (index === 2) {
                     container.classList.add('theme-pilot');
-                    dashboard.classList.add('active-red');
+                    subtitle.innerText = "PILOT: Fullständig automation — risk för ansvarsavsägelse";
+                    alertLabel.innerText = "[ RISK: SEKRETESS-BARRIÄR FLÄCKAD ]";
                 }
                 
                 // 3. Retrieve dynamic values
-                const data = itemsData[index];
+                const data = items[index];
                 if (!data) return;
                 
-                // Kognitiv Kontroll
-                cognitiveVal.innerText = data.cognitive + '%';
-                cognitiveFill.style.width = data.cognitive + '%';
+                // Cognitive Control Ring
+                const cogPercent = data.cognitive || 0;
+                cognitiveText.innerText = cogPercent + '%';
+                const outerOffset = outerCirc - (cogPercent / 100) * outerCirc;
+                outerRing.style.strokeDashoffset = outerOffset;
                 
-                // Juridisk Säkerhet
+                // Legal Compliance Ring
                 const compPercent = (index === 0) ? 100 : (index === 1 ? 80 : 10);
-                complianceVal.innerText = compPercent + '%';
-                complianceFill.style.width = compPercent + '%';
+                complianceText.innerText = compPercent + '%';
+                const innerOffset = innerCirc - (compPercent / 100) * innerCirc;
+                innerRing.style.strokeDashoffset = innerOffset;
                 
-                // Compliance Text
-                complianceText.innerText = data.compliance || '';
+                // Status Description & description text
+                statusDesc.innerText = data.compliance || '';
+                modeDesc.innerText = data.text || '';
+                
+                // SVG Central Texts
+                centerEmoji.textContent = data.icon || '🧠';
+                centerTitle.textContent = centerTitles[index];
+                centerSubtitle.textContent = centerSubtitles[index];
+                
+                // Translate SVG target reticle
+                reticle.setAttribute('transform', `translate(${reticleX[index]}, ${reticleY[index]})`);
                 
                 // 4. Update school examples list with smooth entrance animations
                 examplesList.innerHTML = '';
                 const examples = data.examples || [];
                 examples.forEach((ex, idx) => {
                     const li = document.createElement('div');
-                    li.className = 'example-item';
+                    li.className = 'hud-example-item';
                     li.innerText = ex;
                     examplesList.appendChild(li);
                     
                     // Staggered entry animation
                     setTimeout(() => {
                         li.classList.add('visible');
-                    }, idx * 120);
+                    }, idx * 100);
                 });
             }
             
             let currentStep = 0;
             
-            // Show the first card (Sparring) automatically after a short delay
+            // Show the first node (Sparring) automatically after a short delay
             setTimeout(() => {
-                if (cards.length > 0) {
-                    cards[0].classList.remove('step-hidden');
-                    dashboard.classList.add('visible');
+                if (nodes.length > 0) {
+                    nodes[0].classList.add('step-hidden-remove');
+                    leftPanel.classList.add('visible');
+                    rightPanel.classList.add('visible');
                     activateMode(0);
                 }
                 currentStep = 1;
@@ -4605,23 +4808,23 @@
             
             // Step-by-step reveal handler on slide click
             container.addEventListener('click', (e) => {
-                if (currentStep < cards.length) {
+                if (currentStep < nodes.length) {
                     e.stopPropagation();
-                    cards[currentStep].classList.remove('step-hidden');
+                    nodes[currentStep].classList.add('step-hidden-remove');
                     activateMode(currentStep);
                     currentStep++;
                     
-                    if (currentStep === cards.length) {
-                        // All cards are now revealed! Remove the slide-blocking class
+                    if (currentStep === nodes.length) {
+                        // All nodes are now revealed! Remove the slide-blocking class
                         container.classList.remove('no-click-advance');
                     }
                 }
             });
             
-            // Allow manual exploration of already revealed cards
-            cards.forEach((card, idx) => {
-                card.addEventListener('click', (e) => {
-                    if (!card.classList.contains('step-hidden')) {
+            // Allow manual exploration of already revealed nodes
+            nodes.forEach((node, idx) => {
+                node.addEventListener('click', (e) => {
+                    if (node.classList.contains('step-hidden-remove')) {
                         e.stopPropagation(); // Stop click from triggering next global slide step
                         activateMode(idx);
                     }

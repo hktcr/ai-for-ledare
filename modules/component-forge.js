@@ -7828,7 +7828,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     navigator.clipboard.writeText(txt).then(() => {
                         btnCopy.innerHTML = '✅ Kopierat!';
                         btnCopy.classList.add('success');
-                        setTimeout(() => { btnCopy.innerHTML = '📋 Kopiera till urklipp'; btnCopy.classList.remove('success'); }, 2500);
+                        setTimeout(() => {
+                            btnCopy.innerHTML = '📋 Kopiera till urklipp';
+                            btnCopy.classList.remove('success');
+                        }, 2500);
                     }).catch(() => {
                         const ta = document.createElement('textarea');
                         ta.value = txt;
@@ -7838,7 +7841,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         document.body.removeChild(ta);
                         btnCopy.innerHTML = '✅ Kopierat!';
                         btnCopy.classList.add('success');
-                        setTimeout(() => { btnCopy.innerHTML = '📋 Kopiera till urklipp'; btnCopy.classList.remove('success'); }, 2500);
+                        setTimeout(() => {
+                            btnCopy.innerHTML = '📋 Kopiera till urklipp';
+                            btnCopy.classList.remove('success');
+                        }, 2500);
                     });
                 });
             }
@@ -7850,222 +7856,21 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
     function renderTitleAstorp(s) {
         const id = 'ta-container-' + Math.random().toString(36).slice(2, 8);
         
-        // Initialize the canvas animation after element is rendered in DOM
-        setTimeout(() => {
-            const container = document.getElementById(id);
-            if (!container) return;
-            const canvas = container.querySelector('.ta-logo-canvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let width = canvas.width = canvas.offsetWidth;
-            let height = canvas.height = canvas.offsetHeight;
-            
-            const resizeObserver = new ResizeObserver(() => {
-                if (!canvas) return;
-                width = canvas.width = canvas.offsetWidth;
-                height = canvas.height = canvas.offsetHeight;
-            });
-            resizeObserver.observe(canvas);
-            
-            const particles = [];
-            const orbitRadius = Math.min(width, height) * 0.38;
-            
-            for (let i = 0; i < 45; i++) {
-                particles.push({
-                    angle: Math.random() * Math.PI * 2,
-                    radius: orbitRadius + (Math.random() - 0.5) * 60,
-                    speed: (Math.random() * 0.003 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
-                    size: Math.random() * 2 + 1,
-                    opacity: Math.random() * 0.5 + 0.2,
-                    color: Math.random() > 0.6 ? '#8b1d41' : '#ffd700'
-                });
-            }
-
-            // Create some binary/hex streams crawling upwards
-            const binaryStreams = [];
-            for (let i = 0; i < 10; i++) {
-                binaryStreams.push({
-                    x: (Math.random() - 0.5) * (orbitRadius * 1.6), // horizontal spread
-                    y: height * 0.2 + Math.random() * height * 0.6,
-                    speed: Math.random() * 0.8 + 0.4,
-                    chars: Array.from({length: 5}, () => Math.random() > 0.5 ? '1' : '0'),
-                    charOpacity: Math.random() * 0.35 + 0.1,
-                    changeTimer: 0
-                });
-            }
-            
-            let active = true;
-            let time = 0;
-            
-            function animate() {
-                if (!active) return;
-                if (!document.body.contains(canvas)) {
-                    active = false;
-                    resizeObserver.disconnect();
-                    return;
-                }
-                ctx.clearRect(0, 0, width, height);
-                time += 1;
-                
-                // Draw grid
-                ctx.strokeStyle = 'rgba(139, 29, 65, 0.04)';
-                ctx.lineWidth = 1;
-                const gridSize = 30;
-                for (let x = 0; x < width; x += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, height);
-                    ctx.stroke();
-                }
-                for (let y = 0; y < height; y += gridSize) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(width, y);
-                    ctx.stroke();
-                }
-
-                const centerX = width / 2;
-                const centerY = height / 2;
-
-                // Draw projector cone radiating upwards from bottom
-                ctx.save();
-                const gradProj = ctx.createLinearGradient(centerX, height, centerX, centerY);
-                gradProj.addColorStop(0, 'rgba(255, 42, 109, 0)');
-                gradProj.addColorStop(0.5, 'rgba(139, 29, 65, 0.06)');
-                gradProj.addColorStop(1, 'rgba(255, 215, 0, 0)');
-                
-                ctx.beginPath();
-                ctx.moveTo(centerX - 35, height);
-                ctx.lineTo(centerX + 35, height);
-                ctx.lineTo(centerX + orbitRadius * 0.7, centerY);
-                ctx.lineTo(centerX - orbitRadius * 0.7, centerY);
-                ctx.closePath();
-                ctx.fillStyle = gradProj;
-                ctx.fill();
-                ctx.restore();
-
-                // Draw thin telemetry crosshairs
-                ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
-                ctx.lineWidth = 1;
-                const crossInner = orbitRadius * 0.52;
-                const crossOuter = orbitRadius * 0.88;
-                
-                ctx.beginPath();
-                // Vertical lines
-                ctx.moveTo(centerX, centerY - crossOuter);
-                ctx.lineTo(centerX, centerY - crossInner);
-                ctx.moveTo(centerX, centerY + crossInner);
-                ctx.lineTo(centerX, centerY + crossOuter);
-                // Horizontal lines
-                ctx.moveTo(centerX - crossOuter, centerY);
-                ctx.lineTo(centerX - crossInner, centerY);
-                ctx.moveTo(centerX + crossInner, centerY);
-                ctx.lineTo(centerX + crossOuter, centerY);
-                ctx.stroke();
-
-                // Draw Concentric Rotating Ticks Disc
-                ctx.save();
-                ctx.translate(centerX, centerY);
-                ctx.rotate(time * 0.002);
-                
-                ctx.strokeStyle = 'rgba(255, 42, 109, 0.18)';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.arc(0, 0, orbitRadius * 0.75, 0, Math.PI * 2);
-                ctx.stroke();
-                
-                ctx.strokeStyle = 'rgba(255, 215, 0, 0.25)';
-                const tickCount = 36;
-                for (let i = 0; i < tickCount; i++) {
-                    const angle = (i / tickCount) * Math.PI * 2;
-                    const cos = Math.cos(angle);
-                    const sin = Math.sin(angle);
-                    const innerR = orbitRadius * 0.73;
-                    const outerR = orbitRadius * 0.77;
-                    ctx.beginPath();
-                    ctx.moveTo(cos * innerR, sin * innerR);
-                    ctx.lineTo(cos * outerR, sin * outerR);
-                    ctx.stroke();
-                }
-                ctx.restore();
-
-                // Draw crawling binary codes
-                ctx.save();
-                ctx.font = '8px monospace';
-                ctx.fillStyle = 'rgba(0, 255, 255, 0.35)';
-                binaryStreams.forEach(stream => {
-                    stream.y -= stream.speed;
-                    if (stream.y < centerY - orbitRadius * 0.85) {
-                        stream.y = centerY + orbitRadius * 0.85 + Math.random() * 40;
-                        stream.x = (Math.random() - 0.5) * (orbitRadius * 1.6);
-                    }
-                    
-                    stream.changeTimer++;
-                    if (stream.changeTimer > 18) {
-                        stream.chars.shift();
-                        stream.chars.push(Math.random() > 0.5 ? '1' : '0');
-                        stream.changeTimer = 0;
-                    }
-                    
-                    ctx.globalAlpha = stream.charOpacity * (1 - Math.abs(stream.y - centerY) / (orbitRadius * 0.85));
-                    const drawX = centerX + stream.x;
-                    let drawY = stream.y;
-                    
-                    stream.chars.forEach((char, index) => {
-                        ctx.fillText(char, drawX, drawY + index * 10);
-                    });
-                });
-                ctx.restore();
-                ctx.globalAlpha = 1.0;
-                
-                // Update & Draw particles in orbit around the center logo
-                particles.forEach(p => {
-                    p.angle += p.speed;
-                    const x = centerX + Math.cos(p.angle) * p.radius;
-                    const y = centerY + Math.sin(p.angle) * p.radius;
-                    
-                    ctx.beginPath();
-                    ctx.arc(x, y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    ctx.globalAlpha = p.opacity;
-                    ctx.fill();
-                    
-                    // Connect close particles
-                    particles.forEach(p2 => {
-                        const x2 = centerX + Math.cos(p2.angle) * p2.radius;
-                        const y2 = centerY + Math.sin(p2.angle) * p2.radius;
-                        const dist = Math.hypot(x - x2, y - y2);
-                        if (dist < 75) {
-                            ctx.beginPath();
-                            ctx.moveTo(x, y);
-                            ctx.lineTo(x2, y2);
-                            ctx.strokeStyle = p.color;
-                            ctx.globalAlpha = (1 - dist / 75) * 0.12 * p.opacity;
-                            ctx.stroke();
-                        }
-                    });
-                });
-                
-                requestAnimationFrame(animate);
-            }
-            animate();
-        }, 200);
-
-        // Compile dynamic footer elements based on presenter existence
+        const presenterName = s.presenter?.name || 'Håkan Karlsson';
+        const presenterTitle = s.presenter?.title || 'Kommunlektor';
+        
         const footerItems = [];
-        if (s.presenter?.name) {
-            footerItems.push(`
-                <div class="ta-footer-item">
-                    <span class="ta-footer-label">FÖRELÄSARE</span>
-                    <span class="ta-footer-val">${s.presenter.name}</span>
-                </div>
-            `);
-        }
-        if (s.presenter?.title) {
+        footerItems.push(`
+            <div class="ta-footer-item">
+                <span class="ta-footer-label">FÖRELÄSARE</span>
+                <span class="ta-footer-val">${presenterName}</span>
+            </div>
+        `);
+        if (presenterTitle) {
             footerItems.push(`
                 <div class="ta-footer-item">
                     <span class="ta-footer-label">ROLL</span>
-                    <span class="ta-footer-val">${s.presenter.title}</span>
+                    <span class="ta-footer-val">${presenterTitle}</span>
                 </div>
             `);
         }
@@ -8078,6 +7883,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         
         const footerHtml = footerItems.join('<div class="ta-divider"></div>');
 
+        const rawTitle = s.title || 'Chefsgruppens AI-resa';
+        const formattedTitle = rawTitle.replace(/(AI-resa|AI-workshop)/g, '<span>$1</span>');
+
         return `
             <style>
                 .slide-title-astorp {
@@ -8087,238 +7895,78 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     justify-content: center;
                     width: 100%;
                     height: 100%;
-                    padding: 4cqh 6cqw;
+                    padding: 4cqh 8cqw;
                     box-sizing: border-box;
-                    gap: 5cqw;
+                    gap: 8cqw;
                     position: relative;
                     overflow: hidden;
-                    background: var(--bg);
+                    background: radial-gradient(circle at 35% 50%, #8b1d41 0%, #440a1b 60%, #170107 100%);
+                    color: #ffffff;
+                    perspective: 1000px;
                 }
-                .slide-title-astorp::before {
-                    content: " ";
-                    display: block;
-                    position: absolute;
-                    top: 0; left: 0; bottom: 0; right: 0;
-                    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-                    z-index: 2;
-                    background-size: 100% 2px, 3px 100%;
-                    pointer-events: none;
-                }
-                .slide-title-astorp::after {
-                    content: "";
-                    position: absolute;
-                    width: 100%;
-                    height: 5px;
-                    background: rgba(255, 42, 109, 0.2);
-                    box-shadow: 0 0 10px rgba(255, 42, 109, 0.8);
-                    top: 0; left: 0;
-                    animation: ta-scanline 6s linear infinite;
-                    z-index: 3;
-                    pointer-events: none;
-                }
-                @keyframes ta-scanline {
-                    0% { top: -5%; }
-                    100% { top: 105%; }
-                }
+                
                 .ta-logo-side {
-                    flex: 0 0 32cqw;
+                    flex: 0 0 28cqw;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
+                
                 .ta-logo-container {
                     position: relative;
-                    width: 28cqw;
-                    height: 28cqw;
+                    width: 26cqw;
+                    height: 26cqw;
+                    border-radius: 50%;
+                    background: rgba(139, 29, 65, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.03);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                }
-                .ta-logo-canvas {
-                    position: absolute;
-                    top: -15%; left: -15%; bottom: -15%; right: -15%;
-                    width: 130%;
-                    height: 130%;
-                    pointer-events: none;
-                    z-index: 1;
-                }
-                .ta-hud-ring-outer {
-                    position: absolute;
-                    width: 112%;
-                    height: 112%;
-                    border: 1px solid rgba(255, 215, 0, 0.15);
-                    border-top: 3px solid var(--accent2, #ffd700);
-                    border-bottom: 3px solid var(--accent2, #ffd700);
-                    border-radius: 50%;
-                    opacity: 0.4;
-                    animation: ta-spin-cw 20s linear infinite;
-                    pointer-events: none;
-                    z-index: 2;
-                }
-                .ta-hud-ring-inner {
-                    position: absolute;
-                    width: 92%;
-                    height: 92%;
-                    border: 1px dashed var(--accent);
-                    border-left: 2px solid var(--accent);
-                    border-right: 2px solid var(--accent);
-                    border-radius: 50%;
-                    opacity: 0.5;
-                    animation: ta-spin-ccw 12s linear infinite;
-                    pointer-events: none;
-                    z-index: 2;
+                    box-shadow: 
+                        inset 0 10px 25px rgba(0, 0, 0, 0.85),
+                        inset 0 2px 6px rgba(0, 0, 0, 0.6),
+                        0 4px 12px rgba(0, 0, 0, 0.2);
+                    transform-style: preserve-3d;
                 }
                 
                 .ta-logo-wrapper {
                     position: relative;
-                    width: 70%;
-                    height: 70%;
+                    width: 60%;
+                    height: 60%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     z-index: 3;
+                    animation: ta-logo-float-3d 6s ease-in-out infinite;
+                    transform-style: preserve-3d;
                 }
+                
+                @keyframes ta-logo-float-3d {
+                    0% {
+                        transform: translate3d(0, 0, 0) scale(0.96) rotate(0deg);
+                        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.65));
+                        opacity: 0.8;
+                    }
+                    50% {
+                        transform: translate3d(0, -10px, 30px) scale(1.04) rotate(0.5deg);
+                        filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.15));
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translate3d(0, 0, 0) scale(0.96) rotate(0deg);
+                        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.65));
+                        opacity: 0.8;
+                    }
+                }
+                
                 .ta-logo-img {
                     width: 100%;
                     height: auto;
                     max-height: 80cqh;
-                    filter: drop-shadow(0 0 2cqw rgba(139, 29, 65, 0.45));
-                    animation: ta-holo-glitch 6s ease-in-out infinite;
                     position: relative;
                     z-index: 3;
                 }
-                .ta-logo-shine {
-                    position: absolute;
-                    top: 0; left: 0; width: 100%; height: 100%;
-                    pointer-events: none;
-                    z-index: 4;
-                    mix-blend-mode: color-dodge;
-                    opacity: 0;
-                }
-                .ta-shine-gold {
-                    -webkit-mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
-                    mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
-                    -webkit-mask-size: 250% 100%;
-                    mask-size: 250% 100%;
-                    filter: brightness(2) sepia(1) saturate(5) hue-rotate(15deg);
-                    animation: ta-shine-sweep-1 6s ease-in-out infinite;
-                }
-                .ta-shine-accent {
-                    -webkit-mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
-                    mask: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.85) 50%, transparent 70%);
-                    -webkit-mask-size: 250% 100%;
-                    mask-size: 250% 100%;
-                    filter: brightness(2.5) drop-shadow(0 0 1cqw var(--accent));
-                    animation: ta-shine-sweep-2 6s ease-in-out infinite 3s;
-                }
-                @keyframes ta-shine-sweep-1 {
-                    0% { -webkit-mask-position: 150% 0; mask-position: 150% 0; opacity: 0; }
-                    10% { opacity: 0.85; }
-                    40% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0.85; }
-                    50%, 100% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0; }
-                }
-                @keyframes ta-shine-sweep-2 {
-                    0% { -webkit-mask-position: 150% 0; mask-position: 150% 0; opacity: 0; }
-                    10% { opacity: 0.85; }
-                    40% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0.85; }
-                    50%, 100% { -webkit-mask-position: -50% 0; mask-position: -50% 0; opacity: 0; }
-                }
                 
-                .ta-logo-overlay {
-                    position: absolute;
-                    width: 70%;
-                    height: 90%;
-                    pointer-events: none;
-                    z-index: 4;
-                    overflow: hidden;
-                    border-radius: 8px;
-                }
-                .ta-laser-bar {
-                    position: absolute;
-                    width: 100%;
-                    height: 2px;
-                    background: linear-gradient(90deg, transparent, var(--accent2, #ffd700), transparent);
-                    box-shadow: 0 0 8px var(--accent2, #ffd700);
-                    top: 0;
-                    animation: ta-laser-move 4s ease-in-out infinite;
-                }
-                @keyframes ta-laser-move {
-                    0% { top: 0%; opacity: 0; }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { top: 100%; opacity: 0; }
-                }
-                @keyframes ta-holo-glitch {
-                    /* Pulse Phase */
-                    0% {
-                        transform: scale(1) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
-                    }
-                    30% {
-                        transform: scale(1.025) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 2.5cqw rgba(139, 29, 65, 0.55)) brightness(1.05);
-                    }
-                    60% {
-                        transform: scale(1) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
-                    }
-                    /* Micro Glitch Phase */
-                    88% {
-                        transform: scale(1) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
-                        opacity: 1;
-                    }
-                    89% {
-                        transform: scale(1.04) translate(-4px, 2px) skewX(-6deg);
-                        filter: drop-shadow(-5px 0 0 rgba(0, 255, 255, 0.7)) drop-shadow(5px 0 0 rgba(255, 42, 109, 0.7)) brightness(1.4);
-                        opacity: 0.9;
-                    }
-                    90% {
-                        transform: scale(0.97) translate(3px, -2px) skewX(5deg);
-                        filter: drop-shadow(-3px 0 0 rgba(255, 215, 0, 0.8)) drop-shadow(3px 0 0 rgba(139, 29, 65, 0.8)) brightness(1.25);
-                        opacity: 0.85;
-                    }
-                    91% {
-                        transform: scale(1.01) translate(0) skewX(0deg);
-                        filter: drop-shadow(0 0 2cqw rgba(139, 29, 65, 0.45)) brightness(1);
-                        opacity: 1;
-                    }
-                    95% {
-                        transform: scale(1) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
-                        opacity: 1;
-                    }
-                    96% {
-                        transform: scale(1.03) translate(-2px, -3px) skewX(4deg);
-                        filter: drop-shadow(-4px 0 0 rgba(0, 255, 255, 0.6)) drop-shadow(4px 0 0 rgba(255, 42, 109, 0.6)) brightness(1.35);
-                        opacity: 0.92;
-                    }
-                    97% {
-                        transform: scale(0.98) translate(2px, 3px) skewX(-4deg);
-                        filter: drop-shadow(-2px 0 0 rgba(255, 215, 0, 0.7)) drop-shadow(2px 0 0 rgba(139, 29, 65, 0.7)) brightness(1.15);
-                        opacity: 0.95;
-                    }
-                    98%, 100% {
-                        transform: scale(1) translate(0) skew(0deg);
-                        filter: drop-shadow(0 0 1.5cqw rgba(139, 29, 65, 0.35)) brightness(1);
-                        opacity: 1;
-                    }
-                }
-                .ta-telemetry {
-                    position: absolute;
-                    font-family: monospace;
-                    font-size: clamp(0.5rem, 1.2cqh, 0.75rem);
-                    color: var(--accent2, #ffd700);
-                    opacity: 0.6;
-                    text-transform: uppercase;
-                    pointer-events: none;
-                    z-index: 5;
-                }
-                .ta-tel-tl { top: -5%; left: -10%; }
-                .ta-tel-tr { top: -5%; right: -10%; text-align: right; }
-                .ta-tel-bl { bottom: -5%; left: -10%; }
-                .ta-tel-br { bottom: -5%; right: -10%; text-align: right; }
-
                 .ta-text-side {
                     flex: 1;
                     display: flex;
@@ -8328,110 +7976,90 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     text-align: left;
                     z-index: 5;
                 }
+                
                 .ta-badge {
-                    font-size: clamp(0.7rem, 1.8cqh, 1.1rem);
-                    font-weight: 800;
-                    color: var(--accent2, #ffd700);
+                    font-size: clamp(0.75rem, 1.6cqh, 0.95rem);
+                    font-weight: 600;
+                    color: rgba(255, 215, 0, 0.8);
                     text-transform: uppercase;
-                    letter-spacing: 0.3em;
-                    margin-bottom: 2cqh;
-                    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-                    animation: ta-pulse 2s infinite alternate;
+                    letter-spacing: 0.4em;
+                    margin-bottom: 2.5cqh;
+                    text-shadow: 0 0 10px rgba(255, 215, 0, 0.15);
                 }
-                @keyframes ta-pulse {
-                    0% { opacity: 0.7; text-shadow: 0 0 5px rgba(255, 215, 0, 0.2); }
-                    100% { opacity: 1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6); }
-                }
+                
                 .ta-title {
-                    font-size: clamp(2rem, 6cqh, 3.8rem);
-                    font-weight: 900;
-                    line-height: 1.1;
-                    color: var(--text);
+                    font-size: clamp(2.4rem, 6.5cqh, 4.2rem);
+                    font-weight: 800;
+                    line-height: 1.15;
+                    color: #ffffff;
                     margin-bottom: 2.5cqh;
                     letter-spacing: -0.02em;
                 }
+                
                 .ta-title span {
-                    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2, #ffd700) 100%);
+                    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
-                    filter: drop-shadow(0 0 10px rgba(139, 29, 65, 0.3));
+                    filter: drop-shadow(0 2px 10px rgba(255, 215, 0, 0.2));
                 }
+                
                 .ta-subtitle {
-                    font-size: clamp(1rem, 3.2cqh, 1.5rem);
-                    color: var(--text-muted);
-                    line-height: 1.4;
-                    margin-bottom: 4cqh;
+                    font-size: clamp(1.1rem, 2.8cqh, 1.55rem);
+                    color: rgba(255, 255, 255, 0.75);
+                    line-height: 1.45;
+                    margin-bottom: 5cqh;
                     max-width: 90%;
-                    font-weight: 500;
+                    font-weight: 400;
                 }
+                
                 .ta-footer {
                     display: flex;
                     align-items: center;
-                    gap: 1.5cqw;
-                    padding-top: 3cqh;
-                    border-top: 1px solid rgba(255,255,255,0.1);
+                    gap: 2.5cqw;
+                    padding-top: 4cqh;
+                    border-top: 1px solid rgba(255, 255, 255, 0.08);
                     width: 100%;
                 }
+                
                 .ta-footer-item {
                     display: flex;
                     flex-direction: column;
                 }
+                
                 .ta-footer-label {
-                    font-size: clamp(0.55rem, 1.4cqh, 0.75rem);
+                    font-size: clamp(0.55rem, 1.3cqh, 0.7rem);
                     text-transform: uppercase;
-                    letter-spacing: 0.1em;
-                    color: var(--accent);
-                    font-weight: 700;
-                    margin-bottom: 0.3cqh;
-                }
-                .ta-footer-val {
-                    font-size: clamp(0.75rem, 2cqh, 1.05rem);
-                    color: var(--text);
+                    letter-spacing: 0.15em;
+                    color: rgba(255, 215, 0, 0.55);
                     font-weight: 600;
+                    margin-bottom: 0.5cqh;
                 }
+                
+                .ta-footer-val {
+                    font-size: clamp(0.8rem, 1.8cqh, 1rem);
+                    color: rgba(255, 255, 255, 0.9);
+                    font-weight: 500;
+                }
+                
                 .ta-divider {
                     width: 1px;
-                    height: 4cqh;
-                    background: rgba(255,255,255,0.15);
-                }
-                @keyframes ta-spin-cw {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-                @keyframes ta-spin-ccw {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(-360deg); }
+                    height: 3cqh;
+                    background: rgba(255, 255, 255, 0.1);
                 }
             </style>
             
             <div class="slide-title-astorp" id="${id}">
                 <div class="ta-logo-side">
                     <div class="ta-logo-container">
-                        <canvas class="ta-logo-canvas"></canvas>
-                        
-                        <div class="ta-hud-ring-outer"></div>
-                        <div class="ta-hud-ring-inner"></div>
-                        
-                        <div class="ta-logo-overlay">
-                            <div class="ta-laser-bar"></div>
-                        </div>
-                        
                         <div class="ta-logo-wrapper">
                             <img src="assets/astorp_logo.svg" class="ta-logo-img" alt="Åstorps logotyp" />
-                            <img src="assets/astorp_logo.svg" class="ta-logo-shine ta-shine-gold" alt="" />
-                            <img src="assets/astorp_logo.svg" class="ta-logo-shine ta-shine-accent" alt="" />
                         </div>
-                        
-                        <div class="ta-telemetry ta-tel-tl">SYS.LOC // 56.1347° N</div>
-                        <div class="ta-telemetry ta-tel-tr">SYS.LON // 12.9458° E</div>
-                        <div class="ta-telemetry ta-tel-bl">COGNITIVE.ACTIVE</div>
-                        <div class="ta-telemetry ta-tel-br">SEC.ISOLATED // GDPR</div>
                     </div>
                 </div>
                 <div class="ta-text-side">
-                    <div class="ta-badge">ÅSTORPS KOMMUN • BIN WORKSHOP</div>
+                    <div class="ta-badge">ÅSTORPS KOMMUN</div>
                     <h1 class="ta-title">
-                        AI för BIN:s <span>chefer</span>
+                        ${formattedTitle}
                     </h1>
                     <p class="ta-subtitle">${s.subtitle || 'Från chattbottar till autonoma agenter'}</p>
                     <div class="ta-footer">
@@ -8441,6 +8069,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             </div>
         `;
     }
+
 
     const allTypes = {
         'title-astorp': renderTitleAstorp,

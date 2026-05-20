@@ -2991,16 +2991,22 @@
         }
         .cgp-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
             flex-grow: 1;
             padding-bottom: 0.5rem;
+            overflow-y: auto;
+            max-height: 68vh;
         }
         @media (max-width: 1024px) {
             .cgp-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(4, 1fr);
+                max-height: 70vh;
+            }
+        }
+        @media (max-width: 640px) {
+            .cgp-grid {
+                grid-template-columns: 1fr;
             }
         }
         .cgp-card {

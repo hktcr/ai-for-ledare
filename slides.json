@@ -1402,6 +1402,19 @@
           "prompt": "Här är ett argt mejl från en vårdnadshavare:\n[KLISTRA IN MEJLET]\n\nAnalysera mejlet och dela upp det i:\n1. Sakliga påståenden och krav.\n2. Känslomässiga uttryck.\n\nHjälp mig att formulera ett empatiskt, lugnt och professionellt svar som förklarar skolans beslut utifrån Skollagen kapitel 3 (betyg och stöd), men utan att gå i försvarsställning. Svaret ska vara formellt korrekt men varmt i tonen."
         },
         {
+          "id": "H",
+          "badge": "CASE H: LÄXUTMANINGEN",
+          "title": "Läxutmaningen",
+          "description": "Använd AI som ett 360-graders beslutsstöd för att belysa infekterade intressekonflikter och utforma en evidensbaserad läxpolicy.",
+          "challenge": "Inför ett stundande utvecklingsmöte ska skolledningen fatta beslut om en ny policy för läxor. Frågan är djupt infekterad: lärarna upplever tidsbrist och kräver läxor, föräldrar klagar på stress vid köksbordet, och elevhälsan varnar för psykisk ohälsa och ökade klyftor. Hur kan rektorn använda AI som strategiskt beslutsstöd för att belysa frågan ur 360 grader, värdera forskningens faktiska effektstorlekar (inklusive åldersskillnader) och navigera förbi låsta skyttegravspositioner?",
+          "questions": [
+            "Perspektivskifte: Hur kan vi låta AI simulera röster och intressen (t.ex. forskaren, psykologen, sociologen och läraren) som normalt inte möts vid samma bord?",
+            "Källkritik & Hallucinationer: Hur upptäcker och hanterar vi felaktiga länkar eller fabricerade studier när vi ber AI om forskningsstöd?",
+            "Syntes: Hur kan AI hjälpa oss att gå från låsta positioner till en konkret policy (t.ex. max 70 minuters läxor för äldre, noll för yngre, och fokus på självreglering)?"
+          ],
+          "prompt": "Du är en expertpanel bestående av en skolforskare (evidensfokus), en erfaren mellanstadielärare (pedagogiskt fokus), en barnpsykolog (hälsocentralt fokus) och en sociolog (likvärdighetsfokus). \nInitiera en koordinator som leder samtalet.\n\nVi ska utforma en ny, balanserad läxpolicy för vår grundskola (F–9).\nLåt experterna ge sina oberoende perspektiv på läxors för- och nackdelar.\n\nGör följande:\n1. Utför en 360-analys där varje expert presenterar sina tre starkaste argument utifrån sin yrkesroll.\n2. Låt experterna sparra mot varandra: Låt skolforskarens evidens om effektstorlekar krocka med lärarens tidsbrist och sociologens krav på likvärdighet.\n3. Koka ner diskussionen till ett konkret, genomförbart policydokument med 5 tydliga spelregler (inklusive maxtider för olika åldersgrupper och rekommendationer för hemmiljö)."
+        },
+        {
           "type": "motivation",
           "title": "Håll i ratten!",
           "text": "Välj din utmaning och sparras med Gemini. Kom ihåg att hålla i ratten – det är ditt unika ledarskap, ditt professionella omdöme och ditt legala ansvar som styr maskinen. Du är dirigenten!"

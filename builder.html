@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlideCraft Studio — Slide-byggare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: radial-gradient(circle at center, #0a081a 0%, #010103 100%);
+            --surface: rgba(15, 12, 35, 0.6);
+            --surface-hover: rgba(25, 20, 55, 0.8);
+            --accent: #f97316;
+            --accent-glow: rgba(249, 115, 22, 0.25);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.18);
+            --terminal-bg: rgba(5, 4, 12, 0.85);
+            --green: #10b981;
+            --yellow: #fbbf24;
+            --red: #ef4444;
+            --blue: #38bdf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* === HEADER === */
+        header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(1, 1, 3, 0.4);
+            z-index: 10;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-symbol {
+            font-size: 1.8rem;
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header-title h1 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        .header-title h1 span {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .header-title p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+        }
+
+        /* === MAIN LAYOUT === */
+        .workspace {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            min-height: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .workspace {
+                grid-template-columns: 1fr 1.2fr;
+            }
+        }
+
+        /* === LEFT COLUMN: FORM === */
+        .form-column {
+            padding: 2rem;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            max-height: calc(100vh - 75px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .selector-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .selector-group label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.2s ease;
+        }
+
+        .select-wrapper select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .layout-description {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .form-section {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .form-section-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="number"],
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .input-helper {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        /* === DYNAMIC ARRAY FIELDS === */
+        .array-field-container {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.01);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .array-field-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .array-field-header h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .array-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .array-item-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .array-item-row input {
+            flex: 1;
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            color: var(--text);
+            border-color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-icon.btn-delete:hover {
+            color: #fff;
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        .btn-add-item {
+            padding: 0.4rem 0.8rem;
+            border: 1px dashed var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn-add-item:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(249, 115, 22, 0.02);
+        }
+
+        /* === NESTED OBJECT CARD === */
+        .object-card {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 8px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .object-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .object-card-title {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* === RIGHT COLUMN: PREVIEW === */
+        .preview-column {
+            padding: 2rem;
+            background: rgba(1, 1, 4, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: calc(100vh - 75px);
+            overflow-y: auto;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 0.4rem 0.9rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+        }
+
+        .tab-btn.active {
+            background: var(--surface);
+            color: #fff;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .panel-container {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-panel {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .preview-panel.active {
+            display: flex;
+        }
+
+        /* VISUAL MOCKUP TAB */
+        .visual-mockup-wrapper {
+            background: radial-gradient(circle at center, rgba(16, 12, 45, 0.6) 0%, rgba(2, 2, 5, 0.98) 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            aspect-ratio: 16/9;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+        }
+
+        /* Live updating visual elements inside visual mockup */
+        .mock-slide-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+        }
+
+        .mock-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mock-subtitle {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .mock-body-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Specific visual templates styles */
+        .mock-pulse-icon {
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            color: var(--red);
+            animation: pulse-ring 1.8s infinite ease-in-out;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(239, 68, 68, 0.7)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.4)); }
+            100% { transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(239, 68, 68, 0)); }
+        }
+
+        .mock-bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            height: 80%;
+            margin-top: 10px;
+        }
+
+        .mock-bento-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-align: left;
+        }
+
+        .mock-bento-item.tall {
+            grid-row: span 2;
+        }
+
+        .mock-bento-item.wide {
+            grid-column: span 2;
+        }
+
+        .mock-bento-item-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .mock-bento-item-desc {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .mock-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mock-compare-column {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+        }
+
+        .mock-compare-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* JSON CODE TAB */
+        .json-panel-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            background: var(--terminal-bg);
+            min-height: 350px;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: var(--red); }
+        .terminal-dot.yellow { background: var(--yellow); }
+        .terminal-dot.green { background: var(--green); }
+
+        .terminal-title {
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-left: 6px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .json-code {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #a7f3d0; /* Emerald green terminal-style */
+            white-space: pre-wrap;
+            user-select: all;
+            outline: none;
+            border: none;
+            background: transparent;
+            width: 100%;
+            height: 100%;
+            resize: none;
+        }
+
+        .json-code::selection {
+            background: var(--accent-glow);
+            color: #fff;
+        }
+
+        /* Copy Effect overlay */
+        .copy-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--accent-glow);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 5;
+            mix-blend-mode: color-dodge;
+        }
+
+        .copy-overlay.active {
+            opacity: 1;
+            animation: fade-out 0.4s forwards ease-out;
+        }
+
+        @keyframes fade-out {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* === FOOTER COPY BAR === */
+        .footer-action-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 0.5rem;
+        }
+
+        .btn-copy {
+            width: 100%;
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--accent);
+        }
+
+        .btn-copy::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-copy:hover::before {
+            transform: translateX(100%);
+        }
+
+        .btn-copy.copied {
+            background: var(--green) !important;
+            border-color: var(--green) !important;
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.4) !important;
+        }
+
+        .layout-badges-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .layout-badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.5rem;
+            border-radius: 999px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .layout-badge.active-type {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-logo">
+            <span class="logo-symbol">🚀</span>
+            <div class="header-title">
+                <h1>SlideCraft <span>Studio</span></h1>
+                <p>Visuell layout- och JSON-byggare för presentationer</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="index.html" class="btn btn-outline">🎦 Visa Presentation</a>
+        </div>
+    </header>
+
+    <div class="workspace">
+        <!-- LEFT COLUMN: DYNAMIC FORM BUILDER -->
+        <div class="form-column">
+            <div class="selector-group">
+                <label for="slide-type-select">Välj Slide-typ (Layout)</label>
+                <div class="select-wrapper">
+                    <select id="slide-type-select">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="layout-description" id="layout-desc">
+                Välj en slide-typ ovan för att påbörja designen.
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-title">Grundläggande inställningar</div>
+                <div id="basic-fields-container" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="form-section" id="content-section">
+                <div class="form-section-title">Innehåll & layout-specifika fält</div>
+                <div id="content-fields-container" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: LIVE PREVIEW & JSON OUTPUT -->
+        <div class="preview-column">
+            <div class="preview-header">
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <h3 style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Realtidsvy</h3>
+                    <div class="layout-badges-row">
+                        <span class="layout-badge">Fluid clamp()</span>
+                        <span class="layout-badge">A11y-säker</span>
+                        <span class="layout-badge active-type" id="active-badge-type">Warning Pulse</span>
+                    </div>
+                </div>
+                <div class="preview-tabs">
+                    <button class="tab-btn active" data-tab="visual">🖥️ Skiss</button>
+                    <button class="tab-btn" data-tab="json">💻 Kod (JSON)</button>
+                </div>
+            </div>
+
+            <div class="panel-container">
+                <!-- VISUAL MOCKUP TAB -->
+                <div class="preview-panel active" id="tab-panel-visual">
+                    <div class="visual-mockup-wrapper">
+                        <div class="mock-slide-content" id="mock-container">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JSON CODE TAB -->
+                <div class="preview-panel" id="tab-panel-json">
+                    <div class="json-panel-wrapper">
+                        <div class="copy-overlay" id="copy-flash"></div>
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">slide-config.json</span>
+                        </div>
+                        <textarea class="json-code" id="json-output-text" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-action-bar">
+                <button class="btn btn-primary btn-copy" id="btn-copy-json">
+                    <span>📋 Kopiera Slide-JSON</span>
+                </button>
+                <div style="font-size: 0.65rem; color: var(--text-muted); text-align: center; opacity: 0.7;">
+                    Kopiera JSON och klistra in direkt i chatten till gAIa för att implementera den.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === TEMPLATE SCHEMAS REGISTRY ===
+        const SLIDE_SCHEMAS = {
+            "warning-pulse": {
+                name: "⚠️ Varning & GDPR (Warning Pulse)",
+                description: "Animerat pulserande utropstecken med ren CSS för viktiga GDPR- eller säkerhetsvarningar.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true, helper: "Unikt ID, t.ex. 'gdpr-warning'" },
+                    { id: "section", label: "Avdelning (Section)", type: "text", helper: "t.ex. 'safety', 'start', 'cases'" },
+                    { id: "title", label: "Huvudrubrik", type: "text", required: true },
+                    { id: "subtitle", label: "Underrubrik", type: "text" },
+                    { id: "text", label: "Förklarande text (HTML tillåtet)", type: "textarea" },
+                    { id: "cardTitle", label: "Menytitel", type: "text", helper: "Den korta titel som syns på översiktskortet" }
+                ],
+                example: {
+                    id: "gdpr-warning",
+                    section: "safety",
+                    type: "warning-pulse",
+                    title: "GDPR & Sekretess",
+                    subtitle: "Absolut stopp för känsliga personuppgifter",
+                    text: "Du får <strong>aldrig</strong> mata in identifierbara elevuppgifter, personnummer eller känslig dokumentation i öppna molntjänster.",
+                    cardTitle: "GDPR-Varning"
+                }
+            },
+            "interactive-cases": {
+                name: "📋 Interaktiva Case (Interactive Cases)",
+                description: "Interaktiv case-verkstad med en sidomeny av knappar och en terminal till höger där casets utmaning skrivs ut live.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "section", label: "Avdelning (Section)", type: "text" },
+                    { id: "title", label: "Huvudsaklig rubrik", type: "text", required: true },
+                    { id: "cardTitle", label: "Menytitel", type: "text" },
+                    { 
+                        id: "cases", 
+                        label: "Case-lista", 
+                        type: "array-objects",
+                        fields: [
+                            { id: "label", label: "Case-namn", type: "text", required: true },
+                            { id: "painPoint", label: "Pain point (kort text på kortet)", type: "text", required: true },
+                            { id: "context", label: "Kontext (förklarande text i terminalhuvudet)", type: "text", required: true },
+                            { id: "prompt", label: "Scenario/Utmaningstext (använd \\n för nya rader)", type: "textarea", required: true }
+                        ]
+                    }
+                ],
+                example: {
+                    id: "workshop-cases",
+                    section: "cases",
+                    type: "interactive-cases",
+                    title: "Verkstad: Praktiska AI-case för skolledare",
+                    cardTitle: "Case-arbete",
+                    cases: [
+                        {
+                            label: "Case A: EHT-Dokumentation (Elevhälsa)",
+                            painPoint: "Elevhälsa & känslig dokumentation under GDPR/sekretess.",
+                            context: "Minska administrativ tid i EHT-flöden utan att äventyra GDPR eller sekretesslagstiftning.",
+                            prompt: "### 📋 BAKGRUND:\nEn rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte...\n\n### 🎯 UTMANING:\nHur kan rektorn formulera noteringen juridiskt rättssäkert utan sekretessläckage?\n\n### ❓ ATT DISKUTERA:\n1. Vilka uppgifter måste avidentifieras?"
+                        },
+                        {
+                            label: "Case B: Edlevo-svar",
+                            painPoint: "Formulera formellt korrekta avslagsbeslut till vårdnadshavare.",
+                            context: "Kommunicera lagssäkra beslut formellt via Edlevo.",
+                            prompt: "### 📋 BAKGRUND:\nEn vårdnadshavare har ansökt om en längre ledighet för en elev under nationella prov...\n\n### 🎯 UTMANING:\nHur formulerar rektorn avslagsbeslutet juridiskt robust med referens till Skollagen?"
+                        }
+                    ]
+                }
+            },
+            "bento-grid": {
+                name: "🍱 Bento Grid (Bento Grid)",
+                description: "Ett modernt asymmetriskt Bento-rutnät för att presentera flera dimensioner, funktioner eller insikter parallellt.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "section", label: "Avdelning (Section)", type: "text" },
+                    { id: "title", label: "Rubrik", type: "text", required: true },
+                    { id: "cardTitle", label: "Menytitel", type: "text" },
+                    {
+                        id: "items",
+                        label: "Bento-element",
+                        type: "array-objects",
+                        fields: [
+                            { id: "title", label: "Elementets rubrik", type: "text", required: true },
+                            { id: "desc", label: "Beskrivande text", type: "textarea", required: true },
+                            { id: "size", label: "Storlekstyp", type: "select", options: [
+                                { value: "standard", label: "Standard (1x1)" },
+                                { value: "wide", label: "Bred (2x1)" },
+                                { value: "tall", label: "Hög (1x2)" }
+                            ]}
+                        ]
+                    }
+                ],
+                example: {
+                    id: "bento-features",
+                    section: "features",
+                    type: "bento-grid",
+                    title: "Bento-inspirerat gränssnitt",
+                    cardTitle: "Bento-element",
+                    items: [
+                        { title: "Snabb återkoppling", desc: "Ge eleverna omedelbar formatspecifik feedback direkt vid skärmen.", size: "wide" },
+                        { title: "Statistik", desc: "98% av lärarna upplever minskad administrativ tid vid bedömning.", size: "tall" },
+                        { title: "Säker integration", desc: "Fullt skydd under GDPR.", size: "standard" },
+                        { title: "Användarvänligt", desc: "Designat tillsammans med verksamma pedagoger.", size: "standard" }
+                    ]
+                }
+            },
+            "progress-ring": {
+                name: "⭕ Progress-ring (Key Metric Ring)",
+                description: "En stor pulserande framstegsring med animerad procentsats för att betona ett specifikt, kritiskt mätetal.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "title", label: "Slide-rubrik", type: "text", required: true },
+                    { id: "progress", label: "Procentvärde (0-100)", type: "number", required: true, helper: "Värde, t.ex. 85" },
+                    { id: "label", label: "Förklarande text under ringen", type: "text", required: true },
+                    { id: "cardTitle", label: "Menytitel", type: "text" }
+                ],
+                example: {
+                    id: "cognitive-saving",
+                    type: "progress-ring",
+                    title: "Minskad kognitiv belastning",
+                    progress: 75,
+                    label: "av lärarna rapporterar mindre mental stress vid strukturerade EHT-förberedelser",
+                    cardTitle: "Tidsvinst"
+                }
+            },
+            "comparison": {
+                name: "⚖️ Jämförelse (Comparison)",
+                description: "Tvåspaltig sida för att ställa två koncept mot varandra (t.ex. Rätt vs Fel, Dåtid vs Nutid, Framgång vs Hinder).",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "title", label: "Huvudrubrik", type: "text", required: true },
+                    { id: "leftTitle", label: "Rubrik Vänster kolumn", type: "text", required: true },
+                    { id: "leftStyle", label: "Stil Vänster", type: "select", options: [
+                        { value: "green", label: "Grön (Framgång/Rätt)" },
+                        { value: "red", label: "Röd (Stopp/Fel)" },
+                        { value: "default", label: "Standard (Neutral)" }
+                    ]},
+                    { id: "leftItems", label: "Punkter Vänster (Kommatecken-separerade)", type: "text" },
+                    { id: "rightTitle", label: "Rubrik Höger kolumn", type: "text", required: true },
+                    { id: "rightStyle", label: "Stil Höger", type: "select", options: [
+                        { value: "red", label: "Röd (Stopp/Fel)" },
+                        { value: "green", label: "Grön (Framgång/Rätt)" },
+                        { value: "default", label: "Standard (Neutral)" }
+                    ]},
+                    { id: "rightItems", label: "Punkter Höger (Kommatecken-separerade)", type: "text" },
+                    { id: "cardTitle", label: "Menytitel", type: "text" }
+                ],
+                example: {
+                    id: "do-donts",
+                    type: "comparison",
+                    title: "Riktlinjer för AI-användning",
+                    leftTitle: "GÖR SÅ HÄR (Kopilot)",
+                    leftStyle: "green",
+                    leftItems: "Avpersonifiera alla rådata, Använd som redaktör och bollplank, Granska alla genererade källor",
+                    rightTitle: "UNDVIK DETTA (Pilot)",
+                    rightStyle: "red",
+                    rightItems: "Klistra aldrig in känsliga personuppgifter, Låt inte AI fatta autonoma beslut, Lita inte blint på faktaunderlag",
+                    cardTitle: "Dos & Don'ts"
+                }
+            },
+            "timeline-vertical": {
+                name: "📍 Vertikal Tidslinje (Timeline Vertical)",
+                description: "En elegant tidslinje uppbyggd uppifrån och ner för att illustrera processer, steg eller kronologiska händelser.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "title", label: "Rubrik", type: "text", required: true },
+                    { id: "cardTitle", label: "Menytitel", type: "text" },
+                    {
+                        id: "steps",
+                        label: "Steg på tidslinjen",
+                        type: "array-objects",
+                        fields: [
+                            { id: "time", label: "Tidsangivelse / Steg-nummer", type: "text", required: true },
+                            { id: "title", label: "Stegets rubrik", type: "text", required: true },
+                            { id: "desc", label: "Beskrivning av steget", type: "textarea", required: true }
+                        ]
+                    }
+                ],
+                example: {
+                    id: "implementation-steps",
+                    type: "timeline-vertical",
+                    title: "Stegvis införande i kommunen",
+                    cardTitle: "Införande",
+                    steps: [
+                        { time: "Fas 1", title: "Riktlinjer & Säkerhet", desc: "Etablera centrala policybeslut, förankra hos IT-säkerhet och utbilda rektorer." },
+                        { time: "Fas 2", title: "Pilotgrupper", desc: "Starta testpiloter på utvalda enheter och skolor för att harvesta första lärdomarna." },
+                        { time: "Fas 3", title: "Breddrullning", desc: "Integrera i det ordinarie systematiska kvalitetsarbetet över alla enheter." }
+                    ]
+                }
+            },
+            "line-chart": {
+                name: "📈 Linjediagram (Line Chart)",
+                description: "Ett renodlat, minimalistiskt linjediagram för att visa trender, utveckling eller tillväxt över tid.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "title", label: "Rubrik", type: "text", required: true },
+                    { id: "labels", label: "Diagrametiketter (t.ex. År 1, År 2... kommatecken-sep)", type: "text", required: true },
+                    { id: "data", label: "Datapunkter (t.ex. 20, 50, 85... kommatecken-sep)", type: "text", required: true },
+                    { id: "chartLabel", label: "Diagramförklaring (Legend label)", type: "text" },
+                    { id: "cardTitle", label: "Menytitel", type: "text" }
+                ],
+                example: {
+                    id: "adoption-trend",
+                    type: "line-chart",
+                    title: "Procentuell ökning av AI-kompetens",
+                    labels: "Jan, Feb, Mar, Apr, Maj",
+                    data: "12, 35, 48, 70, 92",
+                    chartLabel: "Deltagande lärare (%)",
+                    cardTitle: "Utveckling"
+                }
+            },
+            "word-cascade": {
+                name: "🌊 Begreppskaskad (Word Cascade)",
+                description: "Visar ett centralt ord i jätteformat som sedan faller ner i tre underliggande nyckeldefinitioner.",
+                fields: [
+                    { id: "id", label: "Slide ID", type: "text", required: true },
+                    { id: "mainWord", label: "Huvudord (Jätteformat)", type: "text", required: true },
+                    { id: "cardTitle", label: "Menytitel", type: "text" },
+                    {
+                        id: "cascadeItems",
+                        label: "Definitioner (3 st rekommenderas)",
+                        type: "array-objects",
+                        fields: [
+                            { id: "title", label: "Underord/Rubrik", type: "text", required: true },
+                            { id: "desc", label: "Förklaring", type: "textarea", required: true }
+                        ]
+                    }
+                ],
+                example: {
+                    id: "ecology-cascade",
+                    type: "word-cascade",
+                    mainWord: "AI-EKOLOGI",
+                    cardTitle: "Ekologi-definition",
+                    cascadeItems: [
+                        { title: "Teknik", desc: "Den underliggande koden och de stora språkmodellerna." },
+                        { title: "Människa", desc: "Våra förmågor, vår yrkesetik och vårt professionella omdöme." },
+                        { title: "Miljö", desc: "Skolans lagrum, de fackliga avtalen och det systematiska kvalitetsarbetet." }
+                    ]
+                }
+            }
+        };
+
+        // === APP STATE ===
+        let currentType = "warning-pulse";
+        let slideData = {};
+
+        // === DOM ELEMENTS ===
+        const slideTypeSelect = document.getElementById("slide-type-select");
+        const layoutDesc = document.getElementById("layout-desc");
+        const basicFieldsContainer = document.getElementById("basic-fields-container");
+        const contentFieldsContainer = document.getElementById("content-fields-container");
+        const jsonOutputText = document.getElementById("json-output-text");
+        const mockContainer = document.getElementById("mock-container");
+        const activeBadgeType = document.getElementById("active-badge-type");
+        const btnCopyJson = document.getElementById("btn-copy-json");
+        const copyFlash = document.getElementById("copy-flash");
+
+        // === INIT SELECT BOX ===
+        function initApp() {
+            // Populate select box
+            slideTypeSelect.innerHTML = "";
+            for (const [key, schema] of Object.entries(SLIDE_SCHEMAS)) {
+                const opt = document.createElement("option");
+                opt.value = key;
+                opt.textContent = schema.name;
+                slideTypeSelect.appendChild(opt);
+            }
+
+            // Set initial state
+            currentType = Object.keys(SLIDE_SCHEMAS)[0];
+            slideData = JSON.parse(JSON.stringify(SLIDE_SCHEMAS[currentType].example));
+            
+            // Build form
+            buildForm();
+            updateOutput();
+
+            // Setup select listener
+            slideTypeSelect.addEventListener("change", (e) => {
+                currentType = e.target.value;
+                slideData = JSON.parse(JSON.stringify(SLIDE_SCHEMAS[currentType].example));
+                activeBadgeType.textContent = SLIDE_SCHEMAS[currentType].name.split(" (")[0];
+                buildForm();
+                updateOutput();
+            });
+
+            // Setup tab listeners
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+                    document.querySelectorAll(".preview-panel").forEach(p => p.classList.remove("active"));
+                    
+                    btn.classList.add("active");
+                    const targetPanel = document.getElementById("tab-panel-" + btn.dataset.tab);
+                    if (targetPanel) targetPanel.classList.add("active");
+                });
+            });
+
+            // Copy button listener
+            btnCopyJson.addEventListener("click", copyToClipboard);
+        }
+
+        // === BUILD DYNAMIC FORM ===
+        function buildForm() {
+            const schema = SLIDE_SCHEMAS[currentType];
+            layoutDesc.textContent = schema.description;
+
+            basicFieldsContainer.innerHTML = "";
+            contentFieldsContainer.innerHTML = "";
+
+            schema.fields.forEach(field => {
+                const isBasic = ["id", "section", "cardTitle"].includes(field.id);
+                const container = isBasic ? basicFieldsContainer : contentFieldsContainer;
+
+                const group = document.createElement("div");
+                group.className = "input-group";
+
+                const label = document.createElement("label");
+                label.textContent = field.label + (field.required ? " *" : "");
+                group.appendChild(label);
+
+                if (field.type === "text" || field.type === "number") {
+                    const inp = document.createElement("input");
+                    inp.type = field.type;
+                    inp.value = slideData[field.id] || "";
+                    inp.placeholder = field.label;
+                    inp.addEventListener("input", (e) => {
+                        let val = e.target.value;
+                        if (field.type === "number") val = parseInt(val) || 0;
+                        slideData[field.id] = val;
+                        updateOutput();
+                    });
+                    group.appendChild(inp);
+                } 
+                else if (field.type === "textarea") {
+                    const textarea = document.createElement("textarea");
+                    textarea.value = slideData[field.id] || "";
+                    textarea.placeholder = field.label;
+                    textarea.addEventListener("input", (e) => {
+                        slideData[field.id] = e.target.value;
+                        updateOutput();
+                    });
+                    group.appendChild(textarea);
+                }
+                else if (field.type === "select") {
+                    const select = document.createElement("select");
+                    field.options.forEach(opt => {
+                        const o = document.createElement("option");
+                        o.value = opt.value;
+                        o.textContent = opt.label;
+                        select.appendChild(o);
+                    });
+                    select.value = slideData[field.id] || field.options[0].value;
+                    select.addEventListener("change", (e) => {
+                        slideData[field.id] = e.target.value;
+                        updateOutput();
+                    });
+                    group.appendChild(select);
+                }
+                else if (field.type === "array-objects") {
+                    // Complexity alert: Array of objects builder
+                    const arrayContainer = document.createElement("div");
+                    arrayContainer.className = "array-field-container";
+
+                    const header = document.createElement("div");
+                    header.className = "array-field-header";
+                    header.innerHTML = `<h4>${field.label}</h4>`;
+                    arrayContainer.appendChild(header);
+
+                    const itemsList = document.createElement("div");
+                    itemsList.className = "array-items-list";
+                    arrayContainer.appendChild(itemsList);
+
+                    const renderArrayItems = () => {
+                        itemsList.innerHTML = "";
+                        const items = slideData[field.id] || [];
+
+                        items.forEach((item, index) => {
+                            const card = document.createElement("div");
+                            card.className = "object-card";
+
+                            const cardHeader = document.createElement("div");
+                            cardHeader.className = "object-card-header";
+                            cardHeader.innerHTML = `<span class="object-card-title">Objekt #${index + 1}</span>`;
+                            
+                            const delBtn = document.createElement("button");
+                            delBtn.className = "btn-icon btn-delete";
+                            delBtn.innerHTML = "✖";
+                            delBtn.addEventListener("click", () => {
+                                slideData[field.id].splice(index, 1);
+                                renderArrayItems();
+                                updateOutput();
+                            });
+                            cardHeader.appendChild(delBtn);
+                            card.appendChild(cardHeader);
+
+                            // Render fields for this specific object in array
+                            field.fields.forEach(subField => {
+                                const subGroup = document.createElement("div");
+                                subGroup.className = "input-group";
+
+                                const subLabel = document.createElement("label");
+                                subLabel.textContent = subField.label;
+                                subGroup.appendChild(subLabel);
+
+                                if (subField.type === "text" || subField.type === "select") {
+                                    const inp = subField.type === "text" ? document.createElement("input") : document.createElement("select");
+                                    if (subField.type === "text") {
+                                        inp.type = "text";
+                                        inp.value = item[subField.id] || "";
+                                        inp.addEventListener("input", (e) => {
+                                            item[subField.id] = e.target.value;
+                                            updateOutput();
+                                        });
+                                    } else {
+                                        subField.options.forEach(o => {
+                                            const opt = document.createElement("option");
+                                            opt.value = o.value;
+                                            opt.textContent = o.label;
+                                            inp.appendChild(opt);
+                                        });
+                                        inp.value = item[subField.id] || subField.options[0].value;
+                                        inp.addEventListener("change", (e) => {
+                                            item[subField.id] = e.target.value;
+                                            updateOutput();
+                                        });
+                                    }
+                                    subGroup.appendChild(inp);
+                                } else if (subField.type === "textarea") {
+                                    const textarea = document.createElement("textarea");
+                                    textarea.value = item[subField.id] || "";
+                                    textarea.addEventListener("input", (e) => {
+                                        item[subField.id] = e.target.value;
+                                        updateOutput();
+                                    });
+                                    subGroup.appendChild(textarea);
+                                }
+                                card.appendChild(subGroup);
+                            });
+
+                            itemsList.appendChild(card);
+                        });
+
+                        const addBtn = document.createElement("button");
+                        addBtn.className = "btn-add-item";
+                        addBtn.textContent = "+ Lägg till objekt";
+                        addBtn.addEventListener("click", () => {
+                            if (!slideData[field.id]) slideData[field.id] = [];
+                            // Construct empty item based on schema fields
+                            const newItem = {};
+                            field.fields.forEach(sf => {
+                                newItem[sf.id] = sf.type === "select" ? sf.options[0].value : "";
+                            });
+                            slideData[field.id].push(newItem);
+                            renderArrayItems();
+                            updateOutput();
+                        });
+                        itemsList.appendChild(addBtn);
+                    };
+
+                    renderArrayItems();
+                    group.appendChild(arrayContainer);
+                }
+
+                if (field.helper) {
+                    const help = document.createElement("div");
+                    help.className = "input-helper";
+                    help.textContent = field.helper;
+                    group.appendChild(help);
+                }
+
+                container.appendChild(group);
+            });
+
+            // If content section is empty, hide it
+            const contentSection = document.getElementById("content-section");
+            if (contentFieldsContainer.children.length === 0) {
+                contentSection.style.display = "none";
+            } else {
+                contentSection.style.display = "block";
+            }
+        }
+
+        // === UPDATE JSON & MOCK VISUAL PREVIEW ===
+        function updateOutput() {
+            // Guarantee type property is set
+            slideData.type = currentType;
+
+            // Formatted JSON String
+            const jsonStr = JSON.stringify(slideData, null, 4);
+            jsonOutputText.value = jsonStr;
+
+            // Update Visual Layout Mockup
+            renderVisualMockup();
+        }
+
+        // === RENDER VISUAL LAYOUT MOCKUP ===
+        function renderVisualMockup() {
+            mockContainer.innerHTML = "";
+            
+            const titleText = slideData.title || "Utan titel";
+            const subtitleText = slideData.subtitle || "";
+            const bodyText = slideData.text || "";
+
+            if (currentType === "warning-pulse") {
+                mockContainer.innerHTML = `
+                    <div class="mock-pulse-icon">⚠️</div>
+                    <div class="mock-title" style="font-size: 1.5rem;">${titleText}</div>
+                    <div class="mock-subtitle" style="font-size: 0.8rem; margin-bottom: 0.5rem;">${subtitleText}</div>
+                    <div class="mock-body-text" style="font-size: 0.7rem; max-width: 90%;">${bodyText}</div>
+                `;
+            } 
+            else if (currentType === "interactive-cases") {
+                const cases = slideData.cases || [];
+                let casesHtml = "";
+                cases.forEach((c, idx) => {
+                    casesHtml += `
+                        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 5px; border-radius: 6px; text-align: left; font-size: 0.55rem; margin-bottom: 4px;">
+                            <strong style="color: var(--accent);">CASE 0${idx + 1}:</strong> ${c.label || "Utan namn"}
+                        </div>
+                    `;
+                });
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.1rem; margin-bottom: 10px;">${titleText}</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; height: 80%; min-height: 0;">
+                        <div style="display: flex; flex-direction: column; overflow: hidden; padding-right: 5px;">
+                            ${casesHtml || '<div style="color:var(--text-muted); font-size:0.6rem;">Inga case inlagda än.</div>'}
+                        </div>
+                        <div style="background: var(--terminal-bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: left; font-family: monospace; font-size: 0.45rem; display: flex; flex-direction: column; justify-content: flex-start; color: #a7f3d0; overflow: hidden;">
+                            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 3px; margin-bottom: 5px; color: var(--text-muted); font-size: 0.4rem;">UTMANING & SCENARIO</div>
+                            <div>[UTMANING] &gt; Välj ett case för att initiera scenariot...</div>
+                        </div>
+                    </div>
+                `;
+            }
+            else if (currentType === "bento-grid") {
+                const items = slideData.items || [];
+                let bentoHtml = "";
+                items.forEach(item => {
+                    const sizeClass = item.size || "standard";
+                    bentoHtml += `
+                        <div class="mock-bento-item ${sizeClass}">
+                            <div class="mock-bento-item-title">${item.title || "Rubrik"}</div>
+                            <div class="mock-bento-item-desc">${item.desc ? item.desc.slice(0, 50) + "..." : ""}</div>
+                        </div>
+                    `;
+                });
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.1rem; margin-bottom: 5px;">${titleText}</div>
+                    <div class="mock-bento-grid">
+                        ${bentoHtml || '<div style="grid-column: span 3; color:var(--text-muted); font-size:0.6rem;">Inga bento-delar inlagda än.</div>'}
+                    </div>
+                `;
+            }
+            else if (currentType === "progress-ring") {
+                const percent = slideData.progress || 0;
+                const progressLabel = slideData.label || "";
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.3rem;">${titleText}</div>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin: 10px 0;">
+                        <div style="position: relative; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="60" height="60" style="transform: rotate(-90deg);">
+                                <circle cx="30" cy="30" r="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="4" />
+                                <circle cx="30" cy="30" r="25" fill="none" stroke="var(--accent)" stroke-width="4" 
+                                    stroke-dasharray="${2 * Math.PI * 25}" 
+                                    stroke-dashoffset="${2 * Math.PI * 25 * (1 - percent / 100)}" />
+                            </svg>
+                            <span style="position: absolute; font-size: 0.9rem; font-weight: 800; font-family: monospace;">${percent}%</span>
+                        </div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted); text-align: left; max-width: 60%; line-height: 1.4;">
+                            <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 2px;">${percent}%</strong>
+                            ${progressLabel}
+                        </div>
+                    </div>
+                `;
+            }
+            else if (currentType === "comparison") {
+                const leftTitle = slideData.leftTitle || "Vänster";
+                const rightTitle = slideData.rightTitle || "Höger";
+                
+                const parseItems = (str) => {
+                    if (!str) return "";
+                    return str.split(",").map(i => `<li style="font-size: 0.55rem; margin-bottom: 4px; color: var(--text-muted); list-style-position: inside;">${i.trim()}</li>`).join("");
+                };
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.2rem; margin-bottom: 10px;">${titleText}</div>
+                    <div class="mock-comparison">
+                        <div class="mock-compare-column" style="border-left: 3px solid ${slideData.leftStyle === 'green' ? 'var(--green)' : slideData.leftStyle === 'red' ? 'var(--red)' : 'var(--border)'}">
+                            <div class="mock-compare-title" style="font-size: 0.7rem; color: ${slideData.leftStyle === 'green' ? 'var(--green)' : slideData.leftStyle === 'red' ? 'var(--red)' : '#fff'}">${leftTitle}</div>
+                            <ul style="list-style: none;">
+                                ${parseItems(slideData.leftItems)}
+                            </ul>
+                        </div>
+                        <div class="mock-compare-column" style="border-left: 3px solid ${slideData.rightStyle === 'green' ? 'var(--green)' : slideData.rightStyle === 'red' ? 'var(--red)' : 'var(--border)'}">
+                            <div class="mock-compare-title" style="font-size: 0.7rem; color: ${slideData.rightStyle === 'green' ? 'var(--green)' : slideData.rightStyle === 'red' ? 'var(--red)' : '#fff'}">${rightTitle}</div>
+                            <ul style="list-style: none;">
+                                ${parseItems(slideData.rightItems)}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+            else if (currentType === "timeline-vertical") {
+                const steps = slideData.steps || [];
+                let stepsHtml = "";
+                steps.forEach(step => {
+                    stepsHtml += `
+                        <div style="display: flex; gap: 10px; margin-bottom: 8px; text-align: left; position: relative;">
+                            <div style="background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); font-family: monospace; font-size: 0.55rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; height: 18px; display: flex; align-items: center; justify-content: center;">
+                                ${step.time || "Steg"}
+                            </div>
+                            <div style="flex: 1;">
+                                <h5 style="font-size: 0.65rem; font-weight: 700; color: #fff; margin-bottom: 1px;">${step.title || "Steg-titel"}</h5>
+                                <p style="font-size: 0.55rem; color: var(--text-muted); line-height: 1.3;">${step.desc ? step.desc.slice(0, 80) : ""}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.2rem; margin-bottom: 12px;">${titleText}</div>
+                    <div style="display: flex; flex-direction: column; overflow-y: auto; max-height: 80%; padding-left: 5px;">
+                        ${stepsHtml || '<div style="color:var(--text-muted); font-size:0.6rem;">Inga steg inlagda än.</div>'}
+                    </div>
+                `;
+            }
+            else if (currentType === "line-chart") {
+                const labels = (slideData.labels || "A, B, C").split(",");
+                const data = (slideData.data || "10, 20, 30").split(",").map(Number);
+                const chartLabel = slideData.chartLabel || "Data";
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.2rem; margin-bottom: 10px;">${titleText}</div>
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 100%; height: 75%;">
+                        <div style="display: flex; align-items: flex-end; justify-content: space-around; width: 80%; height: 60px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); padding: 5px 0 0 5px;">
+                            ${data.map(d => `<div style="background: var(--accent); width: 15px; height: ${Math.min(100, Math.max(10, d)) * 0.5}px; border-radius: 3px 3px 0 0; box-shadow: 0 0 10px var(--accent-glow);"></div>`).join("")}
+                        </div>
+                        <div style="display: flex; justify-content: space-around; width: 80%; margin-top: 4px;">
+                            ${labels.map(l => `<span style="font-size: 0.5rem; color: var(--text-muted);">${l.trim()}</span>`).join("")}
+                        </div>
+                        <div style="font-size: 0.55rem; color: var(--accent); font-family: monospace; font-weight: 700; margin-top: 10px;">📈 Legend: ${chartLabel}</div>
+                    </div>
+                `;
+            }
+            else if (currentType === "word-cascade") {
+                const mainWord = slideData.mainWord || "Titel";
+                const cascadeItems = slideData.cascadeItems || [];
+                let itemsHtml = "";
+                cascadeItems.forEach(item => {
+                    itemsHtml += `
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: left;">
+                            <h5 style="font-size: 0.65rem; font-weight: 700; color: var(--accent); margin-bottom: 2px;">${item.title || "Nyckelord"}</h5>
+                            <p style="font-size: 0.55rem; color: var(--text-muted); line-height: 1.3;">${item.desc || ""}</p>
+                        </div>
+                    `;
+                });
+
+                mockContainer.innerHTML = `
+                    <div class="mock-title" style="font-size: 1.8rem; letter-spacing: 2px; color: #fff; margin-bottom: 12px;">${mainWord}</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%;">
+                        ${itemsHtml || '<div style="grid-column: span 3; color:var(--text-muted); font-size:0.6rem;">Inga definitioner inlagda än.</div>'}
+                    </div>
+                `;
+            }
+        }
+
+        // === COPY TO CLIPBOARD ===
+        function copyToClipboard() {
+            const codeText = jsonOutputText.value;
+            if (!codeText) return;
+
+            function showCopiedEffect() {
+                // Flash the terminal block in accents
+                copyFlash.classList.add("active");
+                btnCopyJson.classList.add("copied");
+                const btnSpan = btnCopyJson.querySelector("span");
+                if (btnSpan) btnSpan.textContent = "✔️ KOPIERAD!";
+                
+                setTimeout(() => {
+                    copyFlash.classList.remove("active");
+                    btnCopyJson.classList.remove("copied");
+                    if (btnSpan) btnSpan.textContent = "📋 Kopiera Slide-JSON";
+                }, 2000);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(codeText).then(showCopiedEffect).catch(err => {
+                    console.error("Failed to copy text: ", err);
+                    fallbackCopy(codeText);
+                });
+            } else {
+                fallbackCopy(codeText);
+            }
+
+            function fallbackCopy(str) {
+                const textarea = document.createElement("textarea");
+                textarea.value = str;
+                textarea.style.position = "fixed";
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                try {
+                    document.execCommand("copy");
+                    showCopiedEffect();
+                } catch (err) {
+                    console.error("Fallback copy failed: ", err);
+                    alert("Kunde inte kopiera automatiskt. Markera koden i textfältet och kopiera manuellt.");
+                }
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Start the app!
+        initApp();
+    </script>
+</body>
+</html>

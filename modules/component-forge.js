@@ -1958,111 +1958,285 @@
         }
         .slide-collage .col-img:hover { transform: scale(1.03); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
 
-        /* ===== SPRINT 7+8: PROCESS CHAIN ===== */
+        /* ===== SPRINT 7+8: PROCESS CHAIN (VERTICAL FLOW) ===== */
         @keyframes pcNodeIn {
-            0% { opacity: 0; transform: scale(0.8); }
+            0% { opacity: 0; transform: scale(0.85); }
             100% { opacity: 1; transform: scale(1); }
         }
         .slide-process-chain {
             display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 4cqh 6cqw; min-height: 75cqh;
+            justify-content: flex-start; padding: 3cqh 4cqw; min-height: 80cqh;
             background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.45) 100%), var(--bg);
-            overflow: hidden; box-sizing: border-box; width: 100%; height: 100%;
+            overflow-y: auto; box-sizing: border-box; width: 100%; height: 100%;
+            position: relative;
         }
         .slide-process-chain .pc-title {
-            font-size: clamp(2rem, 5cqh, 3.2rem); font-weight: 800;
+            font-size: clamp(1.8rem, 4.5cqh, 2.8rem); font-weight: 800;
             background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5cqh; text-align: center; letter-spacing: -0.02em;
+            margin-bottom: 0.8cqh; text-align: center; letter-spacing: -0.02em;
         }
         .slide-process-chain .pc-subtitle {
-            font-size: clamp(1rem, 2.2cqh, 1.4rem); color: var(--accent, #f97316);
-            margin-bottom: 4cqh; text-align: center; font-weight: 600;
+            font-size: clamp(0.9rem, 1.8cqh, 1.2rem); color: var(--accent, #f97316);
+            margin-bottom: 2cqh; text-align: center; font-weight: 600;
             letter-spacing: 0.05em; text-transform: uppercase;
-            filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.2));
         }
-        .slide-process-chain .pc-chain {
-            display: flex; align-items: stretch; gap: clamp(1rem, 2cqw, 2.5rem);
-            width: 100%; max-width: 1200px; justify-content: center;
+        
+        .slide-process-chain .pc-vertical-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .slide-process-chain .pc-node {
-            flex: 1; max-width: 340px; padding: clamp(1.5rem, 3cqh, 2.5rem);
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
-            border-radius: 24px; border: 1px solid rgba(255,255,255,0.08);
-            display: flex; flex-direction: column; align-items: center; text-align: center;
+
+        .slide-process-chain .pc-interactive-node {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 450px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            opacity: 0; animation: pcNodeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.05);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.05);
+            animation: pcNodeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
         }
-        .slide-process-chain .pc-node.theme-experterna {
-            --theme-color: #38bdf8;
-            --theme-glow: rgba(56, 189, 248, 0.12);
-            --theme-border: rgba(56, 189, 248, 0.25);
-            --theme-text: #38bdf8;
-            border-color: var(--theme-border);
-        }
-        .slide-process-chain .pc-node.theme-koordinatorn {
-            --theme-color: #a855f7;
-            --theme-glow: rgba(168, 85, 247, 0.12);
-            --theme-border: rgba(168, 85, 247, 0.25);
-            --theme-text: #c084fc;
-            border-color: var(--theme-border);
-        }
-        .slide-process-chain .pc-node.theme-du {
-            --theme-color: #f97316;
-            --theme-glow: rgba(249, 115, 22, 0.3);
-            --theme-border: rgba(249, 115, 22, 0.4);
-            --theme-text: #fb923c;
-            border-width: 2px !important;
-            border-color: var(--theme-border);
-            animation: pcNodeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards, heroPulse 4s infinite ease-in-out;
-        }
-        @keyframes heroPulse {
-            0% { box-shadow: 0 8px 32px var(--theme-glow), inset 0 1px 1px rgba(255,255,255,0.05); }
-            50% { box-shadow: 0 16px 48px rgba(249, 115, 22, 0.45), inset 0 1px 2px rgba(255,255,255,0.15); border-color: #fb923c; }
-            100% { box-shadow: 0 8px 32px var(--theme-glow), inset 0 1px 1px rgba(255,255,255,0.05); }
-        }
-        .slide-process-chain .pc-node:hover {
-            transform: translateY(-8px) scale(1.02);
+
+        .slide-process-chain .pc-interactive-node:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px var(--theme-glow), inset 0 1px 2px rgba(255,255,255,0.1);
             border-color: var(--theme-color);
-            box-shadow: 0 16px 48px var(--theme-glow), inset 0 1px 2px rgba(255,255,255,0.1);
         }
+
+        .slide-process-chain .pc-interactive-node.node-du {
+            --theme-color: #f97316;
+            --theme-glow: rgba(249, 115, 22, 0.25);
+            border-color: rgba(249, 115, 22, 0.35);
+            animation: pcNodeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards, heroPulse 4s infinite ease-in-out;
+        }
+
+        .slide-process-chain .pc-interactive-node.node-koordinator {
+            --theme-color: #a855f7;
+            --theme-glow: rgba(168, 85, 247, 0.25);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .slide-process-chain .pc-interactive-node.node-expert {
+            --theme-color: #38bdf8;
+            --theme-glow: rgba(56, 189, 248, 0.25);
+            border-color: rgba(56, 189, 248, 0.3);
+            max-width: 260px;
+            flex-direction: column;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            gap: 0.8rem;
+        }
+
         .slide-process-chain .pc-node-icon {
-            font-size: 3rem; margin-bottom: 1.2rem;
-            filter: drop-shadow(0 0 12px var(--theme-color));
-            animation: floatIcon 3s ease-in-out infinite;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px var(--theme-color));
+            animation: floatIcon 3.5s ease-in-out infinite;
+            animation-delay: var(--accent-delay, 0s);
         }
+
         @keyframes floatIcon {
             0% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
             100% { transform: translateY(0); }
         }
+
         .slide-process-chain .pc-node-label {
-            font-size: clamp(1.2rem, 2.5cqw, 1.8rem); font-weight: 800;
-            color: var(--theme-text); margin-bottom: 1rem; letter-spacing: -0.01em;
+            font-size: clamp(1.1rem, 2cqw, 1.4rem);
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
-        .slide-process-chain .pc-node-hint {
-            font-size: clamp(0.9rem, 1.6cqw, 1.15rem); color: #cbd5e1;
-            line-height: 1.5; font-weight: 400; margin-top: 0;
+
+        .slide-process-chain .pc-node-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--theme-color);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            margin-left: auto;
         }
-        .slide-process-chain .pc-arrow-container {
+
+        .slide-process-chain .pc-connector-vertical {
+            display: flex;
+            justify-content: center;
+            height: 45px;
+            width: 100%;
+        }
+
+        .slide-process-chain .pc-svg-arrow-vertical {
+            height: 100%;
+            width: 24px;
+            overflow: visible;
+        }
+
+        .slide-process-chain .pc-connector-branching {
+            display: flex;
+            justify-content: center;
+            height: 55px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .slide-process-chain .pc-svg-branching {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .slide-process-chain .pc-experts-row {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        /* Flow Dots Animations */
+        .slide-process-chain .pc-flow-dot-vertical {
+            offset-path: path("M12 0 L12 55");
+            animation: flowDot 2.2s infinite linear;
+        }
+
+        /* Purpose Modal Styles */
+        .slide-process-chain .pc-details-modal {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 10, 15, 0.75);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .slide-process-chain .pc-details-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide-process-chain .pc-details-content {
+            background: linear-gradient(135deg, rgba(20, 25, 40, 0.95) 0%, rgba(10, 12, 22, 0.98) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: clamp(1.8rem, 4cqh, 3rem);
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.08);
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-process-chain .pc-details-modal.active .pc-details-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .slide-process-chain .pc-details-close {
+            position: absolute;
+            top: 1.2rem; right: 1.2rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #94a3b8;
+            font-size: 1.5rem;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            width: clamp(40px, 6cqw, 120px); flex-shrink: 0; height: 100%;
+            transition: all 0.2s;
+            line-height: 1;
+            padding: 0 0 4px 0;
         }
-        .slide-process-chain .pc-svg-arrow {
-            width: 100%; height: 24px; overflow: visible;
+
+        .slide-process-chain .pc-details-close:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            transform: rotate(90deg);
         }
-        .slide-process-chain .pc-flow-dot {
-            motion-path: path("M 0 12 L 100 12");
-            motion-offset: 0%;
-            offset-path: path("M 0 12 L 100 12");
-            offset-distance: 0%;
-            animation: flowDot 2.5s infinite linear;
+
+        .slide-process-chain .pc-details-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 1.2rem;
         }
-        @keyframes flowDot {
-            0% { motion-offset: 0%; offset-distance: 0%; }
-            100% { motion-offset: 100%; offset-distance: 100%; }
+
+        .slide-process-chain .pc-details-icon {
+            font-size: 3rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            width: 80px; height: 80px;
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+        }
+
+        .slide-process-chain .pc-details-title {
+            font-size: clamp(1.4rem, 3cqh, 2rem);
+            font-weight: 800;
+            color: #fff;
+            margin: 0 0 0.2rem 0;
+        }
+
+        .slide-process-chain .pc-details-subtitle {
+            font-size: clamp(0.85rem, 1.8cqh, 1.05rem);
+            color: var(--accent, #f97316);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-process-chain .pc-details-body {
+            font-size: clamp(0.95rem, 2cqh, 1.15rem);
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-process-chain .pc-details-list {
+            margin: 0; padding: 0 0 0 1.2rem;
+            display: flex; flex-direction: column; gap: 0.8rem;
+        }
+
+        .slide-process-chain .pc-details-list li {
+            font-size: clamp(0.9rem, 1.8cqh, 1.1rem);
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .slide-process-chain .pc-details-list li strong {
+            color: #fff;
+        }
+
+        /* Media Queries for responsive scaling */
+        @media (max-height: 700px) {
+            .slide-process-chain .pc-connector-vertical { height: 30px; }
+            .slide-process-chain .pc-connector-branching { height: 40px; }
+            .slide-process-chain .pc-interactive-node { padding: 0.8rem 1.5rem; gap: 1rem; }
+            .slide-process-chain .pc-node-icon { font-size: 2rem; }
         }
 
         /* ===== SPRINT 7+8: ACRONYM LIST ===== */
@@ -4425,45 +4599,8 @@
      * Props: title, nodes[] ({ label, hint, status: "done"|"active"|"upcoming" })
      */
     function renderProcessChain(s) {
-        const nodes = s.nodes || [];
-        const html = nodes.map((n, i) => {
-            let themeCls = '';
-            if (i === 0) themeCls = 'theme-experterna';
-            else if (i === 1) themeCls = 'theme-koordinatorn';
-            else if (i === 2) themeCls = 'theme-du';
-
-            const delay = i * 0.2;
-            
-            let arrowHtml = '';
-            if (i < nodes.length - 1) {
-                let strokeColor = 'rgba(255,255,255,0.2)';
-                let dotColor = '#a855f7';
-                if (i === 0) {
-                    strokeColor = 'rgba(56, 189, 248, 0.3)';
-                    dotColor = '#38bdf8';
-                } else if (i === 1) {
-                    strokeColor = 'rgba(168, 85, 247, 0.3)';
-                    dotColor = '#a855f7';
-                }
-                arrowHtml = `
-                    <div class="pc-arrow-container">
-                        <svg class="pc-svg-arrow" viewBox="0 0 100 24" fill="none">
-                            <path d="M 0 12 L 95 12 M 88 6 L 95 12 L 88 18" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle class="pc-flow-dot" r="4" fill="${dotColor}" style="--theme-color: ${dotColor}" />
-                        </svg>
-                    </div>
-                `;
-            }
-
-            return `
-                <div class="pc-node ${themeCls}" style="animation-delay:${delay}s">
-                    ${n.icon ? `<div class="pc-node-icon">${n.icon}</div>` : ''}
-                    <div class="pc-node-label">${n.label || ''}</div>
-                    ${n.hint ? `<div class="pc-node-hint">${n.hint}</div>` : ''}
-                </div>
-                ${arrowHtml}
-            `;
-        }).join('');
+        const id = s.id || 'slide-process-chain';
+        const isDirigenten = s.id === 'du-ar-dirigenten' || (s.nodes && s.nodes.length === 3 && s.nodes[2].label.includes('DU'));
 
         let drawerHTML = '';
         if (s.prompt) {
@@ -4507,8 +4644,307 @@
             `;
         }
 
+        if (isDirigenten) {
+            return `
+                <style>
+                    @keyframes flowDot {
+                        0% { offset-distance: 0%; }
+                        100% { offset-distance: 100%; }
+                    }
+                    @keyframes heroPulse {
+                        0% { box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.05); }
+                        50% { box-shadow: 0 12px 40px rgba(249, 115, 22, 0.4), inset 0 1px 2px rgba(255,255,255,0.15); border-color: rgba(249, 115, 22, 0.7); }
+                        100% { box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.05); }
+                    }
+                    .pc-flow-dot-branch-left {
+                        offset-path: path("M 300 0 Q 300 25, 100 55");
+                        animation: flowDot 2.8s infinite linear;
+                        animation-delay: 0.1s;
+                    }
+                    .pc-flow-dot-branch-mid {
+                        offset-path: path("M 300 0 L 300 55");
+                        animation: flowDot 2.8s infinite linear;
+                        animation-delay: 0.9s;
+                    }
+                    .pc-flow-dot-branch-right {
+                        offset-path: path("M 300 0 Q 300 25, 500 55");
+                        animation: flowDot 2.8s infinite linear;
+                        animation-delay: 1.7s;
+                    }
+                    /* Mobile optimization */
+                    @media (max-width: 768px) {
+                        .slide-process-chain .pc-connector-branching {
+                            display: none !important;
+                        }
+                        .slide-process-chain .pc-experts-row {
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 1rem;
+                        }
+                        .slide-process-chain .pc-interactive-node.node-expert {
+                            max-width: 450px;
+                            flex-direction: row;
+                            text-align: left;
+                            padding: 1rem 2rem;
+                            gap: 1.5rem;
+                        }
+                    }
+                </style>
+                <div class="slide-process-chain" id="${id}">
+                    ${s.title ? `<div class="pc-title">${s.title}</div>` : ''}
+                    ${s.subtitle ? `<div class="pc-subtitle">${s.subtitle}</div>` : ''}
+                    
+                    <div class="pc-vertical-flow">
+                        <!-- Level 1: DU (Dirigenten) -->
+                        <div class="pc-interactive-node node-du" data-role="du" style="animation-delay: 0.1s;">
+                            <div class="pc-node-icon" style="--accent-delay: 0s;">🎯</div>
+                            <div>
+                                <div class="pc-node-label">DU (Dirigenten)</div>
+                                <div style="font-size: clamp(0.75rem, 1.6cqh, 0.95rem); color: rgba(255,255,255,0.6); margin-top: 2px;">
+                                    Processägare & strategisk ledare
+                                </div>
+                            </div>
+                            <span class="pc-node-tag">Dirigenten</span>
+                        </div>
+                        
+                        <!-- Connector 1 -> 2 -->
+                        <div class="pc-connector-vertical">
+                            <svg class="pc-svg-arrow-vertical" viewBox="0 0 24 45" fill="none">
+                                <path d="M12 0 L12 40 M7 35 L12 40 L17 35" stroke="rgba(249, 115, 22, 0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <circle class="pc-flow-dot-vertical" r="4.5" fill="#f97316" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Level 2: Koordinatorn (AI) -->
+                        <div class="pc-interactive-node node-koordinator" data-role="koordinator" style="animation-delay: 0.3s;">
+                            <div class="pc-node-icon" style="--accent-delay: 0.5s;">🎼</div>
+                            <div>
+                                <div class="pc-node-label">Koordinatorn (AI)</div>
+                                <div style="font-size: clamp(0.75rem, 1.6cqh, 0.95rem); color: rgba(255,255,255,0.6); margin-top: 2px;">
+                                    Digital sekreterare & processledare
+                                </div>
+                            </div>
+                            <span class="pc-node-tag">Koordinatorn</span>
+                        </div>
+                        
+                        <!-- Connector 2 -> 3 (Branching) -->
+                        <div class="pc-connector-branching">
+                            <svg class="pc-svg-branching" viewBox="0 0 600 55" fill="none" preserveAspectRatio="none">
+                                <path d="M 300 0 Q 300 25, 100 55" stroke="rgba(168, 85, 247, 0.25)" stroke-width="3.5" stroke-linecap="round" />
+                                <path d="M 300 0 L 300 55" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3.5" stroke-linecap="round" />
+                                <path d="M 300 0 Q 300 25, 500 55" stroke="rgba(168, 85, 247, 0.25)" stroke-width="3.5" stroke-linecap="round" />
+                                
+                                <path d="M 300 0 Q 300 25, 100 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+                                <path d="M 300 0 L 300 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+                                <path d="M 300 0 Q 300 25, 500 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+                                
+                                <circle class="pc-flow-dot-branch-left" r="4.5" fill="#38bdf8" />
+                                <circle class="pc-flow-dot-branch-mid" r="4.5" fill="#38bdf8" />
+                                <circle class="pc-flow-dot-branch-right" r="4.5" fill="#38bdf8" />
+                            </svg>
+                        </div>
+                        
+                        <!-- Level 3: Experterna (3 columns) -->
+                        <div class="pc-experts-row">
+                            <div class="pc-interactive-node node-expert" data-role="expert_forska" style="animation-delay: 0.5s;">
+                                <div class="pc-node-icon" style="--accent-delay: 1.0s;">🧪</div>
+                                <div class="pc-node-label">Forskar-Experten</div>
+                                <div style="font-size: clamp(0.75rem, 1.5cqh, 0.85rem); color: rgba(255,255,255,0.6); margin-top: 1px;">
+                                    Teori, evidens & beprövad grund
+                                </div>
+                            </div>
+                            
+                            <div class="pc-interactive-node node-expert" data-role="expert_amne" style="animation-delay: 0.6s;">
+                                <div class="pc-node-icon" style="--accent-delay: 1.2s;">🏫</div>
+                                <div class="pc-node-label">Ämnes-Experten</div>
+                                <div style="font-size: clamp(0.75rem, 1.5cqh, 0.85rem); color: rgba(255,255,255,0.6); margin-top: 1px;">
+                                    Didaktik, klassrum & skolvardag
+                                </div>
+                            </div>
+                            
+                            <div class="pc-interactive-node node-expert" data-role="expert_jurist" style="animation-delay: 0.7s;">
+                                <div class="pc-node-icon" style="--accent-delay: 1.4s;">⚖️</div>
+                                <div class="pc-node-label">Jurist-Experten</div>
+                                <div style="font-size: clamp(0.75rem, 1.5cqh, 0.85rem); color: rgba(255,255,255,0.6); margin-top: 1px;">
+                                    Lagstiftning, GDPR & policy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Modal inside the slide -->
+                    <div class="pc-details-modal" id="pc-details-modal-${id}" onclick="
+                        if (event.target === this) {
+                            this.classList.remove('active');
+                        }
+                    ">
+                        <div class="pc-details-content">
+                            <button class="pc-details-close" onclick="document.getElementById('pc-details-modal-${id}').classList.remove('active')">&times;</button>
+                            <div class="pc-details-header">
+                                <div class="pc-details-icon" id="pc-modal-icon-${id}">🎯</div>
+                                <div>
+                                    <h3 class="pc-details-title" id="pc-modal-title-${id}">DU (Dirigenten)</h3>
+                                    <div class="pc-details-subtitle" id="pc-modal-subtitle-${id}">Processens Suverän</div>
+                                </div>
+                            </div>
+                            <p class="pc-details-body" id="pc-modal-body-${id}">
+                                Som dirigent är du processens suverän...
+                            </p>
+                            <div style="font-weight: 700; color: #fff; margin-bottom: 0.8rem; font-size: clamp(0.9rem, 1.8cqh, 1.1rem);">
+                                Huvudsakliga uppgifter i panelen:
+                            </div>
+                            <ul class="pc-details-list" id="pc-modal-list-${id}">
+                                <!-- Dynamically populated -->
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    ${drawerHTML}
+                    
+                    <script>
+                    (function() {
+                        const roleDetails = {
+                            du: {
+                                title: "DU (Dirigenten)",
+                                subtitle: "Processens Suverän",
+                                icon: "🎯",
+                                body: "Som dirigent är du processens suverän. Det är du som sätter agendan, styr tempot och djupet, och äger det slutgiltiga omdömet. AI-systemen arbetar helt under din ledning.",
+                                duties: [
+                                    "<strong>Sätta agendan:</strong> Definiera uppdragets mål, riktning och ramverk.",
+                                    "<strong>Välja perspektiv:</strong> Välja ut vilka virtuella expertroller som behövs.",
+                                    "<strong>Kvalitetskontroll:</strong> Granska, ifrågasätta och verifiera allt framtaget material.",
+                                    "<strong>Professionellt omdöme:</strong> Äga sista ordet och stå för det slutgiltiga beslutet."
+                                ]
+                            },
+                            koordinator: {
+                                title: "Koordinatorn (AI)",
+                                subtitle: "Din digitala sekreterare",
+                                icon: "🎼",
+                                body: "Koordinatorn är din processledare och administratör. Den har inget självständigt beslutsfattande och lyder dig till 100%. Dess uppgift är att sköta logistiken och dialogen mellan experterna.",
+                                duties: [
+                                    "<strong>Strukturera arbetet:</strong> Sätta samman expertgruppen utifrån din startprompt.",
+                                    "<strong>Facilitera diskussionen:</strong> Driva deliberationer framåt steg för steg enligt ramverket.",
+                                    "<strong>Syntetisera insikter:</strong> Sammanställa rapporter, sammanfatta och belysa motsättningar.",
+                                    "<strong>Vänta på kommando:</strong> Stanna vid varje steg för att invänta dina aktiva direktiv."
+                                ]
+                            },
+                            expert_forska: {
+                                title: "Forskar-Experten",
+                                subtitle: "Teori & Evidens",
+                                icon: "🧪",
+                                body: "Representerar den vetenskapliga och teoretiska expertisen i din panel. Trycktestar strategier och idéer mot modern pedagogisk forskning och beprövad erfarenhet.",
+                                duties: [
+                                    "<strong>Vetenskaplig grund:</strong> Säkerställa koppling till aktuell forskning och evidens.",
+                                    "<strong>Metodanalys:</strong> Utvärdera pedagogisk stringens och teoretiska perspektiv.",
+                                    "<strong>Evidensgranskning:</strong> Hitta studier, artiklar och rapporter som stöder eller motbevisar förslag."
+                                ]
+                            },
+                            expert_amne: {
+                                title: "Ämnes-Experten",
+                                subtitle: "Didaktik & Klassrum",
+                                icon: "🏫",
+                                body: "Förankrar teorierna i den konkreta skolvardagen. Bedömer hur förslagen faktiskt landar i undervisningen, i klassrummet och bland lärarkollegiet.",
+                                duties: [
+                                    "<strong>Didaktisk relevans:</strong> Säkerställa praktiskt mervärde i den dagliga undervisningen.",
+                                    "<strong>Belastningsanalys:</strong> Bedöma tidsåtgång, arbetsbelastning och genomförbarhet för personalen.",
+                                    "<strong>Klassrumsfokus:</strong> Utvärdera effekter för studiero, inkludering och differentiering."
+                                ]
+                            },
+                            expert_jurist: {
+                                title: "Jurist-Experten",
+                                subtitle: "Lag & Riktlinjer",
+                                icon: "⚖️",
+                                body: "Säkerställer att alla processer, dokument, beslut och strategiska förslag följer gällande lagstiftning, skollagen, GDPR och kommunala styrdokument.",
+                                duties: [
+                                    "<strong>Rättslig screening:</strong> Granska sekretess och säkerställa personuppgiftsskydd.",
+                                    "<strong>GDPR-efterlevnad:</strong> Förhindra otillbörlig eller olaglig datadelning i processen.",
+                                    "<strong>Regelföljsamhet:</strong> Kontrollera efterlevnad av myndighetskrav, läroplaner och skollag."
+                                ]
+                            }
+                        };
+
+                        setTimeout(() => {
+                            const slideEl = document.getElementById('${id}');
+                            if (!slideEl) return;
+
+                            const modal = slideEl.querySelector('#pc-details-modal-${id}');
+                            const modalIcon = slideEl.querySelector('#pc-modal-icon-${id}');
+                            const modalTitle = slideEl.querySelector('#pc-modal-title-${id}');
+                            const modalSubtitle = slideEl.querySelector('#pc-modal-subtitle-${id}');
+                            const modalBody = slideEl.querySelector('#pc-modal-body-${id}');
+                            const modalList = slideEl.querySelector('#pc-modal-list-${id}');
+
+                            slideEl.querySelectorAll('.pc-interactive-node').forEach(node => {
+                                node.addEventListener('click', () => {
+                                    const role = node.getAttribute('data-role');
+                                    const data = roleDetails[role];
+                                    if (!data) return;
+
+                                    modalIcon.innerText = data.icon;
+                                    modalTitle.innerText = data.title;
+                                    modalSubtitle.innerText = data.subtitle;
+                                    modalBody.innerHTML = data.body;
+                                    modalList.innerHTML = data.duties.map(d => '<li>' + d + '</li>').join('');
+
+                                    modal.classList.add('active');
+                                });
+                            });
+
+                            document.addEventListener('keydown', (e) => {
+                                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                                    modal.classList.remove('active');
+                                }
+                            });
+                        }, 200);
+                    })();
+                    </script>
+                </div>
+            `;
+        }
+
+        // Original horizontal fallback
+        const nodes = s.nodes || [];
+        const html = nodes.map((n, i) => {
+            let themeCls = '';
+            if (i === 0) themeCls = 'theme-experterna';
+            else if (i === 1) themeCls = 'theme-koordinatorn';
+            else if (i === 2) themeCls = 'theme-du';
+
+            const delay = i * 0.2;
+            
+            let arrowHtml = '';
+            if (i < nodes.length - 1) {
+                let strokeColor = 'rgba(255,255,255,0.2)';
+                let dotColor = '#a855f7';
+                if (i === 0) {
+                    strokeColor = 'rgba(56, 189, 248, 0.3)';
+                    dotColor = '#38bdf8';
+                } else if (i === 1) {
+                    strokeColor = 'rgba(168, 85, 247, 0.3)';
+                    dotColor = '#a855f7';
+                }
+                arrowHtml = `
+                    <div class="pc-arrow-container">
+                        <svg class="pc-svg-arrow" viewBox="0 0 100 24" fill="none">
+                            <path d="M 0 12 L 95 12 M 88 6 L 95 12 L 88 18" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle class="pc-flow-dot" r="4" fill="${dotColor}" style="--theme-color: ${dotColor}" />
+                        </svg>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="pc-node ${themeCls}" style="animation-delay:${delay}s">
+                    ${n.icon ? `<div class="pc-node-icon">${n.icon}</div>` : ''}
+                    <div class="pc-node-label">${n.label || ''}</div>
+                    ${n.hint ? `<div class="pc-node-hint">${n.hint}</div>` : ''}
+                </div>
+                ${arrowHtml}
+            `;
+        }).join('');
+
         return `
-            <div class="slide-process-chain">
+            <div class="slide-process-chain" id="${id}">
                 ${s.title ? `<div class="pc-title">${s.title}</div>` : ''}
                 ${s.subtitle ? `<div class="pc-subtitle">${s.subtitle}</div>` : ''}
                 <div class="pc-chain">

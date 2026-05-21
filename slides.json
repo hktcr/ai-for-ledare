@@ -966,25 +966,26 @@
       "type": "workshop-focus",
       "cardTitle": "Verktyg & Principer",
       "titleHtml": "Verktyg förändras – <span>principer består</span>",
-      "subtitle": "Metoden du lär dig idag överlever morgondagens teknikskiften",
+      "subtitle": "Om vi hänger oss fast vid detaljer är vi förlorade, lär vi oss principer är vi rustade.",
+      "image": "assets/verktyg-forandras.png",
       "focusToday": {
-        "badge": "Verktyget",
-        "title": "Gemini Advanced idag",
-        "desc": "Vår praktiska utgångspunkt",
+        "badge": "PROMPTARNA",
+        "title": "Den sanna prompten",
+        "desc": "Det finns inga magiska formler",
         "points": [
-          "Sömlöst i Google-miljön",
-          "Snabb filanalys & sparring",
-          "Sänker tröskeln i vardagen"
+          "Glöm hemliga koder och komplicerade prompt-bibliotek",
+          "Den bästa prompten är enkel: 'Kan du hjälpa mig med en sak?'",
+          "Tala till AI:n som en intelligent kollega, inte en stum sökmotor"
         ]
       },
       "nextSteps": {
-        "badge": "Principerna",
-        "title": "Universella metoder",
-        "desc": "Färdigheter för all framtid",
+        "badge": "PRINCIPERNA",
+        "title": "Universell förståelse",
+        "desc": "Rustad för framtidens teknik",
         "points": [
-          "Universell prompt-struktur",
-          "Fungerar i alla LLM:er",
-          "Ditt omdöme styr alltid"
+          "Tekniken kommer i tusen olika skepnader och verktyg framöver",
+          "Hänger vi upp oss på enskilda knappar blir vi snabbt omkörda",
+          "Lär dig att leda och styra dialogen — principen överlever alltid"
         ]
       },
       "sources": [

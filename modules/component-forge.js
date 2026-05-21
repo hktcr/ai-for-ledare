@@ -9597,6 +9597,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
      */
     function renderWorkshopFocus(s) {
         const id = s.id || 'slide-workshop-focus';
+        const hasImage = !!s.image;
         
         const focusHtml = (s.focusToday.points || []).map(p => `
             <li class="wf-item">
@@ -9611,6 +9612,12 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 <span class="wf-item-text">${p}</span>
             </li>
         `).join('');
+
+        const imageCardHtml = hasImage ? `
+            <div class="wf-image-card">
+                <img src="${s.image}" class="wf-image" alt="Verktyg och principer illustration">
+            </div>
+        ` : '';
 
         return `
             <style>
@@ -9650,10 +9657,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 }
                 .wf-grid {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 3cqw;
+                    grid-template-columns: ${hasImage ? '1fr 1.2fr 1fr' : '1fr 1fr'};
+                    gap: 2.5cqw;
                     width: 100%;
-                    max-width: 1200px;
+                    max-width: 1300px;
                     flex: 1;
                 }
                 .wf-card {
@@ -9691,6 +9698,30 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 .wf-card-later:hover {
                     border-color: rgba(168, 85, 247, 0.25);
                     box-shadow: 0 16px 48px rgba(168, 85, 247, 0.1);
+                }
+                
+                .wf-image-card {
+                    background: rgba(30, 27, 75, 0.2);
+                    backdrop-filter: blur(12px);
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: 20px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 10px;
+                    transition: all 0.4s ease;
+                }
+                .wf-image-card:hover {
+                    transform: translateY(-4px);
+                    border-color: rgba(255, 215, 0, 0.2);
+                    box-shadow: 0 16px 48px rgba(255, 215, 0, 0.08);
+                }
+                .wf-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 12px;
                 }
                 
                 .wf-badge {
@@ -9755,8 +9786,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 }
                 
                 @media (max-width: 1024px) {
-                    .wf-grid { grid-template-columns: 1fr; gap: 2cqh; }
+                    .wf-grid { grid-template-columns: 1fr !important; gap: 2cqh; }
                     .wf-container { padding: 3cqh; }
+                    .wf-image-card { height: 250px; }
                 }
             </style>
             <div class="wf-container" id="${id}">
@@ -9773,6 +9805,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                             ${focusHtml}
                         </ul>
                     </div>
+                    
+                    ${imageCardHtml}
+                    
                     <div class="wf-card wf-card-later">
                         <span class="wf-badge wf-badge-later">${s.nextSteps.badge || 'Senare'}</span>
                         <h3 class="wf-card-title">${s.nextSteps.title || 'Det vi sparar till senare'}</h3>

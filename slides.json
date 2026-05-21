@@ -762,8 +762,8 @@
       "type": "pixel-morph",
       "cardTitle": "Rösten eller korrektheten?",
       "animation": "slide-left",
-      "text": "När vi låter AI ta över skrivandet förlorar vi ofta vår unika röst i utbyte mot själlös korrekthet.",
-      "question": "Men måste det bli så?"
+      "text": "När vi låter en AI sköta skrivandet finns det en påtaglig risk att vi förlorar vår unika röst i utbyte mot en mer opersonlig, maskinell korrekthet.",
+      "question": "Måste det bli så?"
     },
     {
       "id": "personal-voice-methods",

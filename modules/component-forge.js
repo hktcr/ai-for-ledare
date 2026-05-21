@@ -8924,14 +8924,36 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             const canvas = document.getElementById(`${id}-canvas`);
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const overlay = document.getElementById(`${id}-overlay`);
+            const hintEl = document.getElementById(`${id}-hint`);
             
             let w, h;
             let particles = [];
-            let state = 'FLOAT'; // FLOAT or MORPH
+            let state = 'FLOAT_1'; // FLOAT_1, MORPH_1, MORPH_2
             const fontFam = "'Outfit', 'Inter', sans-serif";
             
-            function scanText() {
+            let targets1 = [];
+            let targets2 = [];
+            
+            function getLines(context, text, maxWidth) {
+                const words = text.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    const word = words[i];
+                    const width = context.measureText(currentLine + " " + word).width;
+                    if (width < maxWidth) {
+                        currentLine += " " + word;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            }
+            
+            function scanTextPoints(text, isQuestion) {
                 const offscreen = document.createElement('canvas');
                 const offscreenCtx = offscreen.getContext('2d');
                 
@@ -8940,20 +8962,43 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 offscreen.height = h * dpi;
                 offscreenCtx.scale(dpi, dpi);
                 
-                const questionText = s.question || "Men måste det bli så?";
-                const fontSize = Math.min(w * 0.07, h * 0.12);
-                offscreenCtx.font = `bold ${fontSize}px ${fontFam}`;
+                let fontSize;
+                if (isQuestion) {
+                    fontSize = Math.min(w * 0.075, h * 0.12);
+                    offscreenCtx.font = `bold ${fontSize}px ${fontFam}`;
+                } else {
+                    fontSize = Math.min(w * 0.032, h * 0.05);
+                    offscreenCtx.font = `500 ${fontSize}px ${fontFam}`;
+                }
+                
                 offscreenCtx.fillStyle = '#fff';
                 offscreenCtx.textAlign = 'center';
                 offscreenCtx.textBaseline = 'middle';
                 
-                offscreenCtx.fillText(questionText, w / 2, h / 2);
+                if (isQuestion) {
+                    offscreenCtx.fillText(text, w / 2, h / 2);
+                } else {
+                    const maxWidth = w * 0.8;
+                    const lineHeight = fontSize * 1.45;
+                    const lines = getLines(offscreenCtx, text, maxWidth);
+                    const totalHeight = lines.length * lineHeight;
+                    const startY = (h - totalHeight) / 2 + lineHeight / 2;
+                    
+                    lines.forEach((line, index) => {
+                        offscreenCtx.fillText(line, w / 2, startY + index * lineHeight);
+                    });
+                }
                 
                 const imgData = offscreenCtx.getImageData(0, 0, w * dpi, h * dpi);
                 const data = imgData.data;
-                const step = Math.max(3, Math.floor((w * dpi) / 280));
-                const targets = [];
                 
+                // Adaptive step size based on width and text length
+                let step = Math.max(3, Math.floor((w * dpi) / 360));
+                if (!isQuestion) {
+                    step = Math.max(3, Math.floor((w * dpi) / 440));
+                }
+                
+                const targets = [];
                 for (let y = 0; y < h * dpi; y += step) {
                     for (let x = 0; x < w * dpi; x += step) {
                         const idx = (y * w * dpi + x) * 4;
@@ -8966,6 +9011,39 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     }
                 }
                 return targets;
+            }
+            
+            function updateParticleTargets() {
+                const poolSize = Math.max(targets1.length, targets2.length, 1200);
+                if (particles.length === 0) {
+                    particles = [];
+                    for (let i = 0; i < poolSize; i++) {
+                        particles.push({
+                            x: Math.random() * w,
+                            y: Math.random() * h,
+                            vx: (Math.random() - 0.5) * 1.5,
+                            vy: (Math.random() - 0.5) * 1.5,
+                            size: Math.random() * 2.2 + 0.8,
+                            r: 129,
+                            g: 140,
+                            b: 248,
+                            targetR: 129,
+                            targetG: 140,
+                            targetB: 248,
+                            alpha: Math.random() * 0.4 + 0.3
+                        });
+                    }
+                }
+                
+                particles.forEach((p, idx) => {
+                    const t1 = targets1[idx % targets1.length];
+                    p.t1X = t1 ? t1.x : Math.random() * w;
+                    p.t1Y = t1 ? t1.y : Math.random() * h;
+                    
+                    const t2 = targets2[idx % targets2.length];
+                    p.t2X = t2 ? t2.x : Math.random() * w;
+                    p.t2Y = t2 ? t2.y : Math.random() * h;
+                });
             }
             
             function resize() {
@@ -8982,50 +9060,47 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 canvas.height = h * dpi;
                 ctx.scale(dpi, dpi);
                 
-                const targets = scanText();
+                targets1 = scanTextPoints(s.text || "", false);
+                targets2 = scanTextPoints(s.question || "", true);
                 
-                if (state === 'FLOAT') {
-                    particles = [];
-                    const particleCount = Math.max(targets.length, 300);
-                    for (let i = 0; i < particleCount; i++) {
-                        particles.push({
-                            x: Math.random() * w,
-                            y: Math.random() * h,
-                            vx: (Math.random() - 0.5) * 1.5,
-                            vy: (Math.random() - 0.5) * 1.5,
-                            targetX: targets[i % targets.length]?.x || Math.random() * w,
-                            targetY: targets[i % targets.length]?.y || Math.random() * h,
-                            size: Math.random() * 2 + 0.8,
-                            color: `rgba(99, 102, 241, ${Math.random() * 0.4 + 0.3})`
-                        });
-                    }
-                } else {
-                    particles.forEach((p, idx) => {
-                        const t = targets[idx % targets.length];
-                        if (t) {
-                            p.targetX = t.x;
-                            p.targetY = t.y;
-                        }
-                    });
-                }
+                updateParticleTargets();
             }
             
             function triggerMorph() {
-                if (state === 'MORPH') {
+                if (state === 'FLOAT_1') {
+                    state = 'MORPH_1';
+                    
+                    // Small velocity burst to snap organically
+                    particles.forEach(p => {
+                        p.vx += (Math.random() - 0.5) * 12;
+                        p.vy += (Math.random() - 0.5) * 12;
+                    });
+                    
+                    if (hintEl) {
+                        hintEl.innerText = "Klicka för att utmana tanken";
+                    }
+                } else if (state === 'MORPH_1') {
+                    state = 'MORPH_2';
+                    
+                    // Massive velocity burst to simulate text explosion/dissolution
+                    particles.forEach(p => {
+                        p.vx += (Math.random() - 0.5) * 38;
+                        p.vy += (Math.random() - 0.5) * 38;
+                        
+                        // Shift target color to vibrant amber/orange
+                        p.targetR = 249;
+                        p.targetG = 115 + Math.floor(Math.random() * 40);
+                        p.targetB = 22 + Math.floor(Math.random() * 40);
+                    });
+                    
+                    if (hintEl) {
+                        hintEl.innerText = "Klicka för att gå vidare";
+                    }
+                } else if (state === 'MORPH_2') {
                     if (typeof window.nextSlide === 'function') {
                         window.nextSlide();
                     }
-                    return;
                 }
-                state = 'MORPH';
-                overlay.style.opacity = '0';
-                overlay.style.pointerEvents = 'none';
-                
-                particles.forEach(p => {
-                    p.vx = (Math.random() - 0.5) * 22;
-                    p.vy = (Math.random() - 0.5) * 22;
-                    p.color = `rgba(249, ${115 + Math.floor(Math.random()*40)}, ${22 + Math.floor(Math.random()*40)}, ${Math.random() * 0.5 + 0.5})`;
-                });
             }
             
             const container = document.getElementById(id);
@@ -9041,11 +9116,34 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 ctx.clearRect(0, 0, w, h);
                 
                 particles.forEach(p => {
-                    if (state === 'MORPH') {
-                        const dx = p.targetX - p.x;
-                        const dy = p.targetY - p.y;
+                    // Smoothly morph color
+                    p.r += (p.targetR - p.r) * 0.05;
+                    p.g += (p.targetG - p.g) * 0.05;
+                    p.b += (p.targetB - p.b) * 0.05;
+                    const colorStr = `rgba(${Math.round(p.r)}, ${Math.round(p.g)}, ${Math.round(p.b)}, ${p.alpha})`;
+                    
+                    if (state === 'FLOAT_1') {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        
+                        if (p.x < 0 || p.x > w) p.vx *= -1;
+                        if (p.y < 0 || p.y > h) p.vy *= -1;
+                        
+                        p.vx += (Math.random() - 0.5) * 0.04;
+                        p.vy += (Math.random() - 0.5) * 0.04;
+                        const maxSpeed = 1.2;
+                        const speed = Math.hypot(p.vx, p.vy);
+                        if (speed > maxSpeed) {
+                            p.vx = (p.vx / speed) * maxSpeed;
+                            p.vy = (p.vy / speed) * maxSpeed;
+                        }
+                        p.alpha = Math.max(0.15, p.alpha * 0.95 + 0.3 * 0.05);
+                    } else if (state === 'MORPH_1') {
+                        const dx = p.t1X - p.x;
+                        const dy = p.t1Y - p.y;
                         const dist = Math.hypot(dx, dy);
-                        const stiffness = 0.07;
+                        
+                        const stiffness = 0.06;
                         const damping = 0.84;
                         
                         const ax = dx * stiffness;
@@ -9056,19 +9154,32 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         p.x += p.vx;
                         p.y += p.vy;
                         
-                        p.alpha = Math.min(1, 0.4 + (1 - Math.min(dist, 100) / 100) * 0.6);
-                    } else {
+                        p.alpha = Math.min(1, 0.4 + (1 - Math.min(dist, 80) / 80) * 0.6);
+                    } else if (state === 'MORPH_2') {
+                        const dx = p.t2X - p.x;
+                        const dy = p.t2Y - p.y;
+                        const dist = Math.hypot(dx, dy);
+                        
+                        const stiffness = 0.08;
+                        const damping = 0.82;
+                        
+                        const ax = dx * stiffness;
+                        const ay = dy * stiffness;
+                        
+                        p.vx = (p.vx + ax) * damping;
+                        p.vy = (p.vy + ay) * damping;
                         p.x += p.vx;
                         p.y += p.vy;
-                        if (p.x < 0 || p.x > w) p.vx *= -1;
-                        if (p.y < 0 || p.y > h) p.vy *= -1;
+                        
+                        p.alpha = Math.min(1, 0.4 + (1 - Math.min(dist, 80) / 80) * 0.6);
                     }
                     
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = p.color;
-                    if (state === 'MORPH') {
-                        ctx.shadowColor = p.color;
+                    ctx.fillStyle = colorStr;
+                    
+                    if (state !== 'FLOAT_1') {
+                        ctx.shadowColor = colorStr;
                         ctx.shadowBlur = p.size * 2;
                     }
                     ctx.fill();
@@ -9086,9 +9197,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         return `
             <div class="slide-pixel-morph no-click-advance" id="${id}">
                 <canvas id="${id}-canvas"></canvas>
-                <div class="pm-text-overlay" id="${id}-overlay">
-                    <div class="pm-quote">${s.text || ''}</div>
-                    <div class="pm-hint">${s.hint || ''}</div>
+                <div class="pm-text-overlay" style="position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); z-index: 5; text-align: center; width: 100%; pointer-events: none;">
+                    <div class="pm-quote" style="opacity: 0; pointer-events: none; height: 0; margin: 0; overflow: hidden;">${s.text || ''} - ${s.question || ''}</div>
+                    <div class="pm-hint" id="${id}-hint" style="pointer-events: auto; font-size: clamp(0.9rem, 1.5cqw, 1.2rem); color: var(--accent, #f97316); opacity: 0.8; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; animation: pulseHint 2s infinite ease-in-out;">Klicka för att se risken</div>
                 </div>
             </div>
         `;

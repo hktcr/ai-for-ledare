@@ -8743,28 +8743,69 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             <style>
                 .am-container {
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                     width: 100%;
                     height: 100%;
-                    gap: 4cqw;
+                    gap: 3cqh;
                     align-items: center;
+                    justify-content: center;
                     padding: 3cqh 5cqw;
                     box-sizing: border-box;
                 }
+                .am-title-group {
+                    text-align: center;
+                    width: 100%;
+                    margin-bottom: 0.5cqh;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    min-height: 8cqh;
+                    justify-content: center;
+                }
+                .am-title {
+                    font-size: clamp(2rem, 4.8cqh, 3.4rem);
+                    font-weight: 800;
+                    line-height: 1.15;
+                    color: #fff;
+                    margin: 0;
+                    min-height: 5.5cqh;
+                }
+                .am-title span {
+                    background: linear-gradient(135deg, var(--accent, #ff2a6d) 0%, var(--accent2, #ffd700) 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .am-subtitle {
+                    font-size: clamp(0.95rem, 2.1cqh, 1.35rem);
+                    color: var(--text-muted, rgba(255,255,255,0.7));
+                    margin: 0.5cqh 0 0 0;
+                    font-weight: 500;
+                    opacity: 0;
+                    transition: opacity 0.8s ease-in-out;
+                }
+                .am-main-flow {
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    flex: 1;
+                    gap: 4cqw;
+                    align-items: center;
+                    min-height: 0;
+                }
                 .am-left {
-                    flex: 0 0 35cqw;
+                    flex: 0 0 32cqw;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     position: relative;
-                    height: 75cqh;
+                    height: 60cqh;
                 }
                 
                 /* ===== DUAL INTERACTIVE PORTAL ===== */
                 .am-portal-wrapper {
                     position: relative;
-                    width: clamp(280px, 35cqh, 380px);
-                    height: clamp(280px, 35cqh, 380px);
+                    width: clamp(220px, 30cqh, 320px);
+                    height: clamp(220px, 30cqh, 320px);
                     border-radius: 50%;
                     background: rgba(15, 10, 30, 0.25);
                     border: 2px solid rgba(255, 255, 255, 0.08);
@@ -8809,35 +8850,13 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     color: #c084fc;
                     text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
                 }
-
+ 
                 .am-right {
                     flex: 1;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    gap: 3cqh;
                     min-width: 0;
-                }
-                .am-title-group {
-                    margin-bottom: 1cqh;
-                }
-                .am-title {
-                    font-size: clamp(1.8rem, 4.2cqh, 2.6rem);
-                    font-weight: 800;
-                    line-height: 1.15;
-                    color: #fff;
-                    margin: 0 0 1cqh 0;
-                }
-                .am-title span {
-                    background: linear-gradient(135deg, var(--accent, #ff2a6d) 0%, var(--accent2, #ffd700) 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                }
-                .am-subtitle {
-                    font-size: clamp(0.9rem, 2cqh, 1.3rem);
-                    color: var(--text-muted, rgba(255,255,255,0.7));
-                    margin: 0;
-                    font-weight: 500;
                 }
                 .am-grid {
                     display: grid;
@@ -8932,36 +8951,39 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 }
                 
                 @media (max-width: 1024px) {
-                    .am-container { flex-direction: column; padding: 2cqh; gap: 2cqh; }
-                    .am-left { flex: 0 0 25cqh; height: 25cqh; width: 100%; }
-                    .am-portal-wrapper { width: 220px; height: 220px; }
+                    .am-container { padding: 2cqh; gap: 2cqh; }
+                    .am-main-flow { flex-direction: column; gap: 2cqh; }
+                    .am-left { flex: 0 0 22cqh; height: 22cqh; width: 100%; }
+                    .am-portal-wrapper { width: 180px; height: 180px; }
                     .am-grid { grid-template-columns: 1fr; gap: 1.5cqh; }
                 }
             </style>
             <div class="am-container" id="${id}">
-                <div class="am-left">
-                    <div class="am-portal-wrapper mode-organic">
-                        <canvas class="am-canvas"></canvas>
-                        <div class="am-portal-indicator">Neural Core</div>
-                    </div>
+                <div class="am-title-group">
+                    <h2 class="am-title" id="${id}-title"></h2>
+                    <p class="am-subtitle" id="${id}-subtitle">${s.subtitle || ''}</p>
                 </div>
-                <div class="am-right">
-                    <div class="am-title-group">
-                        <h2 class="am-title">${s.titleHtml || s.title || 'Är det ok att behandla AI som en <span>människa?</span>'}</h2>
-                        <p class="am-subtitle">${s.subtitle || ''}</p>
-                    </div>
-                    <div class="am-grid">
-                        <div class="am-card am-card-pro">
-                            <h3 class="am-card-title">${s.prosHeader || 'Möjligheter & Fördelar'}</h3>
-                            <ul class="am-list">
-                                ${prosHtml}
-                            </ul>
+                <div class="am-main-flow">
+                    <div class="am-left">
+                        <div class="am-portal-wrapper mode-organic">
+                            <canvas class="am-canvas"></canvas>
+                            <div class="am-portal-indicator">Neural Core</div>
                         </div>
-                        <div class="am-card am-card-con">
-                            <h3 class="am-card-title">${s.consHeader || 'Utmaningar & Risker'}</h3>
-                            <ul class="am-list">
-                                ${consHtml}
-                            </ul>
+                    </div>
+                    <div class="am-right">
+                        <div class="am-grid">
+                            <div class="am-card am-card-pro">
+                                <h3 class="am-card-title">${s.prosHeader || 'Möjligheter & Fördelar'}</h3>
+                                <ul class="am-list">
+                                    ${prosHtml}
+                                </ul>
+                            </div>
+                            <div class="am-card am-card-con">
+                                <h3 class="am-card-title">${s.consHeader || 'Utmaningar & Risker'}</h3>
+                                <ul class="am-list">
+                                    ${consHtml}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -8985,12 +9007,43 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     width = canvas.width = canvas.offsetWidth || 350;
                     height = canvas.height = canvas.offsetHeight || 350;
                 });
-
+ 
+                // Typewriter effect for heading
+                const titleEl = container.querySelector('#' + id + '-title');
+                const subtitleEl = container.querySelector('#' + id + '-subtitle');
+                if (titleEl) {
+                    const rawTitle = ${JSON.stringify(s.title || "Bör vi antropomorfisera?")};
+                    titleEl.innerHTML = '';
+                    let charIndex = 0;
+                    
+                    function typeTitleNext() {
+                        if (!titleEl.isConnected) return;
+                        if (charIndex <= rawTitle.length) {
+                            let textSoFar = rawTitle.slice(0, charIndex);
+                            if (textSoFar.includes("antropomorfisera")) {
+                                const index = textSoFar.indexOf("antropomorfisera");
+                                const before = textSoFar.slice(0, index);
+                                const word = textSoFar.slice(index);
+                                titleEl.innerHTML = before + '<span>' + word + '</span>';
+                            } else {
+                                titleEl.innerHTML = textSoFar;
+                            }
+                            charIndex++;
+                            setTimeout(typeTitleNext, 60 + Math.random() * 40);
+                        } else {
+                            if (subtitleEl) {
+                                subtitleEl.style.opacity = '0.7';
+                            }
+                        }
+                    }
+                    setTimeout(typeTitleNext, 400);
+                }
+ 
                 const numParticles = 90;
                 const particles = [];
                 let mode = 0; // 0: Organic, 1: Algorithmic
                 let mouse = { x: -1000, y: -1000, active: false };
-
+ 
                 // Initialize particles
                 for (let i = 0; i < numParticles; i++) {
                     particles.push({
@@ -9004,7 +9057,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         orbitRadius: Math.random() * (width * 0.38) + 20
                     });
                 }
-
+ 
                 // Grid coordinates for Algorithmic mode
                 const cols = 9;
                 const rows = 9;
@@ -9017,7 +9070,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         });
                     }
                 }
-
+ 
                 // Hover triggers
                 const proCard = container.querySelector('.am-card-pro');
                 const conCard = container.querySelector('.am-card-con');
@@ -9040,20 +9093,20 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         indicator.innerText = 'Data Matrix';
                     });
                 }
-
+ 
                 container.addEventListener('mousemove', (e) => {
                     const rect = canvas.getBoundingClientRect();
                     mouse.x = e.clientX - rect.left;
                     mouse.y = e.clientY - rect.top;
                     mouse.active = true;
                 });
-
+ 
                 container.addEventListener('mouseleave', () => {
                     mouse.active = false;
                     mouse.x = -1000;
                     mouse.y = -1000;
                 });
-
+ 
                 let animationFrameId;
                 function animate() {
                     if (!canvas.isConnected) {
@@ -9066,7 +9119,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     // Dynamic colors based on mode
                     const targetColor = mode === 0 ? { r: 52, g: 211, b: 153 } : { r: 192, g: 132, b: 252 };
                     const lineColor = mode === 0 ? 'rgba(52, 211, 153, 0.06)' : 'rgba(192, 132, 252, 0.06)';
-
+ 
                     // Draw connections
                     ctx.strokeStyle = lineColor;
                     ctx.lineWidth = 1;
@@ -9089,11 +9142,11 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                             tx = cx + Math.cos(p1.angle) * p1.orbitRadius;
                             ty = cy + Math.sin(p1.angle) * p1.orbitRadius;
                         }
-
+ 
                         // Interpolate toward target
                         p1.x += (tx - p1.x) * 0.08;
                         p1.y += (ty - p1.y) * 0.08;
-
+ 
                         // Mouse interaction
                         if (mouse.active) {
                             const dx = mouse.x - p1.x;
@@ -9110,7 +9163,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                                 }
                             }
                         }
-
+ 
                         // Draw connections to nearby particles
                         for (let j = i + 1; j < numParticles; j++) {
                             const p2 = particles[j];
@@ -9132,7 +9185,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                                 }
                             }
                         }
-
+ 
                         // Draw particle
                         ctx.fillStyle = 'rgba(' + targetColor.r + ', ' + targetColor.g + ', ' + targetColor.b + ', 0.85)';
                         ctx.beginPath();

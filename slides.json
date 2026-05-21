@@ -946,11 +946,11 @@
       "id": "anthropomorphism",
       "section": "agenter",
       "type": "anthropomorphism",
-      "cardTitle": "Antropomorfisering",
+      "cardTitle": "Antropomorfisera",
       "image": "assets/android.png",
-      "title": "Bör vi behandla AI som en människa?",
-      "titleHtml": "Bör vi behandla AI som en <span>människa?</span>",
-      "subtitle": "Antropomorfisering: för- och nackdelar i praktiken",
+      "title": "Bör vi antropomorfisera?",
+      "titleHtml": "Bör vi <span>antropomorfisera?</span>",
+      "subtitle": "Att ge AI mänskliga drag: för- och nackdelar i praktiken",
       "pros": [
         "Naturlig interaktion: Mänskligt språk minskar trösklar och gör tekniken mer tillgänglig.",
         "Ökad kreativitet: Genom att se AI som en samtalspartner stimuleras nya infallsvinklar.",
@@ -1296,32 +1296,7 @@
     {
       "id": "emil-workspace",
       "section": "start",
-      "type": "title-astorp",
-      "title": "Gemini i Google Workspace",
-      "subtitle": "Praktiska verktyg, säkerhet och administratörsinsyn",
-      "note": "Emil presenterar Åstorps officiella, skyddade AI-miljö",
-      "presenter": {
-        "name": "Emil",
-        "title": "IT-strateg",
-        "org": "Åstorps kommun"
-      },
-      "cardTitle": "Emils Workspace-block"
-    },
-    {
-      "id": "fika-break",
-      "section": "start",
-      "type": "quote",
-      "text": "Kaffe & Bensträckare<br><br><span style='font-size:0.6em; opacity:0.8;'>Låt det latenta rummet sätta sig... (09:45 - 10:00)</span>",
-      "author": "Fika",
-      "style": "typewriter",
-      "cardTitle": "Fika"
-    },
-    {
-      "id": "workshop-interactive-cases",
-      "section": "cases",
-      "type": "cases-grid-popup",
-      "title": "Verkstad: Praktiska AI-case för skolledare",
-      "cases": [
+      "type": "title-astorp",      "cases": [
         {
           "id": "A",
           "badge": "CASE A: EHT-DOKUMENTATION",
@@ -1346,7 +1321,7 @@
             "Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?",
             "Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
           ],
-          "prompt": "Du är en expert på svensk skoljuridik och förvaltningsrätt.\nHjälp mig att formulera ett avslagsbeslut för en ledighetsansökan som ska skickas till vårdnadshavare via Edlevo.\nEleven går i årskurs 9 och ansökan gäller 5 dagar under perioden för nationella prov.\n\nSkapa ett svar som innehåller:\n1. Ett tydligt men empatiskt avslag.\n2. Tydliga referenser till Skollagen kapitel 7 § 18 (ledighet) och vikten av deltagande i nationella prov.\n3. Förklaring av skolans ansvar för att säkerställa elevens måluppfyllelse.\n4. Information om hur beslutet kan överklagas (laglighetsprövning enligt Kommunallagen).\nTexten ska vara kort, professionell och lättbegriplig för vårdnadshavare."
+          "prompt": "Du är en expert på svensk skoljuridik och förvaltningsrätt.\nHjälp mig att formulera ett avslagsbeslut för eine ledighetsansökan som ska skickas till vårdnadshavare via Edlevo.\nEleven går i årskurs 9 och ansökan gäller 5 dagar under perioden för nationella prov.\n\nSkapa ett svar som innehåller:\n1. Ett tydligt men empatiskt avslag.\n2. Tydliga referenser till Skollagen kapitel 7 § 18 (ledighet) och vikten av deltagande i nationella prov.\n3. Förklaring av skolans ansvar för att säkerställa elevens måluppfyllelse.\n4. Information om hur beslutet kan överklagas (laglighetsprövning enligt Kommunallagen).\nTexten ska vara kort, professionell och lättbegriplig för vårdnadshavare."
         },
         {
           "id": "C",
@@ -1385,24 +1360,11 @@
             "Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?",
             "Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
           ],
-          "prompt": "Du är en erfaren ledarskapscoach och expert på svåra samtal inom skolans värld.\nHjälp mig att förbereda och rollspela ett samtal med en medarbetare som har stora samarbetsproblem i sitt arbetslag.\nMedarbetaren blir lätt defensiv och går i försvarsställning.\n\nGör följande för att sparra mig:\n1. Ge mig eine tydlig samtalsstruktur i 5 steg (från inledning till överenskommelse).\n2. Ge mig 3 konkreta exempel på hur jag kan formulera mig när medarbetaren avleder samtalet eller går i försvarsställning, så att jag behåller initiativet på ett lugnt och respektfullt sätt.\n3. Agera som medarbetaren i en interaktiv rollspelssimulering. Börja med att säga: 'Jag förstår inte alls varför vi har det här mötet, allt fungerar jättebra i mitt arbetslag.' Vänta på mitt svar innan du fortsätter."
+          "prompt": "Du är en erfaren ledarskapscoach och expert på svåra samtal inom skolans värld.\nHjälp mig att förbereda och rollspela ett samtal med en medarbetare som har stora samarbetsproblem i sitt arbetslag.\nMedarbetaren blir lätt defensiv och går i försvarsställning.\n\nGör följande för att sparra mig:\n1. Ge mig eine tydlig samtalsstruktur i 5 steg (från inledning till överenskommelse).\n2. Ge mig 3 konkreta exempel på hur jag kan formulera mig när medarbetaren avleder samtalet eller går i försvarsställning, så jag behåller initiativet på ett lugnt och respektfullt sätt.\n3. Agera som medarbetaren i en interaktiv rollspelssimulering. Börja med att säga: 'Jag förstår inte alls varför vi har det här mötet, allt fungerar jättebra i mitt arbetslag.' Vänta på mitt svar innan du fortsätter."
         },
         {
           "id": "F",
-          "badge": "CASE F: VEP KOMPETENSUTVECKLING",
-          "title": "VEP Kompetensutveckling",
-          "description": "Använd virtuella expertpaneler för att stötta pedagogers kompetensutveckling.",
-          "challenge": "En rektor vill utforma ett interaktivt kompetensutvecklingsprogram för lärare kring AI-didaktik. Målet är att använda VEP-metodiken för att låta lärare sparra med virtuella ämnesexperter, specialpedagoger och IT-pedagoger.",
-          "questions": [
-            "Vilka roller bör ingå i lärarnas virtuella expertpanel?",
-            "Hur säkrar vi att lärarna behåller sin pedagogiska suveränitet och inte överlåter lektionsplaneringen helt till AI?",
-            "Hur kan vi utvärdera effekten av VEP-sparringen på elevernas lärande?"
-          ],
-          "prompt": "Sammansätt en virtuell expertpanel bestående av en erfaren specialpedagog, en IT-pedagog, en erfaren ämnesdidaktiker och en utomstående skolforskare.\nInitiera en koordinator som leder samtalet. Vi ska utforma ett lektionsupplägg för årskurs 8 i NO där eleverna ska lära sig om genetik med stöd av AI. Låt experterna ge sina oberoende perspektiv och identifiera pedagogiska risker och möjligheter."
-        },
-        {
-          "id": "G",
-          "badge": "CASE G: VÅRDNADSHAVARMEJLET",
+          "badge": "CASE F: VÅRDNADSHAVARMEJLET",
           "title": "Vårdnadshavarmejlet",
           "description": "Svara på infekterade och komplicerade mejl från vårdnadshavare på ett empatiskt men juridiskt och sakligt korrekt sätt.",
           "challenge": "En förälder har skickat ett långt och argt mejl där de anklagar skolan för bristande stöd och felaktig betygssättning av deras barn, med hot om anmälan till Skolinspektionen. Rektorn behöver svara på ett sätt som lugnar situationen, men som också står fast vid fattade beslut och har fullt lagstöd.",
@@ -1414,8 +1376,8 @@
           "prompt": "Här är ett argt mejl från en vårdnadshavare:\n[KLISTRA IN MEJLET]\n\nAnalysera mejlet och dela upp det i:\n1. Sakliga påståenden och krav.\n2. Känslomässiga uttryck.\n\nHjälp mig att formulera ett empatiskt, lugnt och professionellt svar som förklarar skolans beslut utifrån Skollagen kapitel 3 (betyg och stöd), men utan att gå i försvarsställning. Svaret ska vara formellt korrekt men varmt i tonen."
         },
         {
-          "id": "H",
-          "badge": "CASE H: LÄXUTMANINGEN",
+          "id": "G",
+          "badge": "CASE G: LÄXUTMANINGEN",
           "title": "Läxutmaningen",
           "description": "Använd AI som ett 360-graders beslutsstöd för att belysa infekterade intressekonflikter och utforma en evidensbaserad läxpolicy.",
           "challenge": "Inför ett stundande utvecklingsmöte ska skolledningen fatta beslut om en ny policy för läxor. Frågan är djupt infekterad: lärarna upplever tidsbrist och kräver läxor, föräldrar klagar på stress vid köksbordet, och elevhälsan varnar för psykisk ohälsa och ökade klyftor. Hur kan rektorn använda AI som strategiskt beslutsstöd för att belysa frågan ur 360 grader, värdera forskningens faktiska effektstorlekar (inklusive åldersskillnader) och navigera förbi låsta skyttegravspositioner?",
@@ -1424,11 +1386,11 @@
             "Källkritik & Hallucinationer: Hur upptäcker och hanterar vi felaktiga länkar eller fabricerade studier när vi ber AI om forskningsstöd?",
             "Syntes: Hur kan AI hjälpa oss att gå från låsta positioner till en konkret policy (t.ex. max 70 minuters läxor för äldre, noll för yngre, och fokus på självreglering)?"
           ],
-          "prompt": "Du är en expertpanel bestående av en skolforskare (evidensfokus), en erfaren mellanstadielärare (pedagogiskt fokus), en barnpsykolog (hälsocentralt fokus) och en sociolog (likvärdighetsfokus). \nInitiera en koordinator som leder samtalet.\n\nVi ska utforma en ny, balanserad läxpolicy för vår grundskola (F–9).\nLåt experterna ge sina oberoende perspektiv på läxors för- och nackdelar.\n\nGör följande:\n1. Utför en 360-analys där varje expert presenterar sina tre starkaste argument utifrån sin yrkesroll.\n2. Låt experterna sparra mot varandra: Låt skolforskarens evidens om effektstorlekar krocka med lärarens tidsbrist och sociologens krav på likvärdighet.\n3. Koka ner diskussionen till ett konkret, genomförbart policydokument med 5 tydliga spelregler (inklusive maxtider för olika åldersgrupper och rekommendationer för hemmiljö)."
+          "prompt": "Du är en expertpanel bestående av en skolforskare (evidensfokus), en erfaren mellanstadielärare (pedagogiskt fokus), en barnpsykolog (hälsocentralt fokus) och en sociolog (likvärdighetsfokus). \nInitiera en koordinator som leder samtalet.\n\nVi ska utforma en ny, balanserad läxpolicy för vår grundskola (F–9).\nLåt experterna ge sina oberoende perspektiv på läxors för- och nackdelar.\n\nGör följande:\n1. Utför eine 360-analys där varje expert presenterar sina tre starkaste argument utifrån sin yrkesroll.\n2. Låt experterna sparra mot varandra: Låt skolforskarens evidens om effektstorlekar krocka med lärarens tidsbrist och sociologens krav på likvärdighet.\n3. Koka ner diskussionen till ett konkret, genomförbart policydokument med 5 tydliga spelregler (inklusive maxtider för olika åldersgrupper och rekommendationer för hemmiljö)."
         },
         {
-          "id": "I",
-          "badge": "CASE I: OMVÄRLDSBEVAKNING & PRESENTATIONER",
+          "id": "H",
+          "badge": "CASE H: OMVÄRLDSBEVAKNING & PRESENTATIONER",
           "title": "Omvärldsbevakning & Presentationer",
           "description": "Researcha skolforskning på djupet och generera ett komplett Google Slides-manus och Apps Script på sekunder.",
           "challenge": "En skolledare behöver göra en djup och uppdaterad omvärldsanalys kring ett komplext område (t.ex. läxornas faktiska effekter eller skärmtid i grundskolan) inför en presentation för skolstyrelsen. Att manuellt söka forskning, sammanställa rapporter och designa en presentation tar dagar. Hur kan ledaren använda AI för att (1) söka och sammanställa aktuell global forskning, (2) bygga en logisk röd tråd slide-för-slide med talarmanus, och (3) generera ett färdigt Google Apps Script som på fem sekunder bygger hela presentationen direkt i Google Slides?",
@@ -1440,8 +1402,8 @@
           "prompt": "Du är en skolforskare och expert på visuell kommunikation.\nHjälp mig att förbereda en dragning för skolstyrelsen om läxors effekter i grundskolan baserat på aktuell forskning (t.ex. John Hatties metastudier).\n\nGör följande:\n1. Skapa en slide-för-slide disposition för totalt 6 slides (Intro, Bakgrund/Utmaning, Evidens yngre elever, Evidens äldre elever, Förslag på ny policy, Slutsats/Nästa steg).\n2. For varje slide, ge mig:\n   - Skarp rubrik och 3 korta punktlistor (innehåll på sliden).\n   - Ett professionellt talarmanus på 3 meningar.\n   - Visuell idé för layout eller bildval.\n3. Generera ett komplett, välkommenterat Google Apps Script som jag kan köra i Google Slides editor (Script Editor) för att automatiskt bygga upp dessa 6 slides med korrekt formaterade rubriker och punktlistor. Använd standard SlidesApp funktioner."
         },
         {
-          "id": "J",
-          "badge": "CASE J: SCHEMAPUSSLET & RESURSKROCKAR",
+          "id": "I",
+          "badge": "CASE I: SCHEMAPUSSLET & RESURSKROCKAR",
           "title": "Schemapusslet & Resurskrockar",
           "description": "Lös det omöjliga högstadiemönstret genom fasta ämnesrum, rullande luncher och smarta hybridblock.",
           "challenge": "En högstadieskola (åk 7–9) med 18 klasser (ca 612 elever) har en matsal som bara rymmer 150 elever, vilket kräver 5 lunchsittningar var 15:e minut. Specialsalar (Arenan, Musik, NO-lab) är extrema flaskhalsar och Moderna Språk-blocken måste parallellläggas per årskurs. Rektorn vill införa <i>lärarcentrerade fasta ämnesrum</i> (lärarna äger sina rum för noll flyttstress, medan eleverna roterar) och kombinera 50-minuters teoripass med 85-minuters långpass för praktisk-estetiska ämnen och NO-lab för optimal studiero. Hur kan skolledningen ta hjälp av en virtuell expertpanel (⚙️ Logistikern, 🧠 Pedagogen, ⚖️ Arbetsmiljöexperten) för att lösa detta extrema pussel utan att bryta mot ATL eller skollagen?",
@@ -1451,6 +1413,8 @@
             "Hur kan vi pedagogiskt och organisatoriskt samverka för att införa fasta ämnesrum i stället för klassrum?"
           ],
           "prompt": "Du är en virtuell expertpanel bestående av:\n1. ⚙️ Logistikern: Expert på resursoptimering, salskapacitet, lärarallokering och ATL.\n2. 🧠 Pedagogen: Expert på kognitiv belastning, studiero, spacing-effekt och optimala lektionslängder.\n3. ⚖️ Arbetsmiljöexperten: Expert på lärarnas förutsättningar, ställtid och stressreducering.\nInitiera en koordinator som leder samtalet.\n\nHjälp mig att skapa det optimala veckoschemat (likadant varje vecka) för ett högstadium (åk 7–9) baserat på följande fasta förutsättningar:\n- Morgonrutin: 20 minuters tyst läsning (08:00–08:20) för hela skolan.\n- Lektionslängd teori: Standardpass för teori (SV, SO, EN, etc.) är exakt 50 minuter.\n- Matematik: 4 pass à 50 minuter per vecka utspridda på 4 olika dagar (spacing-effekt, undvik sena fredagar).\n- Långpass (85 min): Praktiska/estetiska ämnen (BL, SL, HKK, MU, IDH) och NO-laborationer schemaläggs som längre pass (85 min) i smarta block (Pass 3 och 5) för att inkludera ställtid, ombyte och experiment.\n- Moderna Språk (MS): Parallellagda block per årskurs (åk 7, 8, 9) för att förhindra lärar- och språkgruppskrockar.\n- Rullande lunch: Matsalen rymmer max 150 elever. Med 18 klasser krävs 5 sittningar (insläpp var 15:e minut från kl. 11:00 till 12:00) med 45 minuters lunchrast.\n- Fasta Ämnesrum: Varje lärare tilldelas en fast sal (labb för NO, specialsal för slöjd/bild, fast sal för teori) för att eliminera lärarflyttstress. Eleverna roterar på rasterna.\n\nBörja med att analysera flaskhalsarna och ställ 2–3 specifika frågor till mig för att kalibrera din schemaläggningsalgoritm innan du bygger den kompletta klass- och lärarmatrisen."
+        }
+      ]ng-effekt och optimala lektionslängder.\n3. ⚖️ Arbetsmiljöexperten: Expert på lärarnas förutsättningar, ställtid och stressreducering.\nInitiera en koordinator som leder samtalet.\n\nHjälp mig att skapa det optimala veckoschemat (likadant varje vecka) för ett högstadium (åk 7–9) baserat på följande fasta förutsättningar:\n- Morgonrutin: 20 minuters tyst läsning (08:00–08:20) för hela skolan.\n- Lektionslängd teori: Standardpass för teori (SV, SO, EN, etc.) är exakt 50 minuter.\n- Matematik: 4 pass à 50 minuter per vecka utspridda på 4 olika dagar (spacing-effekt, undvik sena fredagar).\n- Långpass (85 min): Praktiska/estetiska ämnen (BL, SL, HKK, MU, IDH) och NO-laborationer schemaläggs som längre pass (85 min) i smarta block (Pass 3 och 5) för att inkludera ställtid, ombyte och experiment.\n- Moderna Språk (MS): Parallellagda block per årskurs (åk 7, 8, 9) för att förhindra lärar- och språkgruppskrockar.\n- Rullande lunch: Matsalen rymmer max 150 elever. Med 18 klasser krävs 5 sittningar (insläpp var 15:e minut från kl. 11:00 till 12:00) med 45 minuters lunchrast.\n- Fasta Ämnesrum: Varje lärare tilldelas en fast sal (labb för NO, specialsal för slöjd/bild, fast sal för teori) för att eliminera lärarflyttstress. Eleverna roterar på rasterna.\n\nBörja med att analysera flaskhalsarna och ställ 2–3 specifika frågor till mig för att kalibrera din schemaläggningsalgoritm innan du bygger den kompletta klass- och lärarmatrisen."
         }
       ]
     }

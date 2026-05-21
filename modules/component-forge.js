@@ -4767,7 +4767,7 @@
      */
     function renderProcessChain(s) {
         const id = s.id || 'slide-process-chain';
-        const isDirigenten = s.id === 'du-ar-dirigenten' || (s.nodes && s.nodes.length === 3 && s.nodes[2].label.includes('DU'));
+        const isDirigenten = s.id === 'du-ar-dirigenten' || s.id === 'vep-i-praktiken' || (s.nodes && s.nodes.length === 3 && s.nodes[2].label.includes('DU'));
 
         let drawerHTML = '';
         if (s.prompt) {
@@ -4820,24 +4820,129 @@
                     }
                     @keyframes heroPulse {
                         0% { box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.05); }
-                        50% { box-shadow: 0 12px 40px rgba(249, 115, 22, 0.4), inset 0 1px 2px rgba(255,255,255,0.15); border-color: rgba(249, 115, 22, 0.7); }
+                        50% { box-shadow: 0 12px 40px rgba(249, 115, 22, 0.45), inset 0 1px 2px rgba(255,255,255,0.15); border-color: rgba(249, 115, 22, 0.75); }
                         100% { box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.05); }
                     }
-                    .pc-flow-dot-branch-left {
+                    
+                    /* Connector 1 -> 2 vertical dots */
+                    .pc-flow-dot-vertical-down {
+                        offset-path: path("M15 0 L15 45");
+                        animation: flowDot 2.2s infinite linear;
+                    }
+                    .pc-flow-dot-vertical-up {
+                        offset-path: path("M25 45 L25 0");
+                        animation: flowDot 2.2s infinite linear;
+                        animation-delay: 1.1s;
+                    }
+
+                    /* Connector 2 -> 3 branching dots */
+                    /* Downward flows */
+                    .pc-flow-dot-expert-left-down {
                         offset-path: path("M 300 0 Q 300 25, 100 55");
-                        animation: flowDot 2.8s infinite linear;
-                        animation-delay: 0.1s;
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 0s;
                     }
-                    .pc-flow-dot-branch-mid {
+                    .pc-flow-dot-expert-mid-down {
                         offset-path: path("M 300 0 L 300 55");
-                        animation: flowDot 2.8s infinite linear;
-                        animation-delay: 0.9s;
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 0.8s;
                     }
-                    .pc-flow-dot-branch-right {
+                    .pc-flow-dot-expert-right-down {
                         offset-path: path("M 300 0 Q 300 25, 500 55");
-                        animation: flowDot 2.8s infinite linear;
-                        animation-delay: 1.7s;
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 1.6s;
                     }
+
+                    /* Upward return feedback flows */
+                    .pc-flow-dot-expert-left-up {
+                        offset-path: path("M 100 55 Q 300 25, 300 0");
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 1.25s;
+                    }
+                    .pc-flow-dot-expert-mid-up {
+                        offset-path: path("M 300 55 L 300 0");
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 2.05s;
+                    }
+                    .pc-flow-dot-expert-right-up {
+                        offset-path: path("M 500 55 Q 300 25, 300 0");
+                        animation: flowDot 2.5s infinite linear;
+                        animation-delay: 0.45s;
+                    }
+
+                    /* Node Styling overrides for premium visual coherence */
+                    .pc-interactive-node.node-du {
+                        border-color: rgba(249, 115, 22, 0.35) !important;
+                        background: rgba(249, 115, 22, 0.05) !important;
+                        animation: heroPulse 4.0s infinite ease-in-out;
+                    }
+                    .pc-interactive-node.node-du:hover {
+                        border-color: rgba(249, 115, 22, 0.9) !important;
+                        box-shadow: 0 0 25px rgba(249, 115, 22, 0.4), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+                    }
+                    .pc-interactive-node.node-du .pc-node-icon {
+                        background: rgba(249, 115, 22, 0.18) !important;
+                        border-color: rgba(249, 115, 22, 0.5) !important;
+                        box-shadow: 0 0 12px rgba(249, 115, 22, 0.3);
+                    }
+
+                    .pc-interactive-node.node-koordinator {
+                        border-color: rgba(168, 85, 247, 0.35) !important;
+                        background: rgba(168, 85, 247, 0.05) !important;
+                    }
+                    .pc-interactive-node.node-koordinator:hover {
+                        border-color: rgba(168, 85, 247, 0.9) !important;
+                        box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+                    }
+                    .pc-interactive-node.node-koordinator .pc-node-icon {
+                        background: rgba(168, 85, 247, 0.18) !important;
+                        border-color: rgba(168, 85, 247, 0.5) !important;
+                        box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+                    }
+
+                    /* Expert glows and borders */
+                    .pc-interactive-node[data-role="expert_forska"] {
+                        border-color: rgba(16, 185, 129, 0.35) !important;
+                        background: rgba(16, 185, 129, 0.04) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_forska"]:hover {
+                        border-color: rgba(16, 185, 129, 0.9) !important;
+                        box-shadow: 0 0 20px rgba(16, 185, 129, 0.35), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_forska"] .pc-node-icon {
+                        background: rgba(16, 185, 129, 0.15) !important;
+                        border-color: rgba(16, 185, 129, 0.4) !important;
+                        box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+                    }
+
+                    .pc-interactive-node[data-role="expert_amne"] {
+                        border-color: rgba(245, 158, 11, 0.35) !important;
+                        background: rgba(245, 158, 11, 0.04) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_amne"]:hover {
+                        border-color: rgba(245, 158, 11, 0.9) !important;
+                        box-shadow: 0 0 20px rgba(245, 158, 11, 0.35), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_amne"] .pc-node-icon {
+                        background: rgba(245, 158, 11, 0.15) !important;
+                        border-color: rgba(245, 158, 11, 0.4) !important;
+                        box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+                    }
+
+                    .pc-interactive-node[data-role="expert_jurist"] {
+                        border-color: rgba(6, 182, 212, 0.35) !important;
+                        background: rgba(6, 182, 212, 0.04) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_jurist"]:hover {
+                        border-color: rgba(6, 182, 212, 0.9) !important;
+                        box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), inset 0 1px 1px rgba(255,255,255,0.1) !important;
+                    }
+                    .pc-interactive-node[data-role="expert_jurist"] .pc-node-icon {
+                        background: rgba(6, 182, 212, 0.15) !important;
+                        border-color: rgba(6, 182, 212, 0.4) !important;
+                        box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+                    }
+
                     /* Mobile optimization */
                     @media (max-width: 768px) {
                         .slide-process-chain .pc-connector-branching {
@@ -4874,11 +4979,16 @@
                             <span class="pc-node-tag">Dirigenten</span>
                         </div>
                         
-                        <!-- Connector 1 -> 2 -->
+                        <!-- Connector 1 -> 2: Bi-directional flow -->
                         <div class="pc-connector-vertical">
-                            <svg class="pc-svg-arrow-vertical" viewBox="0 0 24 45" fill="none">
-                                <path d="M12 0 L12 40 M7 35 L12 40 L17 35" stroke="rgba(249, 115, 22, 0.4)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <circle class="pc-flow-dot-vertical" r="4.5" fill="#f97316" />
+                            <svg class="pc-svg-arrow-vertical" viewBox="0 0 40 45" fill="none">
+                                <!-- Downward flow path & arrow (Dirigent -> Koordinator) -->
+                                <path d="M15 0 L15 45 M10 38 L15 45 L20 38" stroke="rgba(249, 115, 22, 0.35)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <!-- Upward feedback path & arrow (Koordinator -> Dirigent) -->
+                                <path d="M25 45 L25 0 M20 7 L25 0 L30 7" stroke="rgba(168, 85, 247, 0.35)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                
+                                <circle class="pc-flow-dot-vertical-down" r="4" fill="#f97316" />
+                                <circle class="pc-flow-dot-vertical-up" r="4" fill="#d946ef" />
                             </svg>
                         </div>
                         
@@ -4894,20 +5004,30 @@
                             <span class="pc-node-tag">Koordinatorn</span>
                         </div>
                         
-                        <!-- Connector 2 -> 3 (Branching) -->
+                        <!-- Connector 2 -> 3 (Branching with colored flows and feedback returns) -->
                         <div class="pc-connector-branching">
                             <svg class="pc-svg-branching" viewBox="0 0 600 55" fill="none" preserveAspectRatio="none">
-                                <path d="M 300 0 Q 300 25, 100 55" stroke="rgba(168, 85, 247, 0.25)" stroke-width="3.5" stroke-linecap="round" />
-                                <path d="M 300 0 L 300 55" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3.5" stroke-linecap="round" />
-                                <path d="M 300 0 Q 300 25, 500 55" stroke="rgba(168, 85, 247, 0.25)" stroke-width="3.5" stroke-linecap="round" />
+                                <!-- Left Branch (Forskar-expert, Emerald Green) -->
+                                <path d="M 300 0 Q 300 25, 100 55" stroke="rgba(16, 185, 129, 0.2)" stroke-width="3.5" stroke-linecap="round" />
+                                <path d="M 300 0 Q 300 25, 100 55" stroke="#10b981" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
                                 
-                                <path d="M 300 0 Q 300 25, 100 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
-                                <path d="M 300 0 L 300 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
-                                <path d="M 300 0 Q 300 25, 500 55" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round" opacity="0.6" />
+                                <!-- Mid Branch (Ämnes-expert, Gold Amber) -->
+                                <path d="M 300 0 L 300 55" stroke="rgba(245, 158, 11, 0.2)" stroke-width="3.5" stroke-linecap="round" />
+                                <path d="M 300 0 L 300 55" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
                                 
-                                <circle class="pc-flow-dot-branch-left" r="4.5" fill="#38bdf8" />
-                                <circle class="pc-flow-dot-branch-mid" r="4.5" fill="#38bdf8" />
-                                <circle class="pc-flow-dot-branch-right" r="4.5" fill="#38bdf8" />
+                                <!-- Right Branch (Jurist-expert, Cyan Blue) -->
+                                <path d="M 300 0 Q 300 25, 500 55" stroke="rgba(6, 182, 212, 0.2)" stroke-width="3.5" stroke-linecap="round" />
+                                <path d="M 300 0 Q 300 25, 500 55" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" opacity="0.4" />
+                                
+                                <!-- Downward colored flow dots -->
+                                <circle class="pc-flow-dot-expert-left-down" r="4.5" fill="#10b981" />
+                                <circle class="pc-flow-dot-expert-mid-down" r="4.5" fill="#f59e0b" />
+                                <circle class="pc-flow-dot-expert-right-down" r="4.5" fill="#06b6d4" />
+                                
+                                <!-- Upward feedback return dots (Synthesized knowledge, Purple/Magenta) -->
+                                <circle class="pc-flow-dot-expert-left-up" r="4" fill="#d946ef" />
+                                <circle class="pc-flow-dot-expert-mid-up" r="4" fill="#d946ef" />
+                                <circle class="pc-flow-dot-expert-right-up" r="4" fill="#d946ef" />
                             </svg>
                         </div>
                         

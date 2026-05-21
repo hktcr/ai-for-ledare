@@ -812,34 +812,25 @@
     {
       "id": "vep-i-praktiken",
       "section": "agenter",
-      "type": "vep-stepper",
+      "type": "process-chain",
       "cardTitle": "VEP i praktiken",
       "title": "Virtuell Expertpanel (VEP)",
-      "steps": [
+      "subtitle": "Processen i praktiken: Samarbete mellan människa och AI",
+      "nodes": [
         {
-          "image": "assets/vep-assemble.png",
-          "title": "Sammansätt panelen",
-          "text": "Definiera 10 specialister med olika kompetenser. Du väljer vilka perspektiv du behöver: pedagogik, juridik, psykologi, tillgänglighet. Panelen anpassas efter DIN verklighet."
+          "label": "Experterna",
+          "hint": "5, 10 eller 20 specialister med olika kompetenser. De ger insikt och perspektiv på dina villkor.",
+          "icon": "🎻"
         },
         {
-          "image": "assets/vep-coordinator.png",
-          "title": "Styr via koordinatorn",
-          "text": "Genom att installera en digital koordinator som lyder regeln: 'Fråga mig hur jag vill gå vidare. Fortsätt aldrig utan min instruktion', har du 100% kontroll över processen."
+          "label": "Koordinatorn (AI)",
+          "hint": "Din digitala sekreterare och processledare. Administrerar logistiken, men tar noll egna beslut och lyder dig helt.",
+          "icon": "🎼"
         },
         {
-          "image": "assets/vep-lead.png",
-          "title": "Individuella åsikter först",
-          "text": "Be varje expert granska ditt material oberoende av varandra. Du får 10 perspektiv utan att de påverkar varandra. Sedan bestämmer DU vilka trådar du vill dra i."
-        },
-        {
-          "image": "assets/vep-redteam.png",
-          "title": "Red Team: Hitta svagheterna",
-          "text": "Be panelen diskutera och ifrågasätta. Var är bristerna? Vad missar vi? Varje expert lyfter sin primära oro. Du navigerar konflikterna och styr mot konsensus."
-        },
-        {
-          "image": "assets/vep-reuse.png",
-          "title": "Spara som Gem",
-          "text": "Spara panelen som en permanent Gem i Gemini. Nästa gång du har ett svårt beslut, en föräldrakonflikt eller ett schema att granska har du ditt bollplank redo."
+          "label": "DU (Dirigenten)",
+          "hint": "Processens suverän. Du styr tempot, djupet och har sista ordet. AI:n lyder din ledning.",
+          "icon": "🎯"
         }
       ],
       "sources": [
@@ -847,7 +838,8 @@
           "text": "Teachiq/KM Workshop (nov 2025): VEP Protocol, Video 1-2",
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
-      ]
+      ],
+      "prompt": "Sammansätt en virtuell expertpanel om fem personer med olika relevanta perspektiv på [ämnet/frågan]. Låt var och en uttala sig om [idén/texten/förslaget] och ge ett betyg. De får inte tala med varandra än."
     },
     {
       "id": "astorp-digitalisering-vep",

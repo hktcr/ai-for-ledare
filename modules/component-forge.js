@@ -6477,7 +6477,17 @@
             nodes.forEach((node, idx) => {
                 node.addEventListener('click', (e) => {
                     if (node.classList.contains('step-hidden-remove')) {
-                        e.stopP    function renderInteractiveCases(s) {
+                        e.stopPropagation();
+                        activateMode(idx);
+                    }
+                });
+            });
+        }, 100);
+        
+        return html;
+    }
+
+    function renderInteractiveCases(s) {
         const id = 'cases-' + Math.random().toString(36).slice(2, 8);
         const fallbackCases = [
             {
@@ -6774,23 +6784,6 @@
                 }
             });
             
-            container.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-            
-        }, 100);
-        
-        return html;
-    }ocument.execCommand('copy');
-                        showCopied();
-                    } catch (err) {
-                        console.error('Fallback copy failed', err);
-                    }
-                    document.body.removeChild(textarea);
-                }
-            });
-            
-            // Slide click-reveal bypass: when clicking the workspace, stop propagation to prevent accidental slide transitions
             container.addEventListener('click', (e) => {
                 e.stopPropagation();
             });

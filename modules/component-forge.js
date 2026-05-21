@@ -9378,20 +9378,8 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 const id = '${id}';
                 const container = document.getElementById(id);
                 if (!container) return;
-                const canvas = container.querySelector('.am-canvas');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-                
-                let width = canvas.width = canvas.offsetWidth || 350;
-                let height = canvas.height = canvas.offsetHeight || 350;
-                
-                window.addEventListener('resize', () => {
-                    if (!canvas.isConnected) return;
-                    width = canvas.width = canvas.offsetWidth || 350;
-                    height = canvas.height = canvas.offsetHeight || 350;
-                });
- 
-                // Typewriter effect for heading
+
+                // Typewriter effect for heading (runs regardless of canvas/image)
                 const titleEl = container.querySelector('#' + id + '-title');
                 const subtitleEl = container.querySelector('#' + id + '-subtitle');
                 if (titleEl) {
@@ -9421,7 +9409,21 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     }
                     setTimeout(typeTitleNext, 400);
                 }
- 
+
+                // Canvas animation (only when canvas exists, skipped when image is used)
+                const canvas = container.querySelector('.am-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                
+                let width = canvas.width = canvas.offsetWidth || 350;
+                let height = canvas.height = canvas.offsetHeight || 350;
+                
+                window.addEventListener('resize', () => {
+                    if (!canvas.isConnected) return;
+                    width = canvas.width = canvas.offsetWidth || 350;
+                    height = canvas.height = canvas.offsetHeight || 350;
+                });
+
                 const numParticles = 90;
                 const particles = [];
                 let mode = 0; // 0: Organic, 1: Algorithmic

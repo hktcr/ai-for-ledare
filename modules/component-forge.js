@@ -227,21 +227,33 @@
 
         /* ===== LINE CHART ===== */
         .slide-line-chart {
-            padding: 2rem;
-            max-width: 900px;
+            padding: 2cqh 4cqw;
+            width: 96%;
+            max-width: 1150px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box;
         }
         .slide-line-chart h2 {
             text-align: center;
-            font-size: clamp(1.3rem, 2.5cqw, 2rem);
-            margin-bottom: 1.5rem;
+            font-size: clamp(1.4rem, 4.2cqh, 2.5rem);
+            margin-top: 0;
+            margin-bottom: 2.5cqh;
             opacity: 0;
             animation: wordDrop 0.6s ease 0.1s forwards;
         }
         .slide-line-chart .lc-chart {
             position: relative;
             width: 100%;
-            aspect-ratio: 16/9;
+            max-height: 58cqh;
+            aspect-ratio: 2/1;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .slide-line-chart svg {
             width: 100%;
@@ -249,8 +261,9 @@
         }
         .slide-line-chart .lc-axis-label {
             fill: var(--text-muted, rgba(255,255,255,0.5));
-            font-size: 12px;
-            font-family: inherit;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
         }
         .slide-line-chart .lc-grid-line {
             stroke: var(--border, rgba(255,255,255,0.1));
@@ -3665,19 +3678,46 @@
         
         let revealStageBtnHTML = '';
         if (s.pauseIndex) {
+            let maxAnimTime = 0;
+            series.forEach((sr, si) => {
+                const delay = 0.5 + si * 0.8;
+                const lastIdx = sr.normPoints.length - 1;
+                const labelFinishTime = delay + 0.9 + lastIdx * 0.15;
+                if (labelFinishTime > maxAnimTime) {
+                    maxAnimTime = labelFinishTime;
+                }
+            });
+            const totalDurationMs = Math.round(maxAnimTime * 1000);
+
             revealStageBtnHTML = `
                 <button class="lc-reveal-btn" onclick="
                     this.style.opacity = '0';
                     this.style.pointerEvents = 'none';
-                    document.querySelectorAll('#${id} .lc-paused-stage').forEach(el => {
+                    const container = document.getElementById('${id}');
+                    const pausedElements = container.querySelectorAll('.lc-paused-stage');
+                    pausedElements.forEach(el => {
                         el.classList.add('lc-reveal-stage');
                         el.classList.remove('lc-paused-stage');
                     });
-                    const nf = document.getElementById('${id}').querySelector('.lc-news-flash');
+                    const nf = container.querySelector('.lc-news-flash');
                     if (nf) {
-                        setTimeout(() => {
-                            nf.classList.add('lc-visible');
-                        }, 2000);
+                        // Find all text labels which finish last
+                        const labels = Array.from(container.querySelectorAll('text.lc-point-label.lc-reveal-stage'));
+                        let lastLabel = labels[labels.length - 1];
+                        
+                        const showFlash = () => {
+                            if (!nf.classList.contains('lc-visible')) {
+                                nf.classList.add('lc-visible');
+                            }
+                        };
+                        
+                        if (lastLabel) {
+                            lastLabel.addEventListener('animationend', showFlash, { once: true });
+                            // Absolute safety fallback
+                            setTimeout(showFlash, ${totalDurationMs});
+                        } else {
+                            setTimeout(showFlash, ${totalDurationMs});
+                        }
                     }
                 " style="position: absolute; bottom: clamp(1rem, 3cqw, 2rem); right: clamp(1rem, 3cqw, 2rem); padding: clamp(0.5rem, 1cqw, 0.8rem) clamp(1rem, 2cqw, 1.5rem); font-size: clamp(0.9rem, 1.5cqw, 1.2rem); font-weight: bold; background: var(--accent, #f97316); color: white; border: none; border-radius: 6px; cursor: pointer; z-index: 10; box-shadow: 0 4px 15px rgba(249,115,22,0.3); transition: transform 0.2s;">
                     Visa 2026 →

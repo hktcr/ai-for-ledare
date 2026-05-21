@@ -2705,7 +2705,7 @@
             overflow: hidden;
         }
         .cases-title {
-            font-size: clamp(2rem, 4.5cqh, 3.2rem); margin-bottom: 3cqh; font-weight: 800;
+            font-size: clamp(1.8rem, 4.5cqh, 3.2rem); margin-bottom: 2cqh; font-weight: 800;
             background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-align: center; letter-spacing: -0.02em;
@@ -2713,88 +2713,278 @@
             z-index: 5;
         }
         .cases-workspace {
-            display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3cqw;
-            width: 100%; flex: 1; max-width: 1200px; margin: 0 auto; min-height: 0;
-            z-index: 5; box-sizing: border-box;
-        }
-        .cases-cards-column {
-            display: flex; flex-direction: column; gap: 1.5cqh;
-            justify-content: center; height: 100%; overflow: visible;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 2.2cqh 1.8cqw;
+            width: 100%;
+            max-width: 1250px;
+            margin: 0 auto;
+            min-height: 0;
+            flex: 1;
+            z-index: 5;
+            box-sizing: border-box;
+            align-content: center;
         }
         .case-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 4px solid rgba(255, 255, 255, 0.2);
+            background: var(--card-bg, rgba(255, 255, 255, 0.02));
+            border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+            border-top: 3px solid var(--accent, #ffd700);
             padding: 2cqh 2cqw;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .case-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            pointer-events: none;
         }
         .case-card:hover {
-            transform: translateX(8px);
-            border-left-color: var(--accent, #f97316);
-            background: rgba(255, 255, 255, 0.04);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        .case-card.active {
-            border-left-color: var(--accent, #f97316);
-            border-color: rgba(249, 115, 22, 0.3);
-            background: rgba(249, 115, 22, 0.05);
-            box-shadow: 0 0 20px rgba(249, 115, 22, 0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-            transform: translateX(12px);
+            transform: translateY(-6px);
+            border-color: var(--accent, #ffd700);
+            background: var(--card-bg-hover, rgba(255, 255, 255, 0.05));
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 215, 0, 0.1);
         }
         .case-card-num {
-            font-family: monospace;
-            font-size: 0.9rem;
-            color: var(--accent, #f97316);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.7rem, 1.4cqh, 0.85rem);
+            color: var(--accent2, #ffa500);
             font-weight: 700;
-            margin-bottom: 0.3cqh;
+            margin-bottom: 0.8cqh;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
         .case-card-title {
-            font-size: clamp(1.1rem, 2cqh, 1.4rem);
+            font-size: clamp(1rem, 2cqh, 1.25rem);
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.5cqh;
+            color: var(--text, #fff);
+            margin-bottom: 1cqh;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
         }
-        .case-card-painpoint {
-            font-size: clamp(0.85rem, 1.6cqh, 1.05rem);
-            color: #94a3b8;
-            line-height: 1.4;
+        .case-card:hover .case-card-title {
+            color: var(--accent, #ffd700);
         }
-        .case-card.active .case-card-title {
-            color: var(--accent, #f97316);
+        .case-card-description {
+            font-size: clamp(0.75rem, 1.5cqh, 0.9rem);
+            color: var(--text-muted, rgba(255,255,255,0.7));
+            line-height: 1.45;
+            flex-grow: 1;
+            margin-bottom: 1.5cqh;
+        }
+        .case-card-action {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.7rem, 1.3cqh, 0.8rem);
+            color: var(--accent, #ffd700);
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: auto;
         }
         
-        .cases-terminal-column {
-            display: flex; flex-direction: column; justify-content: center; height: 100%;
+        /* Modal Overlay & Box */
+        .cases-modal-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-sizing: border-box;
+            padding: 4vh 4vw;
         }
-        .terminal-panel {
-            background: rgba(10, 10, 20, 0.55);
+        .cases-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cases-modal-box {
+            background: var(--card-bg, rgba(20, 4, 10, 0.85));
+            border: 1px solid var(--border, rgba(255, 215, 0, 0.15));
+            border-top: 4px solid var(--accent, #ffd700);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 1200px;
+            height: 85vh;
+            max-height: 800px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-sizing: border-box;
+        }
+        .cases-modal-overlay.active .cases-modal-box {
+            transform: translateY(0) scale(1);
+        }
+        .cases-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2.2cqh 3cqw;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+        }
+        .cases-modal-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .cases-modal-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .cases-modal-dots .dot.red { background: #ef4444; }
+        .cases-modal-dots .dot.yellow { background: #fbbf24; }
+        .cases-modal-dots .dot.green { background: #10b981; }
+        .cases-modal-system-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.75rem, 1.5cqh, 0.9rem);
+            color: var(--text-muted, rgba(255,255,255,0.7));
+            letter-spacing: 2px;
+        }
+        .cases-modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted, rgba(255,255,255,0.7));
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+        .cases-modal-close:hover {
+            color: var(--accent, #ffd700);
+            transform: rotate(90deg);
+        }
+        .cases-modal-body {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            min-height: 0;
+            box-sizing: border-box;
+        }
+        .cases-modal-left {
+            padding: 4cqh 4cqw;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255, 215, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 3cqh;
+            box-sizing: border-box;
+        }
+        .cases-modal-left::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cases-modal-left::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .cases-modal-left::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        .cases-modal-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.75rem, 1.5cqh, 0.95rem);
+            color: var(--accent2, #ffa500);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .cases-modal-title {
+            font-size: clamp(1.4rem, 3.2cqh, 2rem);
+            font-weight: 800;
+            color: var(--text, #fff);
+            line-height: 1.25;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        .cases-modal-section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.7rem, 1.4cqh, 0.85rem);
+            color: var(--accent, #ffd700);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5cqh;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        .cases-modal-challenge {
+            font-size: clamp(0.85rem, 1.8cqh, 1.05rem);
+            color: var(--text-muted, rgba(255,255,255,0.7));
+            line-height: 1.6;
+            margin: 0;
+        }
+        .cases-modal-questions {
+            margin: 0;
+            padding-left: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2cqh;
+        }
+        .cases-modal-questions li {
+            font-size: clamp(0.85rem, 1.7cqh, 1.05rem);
+            color: var(--text, #fff);
+            line-height: 1.5;
+        }
+        .cases-modal-right {
+            padding: 4cqh 4cqw;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            min-height: 0;
+        }
+        .cases-modal-right .terminal-panel {
+            flex: 1;
+            height: 100%;
+            max-height: none;
+            margin: 0;
+            background: rgba(10, 10, 20, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             display: flex; flex-direction: column;
             box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            height: 60cqh; max-height: 600px;
             overflow: hidden;
             position: relative;
         }
+        
         .terminal-header {
             display: flex; align-items: center; gap: 8px;
             padding: 1.5cqh 2cqw;
             background: rgba(0, 0, 0, 0.3);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .terminal-header .dot {
-            width: 10px; height: 10px; border-radius: 50%;
-        }
-        .terminal-header .dot.red { background: #ef4444; }
-        .terminal-header .dot.yellow { background: #fbbf24; }
-        .terminal-header .dot.green { background: #10b981; }
         .terminal-title {
             font-family: monospace;
             font-size: 0.85rem;
@@ -2807,7 +2997,7 @@
             padding: 3cqh 3cqw;
             overflow-y: auto;
             font-family: 'Courier New', Courier, monospace;
-            font-size: clamp(0.85rem, 1.7cqh, 1.15rem);
+            font-size: clamp(0.85rem, 1.7cqh, 1.05rem);
             line-height: 1.6;
             color: #a7f3d0;
             box-sizing: border-box;
@@ -2826,33 +3016,9 @@
         .terminal-body::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-
-        .terminal-welcome-text {
-            color: #64748b;
-            text-align: center;
-            margin-top: 15cqh;
-            font-style: italic;
-            animation: pulse-welcome 2s infinite ease-in-out;
-        }
-        @keyframes pulse-welcome {
-            0% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.4; }
-        }
-        .terminal-meta {
-            color: #fbbf24;
-            font-weight: bold;
-        }
-        .case-label {
-            color: #fff;
-            font-weight: bold;
-        }
-        .case-context {
-            color: #cbd5e1;
-        }
-        .terminal-prompt-prefix {
-            color: #38bdf8;
-            font-weight: bold;
+        
+        .terminal-prompt-content {
+            white-space: pre-wrap;
         }
         .terminal-cursor {
             display: inline-block;
@@ -2889,10 +3055,10 @@
             display: flex; align-items: center; gap: 8px;
         }
         .terminal-copy-btn:not(:disabled):hover {
-            border-color: var(--accent, #f97316);
+            border-color: var(--accent, #ffd700);
             color: #fff;
-            background: rgba(249, 115, 22, 0.05);
-            box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
+            background: rgba(255, 215, 0, 0.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
         }
         .terminal-copy-btn:disabled {
             opacity: 0.3;
@@ -2905,6 +3071,7 @@
             background: rgba(16, 185, 129, 0.05);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
         }
+
 
         /* ===== WORKSHOP CUSTOM COMPONENTS ===== */
 
@@ -6190,119 +6357,171 @@
             nodes.forEach((node, idx) => {
                 node.addEventListener('click', (e) => {
                     if (node.classList.contains('step-hidden-remove')) {
-                        e.stopPropagation(); // Stop click from triggering next global slide step
-                        activateMode(idx);
-                    }
-                });
-            });
-            
-        }, 100);
-        
-        return html;
-    }
-
-    /**
-     * interactive-cases: Interactive workshop cases with typewriter effect and clipboard copy
-     */
-    function renderInteractiveCases(s) {
+                        e.stopP    function renderInteractiveCases(s) {
         const id = 'cases-' + Math.random().toString(36).slice(2, 8);
-        const cases = s.cases || [
+        const fallbackCases = [
             {
-                "label": "Case A: EHT-Dokumentation (Elevhälsa)",
-                "painPoint": "Elevhälsa & känslig dokumentation under GDPR/sekretess.",
-                "context": "Minska administrativ tid i EHT-flöden utan att äventyra GDPR eller sekretesslagstiftning.",
-                "prompt": "### 📋 BAKGRUND:\nEn rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte. Det finns en uppenbar risk att känsliga uppgifter dokumenteras på ett sätt som bryter mot GDPR eller sekretesslagstiftningen.\n\n### 🎯 UTMANING:\nHur kan rektorn formulera noteringen så att den medicinska/pedagogiska kärnan bevaras och är juridiskt rättssäker, men utan att röja sekretessbelagd information eller kränka elevens integritet?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka uppgifter måste avidentifieras och vad får absolut inte skrivas i fritext?\n2. Hur skriver vi om riskabla formuleringar till professionella och säkra skrivningar?\n3. Vilka enkla checklistor kan skapas för att stödja pedagoger och EHT-personal vid skärmen?"
+                badge: "CASE A: EHT-DOKUMENTATION",
+                title: "EHT-Dokumentation (Elevhälsa)",
+                description: "Minska administrativ tid i EHT-flöden – utan att äventyra GDPR eller sekretess.",
+                challenge: "En rektor behöver sammanfatta ett komplext och känsligt elevhälsoärende i Prorenata efter ett EHT-möte. Det finns en uppenbar risk att känsliga uppgifter dokumenteras på ett sätt som bryter mot GDPR eller sekretesslagstiftningen. Hur kan rektorn formulera noteringen så att den medicinsk–pedagogiska kärnan bevaras och är juridiskt rättssäker, men utan att röja sekretessbelagd information eller kränka elevens integritet?",
+                questions: [
+                    "Vilka uppgifter måste avidentifieras och vad får absolut inte skrivas i fritext?",
+                    "Hur skriver vi om riskabla formuleringar till professionella och säkra skrivningar?",
+                    "Vilka enkla checklistor kan skapas för att stödja pedagoger och EHT-personal vid skärmen?"
+                ],
+                prompt: "Du är en erfaren och juridiskt kunnig specialpedagog och expert på skoldokumentation i Sverige.\nHjälp mig att formulera en mötesanteckning för Prorenata utifrån följande grova anteckningar från ett elevhälsoärende.\nMålet är att anteckningen ska vara saklig, professionell och juridiskt hållbar enligt Skollagen och GDPR.\n\nHär är mina grova anteckningar (som innehåller känslig information):\n[KLISTRA IN DINA GROVA ANTECKNINGAR HÄR]\n\nGör följande:\n1. Rensa helt bort personuppgifter, namn, familjesituationer eller spekulationer om diagnoser.\n2. Formulera om texten till ett professionellt och neutralt språk som fokuserar på elevens pedagogiska behov och beslutade stödåtgärder.\n3. Skapa ett färdigt förslag på text som jag säkert kan klistra in i Prorenata."
             },
             {
-                "label": "Case B: Lagssäkert Edlevo-svar",
-                "painPoint": "Tydliga beslutsformuleringar med lagstöd (Skollagen & Förvaltningslagen).",
-                "context": "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
-                "prompt": "### 📋 BAKGRUND:\nEn vårdnadshavare har ansökt om en längre ledighet för en elev under en period med nationella prov. Rektorn har beslutat om avslag. Beslutet ska kommuniceras formellt och skriftligt via Edlevo.\n\n### 🎯 UTMANING:\nHur formulerar rektorn avslagsbeslutet så att det är juridiskt robust med uttryckliga referenser till Skollagen och Förvaltningslagen, samtidigt som meddelandet är kortfattat, tydligt, empatiskt och lämnar minimalt utrymme för missförstånd?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka specifika kapitel och paragrafer i Skollagen och Förvaltningslagen är tillämpliga?\n2. Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?\n3. Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
+                badge: "CASE B: LAGSSÄKERT EDLEVO-SVAR",
+                title: "Lagssäkert Edlevo-svar",
+                description: "Formulera formellt korrekta beslut och kommunicera dem lagssäkert via Edlevo till vårdnadshavare.",
+                challenge: "En vårdnadshavare har ansökt om en längre ledighet för en elev under en period med nationella prov. Rektorn har beslutat om avslag. Beslutet ska kommuniceras formellt och skriftligt via Edlevo. Hur formulerar rektorn avslagsbeslutet så att det är juridiskt robust med uttryckliga referenser till Skollagen och Förvaltningslagen, samtidigt som meddelandet är kortfattat, tydligt, empatiskt och lämnar minimalt utrymme för missförstånd?",
+                questions: [
+                    "Vilka specifika kapitel och paragrafer i Skollagen och Förvaltningslagen är tillämpliga?",
+                    "Hur kommunicerar vi ett negativt beslut så att relationen med hemmet bibehålls positiv?",
+                    "Hur säkerställs det att överklagandehänvisningen blir formellt och juridiskt korrekt?"
+                ],
+                prompt: "Du är en expert på svensk skoljuridik och förvaltningsrätt.\nHjälp mig att formulera ett avslagsbeslut för eine ledighetsansökan som ska skickas till vårdnadshavare via Edlevo.\nEleven går i årskurs 9 och ansökan gäller 5 dagar under perioden för nationella prov.\n\nSkapa ett svar som innehåller:\n1. Ett tydligt men empatiskt avslag.\n2. Tydliga referenser till Skollagen kapitel 7 § 18 (ledighet) och vikten av deltagande i nationella prov.\n3. Förklaring av skolans ansvar för att säkerställa elevens måluppfyllelse.\n4. Information om hur beslutet kan överklagas (laglighetsprövning enligt Kommunallagen).\nTexten ska vara kort, professionell och lättbegriplig för vårdnadshavare."
             },
             {
-                "label": "Case C: Bemanningsanalys Sommarschema",
-                "painPoint": "Balansera semesterönskemål, fackliga avtal och lagstadgad bemanning.",
-                "context": "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
-                "prompt": "### 📋 BAKGRUND:\nInför sommaren krockar personalens semesterönskemål på förskolan med kraven på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila och veckovila. Fackliga samverkansavtal med Sveriges Lärare och Kommunal måste också respekteras.\n\n### 🎯 UTMANING:\nHur pusslar förskolechefen ihop sommarschemat (veckorna 26-32) på ett sätt som minimerar övertidskostnader, upprätthåller en god pedagogisk miljö för barnen och bibehåller personalens förtroende och hälsa?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Hur kan bemanningsbehov, kompetenser och önskemål aggregeras och visualiseras tydligt?\n2. Vilken trestegs process kan användas för att lösa bemanningstvister i god samverkan?\n3. Hur formulerar vi en tydlig och rättvis kommunikation till personalen angående förutsättningarna?"
+                badge: "CASE C: BEMANNINGSANALYS",
+                title: "Bemanningsanalys Sommarschema",
+                description: "Strukturera data och simulera lösningar för att pussla ihop sommarschemat under Arbetstidslagen.",
+                challenge: "Inför sommaren krockar personalens semesterönskemål på förskolan med kraven på rätt personaltäthet och Arbetstidslagens (ATL) regler om dygnsvila och veckovila. Fackliga samverkansavtal med Sveriges Lärare och Kommunal måste också respekteras. Hur pusslar förskolechefen ihop sommarschemat (veckorna 26–32) på ett sätt som minimerar övertidskostnader, upprätthåller en god pedagogisk miljö för barnen och bibehåller personalens förtroende och hälsa?",
+                questions: [
+                    "Hur kan bemanningsbehov, kompetenser och önskemål aggregeras och visualiseras tydligt?",
+                    "Vilken trestegs process kan användas för att lösa bemanningstvister i god samverkan?",
+                    "Hur formulerar vi eine tydlig och rättvis kommunikation till personalen angående förutsättningarna?"
+                ],
+                prompt: "Du är en erfaren förskolechef och schemaplanerare med djup kunskap om Arbetstidslagen (ATL) och samverkansavtal inom skolväsendet.\nHjälp mig att skapa en strukturerad plan för sommarbemanningen på min enhet (veckorna 26–32).\n\nHär är mina förutsättningar:\n- Antal barn per vecka: [V26: 45 barn, V27: 30 barn, V28: 15 barn, V29–31: 10 barn, V32: 35 barn]\n- Personalresurser och deras semesterönskemål: [KLISTRA IN ELLER BESKRIV DINA RESURSER HÄR]\n- Krav: Minst en behörig förskollärare i tjänst varje dag, dygnsvila på minst 11 timmar måste respekteras.\n\nHjälp mig att:\n1. Identifiera kritiska veckor med bemanningsbrist.\n2. Föreslå konkreta schemajusteringar eller sammanslagningar av avdelningar för att lösa ekvationen.\n3. Skriva ett utkast till ett e-postmeddelande till personalen där jag förklarar hur vi löst schemat i samverkan och vilka principer vi utgått ifrån."
             },
             {
-                "label": "Case D: Systematiskt Kvalitetsarbete",
-                "painPoint": "Aggregera och analysera insamlad barndata i förskolan.",
-                "context": "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
-                "prompt": "### 📋 BAKGRUND:\nVid årets slut har förskolan samlat in stora mängder kvalitativa data: observationer, enkäter från vårdnadshavare och pedagogernas egna veckoreflektioner. Materialet är spretigt, ostrukturerat och svårt att få en helhetsbild av.\n\n### 🎯 UTMANING:\nHur aggregerar och analyserar förskolechefen detta material för den årliga kvalitetsrapporten så dat röda trådar identifieras, orsak-konsekvens-åtgärd blir tydlig och kopplingarna till läroplanens mål (Lpfö18) formuleras skarpt?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilka analysstrukturer (t.ex. orsak-konsekvens-åtgärd) fungerar bäst för kvalitativa data?\n2. Hur kan AI användas för att sammanställa fritextsvar utan att tappa nyanserna eller bli partisk?\n3. Hur formulerar man skarpa slutsatser som leder till konkreta åtgärdsplaner för nästa läsår?"
+                badge: "CASE D: KVALITETSARBETE",
+                title: "Systematiskt Kvalitetsarbete",
+                description: "Sammanställa spridda kvalitetsanalyser och dokumentation för förskolans årliga kvalitetsrapport.",
+                challenge: "Vid årets slut har förskolan samlat in stora mängder kvalitativa data: observationer, enkäter från vårdnadshavare och pedagogernas egna veckoreflektioner. Materialet är spretigt, ostrukturerat och svårt att få en helhetsbild av. Hur aggregerar och analyserar förskolechefen detta material för den årliga kvalitetsrapporten så dat röda trådar identifieras, orsak–konsekvens–åtgärd blir tydlig och kopplingarna till läroplanens mål (Lpfö18) formuleras skarpt?",
+                questions: [
+                    "Vilka analysstrukturer (t.ex. orsak–konsekvens–åtgärd) fungerar bäst för kvalitativa data?",
+                    "Hur kan AI användas för att sammanställa fritextsvar utan att tappa nyanserna eller bli partisk?",
+                    "Hur formulerar man skarpa slutsatser som leder till konkreta åtgärdsplaner för nästa läsår?"
+                ],
+                prompt: "Du är en expert på systematiskt kvalitetsarbete (SKA) och pedagogisk analys i svensk förskola.\nHjälp mig att analysera och sammanställa årets insamlade underlag till vår kvalitetsrapport utifrån modellen Orsak – Konsekvens – Åtgärd.\n\nHär är årets insamlade data (observationer och reflektioner kring språkutveckling):\n[KLISTRA IN DIN TEXT ELLER DINA PUNKTER HÄR]\n\nUtför följande analys:\n1. Koda och kategorisera texten – vilka är de tre tydligaste mönstren eller röda trådarna?\n2. Strukturera analysen enligt:\n   - Vad ser vi för resultat? (Konsekvens)\n   - Varför ser det ut så? (Orsak – kopplat till pedagogers förhållningssätt och miljö)\n   - Hur går vi vidare? (Åtgärd – konkreta insatser för nästa läsår)\n3. Formulera skarpa kopplingar till läroplanens (Lpfö18) mål för språkutveckling."
             },
             {
-                "label": "Case E: Svåra Samtal & Ledarröst",
-                "painPoint": "Förbereda känsliga samtal och behålla sin personliga ledarröst.",
-                "context": "Rollspela och sparras inför medarbetarsamtal, samt bevara sin personliga röst i skriftlig feedback.",
-                "prompt": "### 📋 BAKGRUND:\nEn rektor ska hålla ett svårt samtal med en medarbetare angående bristande engagemang och samarbetsproblem i arbetslaget. Medarbetaren har en tendens att bli defensiv, gå i försvarsställning eller spela rollen som offer under mötet.\n\n### 🎯 UTMANING:\nHur lägger rektorn upp samtalets struktur och behåller sitt professionella lugn och sin personliga ledarröst, utan att bli antingen för defensiv eller för auktoritär?\n\n### ❓ FRÅGESTÄLLNINGAR ATT DISKUTERA:\n1. Vilken samtalsstruktur (t.ex. en fyrstegsmodell) lämäpar sig bäst för svåra medarbetarsamtal?\n2. Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?\n3. Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
+                badge: "CASE E: LEDARRÖST",
+                title: "Svåra Samtal & Ledarröst",
+                description: "Rollspela och sparras inför medarbetarsamtal, samt bevara din personliga röst i skriftlig feedback.",
+                challenge: "En rektor ska hålla ett svårt samtal med en medarbetare angående bristande engagemang och samarbetsproblem i arbetslaget. Medarbetaren har en tendens att bli defensiv, gå i försvarsställning eller spela rollen som offer under mötet. Hur lägger rektorn upp samtalets struktur och behåller sitt professionella lugn och sin personliga ledarröst, utan att bli antingen för defensiv eller för auktoritär?",
+                questions: [
+                    "Vilken samtalsstruktur (t.ex. en fyrstegsmodell) lämpar sig bäst för svåra medarbetarsamtal?",
+                    "Hur förbereder man sig mentalt och praktiskt för att bemöta starka emotionella reaktioner?",
+                    "Hur sätter man upp tydliga gränser och följer upp samtalet på ett juridiskt och mänskligt korrekt sätt?"
+                ],
+                prompt: "Du är en erfaren ledarskapscoach och expert på svåra samtal inom skolans värld.\nHjälp mig att förbereda och rollspela ett samtal med en medarbetare som har stora samarbetsproblem i sitt arbetslag.\nMedarbetaren blir lätt defensiv och går i försvarsställning.\n\nGör följande för att sparra mig:\n1. Ge mig eine tydlig samtalsstruktur i 5 steg (från inledning till överenskommelse).\n2. Ge mig 3 konkreta exempel på hur jag kan formulera mig när medarbetaren avleder samtalet eller går i försvarsställning, så jag behåller initiativet på ett lugnt och respektfullt sätt.\n3. Agera som medarbetaren i en interaktiv rollspelssimulering. Börja med att säga: 'Jag förstår inte alls varför vi har det här mötet, allt fungerar jättebra i mitt arbetslag.' Vänta på mitt svar innan du fortsätter."
             }
         ];
+
+        const rawCases = s.cases || fallbackCases;
+        const cases = rawCases.map((c, idx) => {
+            const letter = String.fromCharCode(65 + idx);
+            return {
+                badge: c.badge || c.label || `CASE ${letter}`,
+                title: c.title || c.label || `Case ${letter}`,
+                description: c.description || c.painPoint || c.context || '',
+                challenge: c.challenge || c.prompt || '',
+                questions: c.questions || [],
+                prompt: c.prompt || ''
+            };
+        });
 
         let html = `<div class="slide-interactive-cases no-click-advance" id="${id}">`;
         if (s.title) html += `<h2 class="cases-title">${s.title}</h2>`;
         
         html += `<div class="cases-workspace">`;
         
-        // Left Column: Cards list
-        html += `<div class="cases-cards-column">`;
         cases.forEach((c, idx) => {
+            const displayBadge = c.badge.includes(':') ? c.badge.split(':')[0] : c.badge;
             html += `
                 <div class="case-card" data-index="${idx}">
-                    <div class="case-card-num">CASE 0${idx + 1}</div>
-                    <div class="case-card-title">${c.label}</div>
-                    <div class="case-card-painpoint">${c.painPoint}</div>
+                    <div class="case-card-num">${displayBadge}</div>
+                    <h3 class="case-card-title">${c.title}</h3>
+                    <p class="case-card-description">${c.description}</p>
+                    <div class="case-card-action">STARTA UTMANING →</div>
                 </div>
             `;
         });
-        html += `</div>`; // .cases-cards-column
-        
-        // Right Column: Terminal preview panel
+        html += `</div>`; // .cases-workspace
+
+        // Add cyber modal markup
         html += `
-            <div class="cases-terminal-column">
-                <div class="terminal-panel">
-                    <div class="terminal-header">
+        <div class="cases-modal-overlay" id="${id}-modal-overlay">
+            <div class="cases-modal-box">
+                <div class="cases-modal-header">
+                    <div class="cases-modal-dots">
                         <span class="dot red"></span>
                         <span class="dot yellow"></span>
                         <span class="dot green"></span>
-                        <span class="terminal-title">UTMANING & SCENARIO</span>
                     </div>
-                    <div class="terminal-body" id="${id}-terminal-body">
-                        <div class="terminal-welcome-text" id="${id}-welcome">VÄLJ ETT CASE FÖR ATT INICIERA SCENARIOT...</div>
+                    <div class="cases-modal-system-title">SYSTEM WORKSPACE // PROMPT DECRYPTOR</div>
+                    <button class="cases-modal-close" id="${id}-modal-close">&times;</button>
+                </div>
+                <div class="cases-modal-body">
+                    <div class="cases-modal-left">
+                        <div class="cases-modal-badge" id="${id}-modal-badge">CASE A</div>
+                        <h2 class="cases-modal-title" id="${id}-modal-title">EHT-Dokumentation (Elevhälsa)</h2>
                         
-                        <div class="terminal-case-header" id="${id}-case-header" style="display:none;">
-                            <span class="terminal-meta">CASE:</span> <span class="case-label" id="${id}-case-label"></span><br>
-                            <span class="terminal-meta">KONTEXT:</span> <span class="case-context" id="${id}-case-context"></span>
+                        <div style="margin-top: 2.5cqh;">
+                            <div class="cases-modal-section-title">UTMANING & SCENARIO</div>
+                            <p class="cases-modal-challenge" id="${id}-modal-challenge"></p>
                         </div>
-                        <div class="terminal-case-divider" id="${id}-case-divider" style="display:none;">--------------------------------------------------------------------------------</div>
-                        <div class="terminal-prompt-prefix" id="${id}-prompt-prefix" style="display:none;">[UTMANING] > </div>
-                        <span class="terminal-prompt-content" id="${id}-prompt-content"></span><span class="terminal-cursor" id="${id}-cursor" style="display:none;">█</span>
+                        
+                        <div style="margin-top: 2.5cqh;" id="${id}-questions-section">
+                            <div class="cases-modal-section-title">FRÅGESTÄLLNINGAR ATT DISKUTERA</div>
+                            <ul class="cases-modal-questions" id="${id}-modal-questions"></ul>
+                        </div>
                     </div>
-                    <div class="terminal-footer">
-                        <button class="terminal-copy-btn" id="${id}-copy-btn" disabled>
-                            <span class="btn-text">KOPIERA UTMANINGEN</span>
-                        </button>
+                    <div class="cases-modal-right">
+                        <div class="terminal-panel">
+                            <div class="terminal-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="terminal-title">GEMINI PROMPT (KOPIERA TILL WORKSHOP)</span>
+                            </div>
+                            <div class="terminal-body" id="${id}-terminal-body">
+                                <span class="terminal-prompt-content" id="${id}-prompt-content"></span><span class="terminal-cursor" id="${id}-cursor">█</span>
+                            </div>
+                            <div class="terminal-footer">
+                                <button class="terminal-copy-btn" id="${id}-copy-btn" disabled>
+                                    <span class="btn-text">KOPIERA PROMPT</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         `;
         
-        html += `</div>`; // .cases-workspace
         html += `</div>`; // .slide-interactive-cases
         
-        // Setup behaviors in a setTimeout to ensure DOM is available
+        // Setup behaviors
         setTimeout(() => {
             const container = document.getElementById(id);
             if (!container) return;
             
             const cards = container.querySelectorAll('.case-card');
+            const overlay = container.querySelector('#' + id + '-modal-overlay');
+            const closeBtn = container.querySelector('#' + id + '-modal-close');
+            
+            const modalBadge = container.querySelector('#' + id + '-modal-badge');
+            const modalTitle = container.querySelector('#' + id + '-modal-title');
+            const modalChallenge = container.querySelector('#' + id + '-modal-challenge');
+            const questionsSection = container.querySelector('#' + id + '-questions-section');
+            const modalQuestions = container.querySelector('#' + id + '-modal-questions');
+            
             const terminalBody = container.querySelector('#' + id + '-terminal-body');
-            const welcomeText = container.querySelector('#' + id + '-welcome');
-            const caseHeader = container.querySelector('#' + id + '-case-header');
-            const caseLabel = container.querySelector('#' + id + '-case-label');
-            const caseContext = container.querySelector('#' + id + '-case-context');
-            const caseDivider = container.querySelector('#' + id + '-case-divider');
-            const promptPrefix = container.querySelector('#' + id + '-prompt-prefix');
             const promptContent = container.querySelector('#' + id + '-prompt-content');
             const cursor = container.querySelector('#' + id + '-cursor');
             const copyBtn = container.querySelector('#' + id + '-copy-btn');
@@ -6315,8 +6534,8 @@
                 containerEl.textContent = "";
                 
                 let index = 0;
-                const chunkSize = 6;
-                const delay = 2; // Extremely fast chunk typing
+                const chunkSize = 8;
+                const delay = 1; // Extremely fast typing effect
                 
                 typeInterval = setInterval(() => {
                     if (index < text.length) {
@@ -6335,36 +6554,64 @@
             
             cards.forEach((card, idx) => {
                 card.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Stop click from triggering next slide advance
+                    e.stopPropagation(); // Prevents advancing slide
                     
-                    // Toggle active class on cards
-                    cards.forEach(c => c.classList.remove('active'));
-                    card.classList.add('active');
-                    
-                    // Load case details
                     const selectedCase = cases[idx];
                     activePromptText = selectedCase.prompt;
                     
-                    // Toggle terminal elements visibility
-                    welcomeText.style.display = 'none';
-                    caseHeader.style.display = 'block';
-                    caseDivider.style.display = 'block';
-                    promptPrefix.style.display = 'block';
+                    // Populate modal contents
+                    modalBadge.textContent = selectedCase.badge;
+                    modalTitle.textContent = selectedCase.title;
+                    modalChallenge.textContent = selectedCase.challenge || selectedCase.description;
+                    
+                    // Render questions list
+                    modalQuestions.innerHTML = "";
+                    if (selectedCase.questions && selectedCase.questions.length > 0) {
+                        questionsSection.style.display = 'block';
+                        selectedCase.questions.forEach(q => {
+                            const li = document.createElement('li');
+                            li.textContent = q;
+                            modalQuestions.appendChild(li);
+                        });
+                    } else {
+                        questionsSection.style.display = 'none';
+                    }
+                    
+                    // Reset typewriter and copy button
+                    promptContent.textContent = "";
                     cursor.style.display = 'inline-block';
-                    
-                    // Set header meta
-                    caseLabel.textContent = selectedCase.label;
-                    caseContext.textContent = selectedCase.context;
-                    
-                    // Disable copy button during typing
                     copyBtn.disabled = true;
                     
-                    // Typewrite the prompt content
-                    typeWrite(selectedCase.prompt, promptContent, () => {
-                        // Enable copy button when completed
-                        copyBtn.removeAttribute('disabled');
-                    });
+                    // Open overlay modal
+                    overlay.classList.add('active');
+                    
+                    // Start typewriter with small offset delay
+                    setTimeout(() => {
+                        typeWrite(selectedCase.prompt, promptContent, () => {
+                            copyBtn.removeAttribute('disabled');
+                        });
+                    }, 300);
                 });
+            });
+            
+            function closeModal() {
+                overlay.classList.remove('active');
+                if (typeInterval) {
+                    clearInterval(typeInterval);
+                    typeInterval = null;
+                }
+            }
+            
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeModal();
+            });
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    e.stopPropagation();
+                    closeModal();
+                }
             });
             
             copyBtn.addEventListener('click', (e) => {
@@ -6377,7 +6624,7 @@
                     if (btnText) btnText.innerHTML = '✔️ KOPIERAD!';
                     setTimeout(() => {
                         copyBtn.classList.remove('copied');
-                        if (btnText) btnText.innerHTML = 'KOPIERA UTMANINGEN';
+                        if (btnText) btnText.innerHTML = 'KOPIERA PROMPT';
                     }, 2000);
                 }
                 
@@ -6399,6 +6646,22 @@
                     textarea.select();
                     try {
                         document.execCommand('copy');
+                        showCopied();
+                    } catch (err) {
+                        console.error('Fallback copy failed', err);
+                    }
+                    document.body.removeChild(textarea);
+                }
+            });
+            
+            container.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+            
+        }, 100);
+        
+        return html;
+    }ocument.execCommand('copy');
                         showCopied();
                     } catch (err) {
                         console.error('Fallback copy failed', err);
@@ -9556,6 +9819,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
             }
             
             function triggerMorph() {
+                const titleSec = document.getElementById(`${id}-title-section`);
+                const quoteSec = document.getElementById(`${id}-quote-section`);
+                const questionSec = document.getElementById(`${id}-question-section`);
+
                 if (state === 'FLOAT_1') {
                     state = 'MORPH_1';
                     
@@ -9564,6 +9831,21 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         p.vx += (Math.random() - 0.5) * 12;
                         p.vy += (Math.random() - 0.5) * 12;
                     });
+                    
+                    if (titleSec) {
+                        titleSec.style.opacity = '0';
+                        titleSec.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            titleSec.style.display = 'none';
+                            if (quoteSec) {
+                                quoteSec.style.display = 'block';
+                                // force reflow
+                                quoteSec.offsetHeight;
+                                quoteSec.style.opacity = '1';
+                                quoteSec.style.transform = 'translateY(0)';
+                            }
+                        }, 500);
+                    }
                     
                     if (hintEl) {
                         hintEl.innerText = "Klicka för att utmana tanken";
@@ -9581,6 +9863,21 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         p.targetG = 115 + Math.floor(Math.random() * 40);
                         p.targetB = 22 + Math.floor(Math.random() * 40);
                     });
+                    
+                    if (quoteSec) {
+                        quoteSec.style.opacity = '0';
+                        quoteSec.style.transform = 'translateY(-20px)';
+                        setTimeout(() => {
+                            quoteSec.style.display = 'none';
+                            if (questionSec) {
+                                questionSec.style.display = 'block';
+                                // force reflow
+                                questionSec.offsetHeight;
+                                questionSec.style.opacity = '1';
+                                questionSec.style.transform = 'translateY(0)';
+                            }
+                        }, 500);
+                    }
                     
                     if (hintEl) {
                         hintEl.innerText = "Klicka för att gå vidare";
@@ -9686,9 +9983,28 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
         return `
             <div class="slide-pixel-morph no-click-advance" id="${id}">
                 <canvas id="${id}-canvas"></canvas>
-                <div class="pm-text-overlay" style="position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); z-index: 5; text-align: center; width: 100%; pointer-events: none;">
-                    <div class="pm-quote" style="opacity: 0; pointer-events: none; height: 0; margin: 0; overflow: hidden;">${s.text || ''} - ${s.question || ''}</div>
-                    <div class="pm-hint" id="${id}-hint" style="pointer-events: auto; font-size: clamp(0.9rem, 1.5cqw, 1.2rem); color: var(--accent, #f97316); opacity: 0.8; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; animation: pulseHint 2s infinite ease-in-out;">Klicka för att se risken</div>
+                <div class="pm-text-overlay" id="${id}-text-overlay" style="position: relative; z-index: 5; max-width: 900px; width: calc(100% - 4rem); display: flex; flex-direction: column; align-items: center; gap: 2rem; padding: 3rem 4rem; background: rgba(15, 7, 12, 0.45); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); pointer-events: auto; text-align: center; box-sizing: border-box; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+                    
+                    <div class="pm-title-section" id="${id}-title-section" style="transition: opacity 0.5s ease, transform 0.5s ease; opacity: 1; transform: translateY(0); text-align: center; width: 100%;">
+                        <h2 style="font-size: clamp(2.2rem, 4.5cqw, 3.8rem); font-weight: 800; background: linear-gradient(135deg, #ffffff 40%, var(--accent, #f97316) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 1.2rem 0; letter-spacing: -0.02em; font-family: 'Outfit', 'Inter', sans-serif; line-height: 1.2;">${s.cardTitle || 'Rösten eller korrektheten?'}</h2>
+                        <p style="font-size: clamp(1.1rem, 2cqw, 1.5rem); color: var(--text-muted, rgba(255,255,255,0.7)); margin: 0; font-weight: 400; font-family: 'Outfit', 'Inter', sans-serif; line-height: 1.5;">Vad händer när vi överlåter vårt personliga uttryck till en maskin?</p>
+                    </div>
+                    
+                    <div class="pm-quote-section" id="${id}-quote-section" style="transition: opacity 0.5s ease, transform 0.5s ease; opacity: 0; transform: translateY(20px); display: none; text-align: center; width: 100%;">
+                        <blockquote style="font-size: clamp(1.5rem, 3cqw, 2.2rem); line-height: 1.6; font-weight: 500; color: #f8fafc; margin: 0; font-style: italic; font-family: 'Outfit', 'Inter', sans-serif;">
+                            "${s.text || ''}"
+                        </blockquote>
+                    </div>
+                    
+                    <div class="pm-question-section" id="${id}-question-section" style="transition: opacity 0.5s ease, transform 0.5s ease; opacity: 0; transform: translateY(20px); display: none; text-align: center; width: 100%;">
+                        <h3 style="font-size: clamp(2.8rem, 5.5cqw, 4.8rem); font-weight: 900; color: var(--accent, #f97316); text-shadow: 0 0 30px rgba(249, 115, 22, 0.45); margin: 0; letter-spacing: -0.03em; text-transform: uppercase; font-family: 'Outfit', 'Inter', sans-serif; line-height: 1.15;">
+                            ${s.question || ''}
+                        </h3>
+                    </div>
+                    
+                    <div class="pm-hint" id="${id}-hint" style="font-size: clamp(0.85rem, 1.4cqw, 1.1rem); color: var(--accent, #f97316); opacity: 0.8; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; animation: pulseHint 2s infinite ease-in-out; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; width: 100%; font-family: 'Outfit', 'Inter', sans-serif;">
+                        Klicka för att se risken
+                    </div>
                 </div>
             </div>
         `;

@@ -635,8 +635,8 @@
         /* ===== PROMPT CARD ===== */
         .slide-prompt-card {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: clamp(1rem, 3cqw, 3rem); max-width: 1000px; margin: 0 auto; width: 100%;
-            text-align: center;
+            padding: clamp(1rem, 3cqw, 2rem) clamp(1rem, 4cqw, 3rem); max-width: 95%; margin: 0 auto; width: 100%;
+            text-align: center; height: 100%; box-sizing: border-box;
         }
         .slide-prompt-card .pc-eyebrow {
             font-size: clamp(0.75rem, 1.2cqw, 1rem); font-weight: 700; letter-spacing: 0.15em;
@@ -3911,10 +3911,11 @@
                     const labelDelay = dotDelay + 0.2;
                     const lx = xScale(p);
                     const ly = yScale(p.y);
-                    const above = (i % 2 === 0);
-                    const labelX = lx + 8;
-                    const labelY = above ? ly - 12 : ly + 18;
-                    dotsHTML += `<text class="lc-point-label${isPaused}" x="${labelX}" y="${labelY}" text-anchor="start" style="animation-delay:${labelDelay}s">${p.label}</text>`;
+                    let labelX, labelY, anchor;
+                    if (i % 3 === 0) { anchor = 'end'; labelX = lx - 10; labelY = ly - 12; }
+                    else if (i % 3 === 1) { anchor = 'middle'; labelX = lx; labelY = ly + 22; }
+                    else { anchor = 'start'; labelX = lx + 10; labelY = ly - 12; }
+                    dotsHTML += `<text class="lc-point-label${isPaused}" x="${labelX}" y="${labelY}" text-anchor="${anchor}" style="animation-delay:${labelDelay}s">${p.label}</text>`;
                 }
             });
         });
@@ -4976,7 +4977,7 @@
                                     Processägare & strategisk ledare
                                 </div>
                             </div>
-                            <span class="pc-node-tag">Dirigenten</span>
+
                         </div>
                         
                         <!-- Connector 1 -> 2: Bi-directional flow -->
@@ -5001,7 +5002,7 @@
                                     Digital sekreterare & processledare
                                 </div>
                             </div>
-                            <span class="pc-node-tag">Koordinatorn</span>
+
                         </div>
                         
                         <!-- Connector 2 -> 3 (Branching with colored flows and feedback returns) -->
@@ -9169,12 +9170,12 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     min-height: 0;
                 }
                 .am-left {
-                    flex: 0 0 32cqw;
+                    flex: 0 0 28cqw;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     position: relative;
-                    height: 60cqh;
+                    height: 55cqh;
                 }
                 
                 /* ===== DUAL INTERACTIVE PORTAL ===== */
@@ -9341,10 +9342,16 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                 </div>
                 <div class="am-main-flow">
                     <div class="am-left">
+                        ${s.image ? `
+                        <div class="am-portal-wrapper mode-organic" style="border-radius: 20px; overflow: hidden; border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 0 50px rgba(249, 115, 22, 0.15), inset 0 0 40px rgba(249, 115, 22, 0.05);">
+                            <img src="${s.image}" alt="AI Android" style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px; filter: brightness(0.9) contrast(1.1);">
+                        </div>
+                        ` : `
                         <div class="am-portal-wrapper mode-organic">
                             <canvas class="am-canvas"></canvas>
                             <div class="am-portal-indicator">Neural Core</div>
                         </div>
+                        `}
                     </div>
                     <div class="am-right">
                         <div class="am-grid">
@@ -9623,7 +9630,7 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     align-items: center;
                     padding: 4cqh 5cqw;
                     box-sizing: border-box;
-                    gap: 3cqh;
+                    gap: 2cqh;
                 }
                 .wf-header-group {
                     text-align: center;
@@ -9661,10 +9668,10 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                     backdrop-filter: blur(12px);
                     border: 1px solid rgba(255, 255, 255, 0.06);
                     border-radius: 20px;
-                    padding: 4cqh 3cqw;
+                    padding: 2.5cqh 2.5cqw;
                     display: flex;
                     flex-direction: column;
-                    gap: 2.5cqh;
+                    gap: 1.5cqh;
                     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                     position: relative;
                 }
@@ -10150,9 +10157,9 @@ Steg 3: Baserat på både vad jag sade OCH hur jag skrev, ge mig en färdig, pun
                         </h3>
                     </div>
                     
-                    <div class="pm-hint" id="${id}-hint" style="font-size: clamp(0.85rem, 1.4cqw, 1.1rem); color: var(--accent, #f97316); opacity: 0.8; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; animation: pulseHint 2s infinite ease-in-out; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; width: 100%; font-family: 'Outfit', 'Inter', sans-serif;">
+                    ${s.hideHints ? '' : `<div class="pm-hint" id="${id}-hint" style="font-size: clamp(0.85rem, 1.4cqw, 1.1rem); color: var(--accent, #f97316); opacity: 0.8; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; animation: pulseHint 2s infinite ease-in-out; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; width: 100%; font-family: 'Outfit', 'Inter', sans-serif;">
                         Klicka för att se risken
-                    </div>
+                    </div>`}
                 </div>
             </div>
         `;

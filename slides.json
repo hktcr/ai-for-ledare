@@ -79,7 +79,7 @@
       "id": "llm-mekanik",
       "section": "start",
       "type": "token-spinner",
-      "text": "En stor språkmodell är i grunden en avancerad textförutsägelse som gissar nästa ord. Eller?",
+      "text": "En stor språkmodell är i grunden en avancerad autokomplettering som gissar nästa ord. Eller?",
       "cardTitle": "Så fungerar en LLM"
     },
     {
@@ -753,7 +753,8 @@
       "cardTitle": "Rösten eller korrektheten?",
       "animation": "slide-left",
       "text": "När vi låter en AI sköta skrivandet finns det en påtaglig risk att vi förlorar vår unika röst i utbyte mot en mer opersonlig, maskinell korrekthet.",
-      "question": "Måste det bli så?"
+      "question": "Måste det bli så?",
+      "hideHints": true
     },
     {
       "id": "personal-voice-methods",
@@ -761,7 +762,7 @@
       "type": "prompt-card",
       "eyebrow": "💡 Praktisk metod: Stilmalls-prompten",
       "title": "Så behåller du din unika röst med AI",
-      "prompt": "Här är tre texter som jag själv har skrivit:\n\n[KLISTRA IN TEXT 1]\n[KLISTRA IN TEXT 2]\n[KLISTRA IN TEXT 3]\n\nAnalysera min skrivstil. Fokusera särskilt på:\n1. Tonläge (formell/informell, akademisk, varm/distanserad)\n2. Meningslängd och rytm (varierad, korta kraftfulla satser, flyt)\n3. Ordval (favorituttryck, ord jag ofta använder eller undviker)\n\nSkapa en kort 'stilmall' (10 tydliga skrivregler) som sammanfattar min röst. När jag framöver ber dig skriva eller redigera en text, ska du alltid tillämpa denna stilmall så att texten låter som min egen.",
+      "prompt": "Ge mig en instruktion i taget tills dess du har det du behöver.\n\nSyftet är att du ska lära dig min personliga skrivstil genom att analysera texter jag själv har skrivit.\n\nMålet är en kort stilmall (max 10 tydliga skrivregler) som sammanfattar min röst — tonläge, meningslängd, rytm och ordval.\n\nNär stilmallen är klar ska du alltid tillämpa den när jag ber dig skriva eller redigera text åt mig.",
       "hint": "Kopilot-metoden: Perfekt för att skriva veckobrev till vårdnadshavare eller renskriva anteckningar utifrån din personliga stilmall, utan att det låter opersonligt.",
       "cardTitle": "Behåll din personliga röst"
     },
@@ -807,7 +808,7 @@
           "url": "https://hktcr.github.io/ai-for-ledare/"
         }
       ],
-      "prompt": "Sammansätt en virtuell expertpanel om fem personer med olika relevanta perspektiv på [ämnet/frågan]. Låt var och en uttala sig om [idén/texten/förslaget] och ge ett betyg. De får inte tala med varandra än."
+      "_prompt_disabled": "removed to hide drawer button"
     },
     {
       "id": "vep-i-praktiken",
@@ -944,14 +945,14 @@
       "titleHtml": "Bör vi <span>antropomorfisera?</span>",
       "subtitle": "Att ge AI mänskliga drag: för- och nackdelar i praktiken",
       "pros": [
-        "Naturlig interaktion: Mänskligt språk minskar trösklar och gör tekniken mer tillgänglig.",
-        "Ökad kreativitet: Genom att se AI som en samtalspartner stimuleras nya infallsvinklar.",
-        "Bättre resultat: Tydliga sociala instruktioner (rollspel, artighet) kan faktiskt förbättra svaren."
+        "Mänskligt språk sänker trösklar",
+        "Rollspel stimulerar kreativitet",
+        "Sociala instruktioner ger bättre svar"
       ],
       "cons": [
-        "Falsk tillit: Att tillskriva AI avsikter och känslor döljer modellens felbarhet och begränsningar.",
-        "Ansvarsskyldighet: Vi riskerar att skylla på systemet istället för att ta eget professionellt ansvar.",
-        "GDPR och integritet: Socialt förtroende ökar risken att dela känslig eller konfidentiell information."
+        "Döljer modellens felbarhet",
+        "Suddar ansvarsgränser",
+        "Ökar risken att dela känslig data"
       ],
       "sources": [
         {
@@ -973,9 +974,9 @@
         "title": "Den sanna prompten",
         "desc": "Det finns inga magiska formler",
         "points": [
-          "Glöm hemliga koder och komplicerade prompt-bibliotek",
-          "Den bästa prompten är enkel: 'Kan du hjälpa mig med en sak?'",
-          "Tala till AI:n som en intelligent kollega, inte en stum sökmotor"
+          "Inga hemliga koder — tala som till en kollega",
+          "Iterera, förfina, bygg på — inte copy-paste",
+          "Din expertis styr, AI:n levererar"
         ]
       },
       "nextSteps": {
@@ -983,9 +984,9 @@
         "title": "Universell förståelse",
         "desc": "Rustad för framtidens teknik",
         "points": [
-          "Tekniken kommer i tusen olika skepnader och verktyg framöver",
-          "Hänger vi upp oss på enskilda knappar blir vi snabbt omkörda",
-          "Lär dig att leda och styra dialogen — principen överlever alltid"
+          "Verktyg byts ut — principer består",
+          "Led dialogen, häng inte upp dig på knappar",
+          "Förstå varför, inte bara hur"
         ]
       },
       "sources": [
@@ -1287,7 +1288,7 @@
       ]
     },
     {
-      "id": "emil-workspace",
+      "id": "cases",
       "section": "start",
       "type": "interactive-cases",      "cases": [
         {

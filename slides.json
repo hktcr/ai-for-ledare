@@ -1296,7 +1296,7 @@
     {
       "id": "emil-workspace",
       "section": "start",
-      "type": "title-astorp",      "cases": [
+      "type": "interactive-cases",      "cases": [
         {
           "id": "A",
           "badge": "CASE A: EHT-DOKUMENTATION",

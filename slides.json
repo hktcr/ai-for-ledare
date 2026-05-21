@@ -974,9 +974,9 @@
         "title": "Den sanna prompten",
         "desc": "Det finns inga magiska formler",
         "points": [
-          "Inga hemliga koder — tala som till en kollega",
-          "Iterera, förfina, bygg på — inte copy-paste",
-          "Din expertis styr, AI:n levererar"
+          "Prata med AI som med en klok kollega",
+          "Bygg vidare steg för steg, inte allt på en gång",
+          "Du äger ämneskunskapen — AI är redskapet"
         ]
       },
       "nextSteps": {
@@ -984,9 +984,9 @@
         "title": "Universell förståelse",
         "desc": "Rustad för framtidens teknik",
         "points": [
-          "Verktyg byts ut — principer består",
-          "Led dialogen, häng inte upp dig på knappar",
-          "Förstå varför, inte bara hur"
+          "Verktyg kommer och går, principer består",
+          "Den som förstår dialogen klarar alla verktyg",
+          "Lär dig varför, inte bara var man klickar"
         ]
       },
       "sources": [
@@ -1414,8 +1414,8 @@
       "id": "vep-final-case",
       "section": "agenter",
       "type": "prompt-card",
-      "cardTitle": "Finalt Case: Expertpanel",
-      "eyebrow": "FINAL CASE-STUDIE / PROMPT",
+      "cardTitle": "Ett första case: Expertpanel",
+      "eyebrow": "ETT FÖRSTA CASE / PROMPT",
       "title": "Tillsätt en Virtuell Expertpanel",
       "prompt": "Tillsätt en relevant virtuell expertpanel som kan hjälpa mig att fylla i mallen på bästa sätt ur alla perspektiv. Tillsätt också en koordinator som fungerar som en brygga mellan panelen och mig.",
       "hint": "Koppla upp din expertpanel och styr samarbetet via din digitala koordinator."
